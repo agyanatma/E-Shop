@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category_product extends Model
+class Product_image extends Model
 {
-    protected $table = 'category_products';
+    protected $table = 'product_images';
     public $primarykey = 'id';
-    public $timestamps = true;
+    public $timestamps = false;
     protected $guarded = ['id'];
 }
