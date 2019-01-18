@@ -41,7 +41,7 @@
                         <fieldset>
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><i class="fas fa-box"></i></span>
-                                    <input  type="text" class="form-control" id="username" name="username" placeholder="Nama Produk" required="">
+                                    <input  type="text" class="form-control" id="product" name="product" placeholder="Nama Produk" required="">
                                 </div>
                         
                                 <div class="form-group input-group">
@@ -51,12 +51,12 @@
                         
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                    <input class="form-control" placeholder="Password" id="password" name="password" type="password" required="">
+                                    <input class="form-control" placeholder="Katagori" id="category" name="category" type="category" required="">
                                 </div>
                         
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><i class="far fa-image"></i></span>
-                                    <input class="form-control" placeholder="Password" id="password" name="password" type="password" required="">
+                                    <input class="form-control" placeholder="Image" id="image" name="image" type="image" required="">
                                 </div>
                                 
                                 <!-- Change this to a button or input when using this as a form -->
