@@ -5,14 +5,12 @@
         <div class="row">
             @if(count($products) > 0)
             <h1>Product</h1>
-            <div class="col">
-                <a href="product/new" class="btn btn-primary float-right" name="create">Create</a>
-            </div>
+            <a href="product/new" class="btn btn-primary float-right" name="create">Create</a>
             <div class="table-responsive">
                 <table class="table">
                     @foreach ($products as $product)
                         <tr>
-                        <td>{{$product->id}}</td>
+                            <td>{{$product->id}}</td>
                             <td>{{$product->product_name}}</td>
                             <td>{{$product->categories->category_name}}</td>
                             <td>Rp {{$product->product_price}}</h4>
@@ -21,9 +19,8 @@
                                 <form method="POST" action="{{route('deleteProduct', $product->id)}}">
                                     {{csrf_field()}}
                                     <button type="submit" class="btn btn-primary" name="delete" data-confirm="Delete data?">Delete</button>
-                                </form>
-                                
-                            </div>
+                                </form>                                
+                            </div> 
                         </tr>
                     @endforeach
                 </table>

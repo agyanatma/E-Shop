@@ -14,28 +14,16 @@ class ProductController extends Controller
 {
     //TAMPILAN PRODUCT PAGE
     public function index(){
-        /*$products = DB::table('products')
-            ->leftjoin('category_products', 'products.id', '=', 'category_products.id')
-            ->leftjoin('product_images', 'products.id', '=', 'product_images.product_id')
-            ->select('products.id', 'products.product_name', 'category_products.category_name', 'products.product_price', 'product_images.product_image', 'product_images.product_id')
-            ->orderBy('id')
-            ->get();*/
-        
         $products = Product::get();
-        //$categories = Category_product::all();
-        //foreach ($products as $product) {
-        //    $id_category = $products->category_id;
-        //}
-        
-        
+        $categories = Category_product::all();
         //dd($products->toArray);
-        return view('pages.index')->with('products', $products);
+        return view('pages.index')->with('products', $products)->with('categories', $categories);
     }
 
     public function destroy($id){
         $delete = Product::with(['images'])->find($id);
         $delete->delete();
-        return redirect('product');
+        return redirect('/');
     }
 
 
@@ -53,16 +41,22 @@ class ProductController extends Controller
             'category_name' => 'required',
             'product_image' => 'image|mimes:jpeg,png,jpg'
         ]);
+
+        
         
         $name = $request->input('product_name');
         $price = $request->input('product_price');
         $category = $request->input('category_name');
+        $newCategory = $request->input('category_new');
         
         $store = new Product;
         $store->product_name = $name;
         $store->product_price = $price;
         $store->category_id = $category;
         $store->save();
+
+        $new_cate = new Category_product;
+        $new_cate->category_name = $newCategory;
         
         $product_id = $store->id;
 
@@ -83,7 +77,7 @@ class ProductController extends Controller
                 $upload->save();
             }
         }
-        return redirect('/product')->withErrors('Data berhasil masuk!');
+        return redirect('/')->withErrors('Data berhasil masuk!');
     }
 
 
@@ -143,13 +137,21 @@ class ProductController extends Controller
                         
                     }
                 }
-                return redirect('product')->withErrors('Data berhasil update!');
+                return redirect('/')->withErrors('Data berhasil update!');
             break;
 
             case 'deleteImage':
-                $delete = Product_image::find($id);
-                Storage::delete("public_path('upload/{$imageName}')");
-                $delete->delete();
+                $images = Product_image::find($id);
+                $delete = $images->product_images;
+
+                foreach($delete as $image){
+                    unlink(public_path($image->file_path));
+                }
+
+                $images->product_images()->delete();
+                $images->delete();
+                //Storage::delete("public_path('upload/{$imageName}')");
+                //$delete->delete();
                 return Redirect::to('updateProduct');
             break;
         }
