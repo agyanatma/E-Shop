@@ -15,7 +15,66 @@
 <body>
     <nav class="navbar-default my-navbar">
 
-    
+        <nav class="navbar navbar-fluid bg-info">
+            <div class="row">
+                <div class="col-md-2 ">
+                    <div class="thumbnail">
+                        <img src="" alt="..." class="img-responsive">
+                        <div class="clearfix">
+                          <h3>Desktop & Mini PC</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 bg-info">
+                    <div class="thumbnail">
+                        <img src="" alt="..." class="img-responsive">
+                        <div class="clearfix">
+                    Hardisk & Flashdisk
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1 bg-info">
+                    <div class="thumbnail">
+                        <img src="" alt="..." class="img-responsive">
+                        <div class="clearfix">
+                    VGA Card
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1 bg-info">
+                    <div class="thumbnail">
+                        <img src="" alt="..." class="img-responsive">
+                        <div class="clearfix">
+                    Printer
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 bg-info">
+                    <div class="thumbnail">
+                        <img src="" alt="..." class="img-responsive">
+                        <div class="clearfix">
+                    Peripheral & Aksesoris
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 bg-info">
+                    <div class="thumbnail">
+                        <img src="" alt="..." class="img-responsive">
+                        <div class="clearfix">
+                    Networking
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 bg-info">
+                  <div class="thumbnail">
+                        <img src="" alt="..." class="img-responsive">
+                        <div class="clearfix">
+                    Komponen Komputer
+                        </div>
+                  </div>
+                </div>
+            </div>
+          </nav>
         
       <nav aria-label="Page navigation">
           <ul class="nav nav-pagination nav-justified" >

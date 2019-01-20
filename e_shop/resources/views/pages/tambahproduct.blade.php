@@ -11,12 +11,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+@if(count($errors)>0)
+<ul>
+    @foreach($errors->all() as $error)
+        <li class="alert alert-danger">{{$error}}</li>
+    @endforeach
+</ul>
+@endif
 <body>
-
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2 bg-danger">
+    <nav class="navbar-default my-navbar">
+        <nav class="navbar-default my-navbar">
+            <div  class="container-fluid my-container ">
+              <div class="row my-row">
+                  <div class="col-md-2">
+                      <ul class="nav navbar-nav navbar-left">
                                 <ul class="nav flex-column">
                                     <li class="nav-item"><a class="nav-link active" href="user"><span style="font-size: 15px; color: Dodgerblue;" class="navbar-navbar-navbar-brand fas fa-users"> USER</span></a></li>
                                     <li class="nav-item"><a class="nav-link active" href="shop"><span style="font-size: 15px; color: Dodgerblue;" class="navbar-navbar-navbar-brand fas fa-shopping-basket"> PRODUK</span></a></li>
@@ -37,32 +45,38 @@
                                 </ul>
                             </ul>
                 </div>
-                <div class="col-md-10 bg-info">
-                        <fieldset>
+                <div class="col-md-10 ">
+                    <div class="form-group container">
+                            <form action="{{route('product.create')}}" method="post" class="container" enctype="multipart/form-data">
+                                {{csrf_field()}}
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><i class="fas fa-box"></i></span>
-                                    <input  type="text" class="form-control" id="product" name="product" placeholder="Nama Produk" required="">
+                                    <input  type="text" class="form-control" id="product_name" name="product_name" value="@yield('editName')" placeholder="Produk">
                                 </div>
                         
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></i></span>
-                                    <input type="text" class="form-control" id="email" name="email" placeholder="Harga" required="">
+                                    <input type="text" class="form-control" name="product_price" value="@yield('editPrice')" placeholder="Harga">
                                 </div>
                         
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                    <input class="form-control" placeholder="Katagori" id="category" name="category" type="category" required="">
+                                    <select name="category_name">
+                                           @foreach($categories as $category)
+                                                <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                            @endforeach
+                                    </select>
                                 </div>
                         
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><i class="far fa-image"></i></span>
-                                    <input class="form-control" placeholder="Image" id="image" name="image" type="image" required="">
+                                    <input type="file" name="img[]" multiple>
                                 </div>
                                 
                                 <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-lg btn-success btn-block"> Upload</button>
-                               
-                            </fieldset>
+                                <input type="submit" class="btn btn-primary" style="float: right" name="create" value="Create">
+                            </form>
+                    </div>
                 </div>
             </div>
         </div>
