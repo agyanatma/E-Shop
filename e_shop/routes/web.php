@@ -22,8 +22,11 @@ Route::post('product/new', 'Backend\ProductController@store')->name('product.cre
  //Edit Page
 Route::get('product/{id}/edit', 'Backend\ProductController@edit')->name('editProduct');
 Route::post('product/{id}/update', 'Backend\ProductController@update')->name('updateProduct');
-Route::post('product/{id}//edit/delete', 'Backend\ProductController@deleteImage')->name('deleteImage');
+Route::post('product/{id}/edit/delete', 'Backend\ProductController@deleteImage')->name('deleteImage');
 
 //Category Page
 Route::get('categories/new', 'Backend\CategoryController@show')->name('showCategory');
 Route::post('categories/new', 'Backend\CategoryController@store')->name('newCategory');
+
+//Users Page
+Route::post('/login', 'Backend\UserController@login');

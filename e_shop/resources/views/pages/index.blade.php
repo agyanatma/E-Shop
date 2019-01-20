@@ -3,9 +3,14 @@
 @section('content')
     <div class="container">
         <div class="row">
+            <div class="col">
+                <h1>Product</h1>
+                
+            </div>
+            <div class="col float-right" style="display:inline-table">
+                <a href="product/new" class="btn btn-primary float-right" name="create">New Product</a>
+            </div>
             @if(count($products) > 0)
-            <h1>Product</h1>
-            <a href="product/new" class="btn btn-primary float-right" name="create">Create</a>
             <div class="table-responsive">
                 <table class="table">
                     @foreach ($products as $product)

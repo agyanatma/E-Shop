@@ -24,14 +24,14 @@
                 @endforeach
             </select>
             <input type="text" class="form-control" name="category_new" placeholder="Kategori lain">
-            <button type="submit" class="btn btn-primary" name="newCategory" value="New Category">Add</button>
+            <button type="submit" class="btn btn-primary" name="action" value="add">Add</button>
             <br/>
             <br/>
             <label>Gambar:</label>
             <input type="file" name="img[]" multiple>
             <br/>
             <br/>
-            <input type="submit" class="btn btn-primary" style="float: right" name="create" value="Create">
+            <button type="submit" class="btn btn-primary" style="float: right" name="action" value="create">Create</button>
         </form>
     </div>
 @endsection

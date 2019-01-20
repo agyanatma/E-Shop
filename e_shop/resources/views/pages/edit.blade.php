@@ -31,11 +31,12 @@
                 <div class="row">
                     <div class="column">      
                         <img class="left-block" width="200px" src="{{ URL::to('/upload/'.$image->product_image)}}"/><br>
-                        <button type="submit" class="btn btn-primary" name="action" value="deleteImage">Delete</button>
+                        <a href="{{ route('deleteImage', $image->id) }}" class="btn btn-primary" name="action" value="deleteImage">Delete</a>
                     </div>
                 </div>
                 @endforeach
-            <button type="submit" class="btn btn-primary float-right" name="action" value="update">Update</button>
+                <button type="submit" class="btn btn-primary float-right" name="action" value="update">Update</button>
+            
         </form>
     </div>
 @endsection

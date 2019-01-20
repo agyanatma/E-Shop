@@ -21,7 +21,7 @@ class ProductController extends Controller
     }
 
     public function destroy($id){
-        $delete = Product::with(['images'])->find($id);
+        $delete = Product::find($id);
         $delete->delete();
         return redirect('/');
     }
@@ -35,49 +35,58 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
-        $this->validate($request,[
-            'product_name' => 'required',
-            'product_price' => 'required|numeric',
-            'category_name' => 'required',
-            'product_image' => 'image|mimes:jpeg,png,jpg'
-        ]);
+        switch($request->input('action')){
+            case 'create':
+                $this->validate($request,[
+                    'product_name' => 'required',
+                    'product_price' => 'required|numeric',
+                    'category_name' => 'required',
+                    'product_image' => 'image|mimes:jpeg,png,jpg'
+                ]);
 
-        
-        
-        $name = $request->input('product_name');
-        $price = $request->input('product_price');
-        $category = $request->input('category_name');
-        $newCategory = $request->input('category_new');
-        
-        $store = new Product;
-        $store->product_name = $name;
-        $store->product_price = $price;
-        $store->category_id = $category;
-        $store->save();
+                $name = $request->input('product_name');
+                $price = $request->input('product_price');
+                $category = $request->input('category_name');
+                
+                $store = new Product;
+                $store->product_name = $name;
+                $store->product_price = $price;
+                $store->category_id = $category;
+                $store->save();
 
-        $new_cate = new Category_product;
-        $new_cate->category_name = $newCategory;
+                $product_id = $store->id;
+
+                //dd($request->all());
+                
+                if($request->hasFile('img')){
+                    $image = $request->file('img');
+                    $image_len = count($image);
+                    for($i=0; $i<$image_len; $i++){
+                        $imageName = $image[$i]->getClientOriginalName();
+                        $storage = public_path('upload');
+                        $image[$i]->move($storage, $imageName);
+                        $imageId = $product_id;
         
-        $product_id = $store->id;
+                        $upload = new Product_image;
+                        $upload->product_id = $imageId;
+                        $upload->product_image = $imageName;
+                        $upload->save();
+                    }
+                }
+                return redirect('/')->withErrors('Data berhasil masuk!');
+            break;
 
-        //dd($request->all());
-         
-        if($request->hasFile('img')){
-            $image = $request->file('img');
-            $image_len = count($image);
-            for($i=0; $i<$image_len; $i++){
-                $imageName = $image[$i]->getClientOriginalName();
-                $storage = public_path('upload');
-                $image[$i]->move($storage, $imageName);
-                $imageId = $product_id;
+            case 'add':
+                $newCategory = $request->input('category_new');
 
-                $upload = new Product_image;
-                $upload->product_id = $imageId;
-                $upload->product_image = $imageName;
-                $upload->save();
-            }
+                $new_cate = new Category_product;
+                $new_cate->category_name = $newCategory;
+                $new_cate->save();
+
+                return redirect()->back();
+            break;
         }
-        return redirect('/')->withErrors('Data berhasil masuk!');
+        
     }
 
 
@@ -139,21 +148,19 @@ class ProductController extends Controller
                 }
                 return redirect('/')->withErrors('Data berhasil update!');
             break;
-
-            case 'deleteImage':
-                $images = Product_image::find($id);
-                $delete = $images->product_images;
-
-                foreach($delete as $image){
-                    unlink(public_path($image->file_path));
-                }
-
-                $images->product_images()->delete();
-                $images->delete();
-                //Storage::delete("public_path('upload/{$imageName}')");
-                //$delete->delete();
-                return Redirect::to('updateProduct');
-            break;
+            
         }
-    }  
+    }
+
+    public function deleteImage($id){
+        //$item = Product::with(['images'])->find($id);
+        
+        $item = Product::with(['images'])->find($id);
+        $images = $item->images;
+
+        dd($images);
+        $images->delete();
+
+        return redirect()->back();
+    }
 }
