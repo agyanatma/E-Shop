@@ -29,4 +29,5 @@ Route::get('categories/new', 'Backend\CategoryController@show')->name('showCateg
 Route::post('categories/new', 'Backend\CategoryController@store')->name('newCategory');
 
 //Users Page
-Route::post('/login', 'Backend\UserController@login');
+Route::post('/login', 'Backend\UserController@login')->name('loginPage');
+Route::post('/signup', 'Backend\UserController@signup')->name('signUp');
