@@ -53,9 +53,12 @@ Route::post('product/{id}/update', 'Backend\ProductController@update')->name('up
 Route::post('product/{id}/edit/delete', 'Backend\ProductController@deleteImage')->name('deleteImage');
 
 //Category Page
-Route::get('categories/new', 'Backend\CategoryController@show')->name('showCategory');
-Route::post('categories/new', 'Backend\CategoryController@store')->name('newCategory');
+Route::get('category/new', 'Backend\ProductController@category')->name('newCategory');
+Route::post('category/new', 'Backend\ProductController@storeCategory')->name('storeCategory');
 
 //Users Page
-Route::post('/login', 'Backend\UserController@login')->name('loginPage');
-Route::post('/signup', 'Backend\UserController@signup')->name('signUp');
+Route::get('/login', 'Backend\UserController@login')->name('loginPage');
+Route::post('/login/log', 'Backend\UserController@loginStore')->name('store.login');
+Route::get('/signup', 'Backend\UserController@signup')->name('signUp');
+Route::post('/signup/register', 'Backend\UserController@signupStore')->name('store.signup');
+Route::get('/profile/{id}/{fullname}', 'Backend\UserController@profile')->name('profile');

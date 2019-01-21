@@ -22,8 +22,7 @@
                     <option value="{{$category->id}}">{{$category->category_name}}</option>
                 @endforeach
             </select>
-            <input type="text" class="form-control" name="category_new" placeholder="Kategori lain">
-            <button type="submit" class="btn btn-primary" name="action" value="add">Add</button>
+            <a href="{{route('newCategory')}}" type="button" class="btn btn-sm btn-success" name="category_add">Tambah Kategori</a>
             <br/>
             <br/>
             <label>Gambar:</label>
