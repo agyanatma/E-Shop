@@ -7,8 +7,11 @@ use App\User;
 
 class UserController extends Controller
 {
-    public function index(){
-        $users = User::all();
-        return view('pages.user')->with('users', $users);
+    public function login(){
+        return view ('pages.login');
+    }
+
+    public function signup(){
+        return view ('pages.signup');
     }
 }

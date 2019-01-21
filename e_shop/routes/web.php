@@ -36,6 +36,8 @@ Route::get('/wishlist', 'PagesController@wishlist');
 //Product page
 Route::get('product', 'Backend\ProductController@index');
 Route::get('product', 'Backend\ProductController@index');
+//Product page
+Route::get('/', 'Backend\ProductController@index');
 Route::post('product/{id}/delete', 'Backend\ProductController@destroy')->name('deleteProduct');
 
 //Create Page
@@ -46,5 +48,12 @@ Route::get('create', 'Backend\ProductController@show');
  //Edit Page
 Route::get('product/{id}/edit', 'Backend\ProductController@edit')->name('editProduct');
 Route::post('product/{id}/update', 'Backend\ProductController@update')->name('updateProduct');
-Route::post('product/{id}//edit/delete', 'Backend\ProductController@deleteImage')->name('deleteImage');
-Route::get('/index', 'ProductController@index');
+Route::post('product/{id}/edit/delete', 'Backend\ProductController@deleteImage')->name('deleteImage');
+
+//Category Page
+Route::get('categories/new', 'Backend\CategoryController@show')->name('showCategory');
+Route::post('categories/new', 'Backend\CategoryController@store')->name('newCategory');
+
+//Users Page
+Route::post('/login', 'Backend\UserController@login')->name('loginPage');
+Route::post('/signup', 'Backend\UserController@signup')->name('signUp');
