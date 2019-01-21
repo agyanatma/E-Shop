@@ -22,20 +22,23 @@
                             </div><!-- /input-group -->
                         </li>
                     </div>
-                    <div class="col-md-4 ">
-                        <ul class="nav navbar-right">
+                    <div class="col-md-4 text-center">
+                        <div class="dropdown nav navbar-right">
+                            <li><a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span style="font-size: 15px; color: Dodgerblue;" class="fas fa-user-circle right"></span>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <a href="user" class="list-group-item" data-parent="#akun1">User Profile</a></li>
+                                    <a href="tambahproduct" class="list-group-item" data-parent="#akun1">Sell Product</a></li>
+                                    <a href="#" class="list-group-item" data-parent="#akun1">Logout</a></li>
+                                </ul>
+                                        
+                        </div>                        
+                        <div class="nav navbar-right">
                             <li><a href="shop"><span style="font-size: 15px; color: Dodgerblue;" class="glyphicon glyphicon-shopping-cart right"></span></a></li>
                             <li><a href="registeraccount"><span style="font-size: 15px; color: Dodgerblue;" class="glyphicon glyphicon-user right"></span></a></li>
                             <li><a href="loginaccount"><span style="font-size: 15px; color: Dodgerblue;" class="glyphicon glyphicon-log-in right"></span></a></li>
-                            <li><a href="#akun1" class="nav-link-active" data-toggle="collapse" data-parent="#sidebar" aria-expanded="true"><span style="font-size: 15px; color: Dodgerblue;" class="fas fa-user-circle right"> <i class="fas fa-caret-down"></i></span></a></li>
-                            <div class="collapse" id="akun1">
-                                    <a href="#akun1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Produk</a>
-                                <div class="collapse" id="akun1sub1"></div>
-                                    <a href="#" class="list-group-item" data-parent="#akun1">Wishlist</a>
-                                    <a href="#" class="list-group-item" data-parent="#akun1">Saldo</a>
-                                    <a href="#" class="list-group-item" data-parent="#akun1">logout</a>
-                            </div>
-                        </ul>
+                        </div>
+
                     </div>
                 </div>
         </div>

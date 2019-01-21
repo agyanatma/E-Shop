@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 
@@ -60,5 +60,10 @@ class PagesController extends Controller
         $title = 'TAMBAH PRODUCT';
         //return view ('pages.index', compact ('title'));
         return view ('pages.wishlist')->with ('title', $title);
+    }
+    public function editproduct(){
+        $title = 'Edit Produk';
+        //return view ('pages.index', compact ('title'));
+        return view ('pages.editproduct')->with ('title', $title);
     }
 }   

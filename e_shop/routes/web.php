@@ -14,23 +14,25 @@
 /*Route::get('/', function (){
     return view('index');
 });*/
-Route::get('/', 'PagesController@index');
-Route::get('/index', 'PagesController@index');
-Route::get('/indexuser', 'PagesController@indexuser');
-Route::get('/order', 'PagesController@order');
-Route::get('/product', 'PagesController@product');
-Route::get('/category', 'PagesController@category');
-Route::get('/user', 'PagesController@user');
+Route::get('/', 'Frontend\PagesController@index');
+Route::get('/index', 'Frontend\PagesController@index');
+Route::get('/indexuser', 'Frontend\PagesController@indexuser');
+Route::get('/order', 'Frontend\PagesController@order');
+Route::get('/product', 'Frontend\PagesController@product');
+Route::get('/category', 'Frontend\PagesController@category');
+Route::get('/user', 'Frontend\PagesController@user');
 
-Route::get('/shop', 'PagesController@shop');
+Route::get('/shop', 'Frontend\PagesController@shop');
 Route::get('/add-to-cart/{id}',[
     'uses' => 'ProductController@getAddToCart',
     'as' => 'product.AddToCart'
 ]);
-Route::get('/tambahproduct', 'PagesController@tambahproduct');
-Route::get('/registeraccount', 'PagesController@registeraccount');
-Route::get('/loginaccount', 'PagesController@loginaccount');
-Route::get('/wishlist', 'PagesController@wishlist');
+Route::get('/tambahproduct', 'Frontend\PagesController@tambahproduct');
+Route::get('/editproduct', 'Frontend\PagesController@editproduct');
+Route::get('/registeraccount', 'Frontend\PagesController@registeraccount');
+Route::get('/loginaccount', 'Frontend\PagesController@loginaccount');
+Route::get('/wishlist', 'Frontend\PagesController@wishlist');
+Route::get('/editproduct', 'Frontend\PagesController@editproduct');
 
 
 //Product page

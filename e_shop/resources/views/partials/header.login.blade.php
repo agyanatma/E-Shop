@@ -1,27 +1,44 @@
 
+
+<link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/costum.css">
-<link rel="stylesheet" href="css/sidebar.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<nav class="navbar  navbar-default">
-    <div class="container-fluid">  
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand nav navbar-left" href="shop" ></i> E-SHOPPING</a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav nav-tabs nav navbar-right">
-                <li><input href="search" type="text" class="form-control" placeholder="Search"><span class="glyphicon glyphicon-search"></span></li>
-                <li><a href="shop"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-                <li><a href="loginaccount"><i class="fas fa-user-circle"></i> Faisal Rizky Rahadian</a></li>
-            </ul>
-      </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+
+<nav class="navbar-navbar-expand-md my-navbar navbar-light bg-light ">
+        <div  class="container-fluid my-container">
+                <div class="row my-row">
+                    <div class="col-md-2">
+                        <li class="navbar navbar-left">
+                            <a href="shop"><span style="font-size: 15px; color: Dodgerblue;" class="navbar-navbar-brand fab fa-shopware"> E-Shop</span></a>
+                        </li>
+                    </div>
+                    <div class="col-md-4 offset-2 ">
+                        <li class="navbar navbar-center">
+                            <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search for...">
+                                    <span class="input-group-btn">
+                                      <button class="btn btn-default" type="button"><span style="font-size: 15px; color: Dodgerblue;" class="fas fa-search"></span></button>
+                                    </span>
+                            </div><!-- /input-group -->
+                        </li>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="nav navbar-right">    
+                            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span style="font-size: 15px; color: Dodgerblack;" class="glyphicon glyphicon-user"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <div class="row">
+                              <li><a href="#" class="list-group-item" data-parent="#categorylist"><span style="font-size: 15px; color: Dodgerblack;" class="fas fa-desktop">PC Desktop</a></li>
+                              <li><a href="#" class="list-group-item" data-parent="#categorylist"><span style="font-size: 15px; color: Dodgerblack;" class="fas fa-memory"> Hardisk & Flashdisk</span></a></li>
+                              <li><a href="#" class="list-group-item" data-parent="#categorylist"><span style="font-size: 15px; color: Dodgerblack;" class="fas fa-print"> Printer</span></a></li>
+                              <li><a href="#" class="list-group-item" data-parent="#categorylist"><span style="font-size: 15px; color: Dodgerblack;" class="fas fa-keyboard"> Peripheral & Aksesoris</span></a></li>
+                              <li><a href="#" class="list-group-item" data-parent="#categorylist"><span style="font-size: 15px; color: Dodgerblack;" class="fas fa-satellite-dish"> Networking</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
 
 

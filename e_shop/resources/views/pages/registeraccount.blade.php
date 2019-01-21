@@ -50,7 +50,7 @@
         </div>
 
         <!-- Change this to a button or input when using this as a form -->
-        <button type="submit" class="btn btn-lg btn-success btn-block"><i class="fa fa-hand-o-right"></i> Login <i class="fa fa-hand-o-left"></i></button>
+        <button type="submit" class="btn btn-lg btn-success btn-block"><i class="fa fa-hand-o-right"></i> Sign In <i class="fa fa-hand-o-left"></i></button>
        
     </fieldset>
 </nav>

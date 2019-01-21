@@ -62,7 +62,7 @@
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                     <select name="category_name">
-                                           @foreach($categories as $category)
+                                            @foreach($categories as $category)
                                                 <option value="{{$category->id}}">{{$category->category_name}}</option>
                                             @endforeach
                                     </select>
