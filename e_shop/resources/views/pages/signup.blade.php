@@ -9,8 +9,8 @@
         </ul>
     @endif
     <div class="form-group container">
-        <h3>Login</h3>
-        <form action="{{route('loginPage')}}" method="post" class="container" enctype="multipart/form-data">
+        <h3>Sign Up</h3>
+        <form action="{{route('store.signup')}}" method="post" class="container" enctype="multipart/form-data">
             {{csrf_field()}}
             <label>Email:</label>
             <input type="email" class="form-control" name="email" placeholder="example@mail.com">
@@ -28,10 +28,9 @@
             <input type="text" class="form-control" name="city" placeholder="Kota">
             <br/>
             <label>Kode Pos:</label>
-            <input type="text" class="form-control" name="kodepos" placeholder="Kode Pos">
+            <input type="text" class="form-control" name="postal" placeholder="Kode Pos">
             <br/>
-            <br/>
-            <label>Gambar:</label>
+            <label>Profile Picture:</label><br/>
             <input type="file" name="img">
             <br/>
             <br/>

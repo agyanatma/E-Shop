@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Product;
 use App\Product_image;
 use App\Category_product;
+use App\User;
 
 class ProductController extends Controller
 {
@@ -16,8 +17,9 @@ class ProductController extends Controller
     public function index(){
         $products = Product::get();
         $categories = Category_product::all();
+        $users = User::get();
         //dd($products->toArray);
-        return view('pages.index')->with('products', $products)->with('categories', $categories);
+        return view('pages.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
 
     public function destroy($id){
@@ -35,60 +37,45 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
-        switch($request->input('action')){
-            case 'create':
-                $this->validate($request,[
-                    'product_name' => 'required',
-                    'product_price' => 'required|numeric',
-                    'category_name' => 'required',
-                    'product_image' => 'image|mimes:jpeg,png,jpg'
-                ]);
+        $this->validate($request,[
+            'product_name' => 'required',
+            'product_price' => 'required|numeric',
+            'category_name' => 'required',
+            'img' => 'image|mimes:jpeg,png,jpg'
+        ]);
 
-                $name = $request->input('product_name');
-                $price = $request->input('product_price');
-                $category = $request->input('category_name');
+        $name = $request->input('product_name');
+        $price = $request->input('product_price');
+        $category = $request->input('category_name');
                 
-                $store = new Product;
-                $store->product_name = $name;
-                $store->product_price = $price;
-                $store->category_id = $category;
-                $store->save();
+        $store = new Product;
+        $store->product_name = $name;
+        $store->product_price = $price;
+        $store->category_id = $category;
+        $store->save();
 
-                $product_id = $store->id;
+        $product_id = $store->id;
 
-                //dd($request->all());
+        //dd($request->all());
                 
-                if($request->hasFile('img')){
-                    $image = $request->file('img');
-                    $image_len = count($image);
-                    for($i=0; $i<$image_len; $i++){
-                        $imageName = $image[$i]->getClientOriginalName();
-                        $storage = public_path('upload');
-                        $image[$i]->move($storage, $imageName);
-                        $imageId = $product_id;
+         if($request->hasFile('img')){
+            $image = $request->file('img');
+            $image_len = count($image);
+            for($i=0; $i<$image_len; $i++){
+                $imageName = $image[$i]->getClientOriginalName();
+                $storage = public_path('\upload');
+                $image[$i]->move($storage, $imageName);
+                $imageId = $product_id;
         
-                        $upload = new Product_image;
-                        $upload->product_id = $imageId;
-                        $upload->product_image = $imageName;
-                        $upload->save();
-                    }
-                }
-                return redirect('/')->withErrors('Data berhasil masuk!');
-            break;
-
-            case 'add':
-                $newCategory = $request->input('category_new');
-
-                $new_cate = new Category_product;
-                $new_cate->category_name = $newCategory;
-                $new_cate->save();
-
-                return redirect()->back();
-            break;
+                $upload = new Product_image;
+                $upload->product_id = $imageId;
+                $upload->product_image = $imageName;
+                $upload->save();
+            }
         }
-        
+        return redirect('/')->withErrors('Data berhasil masuk!');
     }
-
+        
 
     //TAMPILAN EDIT PAGE
     public function edit($id){
@@ -133,7 +120,7 @@ class ProductController extends Controller
                     $image_len = count($image);
                     for($i=0; $i<$image_len; $i++){
                         $imageName = $image[$i]->getClientOriginalName();
-                        $storage = public_path('upload');
+                        $storage = public_path('\upload');
                         $image[$i]->move($storage, $imageName);
                         $imageId = $product_id;
         
@@ -162,5 +149,15 @@ class ProductController extends Controller
         $images->delete();
 
         return redirect()->back();
+    }
+
+
+    //CATEGORY PAGE
+    public function category(){
+        return view('pages.category');
+    }
+
+    public function storeCategory(Request $request){
+        
     }
 }

@@ -5,12 +5,27 @@
         <div class="row">
             <div class="col float-right">
                 <h1>Product</h1>
-                <a href="product/new" class="btn btn-primary" name="create">New Product</a>
+
+                    <a href="product/new" class="btn btn-primary" name="create">New Product</a>
+
             </div>
-            <div class="col float-right">
-                <a href="signup" class="btn btn-primary float-right" name="signup">Sign Up</a>
-                <a href="login" class="btn btn-success float-right" name="login">Login</a>
-            </div>
+            @if(Auth::guest())
+                <div class="col float-right">
+                    <a href="signup" class="btn btn-primary float-right" name="signup">Sign Up</a>
+                    <a href="login" class="btn btn-success float-right" name="login">Login</a>
+                </div>
+            @else
+                <div class="col float-right btn-group" style="display: inline">
+                    <p>Selamat datang, <a href="{{ route('profile') }}" type="button" name="user">{{$profile->fullname}}</a><p>
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+                </div>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">User Profile</a>
+                    <a class="dropdown-item" href="#">Wishlist</a>
+                    <a class="dropdown-item" href="#">Pengaturan</a>
+                    <a class="dropdown-item" href="#">Logout</a>
+                </div>
+            @endif
             @if(count($products) > 0)
             <div class="table-responsive">
                 <table class="table">
