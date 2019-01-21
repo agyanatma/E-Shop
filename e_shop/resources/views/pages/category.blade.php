@@ -12,7 +12,7 @@
         <form action="{{route('storeCategory')}}" method="post" class="container" enctype="multipart/form-data">
             {{csrf_field()}}
             <label>Nama Kategori:</label>
-            <input type="text" class="form-control" name="product_name" value="@yield('editName')" placeholder="Kategori">
+            <input type="text" class="form-control" name="category_name" value="@yield('editName')" placeholder="Kategori">
             <br/>
             <label>Logo Kategori:</label><br/>
             <input type="file" name="img">
