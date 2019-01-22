@@ -23,19 +23,22 @@
                         </li>
                     </div>
                     <div class="col-md-4 text-center">
-                        <div class="nav navbar-right">    
-                            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span style="font-size: 15px; color: Dodgerblack;" class="glyphicon glyphicon-user"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                              <div class="row">
-                              <li><a href="#" class="list-group-item" data-parent="#categorylist"><span style="font-size: 15px; color: Dodgerblack;" class="fas fa-desktop">PC Desktop</a></li>
-                              <li><a href="#" class="list-group-item" data-parent="#categorylist"><span style="font-size: 15px; color: Dodgerblack;" class="fas fa-memory"> Hardisk & Flashdisk</span></a></li>
-                              <li><a href="#" class="list-group-item" data-parent="#categorylist"><span style="font-size: 15px; color: Dodgerblack;" class="fas fa-print"> Printer</span></a></li>
-                              <li><a href="#" class="list-group-item" data-parent="#categorylist"><span style="font-size: 15px; color: Dodgerblack;" class="fas fa-keyboard"> Peripheral & Aksesoris</span></a></li>
-                              <li><a href="#" class="list-group-item" data-parent="#categorylist"><span style="font-size: 15px; color: Dodgerblack;" class="fas fa-satellite-dish"> Networking</span></a></li>
-                            </ul>
+                        <div class="dropdown nav navbar-right">
+                            <li><a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span style="font-size: 15px; color: Dodgerblue;" class="fas fa-user-circle right"></span>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <a href="user" class="list-group-item" data-parent="#akun1">User Profile</a></li>
+                                    <a href="create" class="list-group-item" data-parent="#akun1">Sell Product</a></li>
+                                    <a href="logout" class="list-group-item" data-parent="#akun1">Logout</a></li>
+                                </ul>
+                                        
+                        </div>                        
+                        <div class="nav navbar-right">
+                            <li><a href="shop"><span style="font-size: 15px; color: Dodgerblue;" class="glyphicon glyphicon-shopping-cart right"></span></a></li>
+                            <li><a href="signup"><span style="font-size: 15px; color: Dodgerblue;" class="glyphicon glyphicon-user right"></span></a></li>
+                            <li><a href="login"><span style="font-size: 15px; color: Dodgerblue;" class="glyphicon glyphicon-log-in right"></span></a></li>
                         </div>
+
                     </div>
                 </div>
         </div>
