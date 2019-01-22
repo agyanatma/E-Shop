@@ -10,7 +10,7 @@
     @endif
     <div class="form-group container">
         <h3>Sign Up</h3>
-        <form action="{{route('store.signup')}}" method="post" class="container" enctype="multipart/form-data">
+        <form action="{{route('store.register')}}" method="post" class="container" enctype="multipart/form-data">
             {{csrf_field()}}
             <label>Email:</label>
             <input type="email" class="form-control" name="email" placeholder="example@mail.com">

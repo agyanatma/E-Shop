@@ -8,6 +8,9 @@
                     <div class="col-md-6" style="float:left">
                         <h1>Product</h1>
                     </div>
+                    <div class="col-md-6" style="float:right">
+                        <a href="product/new" class="btn btn-primary" name="create">New Product</a>
+                    </div>
                 </form>
             </div>
             <div class="col-md-4">
@@ -19,9 +22,10 @@
                                 <h4 class="card-title">{{$product->product_name}}</h4>
                                 <p class="card-title">{{$product->categories->category_name}}</p>
                                 <h3 class="card-text text-right">Rp {{number_format($product->product_price, 0)}}</h3>
-                                <form method="POST" action="{{route('detailProduct', $product->id)}}" style="float:right">
+                                <form method="POST" action="{{route('deleteProduct', $product->id)}}" style="float:right">
                                     {{csrf_field()}}
-                                    <a href="{{'product/'.$product->id.'/edit' }}" class="btn btn-sm btn-primary" name="edit">Beli</a>
+                                    <a href="{{'product/'.$product->id.'/edit' }}" class="btn btn-sm btn-primary" name="edit" value="Edit">Edit</a>
+                                    <button type="submit" class="btn btn-sm btn-primary" name="delete">Delete</button>
                                 </form>                                
                             </div>    
                         @endforeach

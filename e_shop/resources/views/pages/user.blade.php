@@ -25,7 +25,7 @@ Shopping Cart
                         <div class="jumbotron">
                             <div class="row bg-info">
                                 <div class="col-md-3">
-                                    <img src="https://scontent-lga3-1.cdninstagram.com/vp/0841ad01d271b224ccf41592b9f715dc/5C8C99B1/t51.2885-19/s150x150/31108417_133072260887297_7004721721357893632_n.jpg?_nc_ht=scontent-lga3-1.cdninstagram.com"  class="img-rounded" alt="..." >
+                                    <img src="https://scontent-lga3-1.cdninstagram.com/vp/0841ad01d271b224ccf41592b9f715dc/5C8C99B1/t51.2885-19/s150x150/31108417_133072260887297_7004721721357893632_n.jpg?_nc_ht=scontent-lga3-1.cdninstagram.com"  class="img-rounded" alt="..." class="img-responsive">
                                 </div>
                                 <div class="">
                                     <h1>Hello, world!</h1>

@@ -39,8 +39,11 @@ Route::get('/editproduct', 'Frontend\PagesController@editproduct');
 Route::get('product', 'Backend\ProductController@index');
 Route::get('product', 'Backend\ProductController@index');
 //Product page
-Route::get('/', 'Backend\ProductController@index');
+Route::get('/', 'Backend\ProductController@guest');
+Route::get('/admin', 'Backend\ProductController@index');
 Route::post('product/{id}/delete', 'Backend\ProductController@destroy')->name('deleteProduct');
+Route::get('/product/{id}/detail', 'Backend\ProductController@detail')->name('detailProduct');
+Route::post('/product/{id}/detail/store', 'Backend\ProductController@storeDetail')->name('storeDetail');
 
 //Create Page
 Route::get('product/new', 'Backend\ProductController@show')->name('product.new');
@@ -59,6 +62,10 @@ Route::post('category/new', 'Backend\ProductController@storeCategory')->name('st
 //Users Page
 Route::get('/login', 'Backend\UserController@login')->name('loginPage');
 Route::post('/login/log', 'Backend\UserController@loginStore')->name('store.login');
-Route::get('/signup', 'Backend\UserController@signup')->name('signUp');
-Route::post('/signup/register', 'Backend\UserController@signupStore')->name('store.signup');
-Route::get('/profile/{id}/{fullname}', 'Backend\UserController@profile')->name('profile');
+Route::get('/register', 'Backend\UserController@signup')->name('registerPage');
+Route::post('/register/done', 'Backend\UserController@signupStore')->name('store.register');
+Route::get('/profile/{id}', 'Backend\UserController@profile')->name('profile');
+Route::post('/profile/{id}/edit', 'Backend\UserController@update')->name('editProfile');
+Route::get('/profile/{id}/password', 'Backend\UserController@password')->name('changePassword');
+Route::post('/profile/{id}/password/changed', 'Backend\UserController@updatePass')->name('updatePassword');
+
