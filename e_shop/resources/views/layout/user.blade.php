@@ -5,6 +5,7 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -18,41 +19,41 @@
                 {{ config('app.name', 'E-Shop') }}
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
-
-                    <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="btn btn-success" style="margin-right:10px" href="/login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-primary" href="/register">Register</a>
-                            </li>
-                        @else
+                                <div class="nav-item" style="margin-right:10px">
+                                    <input class="form-control form-control-borderless" type="search" placeholder="Search topics or keywords">
+                                </div>
+                                <div class="nav-item" style="margin-right:10px">
+                                    <button class="btn btn-lg btn-info fas fa-search" type="submit"></button>
+                                </div>
+                        @if(Auth::user())
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{$users->fullname}} <span class="caret"></span>
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a >
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+                                    <a class="dropdown-item" href="#">User Profile</a>
+                                    <a class="dropdown-item" href="#">Whistlist</a>
+                                    <a class="dropdown-item" href="#">Pengaturan</a>
+                                    <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
                                 </div>
                             </li>
-                        @endguest
+                        @else
+                            <li class="nav-item">
+                                    <a class="btn btn-success" style="margin-right:10px" href="{{ route('loginPage') }}">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-primary" href="{{ route('registerPage') }}">Register</a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
         </div>
     </nav>
     @yield('content')
+    
  </body>
  </html>

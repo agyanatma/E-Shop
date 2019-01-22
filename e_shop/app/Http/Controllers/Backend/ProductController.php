@@ -19,9 +19,22 @@ class ProductController extends Controller
     public function guest(){
         $products = Product::with(['images'])->get();
         $categories = Category_product::all();
-        $users = User::get();
-        //dd($products);
+        $users = session()->get('user_session');
+        //dd(session()->get('user_session'));
         return view('pages.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
+    }
+
+    public function destroy($id){
+        $destroy = Product::find($id);
+        $idProduct = $destroy->id;
+        $image = Product_image::where('product_id', '=', $idProduct)->get();
+        //dd($image->toArray());
+        $product_image = $image->product_image;
+        $image_path = public_path('/upload/', $product_image);
+        dd($image_path);
+
+        return redirect()->back();
+        
     }
 
     //TAMPILAN PRODUCT PAGE
@@ -43,7 +56,7 @@ class ProductController extends Controller
         
     }
 
-    public function store(Request $request){
+    public function storeDetail(Request $request){
         $this->validate($request,[
             'product_name' => 'required',
             'product_price' => 'required|numeric',
@@ -64,7 +77,7 @@ class ProductController extends Controller
         $product_id = $store->id;
 
         //dd($request->all());
-        $upload = new Product_image;       
+               
         if($request->hasFile('img')){
             $image = $request->file('img');
             $image_len = count($image);
@@ -73,15 +86,20 @@ class ProductController extends Controller
                 $storage = public_path('\upload');
                 $image[$i]->move($storage, $imageName);
                 $imageId = $product_id;
+
+                $upload = new Product_image;
                 $upload->product_id = $imageId;
                 $upload->product_image = $imageName;
+                $upload->save();
             }
         }
         else{
+            $upload = new Product_image;
             $upload->product_id = $imageId;
             $upload->product_image = 'image.png';
+            $upload->save();
         }
-        $upload->save();
+        
 
         return redirect('/')->withErrors('Data berhasil masuk!');
     }
@@ -190,5 +208,17 @@ class ProductController extends Controller
 
         return redirect('/product/new');
         
+    }
+
+    //DETAIL PAGE
+    public function detail($id){
+        $item = Product::with(['images'])->find($id);
+        $id = $item->id;
+        $images = $item->images;
+        $categories = Category_product::all();
+        dd($item->toArray());
+
+        return view('pages.detail');
+
     }
 }

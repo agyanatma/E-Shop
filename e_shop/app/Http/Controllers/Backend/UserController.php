@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\File;
 use App\User;
+use Auth;
 
 class UserController extends Controller
 {
@@ -15,6 +16,12 @@ class UserController extends Controller
     }
 
     public function loginStore(Request $request){
+
+        $this->validate($request,[
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
         $email = $request->email;
         $password = $request->password;
 
@@ -22,19 +29,15 @@ class UserController extends Controller
             return redirect('/admin');
         }
         else{
-            $data = User::where('email', $email)->first();
-            if($data)
-                if(Hash::check($password, $data->password)){
-                    Session::put('name', $data->fullname);
-                    Session::put('email', $data->email);
-                    Session::put('login', true);
-                    return redirect('/');
-                }
-                else{
-                    return redirect('login')->with('alert', 'Password atau Email, Salah!');
-                }
-            else{
-                return redirect('login')->with('alert', 'Password atau Email, Salah!');
+            $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials)){
+                $request->session()->put('user_session', Auth::user());
+                return redirect()->intended('/');
+            } 
+            else {
+                Session::flash ( 'message', "Invalid Credentials , Please try again." );
+                return redirect()->back();
             }
         }
     }
@@ -61,6 +64,7 @@ class UserController extends Controller
         $user->address = $request->address;
         $user->city = $request->city;
         $user->postal_code = $request->postal;
+        $user->remember_token = $request->_token;
         if($request->hasFile('img')){
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
@@ -74,6 +78,12 @@ class UserController extends Controller
         $user->save();
 
         return redirect('login')->with('alert-success','Anda berhasil terdaftar');
+    }
+
+    public function logout(){
+        Session::flush();
+        Auth::logout();
+        return redirect('/');
     }
     
     public function profile($id){

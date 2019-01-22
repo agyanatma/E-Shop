@@ -14,13 +14,13 @@
 //Product page
 Route::get('/', 'Backend\ProductController@guest');
 Route::get('/admin', 'Backend\ProductController@index');
-Route::post('product/{id}/delete', 'Backend\ProductController@destroy')->name('deleteProduct');
+Route::get('product/{id}/delete', 'Backend\ProductController@destroy')->name('deleteProduct');
 Route::get('/product/{id}/detail', 'Backend\ProductController@detail')->name('detailProduct');
-Route::post('/product/{id}/detail/store', 'Backend\ProductController@storeDetail')->name('storeDetail');
+Route::post('/product/{id}/store', 'Backend\ProductController@storeDetail')->name('storeDetail');
 
 //Create Page
 Route::get('product/new', 'Backend\ProductController@show')->name('product.new');
-Route::post('product/new', 'Backend\ProductController@store')->name('product.create');
+Route::post('product/new/store', 'Backend\ProductController@store')->name('product.create');
 
  //Edit Page
 Route::get('product/{id}/edit', 'Backend\ProductController@edit')->name('editProduct');
@@ -29,14 +29,16 @@ Route::post('product/{id}/edit/delete', 'Backend\ProductController@deleteImage')
 
 //Category Page
 Route::get('category/new', 'Backend\ProductController@category')->name('newCategory');
-Route::post('category/new', 'Backend\ProductController@storeCategory')->name('storeCategory');
+Route::post('category/new/add', 'Backend\ProductController@storeCategory')->name('storeCategory');
+
 
 //Users Page
 Route::get('/login', 'Backend\UserController@login')->name('loginPage');
 Route::post('/login/log', 'Backend\UserController@loginStore')->name('store.login');
 Route::get('/register', 'Backend\UserController@signup')->name('registerPage');
-Route::post('/register/done', 'Backend\UserController@signupStore')->name('store.register');
-Route::get('/profile/{id}', 'Backend\UserController@profile')->name('profile');
+Route::post('/register/reg', 'Backend\UserController@signupStore')->name('store.register');
+Route::get('/logout', 'Backend\UserController@logout')->name('logoutUser');
+Route::get('/profile/{id}/profile', 'Backend\UserController@profile')->name('profile');
 Route::post('/profile/{id}/edit', 'Backend\UserController@update')->name('editProfile');
 Route::get('/profile/{id}/password', 'Backend\UserController@password')->name('changePassword');
 Route::post('/profile/{id}/password/changed', 'Backend\UserController@updatePass')->name('updatePassword');

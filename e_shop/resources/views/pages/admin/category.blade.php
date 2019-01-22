@@ -1,13 +1,13 @@
-@extends('layout.app')
+@extends('layout.admin')
 
 @section('content')
-    @if(count($errors)>0)
-        <ul>
+    <div class="container">
+        @if(count($errors)>0)
             @foreach($errors->all() as $error)
-                <li class="alert alert-danger">{{$error}}</li>
+                <p class="alert alert-danger">{{$error}}</p>
             @endforeach
-        </ul>
-    @endif
+        @endif
+    </div>
     <div class="form-group container">
         <form action="{{route('storeCategory')}}" method="post" class="container" enctype="multipart/form-data">
             {{csrf_field()}}
