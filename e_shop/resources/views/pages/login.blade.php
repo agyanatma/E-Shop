@@ -1,16 +1,9 @@
-@extends('layout.app')
+@extends('layout.user')
 
 @section('content')
     <div class="container">
-        @if(\Session::has('alert'))
-            <div class="alert alert-danger">
-                <div>{{Session::get('alert')}}</div>
-            </div>
-        @endif
-        @if(\Session::has('alert-success'))
-            <div class="alert alert-success">
-                <div>{{Session::get('alert-success')}}</div>
-            </div>
+        @if(count($errors)>0)
+            <p class="alert alert-danger">Email or Password invalid!</p>
         @endif
     </div>
     <div class="form-group container">
@@ -18,7 +11,7 @@
         <form action="{{route('store.login')}}" method="post" class="container">
             {{csrf_field()}}
             <label>Email:</label>
-            <input type="email" class="form-control" name="email" placeholder="example@mail.com">
+            <input type="email" class="form-control" name="email" placeholder="example@mail.com" value="{{old('email')}}">
             <br/>
             <label>Password:</label>
             <input type="password" class="form-control" name="password" placeholder="Password">

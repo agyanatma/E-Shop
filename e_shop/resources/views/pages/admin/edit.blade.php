@@ -1,13 +1,13 @@
-@extends('layout.app')
+@extends('layout.admin')
 
 @section('content')
-    @if(count($errors)>0)
-        <ul>
+    <div class="container">
+        @if(count($errors)>0)
             @foreach($errors->all() as $error)
-                <li class="alert alert-danger">{{$error}}</li>
+                <p class="alert alert-danger">{{$error}}</p>
             @endforeach
-        </ul>
-    @endif
+        @endif
+    </div>
     <div class="form-group container">
         <form action="{{route('updateProduct', $item->id)}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
@@ -29,7 +29,7 @@
             <br><br>
                 @foreach($images as $image)
                 <div class="row">
-                    <div class="column">
+                    <div class="col-md-">
                         <img class="left-block" width="200px" src="{{ URL::to('/upload/'.$image->product_image)}}"/><br>
                         <a href="{{ route('deleteImage', $image->id) }}" class="btn btn-primary" name="action" value="deleteImage">Delete</a>
                     </div>
