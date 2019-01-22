@@ -7,7 +7,6 @@
                 <h1>Product</h1>
 
                     <a href="product/new" class="btn btn-primary" name="create">New Product</a>
-
             </div>
             @if(Auth::guest())
                 <div class="col float-right">

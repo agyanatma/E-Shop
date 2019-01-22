@@ -39,7 +39,7 @@ class PagesController extends Controller
     public function shop(){
         $title = 'SHOP';
         //return view ('pages.index', compact ('title'));
-        return view ('shop.shop')->with ('title', $title);
+        return view ('pages.shop')->with ('title', $title);
     }
     public function tambahproduct(){
         $title = 'TAMBAH PRODUCT';
