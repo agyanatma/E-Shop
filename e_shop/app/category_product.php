@@ -15,5 +15,4 @@ class Category_product extends Model
         return $this->hasMany('App\Product');
     }
 
-
 }

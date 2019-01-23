@@ -10,40 +10,42 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+                                        /*FRONTEND PAGE*/
 
-/*Route::get('/', function (){
-    return view('index');
-});*/
-Route::get('/', 'Frontend\PagesController@index');
-Route::get('/index', 'Frontend\PagesController@index');
-Route::get('/indexuser', 'Frontend\PagesController@indexuser');
-Route::get('/order', 'Frontend\PagesController@order');
-Route::get('/product', 'Frontend\PagesController@product');
-Route::get('/category', 'Frontend\PagesController@category');
-Route::get('/user', 'Frontend\PagesController@user');
+//ProductPage
+Route::get('product', 'Frontend\ProductController@index');
+Route::get('/', 'Frontend\ProductController@index');
+Route::get('/index', 'Frontend\ProductController@index');
+Route::get('/shop', 'Frontend\ProductController@shop');
+Route::get('/tambahproduct', 'Frontend\ProductController@tambahproduct');
+Route::get('/detailproduct', 'Frontend\ProductController@detailproduct');
+Route::get('/wishlist', 'Frontend\ProductController@wishlist');
+Route::get('product', 'Frontend\ProductController@index');
+Route::get('/category/{id}/image', 'Frontend\ProductController@index');
+//CategoryPage
+Route::get('/category', 'Frontend\CategoryController@category');
 
-Route::get('/shop', 'Frontend\PagesController@shop');
-Route::get('/add-to-cart/{id}',[
-    'uses' => 'ProductController@getAddToCart',
-    'as' => 'product.AddToCart'
-]);
-Route::get('/tambahproduct', 'Frontend\PagesController@tambahproduct');
-Route::get('/editproduct', 'Frontend\PagesController@editproduct');
-Route::get('/registeraccount', 'Frontend\PagesController@registeraccount');
-Route::get('/loginaccount', 'Frontend\PagesController@loginaccount');
-Route::get('/wishlist', 'Frontend\PagesController@wishlist');
-Route::get('/editproduct', 'Frontend\PagesController@editproduct');
+//UsersPage
+Route::get('/user', 'Frontend\UserController@user');
+Route::get('/loginaccount', 'Frontend\UserController@loginaccount')->name('loginaccountPage');
+Route::post('/loginaccount/log', 'Frontend\UserController@loginaccountStore')->name('store.loginaccount');
+Route::get('/registeraccount', 'Frontend\UserController@registeraccount')->name('registeraccountPage');
+Route::post('/registeraccount/reg', 'Frontend\UserController@registeraccountStore')->name('store.registeraccount');
+Route::get('/logout', 'Frontend\UserController@logout')->name('logoutUser');
+//Route::get('/upload/{Logo.png}','Frontend\UserController@registeraccount'); 
 
+//OrderPage
+Route::get('/order', 'Frontend\OrderController@order');
+
+                                        /*BACKEND PAGE*/
 
 //Product page
 Route::get('product', 'Backend\ProductController@index');
-Route::get('product', 'Backend\ProductController@index');
-//Product page
 Route::get('/', 'Backend\ProductController@guest');
 Route::get('/admin', 'Backend\ProductController@index');
 Route::get('product/{id}/delete', 'Backend\ProductController@destroy')->name('deleteProduct');
 Route::get('/product/{id}/detail', 'Backend\ProductController@detail')->name('detailProduct');
-Route::post('/product/{id}/store', 'Backend\ProductController@storeDetail')->name('storeDetail');
+
 
 //Create Page
 Route::get('product/new', 'Backend\ProductController@show')->name('product.new');
@@ -63,7 +65,7 @@ Route::post('category/new/add', 'Backend\ProductController@storeCategory')->name
 Route::get('/login', 'Backend\UserController@login')->name('loginPage');
 Route::post('/login/log', 'Backend\UserController@loginStore')->name('store.login');
 Route::get('/register', 'Backend\UserController@signup')->name('registerPage');
-Route::post('/register/reg', 'Backend\UserController@signupStore')->name('store.register');
+//Route::post('/register/reg', 'Backend\UserController@signupStore')->name('store.register');
 Route::get('/logout', 'Backend\UserController@logout')->name('logoutUser');
 Route::get('/profile/{id}/profile', 'Backend\UserController@profile')->name('profile');
 Route::post('/profile/{id}/edit', 'Backend\UserController@update')->name('editProfile');

@@ -31,7 +31,7 @@ class ProductController extends Controller
         //dd($image->toArray());
         $product_image = $image->product_image;
         $image_path = public_path('/upload/', $product_image);
-        dd($image_path);
+        //dd($image_path);
 
         return redirect()->back();
         
