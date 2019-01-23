@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         @if(count($errors)>0)
             @foreach($errors->all() as $error)
                 <p class="alert alert-danger">{{$error}}</p>
@@ -27,15 +32,15 @@
             <label>Gambar:</label>
             <input type="file" name="img[]" multiple>
             <br><br>
+            <div class="row">
                 @foreach($images as $image)
-                <div class="row">
-                    <div class="col-md-">
-                        <img class="left-block" width="200px" src="{{ URL::to('/upload/'.$image->product_image)}}"/><br>
+                    <div class="col-sm-2">
+                        <img class="img-fluid" height="100px" src="{{ URL::to('/upload/'.$image->product_image)}}"/><br>
                         <a href="{{ route('deleteImage', $image->id) }}" class="btn btn-primary" name="action" value="deleteImage">Delete</a>
                     </div>
-                </div>
                 @endforeach
-                <button type="submit" class="btn btn-primary float-right" name="action" value="update">Update</button>
+            </div>
+            <button type="submit" class="btn btn-primary float-right" name="action" value="update">Update</button>
             
         </form>
     </div>

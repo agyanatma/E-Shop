@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         @if(count($errors)>0)
             @foreach($errors->all() as $error)
                 <p class="alert alert-danger">{{$error}}</p>

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         @if(count($errors)>0)
-            <p class="alert alert-danger">Email or Password invalid!</p>
+            <p class="alert alert-danger">Masukkan email dan password untuk masuk</p>
         @endif
     </div>
     <div class="form-group container">

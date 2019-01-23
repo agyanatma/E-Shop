@@ -27,10 +27,10 @@
                                 Admin <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">User Profile</a>
-                                <a class="dropdown-item" href="#">Whistlist</a>
-                                <a class="dropdown-item" href="#">Pengaturan</a>
-                                <a class="dropdown-item" href="#">Logout</a>
+                                <a class="dropdown-item" href="/admin">Product Index</a>
+                                <a class="dropdown-item" href="/category">Category Index</a>
+                                <a class="dropdown-item" href="/users">User Index</a>
+                                <a class="dropdown-item" href="/">Logout</a>
                             </div>
                         </li>
                    </ul>
@@ -38,5 +38,8 @@
        </div>
    </nav>
    @yield('content')
+<script>
+    $('div.alert').delay(3000).slideUp(300);
+</script>
 </body>
 </html>
