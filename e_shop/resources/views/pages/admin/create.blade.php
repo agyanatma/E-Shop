@@ -21,6 +21,7 @@
             <br/>
             <label>Harga Produk:</label>
             <input type="text" class="form-control" name="product_price" placeholder="Harga">
+            <br/>
             <label>Kategori:</label>
             <select name="category_name">
                 @foreach($categories as $category)

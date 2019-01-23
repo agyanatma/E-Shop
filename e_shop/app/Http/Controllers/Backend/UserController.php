@@ -1,22 +1,17 @@
 <?php
-
 namespace App\Http\Controllers\Backend;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\File;
 use App\User;
 use Auth;
-
 class UserController extends Controller
 {
     public function login(){
         return view ('pages.login');
     }
-
     public function loginStore(Request $request){
-
         $this->validate($request,[
             'email' => 'required|email',
             'password' => 'required',
@@ -24,16 +19,13 @@ class UserController extends Controller
         [
             'required' => 'Masukkan email dan password untuk masuk!'
         ]);
-
         $email = $request->email;
         $password = $request->password;
-
         if($email == 'admin@mail.com' AND $password == 'agyanatma'){
             return redirect('/admin');
         }
         else{
             $credentials = $request->only('email', 'password');
-
             if (Auth::attempt($credentials)){
                 $request->session()->put('user_session', Auth::user());
                 return redirect()->intended('/');
@@ -44,11 +36,9 @@ class UserController extends Controller
             }
         }
     }
-
     public function signup(Request $request){
         return view ('pages.register');
     }
-
     public function signupStore(Request $request){
         $this->validate($request,[
             'email' => 'required|email',
@@ -59,7 +49,6 @@ class UserController extends Controller
             'postal' => 'required|numeric',
             'img' => 'image|mimes:jpeg,png,jpg'
         ]);
-
         $user = new User();
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
@@ -79,10 +68,8 @@ class UserController extends Controller
             $user->profile_image = 'default.jpg';
         }
         $user->save();
-
         return redirect('login')->with('alert-success','Anda berhasil terdaftar');
     }
-
     public function logout(){
         Session::flush();
         Auth::logout();
@@ -94,7 +81,6 @@ class UserController extends Controller
         //dd($profile->toArray());
         return view('pages.profile')->with('users', $users);
     }
-
     public function update(Request $request,$id){
         $this->validate($request,[
             'email' => 'required|email',
@@ -104,7 +90,6 @@ class UserController extends Controller
             'postal' => 'required|numeric',
             'img' => 'image|mimes:jpeg,png,jpg'
         ]);
-
         $email = $request->get('email');
         $name = $request->get('fullname');
         $address = $request->get('address');
@@ -131,11 +116,9 @@ class UserController extends Controller
             $update->profile_image = $imageName;
         }
         $update->save();
-
         return redirect()->back()->withErrors('Data berhasil update!');           
     }
     
     public function password($id){
-
     }
 }

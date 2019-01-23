@@ -42,6 +42,6 @@
             </div>
             <button type="submit" class="btn btn-primary float-right" name="action" value="update">Update</button>
             
-            </form>
+        </form>
     </div>
 @endsection
