@@ -20,6 +20,9 @@ class UserController extends Controller
         $this->validate($request,[
             'email' => 'required|email',
             'password' => 'required',
+        ],
+        [
+            'required' => 'Masukkan email dan password untuk masuk!'
         ]);
 
         $email = $request->email;

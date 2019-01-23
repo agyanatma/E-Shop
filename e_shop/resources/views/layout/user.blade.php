@@ -23,12 +23,6 @@
 
                     </ul>
                     <ul class="navbar-nav ml-auto">
-                                <div class="nav-item" style="margin-right:10px">
-                                    <input class="form-control form-control-borderless" type="search" placeholder="Search topics or keywords">
-                                </div>
-                                <div class="nav-item" style="margin-right:10px">
-                                    <button class="btn btn-lg btn-info fas fa-search" type="submit"></button>
-                                </div>
                         @if(Auth::user())
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -36,8 +30,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="#">User Profile</a>
-                                    <a class="dropdown-item" href="#">Whistlist</a>
-                                    <a class="dropdown-item" href="#">Pengaturan</a>
+                                    <a class="dropdown-item" href="#">Daftar Belanja</a>
                                     <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
                                 </div>
                             </li>
@@ -54,6 +47,8 @@
         </div>
     </nav>
     @yield('content')
-    
+<script>
+    $('div.alert').delay(3000).slideUp(300);
+</script>
  </body>
  </html>

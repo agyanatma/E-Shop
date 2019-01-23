@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use DB;
 use View;
 use Auth;
+use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Product;
@@ -15,29 +16,9 @@ use App\User;
 class ProductController extends Controller
 {
 
-    //ADMIN ONLY
-    public function guest(){
-        $products = Product::with(['images'])->get();
-        $categories = Category_product::all();
-        $users = session()->get('user_session');
-        //dd(session()->get('user_session'));
-        return view('pages.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
-    }
+    //ADMIN ONLY========================================================================================================================================
 
-    public function destroy($id){
-        $destroy = Product::find($id);
-        $idProduct = $destroy->id;
-        $image = Product_image::where('product_id', '=', $idProduct)->get();
-        //dd($image->toArray());
-        $product_image = $image->product_image;
-        $image_path = public_path('/upload/', $product_image);
-        //dd($image_path);
-
-        return redirect()->back();
-        
-    }
-
-    //TAMPILAN PRODUCT PAGE
+    //ADMIN INDEX
     public function index(){
         $products = Product::with(['images'])->get();
         $categories = Category_product::all();
@@ -46,8 +27,30 @@ class ProductController extends Controller
         return view('pages.admin.admin')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
 
-    
 
+    //HAPUS PRODUK
+    public function destroy($id){
+        $item = Product::find($id);
+        $product_id = $item->id;
+        $image = Product_image::where('product_id', '=', $product_id)->get();
+        //dd($delete->toArray());
+        foreach($image as $file){
+            if(file_exists((public_path('/upload/').$file->product_image))){
+                if($file->product_image != 'image.png'){
+                    unlink((public_path('/upload/').$file->product_image));
+                }
+                else{
+    
+                }
+            }
+            
+        }
+        Product_image::where('product_id', '=', $product_id)->delete();
+        $item->delete();
+
+        return redirect()->back()->with('status', 'Data berhasil dihapus');
+        
+    }
 
     //TAMPILAN CREATE PAGE
     public function show(){
@@ -99,9 +102,8 @@ class ProductController extends Controller
             $upload->product_image = 'image.png';
             $upload->save();
         }
-        
 
-        return redirect('/')->withErrors('Data berhasil masuk!');
+        return redirect('/admin')->with('status', 'Data berhasil dimasukkan');
     }
         
 
@@ -125,89 +127,63 @@ class ProductController extends Controller
             'product_image' => 'image|mimes:jpeg,png,jpg'
         ]);
 
-        switch($request->input('action')){
-            case 'update':
-                $name = $request->get('product_name');
-                $price = $request->get('product_price');
-                $category = $request->get('category_name');
-                
-                $store = Product::find($id);
-                if($store){
-                    $store->product_name = $name;
-                    $store->product_price = $price;
-                    $store->category_id = $category;
-                    $store->save();
-                }
-            
-                $product_id = $store->id;
+        $name = $request->get('product_name');
+        $price = $request->get('product_price');
+        $category = $request->get('category_name');
         
-                //dd($request->all());
-                
-                if($request->hasFile('img')){
-                    $image = $request->file('img');
-                    $image_len = count($image);
-                    for($i=0; $i<$image_len; $i++){
-                        $imageName = $image[$i]->getClientOriginalName();
-                        $storage = public_path('\upload');
-                        $image[$i]->move($storage, $imageName);
-                        $imageId = $product_id;
-        
-                        $upload = Product_image::find($id);
-                        if($upload){
-                            $upload->product_id = $request->$imageId;
-                            $upload->product_image = $request->$imageName;
-                            $upload->save();
-                        }
-                        
-                    }
-                }
-                return redirect('/')->withErrors('Data berhasil update!');
-            break;
-            
+        $store = Product::find($id);
+        $store->product_name = $name;
+        $store->product_price = $price;
+        $store->category_id = $category;
+        $store->save();
+    
+        $product_id = $store->id;
+
+        //dd($product_id);
+        if($request->hasFile('img')){
+            $image = $request->file('img');
+            $image_len = count($image);
+            for($i=0; $i<$image_len; $i++){
+                $imageName = $image[$i]->getClientOriginalName();
+                $storage = public_path('\upload');
+                $image[$i]->move($storage, $imageName);
+                $imageId = $product_id;
+
+                $upload = new Product_image;
+                $upload->product_id = $imageId;
+                $upload->product_image = $imageName;
+                $upload->save();
+            }
         }
+        return redirect('/admin')->with('status','Data berhasil update');
     }
 
     public function deleteImage($id){
-        //$item = Product::with(['images'])->find($id);
-        
-        $item = Product::with(['images'])->find($id);
-        $images = $item->images;
-
-        dd($images);
-        $images->delete();
+        $image = Product_image::find($id);
+        //dd($image->toArray());
+        if(file_exists((public_path('/upload/').$image->product_image))){
+            unlink((public_path('/upload/').$image->product_image));
+        }
+        $image->delete();
 
         return redirect()->back();
     }
 
 
     //CATEGORY PAGE
-    public function category(){
-        return view('pages.admin.category');
-    }
+    
 
-    public function storeCategory(Request $request){
-        $this->validate($request,[
-            'category_name' => 'required',
-            'img' => 'image|mimes:jpeg,png,jpg'
-        ]);
+    //==================================================================================================================================================
 
-        $new = new Category_product;
-        $new->category_name = $request->category_name;
+    //USER INTERFACE====================================================================================================================================
 
-        if($request->hasFile('img')){
-            $image = $request->file('img');
-            $imageName = $image->getClientOriginalName();
-            $storage = public_path('\upload');
-            $image->move($storage, $imageName);
-            $new->category_image = $imageName;
-        }
-        else{
-            $new->category_image = 'image.png';
-        }
-        $new->save();
-
-        return redirect('/product/new');
-        
+    //USER INDEX
+    public function guest(){
+        $products = Product::with(['images'])->get();
+        $categories = Category_product::all();
+        $users = session()->get('user_session');
+        //dd(session()->get('user_session'));
+        return view('pages.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
 
     //DETAIL PAGE
@@ -216,7 +192,7 @@ class ProductController extends Controller
         $id = $item->id;
         $images = $item->images;
         $categories = Category_product::all();
-        dd($item->toArray());
+        //dd($item->toArray());
 
         return view('pages.detail');
 

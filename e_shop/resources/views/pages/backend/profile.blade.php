@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="col-lg-6">
             <form class="form-inline">
                 <img style="margin:20px" width="200px" src="{{URL::to('/upload/'.$users->profile_image)}}">

@@ -11,10 +11,10 @@
             <div class="col">
                 <form class="form-inline">
                     <div class="col-lg-6" style="float:left">
-                        <h1>Product</h1><br>
+                        <h1>Category</h1><br>
                     </div>
                     <div class="col-lg-6">
-                        <a href="{{ route('product.new')}}" type="submit" class="btn btn-primary" style="float:right">Add Product</a>
+                        <a href="{{ route('newCategory')}}" type="submit" class="btn btn-primary" style="float:right">Add Category</a>
                     </div>
                 </form>
             </div>
@@ -23,23 +23,19 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Images</th>
-                                    <th>Product</th>
+                                    <th>Image</th>
                                     <th>Category</th>
-                                    <th>Price</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                    @if(count($products) > 0)
-                                        @foreach ($products as $product)
+                                    @if(count($categories) > 0)
+                                        @foreach ($categories as $category)
                                         <tr>
-                                            <td style="width:30px"><img class="img-fluid" src="{{ URL::to('/upload/'.$product->images[0]->product_image)}}"></td>
-                                            <td>{{$product->product_name}}</td>
-                                            <td>{{$product->categories->category_name}}</td>
-                                            <td>Rp {{number_format($product->product_price, 0)}}</td>
-                                            <td><a href="{{ route('editProduct', $product->id) }}" class="btn btn-warning" name="edit">Edit</a>
-                                                <a href="{{ route('deleteProduct', $product->id) }}" class="btn btn-danger" name="delete">Delete</a>
+                                            <td style="width:30px"><img class="img-fluid" src="{{ URL::to('/upload/'.$category->category_image)}}"></td>
+                                            <td>{{$category->category_name}}</td>
+                                            <td><a href="{{ route('editCategory', $category->id) }}" class="btn btn-warning" name="edit">Edit</a>
+                                                <a href="{{ route('deleteCategory', $category->id) }}" class="btn btn-danger" name="delete">Delete</a>
                                             </td>
                                         </tr>
                                         @endforeach

@@ -1,42 +1,69 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid my-container">
-        <div style="padding:50px" >
-                <div class="card-fluid bg-white" >
-                    <div class="row">
-                        <div class="col-md-2 text-center">
-                                <a href="#"><img style="height:100px;" class="rounded mx-auto d-block img-responsive img-fluid max-width:100px" src="http://ichef.bbci.co.uk/news/976/cpsprodpb/12787/production/_95455657_3312a880-230e-474c-b1d9-bb7c94f8b00e.jpg" alt="..."></a>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="row">
-                        @if(count($products) > 0)
-                            @foreach ($products as $product)
-                            <div class="col-md-3" style="padding-bottom:20px; padding-top:20px; ">
-                                <div class="card"style="height:300px" >
-                                    <div class="crop">
-                                        <a href="{{route('detailProduct', $product->id)}}"><img class="rounded mx-auto d-block img-responsive img-fluid " style="height: 100px; max-width: 100%; display: block;" src="{{ URL::to('/upload/'.$product->images[0]->product_image)}}"></a>
-                                    </div>    
-                                        <div class="card-body" style="">
-                                                <h4 class="card-title text-left">{{$product->product_name}}</h4>
-                                                <p class="card-title text-left">{{$product->categories->category_name}}</p>
-                                                <h3 class="card-text-fluid text-right">Rp {{number_format($product->product_price, 0)}}</h3>
-                                                <form method="POST"  style="float:right; margin: 5px 0px;">
-                                                    {{csrf_field()}}
-                                                    <a href="#" class="btn btn-primary" name="buy">Add to Cart</a>
-                                                </form>                                
-                                            </div>    
-                                        </div>
-                                    </div>
+    <div class="container">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Category</h1><br>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+            </div>
+            <div class="col-md-12" style="margin-top: 50px">
+                <h1>Product</h1>
+            </div>
+            <div class="col-lg-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Images</th>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            @if(count($products) > 0)
+                                @foreach ($products as $product)
+                                <tr>
+                                    <td style="width:30px"><img class="img-fluid" src="{{ URL::to('/upload/'.$product->images[0]->product_image)}}"></td>
+                                    <td>{{$product->product_name}}</td>
+                                    <td>{{$product->categories->category_name}}</td>
+                                    <td>Rp {{number_format($product->product_price, 0)}}</td>
+                                    <td><a href="{{route('detailProduct', $product->id)}}" class="btn btn-primary">Detail</a>
+                                    </td>
+                                </tr>
                                 @endforeach
                             @else
-                                <h2>No posts found!</h2>
+                                <h3>No posts found!</h3>
                             @endif
-                    </div>
-                </div>
+                    </tbody>
+                </table>
             </div>
+            
+        </div>
+    </div>
 
         <div class="container-fluid ">
             <div class="col-md-4 offset-4">
