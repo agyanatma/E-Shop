@@ -36,7 +36,7 @@
             <br/>
             <br/>
             <label>Deskripsi Barang:</label>
-            <textarea type="text" class="form-control" name="paragraph_text" rows="5"></textarea>
+            <textarea type="text" class="form-control" name="description" rows="5" maxlength="200"></textarea>
             <br/>
             <br/>
             <label>Gambar:</label>
