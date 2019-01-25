@@ -17,9 +17,9 @@ class ProductController extends Controller
     public function index(){
         $products = Product::with(['images'])->get();
         $categories = Category_product::all();
-        $users = User::get();
+        $users = session()->get('user_session');
         //dd($products);
-        return view('pages.admin.admin')->with('products', $products)->with('categories', $categories)->with('users', $users);
+        return view('pages.admin.index_product')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
     //HAPUS PRODUK
     public function destroy($id){
@@ -46,7 +46,8 @@ class ProductController extends Controller
     //TAMPILAN CREATE PAGE
     public function show(){
         $categories = Category_product::all();
-        return view('pages.admin.create')->with('categories', $categories);
+        $users = session()->get('user_session');
+        return view('pages.admin.create_product')->with('categories', $categories)->with('users', $users);
         
     }
     public function storeDetail(Request $request){
@@ -59,11 +60,13 @@ class ProductController extends Controller
         $name = $request->input('product_name');
         $price = $request->input('product_price');
         $category = $request->input('category_name');
+        $description = $request->input('description');
                 
         $store = new Product;
         $store->product_name = $name;
         $store->product_price = $price;
         $store->category_id = $category;
+        $store->description = $description;
         $store->save();
         $product_id = $store->id;
         //dd($request->all());
@@ -84,11 +87,13 @@ class ProductController extends Controller
         }
         else{
             $upload = new Product_image;
+            $imageId = $product_id;
             $upload->product_id = $imageId;
             $upload->product_image = 'image.png';
             $upload->save();
         }
-        return redirect('/admin')->with('status', 'Data berhasil dimasukkan');
+
+        return redirect('/admin/product')->with('status', 'Data berhasil dimasukkan');
     }
         
     //TAMPILAN EDIT PAGE
@@ -97,8 +102,9 @@ class ProductController extends Controller
         $id = $item->id;
         $images = $item->images;
         $categories = Category_product::all();
+        $users = session()->get('user_session');
         //dd($item->toArray());
-        return view('pages.admin.edit')->with('item', $item)->with('categories', $categories)->with('images', $images);
+        return view('pages.admin.edit_product')->with('item', $item)->with('categories', $categories)->with('images', $images)->with('users', $users);
     }
     public function update(Request $request,$id){
         $this->validate($request,[
@@ -110,11 +116,13 @@ class ProductController extends Controller
         $name = $request->get('product_name');
         $price = $request->get('product_price');
         $category = $request->get('category_name');
+        $description = $request->get('description');
         
         $store = Product::find($id);
         $store->product_name = $name;
         $store->product_price = $price;
         $store->category_id = $category;
+        $store->description = $description;
         $store->save();
     
         $product_id = $store->id;
@@ -133,7 +141,7 @@ class ProductController extends Controller
                 $upload->save();
             }
         }
-        return redirect('/admin')->with('status','Data berhasil update');
+        return redirect('/admin/product')->with('status','Data berhasil update');
     }
     public function deleteImage($id){
         $image = Product_image::find($id);
@@ -153,16 +161,17 @@ class ProductController extends Controller
         $products = Product::with(['images'])->get();
         $categories = Category_product::all();
         $users = session()->get('user_session');
-        //dd(session()->get('user_session'));
+        //$user = Auth::user();
+        //dd($user);
         return view('pages.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
     //DETAIL PAGE
     public function detail($id){
-        $item = Product::with(['images'])->find($id);
-        $id = $item->id;
-        $images = $item->images;
+        $products = Product::with(['images'])->get();
         $categories = Category_product::all();
-        //dd($item->toArray());
-        return view('pages.detail');
+        $users = session()->get('user_session');
+        //dd($products->toArray());
+        return view('pages.detail')->with('products', $products)->with('categories', $categories)->with('users', $users);
+
     }
 }

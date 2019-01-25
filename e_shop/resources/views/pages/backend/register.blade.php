@@ -28,7 +28,7 @@
             <input type="text" class="form-control" name="city" placeholder="Kota" value="{{old('city')}}">
             <br/>
             <label>Kode Pos:</label>
-            <input type="text" class="form-control" name="postal" placeholder="Kode Pos" value="{{old('postal')}}">
+            <input type="number" class="form-control" name="postal" placeholder="Kode Pos" value="{{old('postal')}}">
             <br/>
             <label>Profile Picture:</label><br/>
             <input type="file" name="img">

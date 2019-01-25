@@ -5,9 +5,22 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\File;
 use App\User;
+use App\Product;
+use App\Category_product;
+use App\Orders;
 use Auth;
 class UserController extends Controller
 {
+
+    public function dashboard(){
+        $item = User::all();
+        $users = session()->get('user_session');
+        $product = Product::count();
+        $category = Category_product::count();
+        $order = Orders::count();
+        return view('pages.admin.dashboard')->with('users', $users)->with('item', $item)->with('product', $product)->with('category', $category)->with('order', $order);
+    }
+
     public function login(){
         return view ('pages.login');
     }
@@ -21,19 +34,49 @@ class UserController extends Controller
         ]);
         $email = $request->email;
         $password = $request->password;
-        if($email == 'admin@mail.com' AND $password == 'agyanatma'){
-            return redirect('/admin');
-        }
-        else{
+        $user = User::where('email', $email)->get();
+        if(count($user)>0){
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)){
                 $request->session()->put('user_session', Auth::user());
                 return redirect()->intended('/');
             } 
             else {
-                Session::flash ( 'message', "Invalid Credentials , Please try again." );
-                return redirect()->back();
+                return redirect()->back()->with('status', 'Email atau password salah!');
             }
+        }
+        else{
+            return redirect()->back()->with('failed', 'Pengguna tidak terdaftar');
+        }
+    }
+
+    public function loginAdmin(Request $request){
+
+        $this->validate($request,[
+            'email' => 'required|email',
+            'password' => 'required',
+        ],
+        [
+            'required' => 'Masukkan email dan password untuk masuk!'
+        ]);
+
+        $email = $request->email;
+        $password = $request->password;
+        $user = User::where('email', $email)->get();
+        //$admin = User::where('admin','=',1)->get();
+        //dd($user->toArray());
+        if(count($user)>0){
+            $credentials = $request->only('email', 'password');
+            if (Auth::attempt($credentials)){
+                $request->session()->put('user_session', Auth::user());
+                return redirect('admin/dashboard');
+            } 
+            else {
+                return redirect()->back()->with('status', 'Email atau password salah!');
+            }
+        }
+        else{
+            return redirect()->back()->with('failed', 'Pengguna tidak terdaftar');
         }
     }
     public function signup(Request $request){

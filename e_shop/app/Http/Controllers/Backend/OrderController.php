@@ -5,6 +5,16 @@ class OrderController extends Controller
 {
     public function index(){
         $orders = Order::all();
-        return view('pages.order')->with('orders', $orders);
+        return view('pages.admin.index_order')->with('orders', $orders);
+    }
+
+    public function storeProduct(){
+
+    }
+
+    //FRONT END
+    public function checkout(){
+        $products = Product::get();
+        $users = User::get_browser();
     }
 }

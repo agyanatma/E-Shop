@@ -1,50 +1,59 @@
-@extends('layouts.app')
+@extends('layout.user')
 
 @section('content')
-
-<div class="container-fluid my-container">
-        <div style="padding:50px" >
-                <div class="card-fluid bg-white" >
-                    <div class="row row-centered" style="padding:20px ">
-                        <div class="col-md-2 ">
-                            <a href="sortheadset"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[0]->category_image}}"></a>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="sortkeyboard"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[1]->category_image}}"></a>
-                        </div>
-                        <div class="col-sm-2">
-                            <a href="sortleptop"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[2]->category_image}}"></a>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="sortmonitor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[3]->category_image}}"></a>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="sortprocessor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[8]->category_image}}"></a>
-                        </div>
-                        <div class="col-md-2" >
-                                <a href="#"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;" src="upload/lain-lain.png"></a>
-                        </div>
-                    </div>
-                </div>
-            <div class="container-fluid my-container ">
-                <div class="row">
-                        @if(count($products) > 0)
-                            @foreach ($products as $product)
-                            <div class="col-md-3" style="padding-bottom:20px; padding-top:20px; ">
-                                <div class="card card-box " >
-                                    <div class="card-header">
-                                        <a href="{{route('detailProduct', $product->id)}}"><img class="card-image rounded mx-auto d-block img-responsive " style="" src="{{ URL::to('/upload/'.$product->images[0]->product_image)}}"></a>
-                                    </div>
-                                    <div class="card-body clearfix" >
-                                            <h6 class="card-title-box">{{$product->product_name}}</h6>
-                                            <h5 class="card-price-box">Rp {{number_format($product->product_price, 0)}}</h5>
-                                            <form class="card-text-box-button" method="POST" >
-                                                {{csrf_field()}}
-                                                <a href="#" class="btn btn-info" name="buy"><i class="fas fa-shopping-basket"></i></a>
-                                            </form>
-                                    </div>    
-                                </div>
-                            </div>
+    <div class="container">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Category</h1><br>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
+            </div>
+            <div class="col-sm-2">
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
+            </div>
+            <div class="col-md-12" style="margin-top: 50px">
+                <h1>Product</h1>
+            </div>
+            <div class="col-lg-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Images</th>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            @if(count($products) > 0)
+                                @foreach ($products as $product)
+                                <tr>
+                                    <td style="width:30px"><img class="img-fluid" src="{{ URL::to('/upload/'.$product->images[0]->product_image)}}"></td>
+                                    <td>{{$product->product_name}}</td>
+                                    <td>{{$product->categories->category_name}}</td>
+                                    <td>Rp {{number_format($product->product_price, 0)}}</td>
+                                    <td><a href="{{route('detailProduct', $product->id)}}" class="btn btn-primary">Detail</a>
+                                    </td>
+                                </tr>
                                 @endforeach
                             @else
                                 <h2>No posts found!</h2>

@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('product_id');
             $table->decimal('qty');
             $table->timestamps();
+            $table->boolean('status')->default(0);
         });
     }
 
