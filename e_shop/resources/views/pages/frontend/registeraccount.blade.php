@@ -10,43 +10,50 @@
             @endforeach
         </ul>
     @endif
+
     <div class="container-fluid">
-        <div class="row align-items-center">
-            <div class="col-md-6" style="padding:20px; margin:center;">
-                <div class="card" style="padding:20px;">
-                  <img src="" alt="...">
-                </div>
+        <h1 class="text-center col-md-2 offset-5" style="margin-top: 15px">{{ config('app.name', 'E-Shop') }}</h1>
+        <div class="row">
+            <div class="col-md-6" >
+                    <img class="rounded mx-auto d-block img-responsive img-fluid" style="height: auto; max-width: 100%;" width="500px" src="upload/Logo-edit.png">
             </div>
-            <div class="col-md-6">
-                <div class="card " style="padding:10px">
-                    <div class="form-group ">
-                    <h3 class="text-center">Sign Up</h3>
-                    <form action="{{route('store.registeraccount')}}" method="post" class="container" enctype="multipart/form-data">
+            <div class="col-md-6 register-form"style="margin-top: 15px">
+                <div class="card card-register " style="padding:10px" >
+                    <div class="form-group " >
+                    <h3 class="card-title">Sign Up</h3>
+                    <form  action="{{route('store.registeraccount')}}" method="post" class="container" enctype="multipart/form-data">
                         {{csrf_field()}}
+                        <div class="form-group">
                         <label>Email:</label>
                         <input type="email" class="form-control" name="email" placeholder="example@mail.com">
-                        <br/>
+                        </div>
+                        <div class="form-group">
                         <label>Password:</label>
                         <input type="password" class="form-control" name="password" placeholder="Password">
-                        <br/>
+                        </div>
+                        <div class="form-group">
                         <label>Nama:</label>
                         <input type="text" class="form-control" name="fullname" placeholder="Nama">
-                        <br/>
+                        </div>
+                        <div class="form-group">
                         <label>Alamat:</label>
                         <input type="text" class="form-control" name="address" placeholder="Alamat">
-                        <br/>
+                        </div class="form-group">
+                        <div>
                         <label>Kota:</label>
                         <input type="text" class="form-control" name="city" placeholder="Kota">
-                        <br/>
+                        </div>
+                        <div class="form-group">
                         <label>Kode Pos:</label>
                         <input type="text" class="form-control" name="postal" placeholder="Kode Pos">
-                        <br/>
+                        </div>
+                        <div class="form-group">
                         <label>Profile Picture:</label><br/>
                         <input type="file" name="img">
-                        <br/>
-                        <br/>
-                        <button type="submit" class="btn btn-primary" style="float: right" name="action" value="create">Sign Up</button>
-                        
+                        </div>
+                        <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block" style="float: right" name="action" value="create">Sign Up</button>
+                        </div>
                     </form>
                     </div>
                 </div>

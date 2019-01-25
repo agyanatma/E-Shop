@@ -11,12 +11,58 @@ use Auth;
 
 class UserController extends Controller
 {
+
+    
     public function user(){
-        
-        //dd($profile->toArray();
+        // /$users = User::find($id);
+        //dd($profile->toArray());->with('users', $users)
+        //$users = User::with(['profile_image'])->get();
+         //$users = session()->get('user_session');
+        //dd($users->toArray());
         return view('pages.frontend.user');
     }
     
+    public function update(Request $request,$id){
+        $this->validate($request,[
+            'email' => 'required|email',
+            'fullname' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'postal' => 'required|numeric',
+            'img' => 'image|mimes:jpeg,png,jpg'
+        ]);
+        $email = $request->get('email');
+        $name = $request->get('fullname');
+        $address = $request->get('address');
+        $city = $request->get('city');
+        $postal = $request->get('postal');
+                
+        $update = Product::find($id);
+        $update->email = $email;
+        $update->fullname = $name;
+        $update->address = $address;
+        $update->city = $city;
+        $update->postal_code = $postal;  
+        //dd($request->all());
+                
+        if($request->hasFile('img')){
+            $edit = public_path('\upload\{$update->profile_image}');
+            if(File::exists($edit)){
+                unlink($edit);  
+            }
+            $image = $request->file('img');
+             $imageName = $image->getClientOriginalName();
+            $storage = public_path('\upload');
+            $image->move($storage, $imageName);
+            $update->profile_image = $imageName;
+        }
+        $update->save();
+        return redirect()->back()->withErrors('Data berhasil update!');           
+    }
+    
+    public function password($id){
+    }
+
     public function loginaccount(){
         
         return view ('pages.frontend.loginaccount');
@@ -66,7 +112,6 @@ class UserController extends Controller
             'postal' => 'required|numeric',
             'img' => 'image|mimes:jpeg,png,jpg'
         ]);
-
         $user = new User();
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
@@ -86,8 +131,7 @@ class UserController extends Controller
             $user->profile_image = 'default.jpg';
         }
         $user->save();
-
-        return redirect('loginaccount')->with('alert-success','Anda berhasil terdaftar');
+        return redirect('login')->with('alert-success','Anda berhasil terdaftar');
     }
 
     public function logout(){

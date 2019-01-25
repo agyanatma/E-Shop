@@ -2,52 +2,42 @@
 
 @section('content')
 
-    <div class="container-fluid my-container">
-        @if(\Session::has('alert'))
-            <div class="alert alert-danger">
-                <div>{{Session::get('alert')}}</div>
-            </div>
+   
+        @if(count($errors)>0)
+            <p class="alert alert-danger">Masukkan email dan password untuk masuk</p>
         @endif
-        @if(\Session::has('alert-success'))
-            <div class="alert alert-success">
-                <div>{{Session::get('alert-success')}}</div>
-            </div>
-        @endif
-    </div>
-    <nav class="navbar-default ">
-            <div class="container-fluid">
-                <div class="panel">
-                    <div class="panel-body">
-                            <div class="row ">
-                                    <div class="col-md-6" style="padding:20px; margin:center;">
-                                        <div class="card" style="padding:20px;">
-                                          <img src="" alt="...">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                            <div class="form-group container-fluid">
-                                                    <h3 class="text-center">Login</h3>
-                                                    <form action="{{route('store.loginaccount')}}" method="post" class="container">
-                                                        {{csrf_field()}}
-                                                        <div>
-                                                        <label>Email:</label>
-                                                        <input type="email" class="form-control" name="email" placeholder="example@mail.com">
-                                                        <br>
-                                                        </div>
-                                                        <div>
-                                                        <label>Password:</label>
-                                                        <input type="password" class="form-control" name="password" placeholder="Password">
-                                                        <br>
-                                                        </div>
-                                                        <div >
-                                                        <button type="submit" class="btn btn-primary" style="float: right" name="action" value="create">Login</button>
-                                                        </div>
-                                                    </form>
+   
+        <div class="container-fluid">
+            <h1 class="text-center col-md-2 offset-5" style="margin-top: 15px">{{ config('app.name', 'E-Shop') }}</h1>
+                <div class="row">
+                        <div class="col-md-6" >
+                                <img class="rounded mx-auto d-block img-responsive img-fluid" style="height: auto; max-width: 100%;" width="500px" src="upload/Logo-edit.png">
+                            </div>
+                            <div class="col-md-6 login-form "  style="margin-top: 15px">
+                                <div class="card card-login" >
+                                    <div class="form-group ">
+                                            <h3 class="card-title" class="text-center">Sign In</h3>
+                                            <form action="{{route('store.loginaccount')}}" method="post" class="container">
+                                                {{csrf_field()}}
+                                                <div class="form-group">
+                                                <label>Email:</label>
+                                                <input type="email" class="form-control" name="email" placeholder="example@mail.com" value="{{old('email')}}">
                                                 </div>
+                                                <div class="form-group">
+                                                <label>Password:</label>
+                                                <input type="password" class="form-control" name="password" placeholder="Password">
+                                                </div>
+                                                <div >
+                                                <button type="submit" class="btn btn-info btn-block" style="float: center" name="action" value="create">Login</button>
+                                                </div>
+                                            </form>
                                     </div>
+                                        
+                                </div>
                             </div>
                     </div>
-                </div>
             </div>
-    </nav>
+        </div>
+    </div>
+                                    
 @endsection

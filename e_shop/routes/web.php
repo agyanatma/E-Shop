@@ -22,6 +22,14 @@ Route::get('/detailproduct', 'Frontend\ProductController@detailproduct');
 Route::get('/wishlist', 'Frontend\ProductController@wishlist');
 Route::get('product', 'Frontend\ProductController@index');
 Route::get('/category/{id}/image', 'Frontend\ProductController@index');
+
+//SortPage
+Route::get('/sortheadset', 'Frontend\SortController@sortheadset');
+Route::get('/sortkeyboard', 'Frontend\SortController@sortkeyboard');
+Route::get('/sortleptop', 'Frontend\SortController@sortleptop');
+Route::get('/sortmonitor', 'Frontend\SortController@sortmonitor');
+Route::get('/sortprocessor', 'Frontend\SortController@sortprocessor');
+
 //CategoryPage
 Route::get('/category', 'Frontend\CategoryController@category');
 
@@ -32,6 +40,10 @@ Route::post('/loginaccount/log', 'Frontend\UserController@loginaccountStore')->n
 Route::get('/registeraccount', 'Frontend\UserController@registeraccount')->name('registeraccountPage');
 Route::post('/registeraccount/reg', 'Frontend\UserController@registeraccountStore')->name('store.registeraccount');
 Route::get('/logout', 'Frontend\UserController@logout')->name('logoutUser');
+Route::get('user/{id}/user', 'Frontend\UserController@user')->name('user');
+Route::post('user/{id}/edit', 'Frontend\UserController@update')->name('editUser');
+Route::get('user/{id}/password', 'Frontend\UserController@password')->name('changePassword');
+Route::post('user/{id}/password/changed', 'Frontend\UserController@updatePass')->name('updatePassword');
 //Route::get('/upload/{Logo.png}','Frontend\UserController@registeraccount'); 
 
 //OrderPage

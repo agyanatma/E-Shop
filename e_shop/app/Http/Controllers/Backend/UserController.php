@@ -81,6 +81,7 @@ class UserController extends Controller
         //dd($profile->toArray());
         return view('pages.profile')->with('users', $users);
     }
+    
     public function update(Request $request,$id){
         $this->validate($request,[
             'email' => 'required|email',

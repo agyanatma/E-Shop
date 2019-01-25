@@ -1,50 +1,170 @@
 header{
-    background-color:#62757f;
+    background-color:#616E7D;
+    background-size: cover;
+    background-position: center;
+}
+
+footer{
+    background-color:#616E7D;
     background-size: cover;
     background-position: center;
 }
 
 body{
-    background-color: #e0f2f1;
+    
+    background-size: cover;
+    background-color: #eeeeee;
     font: 15px/1.5 Arial, Helvetica, sans-serif;
     margin: auto;
-
     font-weight: 300;
 }
 
+
+link{
+    color: white;
+    
+}
 .container-fluid{
     width: 100%;
     margin:auto;
-    overflow: hidden;
-    padding: 10;
+
 }
+.nav-link{
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+/*Animasi Card */
+.card:hover{
+    -moz-window-shadow: -1px 9px 40px -12px rgba(0,0,0,0,0);
+    -webkit-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0,0);
+    -moz-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0,0);
+    box-shadow: -1px 9px 40px -12px rgba(0,0,0,0,0);
+}
+
 .my-container{
     width: 100%;
     height: 100%;
-    background-color:#62757f;
     padding: 0;
     text-align: center;
 }
 
 .row{
     align-items: center;
+    padding:0px;
+}
+
+.row-centered{
+    text-align: center;
+}
+
+.col-centered{
+    display: inline-block;
+    float:none;
+    text-align: left;
+    margin-right: -4px;
 }
 
 .card{
     background-color: white;
     max-width:100%;
-    padding:20px; 
-    border: 10px;
     max-height:auto;
-    box-shadow: 10px #000000;
+}
+
+.card-box{
+    background-color: white;
+    height :325px;
+    width: 400px;
+    padding: 0px;
+    box-shadow: 0px 0px 30px 0px grey;
+}
+
+.card-header{
+    height: 300px;
+    padding: 0px;
+    
+}
+
+.card-body{
+    padding: 0px;
+    height: 200px;
+}
+
+.card-image{
+    height: 200px; 
+    width: 275px; 
+    object-fit: cover;
+    background-color: #17A2B8;
+}
+
+.card-title-box{
+    text-align: center;
+    padding-top: 15px;
+    height: 70px;
+    max-width: auto;
+}
+
+.card-price-box{
+    float: left;
+    padding: 0px;
+    margin-left: 15px;
+    
+}
+.card-text-box-button{
+    float: right;
+    padding: 0px;
+    margin-right: 15px;
+}
+
+.card-title{
+    text-align: center;
+}
+
+.card-login{
+    max-height:auto;
+    height: 447px;
+    max-width: auto;
+    padding: 10px;
+    box-shadow: 0px 0px 15px 0px gray;
+}
+
+.card-register{
+    max-height:auto;
+    
+    max-width: auto;
+    padding: 10px;
+    box-shadow: 0px 0px 15px 0px gray;
+}
+
+.col-md-6{
+    padding:0px;
+}
+
+.login-form{
+    padding-right: 20px;
+    border-radius: 10px;
+    padding-bottom: 40px;
+    
+}
+
+.register-form{
+    padding-right: 20px;
+    border-radius: 10px;
+    padding-bottom: 15px;
+    
+}
+
+.form-group{
+    padding:bottom 10px;
 }
 
 h1{
-    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #17A2B8;
     text-align: center;
     text-transform: uppercase;
-    font-size: 50px;
-
+    font-size: 40px;
+    box-shadow: 0px 0px 10px 0px gray;
+    
 }
 
 h3{
@@ -82,5 +202,24 @@ p{
     color: white;
     background-color: #17A2B8;
 }
+.btn-profile{
+    margin-bottom: 10px
+}
 
+.div-back{
+    padding: 50px;
 
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+.responsive {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
