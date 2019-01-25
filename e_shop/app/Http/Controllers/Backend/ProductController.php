@@ -23,7 +23,7 @@ class ProductController extends Controller
         $products = Product::with(['images'])->get();
         $categories = Category_product::all();
         $users = session()->get('user_session');
-        //dd($products);
+        //dd($products->toArray());
         return view('pages.admin.index_product')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
 
@@ -71,11 +71,13 @@ class ProductController extends Controller
         $name = $request->input('product_name');
         $price = $request->input('product_price');
         $category = $request->input('category_name');
+        $description = $request->input('description');
                 
         $store = new Product;
         $store->product_name = $name;
         $store->product_price = $price;
         $store->category_id = $category;
+        $store->description = $description;
         $store->save();
 
         $product_id = $store->id;
@@ -99,6 +101,7 @@ class ProductController extends Controller
         }
         else{
             $upload = new Product_image;
+            $imageId = $product_id;
             $upload->product_id = $imageId;
             $upload->product_image = 'image.png';
             $upload->save();
@@ -131,11 +134,13 @@ class ProductController extends Controller
         $name = $request->get('product_name');
         $price = $request->get('product_price');
         $category = $request->get('category_name');
+        $description = $request->get('description');
         
         $store = Product::find($id);
         $store->product_name = $name;
         $store->product_price = $price;
         $store->category_id = $category;
+        $store->description = $description;
         $store->save();
     
         $product_id = $store->id;
