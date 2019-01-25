@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('profile_image');
             $table->rememberToken();
             $table->timestamps();
+            $table->boolean('admin')->default(0);
         });
     }
 

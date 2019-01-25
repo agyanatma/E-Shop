@@ -12,22 +12,22 @@
                 <h1>Category</h1><br>
             </div>
             <div class="col-sm-2">
-                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
             </div>
             <div class="col-sm-2">
-                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
             </div>
             <div class="col-sm-2">
-                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
             </div>
             <div class="col-sm-2">
-                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
             </div>
             <div class="col-sm-2">
-                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
             </div>
             <div class="col-sm-2">
-                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
             </div>
             <div class="col-md-12" style="margin-top: 50px">
                 <h1>Product</h1>

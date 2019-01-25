@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
 class User extends Authenticatable
 {
     protected $table = 'users';
@@ -17,5 +18,13 @@ class User extends Authenticatable
 
     public function order(){
         return $this->hasMany('App\Orders');
+    }
+
+    public function admin(){
+        return $this->admin==1;
+    }
+
+    public function users(){
+        return $this->id;
     }
 }

@@ -10,11 +10,13 @@ class CategoryController extends Controller
     
     public function index(){
         $categories = Category_product::get();
-        return view('pages.admin.index_category')->with('categories', $categories);
+        $users = session()->get('user_session');
+        return view('pages.admin.index_category')->with('categories', $categories)->with('users', $users);
     }
 
     public function new(){
-        return view('pages.admin.category');
+        $users = session()->get('user_session');
+        return view('pages.admin.create_category')->with('users', $users);
     }
 
     public function store(Request $request){
@@ -38,7 +40,7 @@ class CategoryController extends Controller
         }
         $new->save();
 
-        return redirect('/category')->with('status','Data berhasil ditambah');
+        return redirect('/admin/category')->with('status','Data berhasil ditambah');
         
     }
 
@@ -46,9 +48,10 @@ class CategoryController extends Controller
 
         $categories = Category_product::find($id);
         $images = ['categories' => [$categories]];
+        $users = session()->get('user_session');
         //$images = $categories->category_image;
         //dd($images);
-        return view('pages.admin.edit_category')->with('categories', $categories, $images);
+        return view('pages.admin.edit_category')->with('categories', $categories, $images)->with('users', $users);
     }
 
     public function update(Request $request,$id){
@@ -79,7 +82,7 @@ class CategoryController extends Controller
             $store->save();
         }
 
-        return redirect()->route('indexCategory')->with('status','Data berhasil diubah');
+        return redirect('/admin/category')->with('status','Data berhasil diubah');
     }
 
     public function destroy($id){
@@ -97,4 +100,6 @@ class CategoryController extends Controller
         return redirect()->back()->with('status', 'Data berhasil dihapus');
         
     }
+
+
 }

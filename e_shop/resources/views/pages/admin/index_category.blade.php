@@ -11,7 +11,7 @@
             <div class="col">
                 <form class="form-inline">
                     <div class="col-lg-6" style="float:left">
-                        <h1>Category</h1><br>
+                        <h1><span class="fas fa-clipboard-list" aria-hidden="true"></span>  Category</h1><br>
                     </div>
                     <div class="col-lg-6">
                         <a href="{{ route('newCategory')}}" type="submit" class="btn btn-primary" style="float:right">Add Category</a>
@@ -32,10 +32,13 @@
                                     @if(count($categories) > 0)
                                         @foreach ($categories as $category)
                                         <tr>
-                                            <td style="width:30px"><img class="img-fluid" src="{{ URL::to('/upload/'.$category->category_image)}}"></td>
-                                            <td>{{$category->category_name}}</td>
-                                            <td><a href="{{ route('editCategory', $category->id) }}" class="btn btn-warning" name="edit">Edit</a>
-                                                <a href="{{ route('deleteCategory', $category->id) }}" class="btn btn-danger" name="delete">Delete</a>
+                                            <td class="align-middle" style="width:80px"><img class="img" style="object-fit:cover" width="50px" height="50px" src="{{ URL::to('/upload/'.$category->category_image)}}"></td>
+                                            <td class="align-middle">{{$category->category_name}}</td>
+                                            <td class="align-middle" style="width:160px">
+                                                <span class="float-right">
+                                                    <a href="{{ route('editCategory', $category->id) }}" class="btn btn-warning" name="edit">Edit</a>
+                                                    <a href="{{ route('deleteCategory', $category->id) }}" class="btn btn-danger" name="delete">Delete</a>
+                                                </span>
                                             </td>
                                         </tr>
                                         @endforeach
