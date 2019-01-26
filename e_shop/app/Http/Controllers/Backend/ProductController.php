@@ -195,11 +195,12 @@ class ProductController extends Controller
 
     //DETAIL PAGE
     public function detail($id){
-        $products = Product::with(['images'])->get();
+        $products = Product::with(['images'])->find($id);
+        $id = $products->id;
+        $images = Product_image::where('product_id','=',$id)->get();
         $categories = Category_product::all();
         $users = session()->get('user_session');
-        //dd($products->toArray());
-        return view('pages.detail')->with('products', $products)->with('categories', $categories)->with('users', $users);
-
+        //dd($images->toArray());
+        return view('pages.detail')->with('products', $products)->with('categories', $categories)->with('users', $users)->with('images', $images);
     }
 }

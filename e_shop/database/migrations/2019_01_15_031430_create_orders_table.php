@@ -18,7 +18,8 @@ class CreateOrdersTable extends Migration
             $table->date('order_date');
             $table->string('user_id');
             $table->string('product_id');
-            $table->decimal('qty');
+            $table->string('qty')->default(1);
+            $table->string('total');
             $table->timestamps();
             $table->boolean('status')->default(0);
         });

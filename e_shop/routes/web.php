@@ -75,8 +75,8 @@ Route::group(['middleware'=>['checkUser']],function(){
     Route::post('profile/{id}/password/changed', 'Backend\UserController@updatePass')->name('updatePassword');
 
     //ORDERING
-    Route::post('order/store', 'Backend\OrderController@addCart')->name('addCart');
-    Route::get('order/{id}/checkout', 'Backend\OrderController@checkout')->name('checkout');
+    //Route::post('order/store', 'Backend\OrderController@addCart')->name('addCart');
+    Route::post('product/addcart', 'Backend\OrderController@checkout')->name('addCart');
     Route::post('order/{id}/checkout/bayar', 'Backend\OrderController@status')->name('paid');
     
     

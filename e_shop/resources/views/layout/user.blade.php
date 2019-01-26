@@ -62,6 +62,7 @@
     </nav>
     @yield('content')
 <script>
+
     $("document").ready(function(){
 
         setTimeout(function(){
