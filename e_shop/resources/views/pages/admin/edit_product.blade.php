@@ -29,6 +29,9 @@
                 @endforeach
             </select>
             <br><br>
+            <label>Deskripsi Barang:</label>
+            <textarea type="text" class="form-control" name="description" rows="5" maxlength="200" placeholder="Deskripsi Barang (Max. 200 Kata)" value="{{$item->description}}"></textarea>
+            <br><br>
             <label>Gambar:</label>
             <input type="file" name="img[]" multiple>
             <br><br>

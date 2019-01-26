@@ -13,13 +13,14 @@ class UserController extends Controller
 {
 
     
-    public function user(){
-        // /$users = User::find($id);
-        //dd($profile->toArray());->with('users', $users)
-        //$users = User::with(['profile_image'])->get();
+    public function user($id){
          //$users = session()->get('user_session');
-        //dd($users->toArray());
-        return view('pages.frontend.user');
+        $users = User::find($id);
+        //$products = Product::with(['images'])->get();
+        //$users = User::with(['images'])->get();
+        //dd($profile->toArray())
+        //dd($users->with('profile_image', $user))->toArray();
+        return view('pages.frontend.user')->with('users', $users);
     }
     
     public function update(Request $request,$id){

@@ -25,18 +25,17 @@
             <br/>
             <label>Kategori:</label>
             <div class="input-group">
-                    
-                    <select class="form-control" name="category_name">
-                        @foreach($categories as $category)
-                            <option value="{{$category->id}}">{{$category->category_name}}</option>
-                        @endforeach
-                    </select>
-                    <a href="{{route('newCategory')}}" type="button" class="btn btn-info float-right d-inline" style="margin-left:10px" name="category_add">Tambah Kategori</a>
+                <select class="form-control" name="category_name">
+                    @foreach($categories as $category)
+                        <option value="{{$category->id}}">{{$category->category_name}}</option>
+                    @endforeach
+                </select>
+                <a href="{{route('newCategory')}}" type="button" class="btn btn-info float-right d-inline" style="margin-left:10px" name="category_add">Tambah Kategori</a>
             </div>
             <br/>
             <br/>
             <label>Deskripsi Barang:</label>
-            <textarea type="text" class="form-control" name="description" rows="5" maxlength="200"></textarea>
+            <textarea type="text" class="form-control" name="description" rows="5" maxlength="200" placeholder="Deskripsi Barang (Max. 200 Kata)"></textarea>
             <br/>
             <br/>
             <label>Gambar:</label>

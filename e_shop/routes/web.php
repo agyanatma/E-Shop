@@ -22,14 +22,27 @@ Route::get('/detailproduct', 'Frontend\ProductController@detailproduct');
 Route::get('/wishlist', 'Frontend\ProductController@wishlist');
 Route::get('product', 'Frontend\ProductController@index');
 Route::get('/category/{id}/image', 'Frontend\ProductController@index');
+Route::get('category/{category_name}', 'Frontend\CategoryController@product')->name('productCategory');
+Route::get('product/{id}/detailproduct', 'Frontend\ProductController@detailproduct')->name('detailproduct');
+Route::get('/searchcontent', 'Frontend\ProductController@searchcontent');
+Route::get('/css/costum1.css', function(){
+    return view('css.costum1.css');
+});
 
 //SortPage
-Route::get('/sortheadset', 'Frontend\SortController@sortheadset');
+Route::get('/sortheadphone', 'Frontend\SortController@sortheadphone');
 Route::get('/sortkeyboard', 'Frontend\SortController@sortkeyboard');
 Route::get('/sortleptop', 'Frontend\SortController@sortleptop');
 Route::get('/sortmonitor', 'Frontend\SortController@sortmonitor');
 Route::get('/sortprocessor', 'Frontend\SortController@sortprocessor');
-
+Route::get('/sortbattery', 'Frontend\SortController@sortbattery');
+Route::get('/sortcpu', 'Frontend\SortController@sortcpu');
+Route::get('/sorthdmi', 'Frontend\SortController@sorthdmi');
+Route::get('/sortmotherboard', 'Frontend\SortController@sortmotherboard');
+Route::get('/sortmouse', 'Frontend\SortController@sortmouse');
+Route::get('/sortpowercable', 'Frontend\SortController@sortpowercable');
+Route::get('/sortprinter', 'Frontend\SortController@sortprinter');
+Route::get('/lainlain', 'Frontend\SortController@lainlain');
 //CategoryPage
 Route::get('/category', 'Frontend\CategoryController@category');
 
@@ -45,6 +58,10 @@ Route::post('user/{id}/edit', 'Frontend\UserController@update')->name('editUser'
 Route::get('user/{id}/password', 'Frontend\UserController@password')->name('changePassword');
 Route::post('user/{id}/password/changed', 'Frontend\UserController@updatePass')->name('updatePassword');
 //Route::get('/upload/{Logo.png}','Frontend\UserController@registeraccount'); 
+
+
+//CartPage
+Route::post('/cart', 'Frontend\CartController@index')->name('cart.index');
 
 //OrderPage
 Route::get('/order', 'Frontend\OrderController@order');
@@ -65,8 +82,8 @@ Route::get('/order', 'Frontend\OrderController@order');
     Route::get('logout', 'Backend\UserController@logout')->name('logoutUser');
 
     //INDEX
-    Route::get('category/{category_name}', 'Backend\CategoryController@product')->name('productCategory');
-    Route::get('product/{id}/detail', 'Backend\ProductController@detail')->name('detailProduct');
+    //Route::get('category/{category_name}', 'Backend\CategoryController@product')->name('productCategory');
+    //Route::get('product/{id}/detail', 'Backend\ProductController@detail')->name('detailProduct');
 //});
 
 //ADMIN ONLY===================================================================================================================================

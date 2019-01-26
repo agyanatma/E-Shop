@@ -12,22 +12,22 @@
                 <h1>Category</h1><br>
             </div>
             <div class="col-sm-2">
-                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
             </div>
             <div class="col-sm-2">
-                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
             </div>
             <div class="col-sm-2">
-                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
             </div>
             <div class="col-sm-2">
-                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
             </div>
             <div class="col-sm-2">
-                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
             </div>
             <div class="col-sm-2">
-                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/{{$categories[0]->category_image}}"></a>
+                <a href="#"><img class="img-thumbnail" width="500px" src="/upload/image.png"></a>
             </div>
             <div class="col-md-12" style="margin-top: 50px">
                 <h1>Product</h1>
@@ -56,14 +56,13 @@
                                 </tr>
                                 @endforeach
                             @else
-                                <h3>No posts found!</h3>
+                                <h2>No posts found!</h2>
                             @endif
-                    </tbody>
-                </table>
+                </div>
             </div>
-            
         </div>
-    </div>
+</div>
+        
 
-    
 @endsection
+

@@ -11,15 +11,15 @@ Shopping Cart
                 <div class="jumbotron" style="padding:0px; margin:auto">
                         <div class="row ">
                             <div class="col-md-4 " style="float:left">
-                                <img src="upload/Logo-edit.png" style="margin:auto; max-height:200px; max-width:80% "  class="rounded mx-auto d-block img-responsive img-fluid" class="img-circle" alt="..." >
+                                <img src="{{URL::to('/upload/'.$users->profile_image)}} style="margin:auto; max-height:200px; max-width:80% "  class="rounded mx-auto d-block img-responsive img-fluid" class="img-circle" alt="..." >
                             </div>
                             <div class="col-md-6">
                                 <h1>Welcome</h1>
                                 <div class="text-left">
                                     <form class="form-group">
-                                            <h3>Faisal Rizky Rahadian</h3>
-                                            <p>Komplek saruni, pandeglang</p>
-                                            <p>42216</p>
+                                            <h3>{{$users->fullname}}</h3>
+                                            <p>{{$users->address}}, {{$users->city}}</p>
+                                            <p>{{$users->postal_code}}</p>
                                     </form>
                                 </div>
                             </div>
@@ -29,30 +29,30 @@ Shopping Cart
                     </div>
                 </div>
                 <div class="panel-body">
-                        <form action="" method="post" class="container clearfix " enctype="multipart/form-data">
+                        <form action="{{route('editProfile', $users->id)}}" method="post" class="container clearfix " enctype="multipart/form-data">
                             {{csrf_field()}}
                             <div class="form-group">
                             <input type="file" name="img">
                             </div>
                             <div class="form-group">
                             <label>Email:</label>
-                            <input type="email" class="form-control" name="email" placeholder="example@mail.com" value="">
+                            <input type="email" class="form-control" name="email" placeholder="example@mail.com" value="{{$users->email}}">
                             </div>
                             <div class="form-group">
                             <label>Nama:</label>
-                            <input type="text" class="form-control" name="fullname" placeholder="Nama" value="">
+                            <input type="text" class="form-control" name="fullname" placeholder="Nama" value="{{$users->fullname}}">
                             </div>
                             <div class="form-group">
                             <label>Alamat:</label>
-                            <input type="text" class="form-control" name="address" placeholder="Alamat" value="">
+                            <input type="text" class="form-control" name="address" placeholder="Alamat" value="{{$users->address}}">
                             </div>
                             <div class="form-group">
                             <label>Kota:</label>
-                            <input type="text" class="form-control" name="city" placeholder="Kota" value="">
+                            <input type="text" class="form-control" name="city" placeholder="Kota" value="{{$users->city}}">
                             </div>
                             <div class="form-group">
                             <label>Kode Pos:</label>
-                            <input type="text" class="form-control" name="postal" placeholder="Kode Pos" value="">
+                            <input type="text" class="form-control" name="postal" placeholder="Kode Pos" value="{{$users->postal_code}}">
                             </div>
                             <div class="form-group " >
                             <button type="submit" class="btn btn-info btn-profile " name="action" value="update">Ubah Profile</button>

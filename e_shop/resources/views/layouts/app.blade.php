@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     
-    <link rel="stylesheet" href="css/costum1.css">
+    <link rel="stylesheet" href="/css/costum1.css">
 
     <title>{{ config('app.name', 'E-Shop') }}</title>
 </head>
@@ -26,13 +26,25 @@
            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 
                    <ul class="navbar-nav ml-auto">
-                               <div class="nav-item" style="margin-right:10px">
-                                   <input class="form-control form-control-borderless" type="search" placeholder="Search topics or keywords">
-                               </div>
-                               <div class="nav-item" style="margin-right:10px">
-                                   <button class="btn btn-info " type="submit"><i class="fas fa-search"></i></button>
-                               </div>
-                      @if(Auth::user())
+                        <form class="navbar-form" role="search" method="get" action="{{url("/searchcontent")}}">
+                                <div class="input-group">
+                                    <div class="nav-item" style="margin-right:10px">
+                                        <input class="form-control form-control-borderless"  type="search" placeholder="Search topics or keywords" name="title">
+                                    </div>
+                                    <div class="nav-item" style="margin-right:10px">
+                                        <button class="btn btn-info " type="submit"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                        </form>
+                            @guest
+                            <li class="nav-item">
+                                    <a class="btn btn-info" style="margin-right:10px" href="{{ route('loginaccountPage') }}">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-info" href="{{ route('registeraccountPage') }}">Register</a>
+                            </li>
+                            @endguest
+                        @if(Auth::user() && session('user_session')->admin==0)
                                 <div class="nav-item" style="margin-right:10px">
                                     <button class="btn btn-info " type="submit"><i class="fas fa-cart-plus"></i></button>
                                 </div>
@@ -46,13 +58,20 @@
                                     <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
                                 </div>
                             </li>
-                        @else
-                            <li class="nav-item">
-                                    <a class="btn btn-info" style="margin-right:10px" href="{{ route('loginaccountPage') }}">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="btn btn-info" href="{{ route('registeraccountPage') }}">Register</a>
-                            </li>
+                        @endif
+                        @if(Auth::user() && session('user_session')->admin==1)
+                        <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{$users->fullname}} (Admin)<span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{route('user', $users->id)}}">User Profile</a>
+                                    <a class="dropdown-item" href="#">Daftar Belanja</a>
+                                    <a class="dropdown-item" href="/admin/dashboard">Dashboard</a>
+                                    <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
+                                </div>
+                        </li>
+
                         @endif
                    </ul>
                </div>

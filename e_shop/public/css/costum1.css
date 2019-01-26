@@ -57,6 +57,7 @@ link{
     text-align: center;
 }
 
+
 .col-centered{
     display: inline-block;
     float:none;
@@ -81,19 +82,19 @@ link{
 .card-header{
     height: 300px;
     padding: 0px;
-    
 }
 
 .card-body{
     padding: 0px;
     height: 200px;
+    
 }
 
 .card-image{
     height: 200px; 
-    width: 275px; 
+    width: 270px; 
     object-fit: cover;
-    background-color: #17A2B8;
+    background-color: transparent;
 }
 
 .card-title-box{
@@ -135,6 +136,62 @@ link{
     box-shadow: 0px 0px 15px 0px gray;
 }
 
+
+/*Detail Product*/
+.container-detailproduct{
+    padding:20px;
+}
+
+.row-detail{
+    padding:0px;
+}
+
+.card-detail-body{
+    max-height: 400px;
+    max-width: 600px;
+}
+
+.card-image-detail{
+    max-height: 400px; 
+    max-width: 400px; 
+    padding-bottom: 10px;
+    object-fit: contain;
+}
+
+.card-detail-name{
+    text-align: left;
+    padding: 0px;
+    font-size: 30px;
+    
+}
+
+.card-detail-category{
+    padding: 0px;
+    font-size: 25px;
+}
+
+.card-detail-price{
+    padding-top: 40px;
+}
+
+.card-detail-count{
+    padding-top: 40px;
+}
+
+.card-detail-button{
+    padding-top: 80px;
+    text-align: center;
+}
+
+.card-detail-description{
+    margin-top: 20px;
+    height: 300px;
+    width: auto;
+    padding-top: 30px;
+    box-shadow: 0px 0px 10px 0px gray;
+    
+}
+
 .col-md-6{
     padding:0px;
 }
@@ -167,6 +224,12 @@ h1{
     
 }
 
+h2{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #17A2B8;
+  
+}
+
 h3{
     color: #17A2B8;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -179,8 +242,8 @@ h4{
 }
 
 p{
-    font-size: 15px;
-    color: #17A2B8;
+    font-size: 20px;
+    
 }
 #navigation{
     width: 100%;

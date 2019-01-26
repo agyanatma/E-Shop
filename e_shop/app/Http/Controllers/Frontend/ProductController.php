@@ -22,16 +22,30 @@ class ProductController extends Controller
         return view('pages.frontend.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
 
+    public function searchcontent(){
+        $searchkey = \Request::get('title');
+        $products = Product::where('product_name', 'like', '%' .$searchkey. '%')->orderBy ('id')->get();
+        $categories = Category_product::all();
+        $users = User::get();
+        //dd($products);
+        return view('pages.frontend.searchcontent')->with('products', $products)->with('categories', $categories)->with('users', $users);
+    }
+
     public function shop(){
         $title = 'SHOP';
         //return view ('pages.index', compact ('title'));
         return view ('pages.frontend.shop')->with ('title', $title);
     }
 
-    public function detailproduct(){
-        $title = 'blog';
-        //return view ('pages.index', compact ('title'));
-        return view ('pages.frontend.detailproduct')->with ('title', $title);
+    public function detailproduct($id){
+        //$products = Product::find($id);
+        
+        $products = Product::with(['images'])->where('id', $id)->get();
+        $categories = Category_product::all();
+        $users = session()->get('user_session');
+        //dd($products->find($id)->toArray());
+        return view('pages.frontend.detailproduct')->with('products', $products)->with('categories', $categories)->with('users', $users);
+
     }
 
     public function tambahproduct(){

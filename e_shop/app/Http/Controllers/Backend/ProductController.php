@@ -18,7 +18,7 @@ class ProductController extends Controller
         $products = Product::with(['images'])->get();
         $categories = Category_product::all();
         $users = session()->get('user_session');
-        //dd($products);
+        //dd($products->toArray());
         return view('pages.admin.index_product')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
     //HAPUS PRODUK
