@@ -20,7 +20,7 @@ class CategoryTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeProducts(Category_product $category){
+    public function includeProduct(Category_product $category){
         $product = $category->product;
         return $this->collection($product, new ProductTransformer);
     }

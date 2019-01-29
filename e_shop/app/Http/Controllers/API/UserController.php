@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use App\Transformers\UserTransformer;
-use App\Transformers\OrderTransformer;
 use Auth;
 
 
@@ -34,7 +33,8 @@ class UserController extends Controller
             'city' =>$request->city,
             'postal_code' =>$request->postal_code,
             //'profile_image' =>$request->image,
-            'api_token' =>bcrypt($request->email)
+            'api_token' =>bcrypt($request->email),
+            'remember_token' =>$request->_token
         ]);
 
         $response = fractal()
@@ -73,13 +73,15 @@ class UserController extends Controller
 
         $user = $user->find(Auth::user()->id);
 
-        return fractal()
+        $response = fractal()
             ->item($user)
             ->transformWith(new UserTransformer)
             ->addMeta([
                 'token' =>$user->api_token,
             ])
             ->toArray();
+
+        return response()->json($response, 201);
     }
 
     //=================================================================================================================================================
@@ -88,10 +90,10 @@ class UserController extends Controller
     //USER=============================================================================================================================================
 
     public function index(User $user){
-        $users = $user->all();
+        $user = $user->all();
 
         $response = fractal()
-            ->collection($users)
+            ->collection($user)
             ->transformWith(new UserTransformer)
             ->toArray();
         
@@ -99,20 +101,16 @@ class UserController extends Controller
     }
 
     public function profile(User $user){
-        $users = $user->find(Auth::user()->id);
+        $user = $user->find(Auth::user()->id);
 
         return fractal()
-            ->item($users)
+            ->item($user)
             ->transformWith(new UserTransformer)
-            ->includeOrders()
+            ->includeOrder()
             ->toArray();
     }
     
-    public function edit(Request $request, User $user){
-        $user->fullname = $request->get('fullname', $user->fullname);
-        $user->address = $request->get('address', $user->address);
-        $user->city = $request->get('city', $user->city);
-        $user->fullname = $request->get('fullname', $user->fullname);
-        $user->fullname = $request->get('fullname', $user->fullname);
+    public function update(Request $request, User $user){
+        $user->update($request->all());
     }
 }

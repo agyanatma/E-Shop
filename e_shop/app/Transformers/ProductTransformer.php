@@ -5,6 +5,7 @@ namespace App\Transformers;
 use App\Product;
 use App\Product_image;
 use App\Orders;
+use App\Transformers\CategoryTransformer;
 use App\Transformers\ImageTransformer;
 use App\Transformers\OrderTransformer;
 use League\Fractal\TransformerAbstract;
@@ -12,7 +13,7 @@ use League\Fractal\TransformerAbstract;
 class ProductTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'images',
+        'images'
     ];
 
     public function transform(Product $product){

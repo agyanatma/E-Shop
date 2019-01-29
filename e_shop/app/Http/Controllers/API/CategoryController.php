@@ -15,6 +15,7 @@ class CategoryController extends Controller
         $response = fractal()
             ->collection($category)
             ->transformWith(new CategoryTransformer)
+            ->includeProduct()
             ->toArray();
 
         return response()->json($response, 201);

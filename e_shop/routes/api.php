@@ -27,5 +27,5 @@ Route::post('/login', 'Api\UserController@login');
 
 Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/user/profile', 'Api\UserController@profile');
-    Route::put('user/profile/{id}', 'Api\UserController@edit');
+    Route::put('user/profile/{user}', 'Api\UserController@update');
 });
