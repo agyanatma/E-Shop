@@ -5,6 +5,11 @@
         @if(count($errors)>0)
             <p class="alert alert-danger">Masukkan email dan password untuk masuk</p>
         @endif
+        @if (session('status'))
+        <div class="alert alert-danger">
+            {{ session('status') }}
+        </div>
+        @endif
     </div>
     <div class="form-group container">
         <h3>Login</h3>

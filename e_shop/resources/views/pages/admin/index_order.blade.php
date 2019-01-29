@@ -48,9 +48,12 @@
                                             @else
                                                 <td class="align-middle">Belum Dibayar</td>
                                             @endif 
-                                            <td class="align-middle" style="width:50px">
+                                            <td class="align-middle" style="width:170px">
                                                 <span class="float-right">
-                                                    <a href="{{ route('deleteOrder', $order->id) }}" class="btn btn-danger" name="delete">Delete</a>
+                                                    <a href="{{ route('payOrder', $order->id) }}" class="btn btn-success" name="bayar">Bayar
+                                                    <span>
+                                                        <a href="{{ route('deleteOrder', $order->id) }}" class="btn btn-danger" style="margin-left:5px" name="delete">Delete</a>
+                                                    </span></a>
                                                 </span>
                                             </td>
                                         </tr>

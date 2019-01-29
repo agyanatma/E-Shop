@@ -31,11 +31,14 @@
                 </div><br><br><br>
                 
                 <span class="float-right">
+                    
                     <form action="{{route('addCart')}}" method="POST">
                         {{csrf_field()}}
+                        @if(Auth::user())
                         <input type="hidden" name="user_id" value="{{$users->id}}">
                         <input type="hidden" name="product_id" value="{{$products->id}}">
                         <input type="hidden" name="product_price" value="{{$products->product_price}}">
+                        @endif
                         <button type="submit" class="btn btn-primary">Tambah ke Keranjang</button>
                         <a href="#" class="btn btn-success">Beli Sekarang</a>
                     </form>

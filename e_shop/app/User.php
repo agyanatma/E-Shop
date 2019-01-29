@@ -8,14 +8,15 @@ class User extends Authenticatable
     public $primaryKey = 'id';
     public $timestamps = true;
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'api_token',
     ];
     protected $guarded = ['id'];
+
+    protected $fillable = [
+        'email', 'password', 'fullname', 'address', 'city', 'postal_code', 'api_token'
+    ];
+
     public function order(){
         return $this->hasMany('App\Orders');
-    }
-
-    public function users(){
-        return $this->id;
     }
 }

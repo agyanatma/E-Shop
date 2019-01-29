@@ -17,4 +17,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 */
 
-Route::get('/item', 'Api\ProductController@item');
+Route::get('/product', 'Api\ProductController@index');
+Route::get('/category', 'Api\CategoryController@index');
+Route::get('/order', 'Api\OrderController@index');
+Route::get('/user', 'Api\UserController@index');
+
+Route::post('/register', 'Api\UserController@register');
+Route::post('/login', 'Api\UserController@login');
+
+Route::group(['middleware'=>['auth:api']],function(){
+    Route::get('/user/profile', 'Api\UserController@profile');
+});

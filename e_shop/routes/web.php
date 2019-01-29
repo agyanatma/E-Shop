@@ -115,7 +115,8 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/order', 'Backend\OrderController@index')->name('indexOrder');
     Route::get('admin/order/{id}/delete', 'Backend\OrderController@destroy')->name('deleteOrder');
     Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('editOrder');
-    Route::get('admin/order/{id}/update', 'Backend\OrderController@update')->name('updateOrder');
+    Route::post('admin/order/{id}/pay', 'Backend\OrderController@bayar')->name('payOrder');
+
 });
 
 
