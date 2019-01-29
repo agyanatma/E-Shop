@@ -20,8 +20,8 @@ class checkUser
         $userId = $request->id;
         //$idLog = session('user_session')->id;
         
-        if(Auth::user()){
-            if($userId == session('user_session')->users()){
+        if(Auth::check()){
+            if($userId == Auth::user()->id){
                 return $next($request);
             }
             else{
