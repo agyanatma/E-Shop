@@ -25,27 +25,27 @@
                         {{csrf_field()}}
                         <div class="form-group">
                         <label>Email:</label>
-                        <input type="email" class="form-control" name="email" placeholder="example@mail.com">
+                        <input type="email" class="form-control" name="email" placeholder="example@mail.com" value="{{old('email')}}">
                         </div>
                         <div class="form-group">
                         <label>Password:</label>
-                        <input type="password" class="form-control" name="password" placeholder="Password">
+                        <input type="password" class="form-control" name="password" placeholder="Password" >
                         </div>
                         <div class="form-group">
                         <label>Nama:</label>
-                        <input type="text" class="form-control" name="fullname" placeholder="Nama">
+                        <input type="text" class="form-control" name="fullname" placeholder="Nama" value="{{old('fullname')}}">
                         </div>
                         <div class="form-group">
                         <label>Alamat:</label>
-                        <input type="text" class="form-control" name="address" placeholder="Alamat">
+                        <input type="text" class="form-control" name="address" placeholder="Alamat" value="{{old('address')}}">
                         </div class="form-group">
                         <div>
                         <label>Kota:</label>
-                        <input type="text" class="form-control" name="city" placeholder="Kota">
+                        <input type="text" class="form-control" name="city" placeholder="Kota" value="{{old('city')}}">
                         </div>
                         <div class="form-group">
                         <label>Kode Pos:</label>
-                        <input type="text" class="form-control" name="postal" placeholder="Kode Pos">
+                        <input type="text" class="form-control" name="postal" placeholder="Kode Pos" value="{{old('postal')}}">
                         </div>
                         <div class="form-group">
                         <label>Profile Picture:</label><br/>

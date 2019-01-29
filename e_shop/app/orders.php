@@ -8,9 +8,9 @@ class Orders extends Model
     public $timestamps = true;
     protected $guarded = ['id'];
     public function product(){
-        return $this->hasOne('App\Product');
+        return $this->hasOne('App\Product','id','product_id');
     }
-    public function user(){
-        return $this->hasOne('App\User');
+    public function buyer(){
+        return $this->hasOne('App\User','id','user_id');
     }
 }

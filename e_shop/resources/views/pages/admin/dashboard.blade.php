@@ -14,7 +14,13 @@
                     <div class="card border-0">
                     <div class="card bg-light text-dark border-0">
                         <div class="card-body" style="padding:5px; border:none">
-                            <h2 class="align-middle" style="margin-left:10px"><span class="fas fa-cog"> </span> Dashboard</h2>
+                            <h2 class="align-middle" style="margin-left:10px"><span class="fas fa-cog"> </span> Dashboard
+                                <span class="float-right" style="margin-right:10px">
+                                    <span class="align-middle" style="font-size:large; margin-right:10px">
+                                        <span class="fas fa-circle align-middle" style="font-size:small; margin-right:10px; color:rgb(36, 255, 25)"> </span>Active User
+                                    </span>
+                                    <img src="/upload/{{$users->profile_image}}" class="rounded-circle object-fit-cover" width="40" height="40">
+                                </span></h2>
                         </div>
                     </div>
                       <div class="card-deck" style="margin-top:20px">
@@ -66,8 +72,8 @@
                     </div>-->
                     <div class="col-md-12" style="margin-top:20px">
                         <div class="card border-0">
-                            <div class="card-header bg-light" style="border:none">
-                                <h2>
+                            <div class="card-header bg-light" style="border:none; padding:5px">
+                                <h2 class="align-middle" style="margin-left:10px"><span class="fas fa-users"> </span> Latest Users</h2>
                                 <!--<h2 class="align-middle"><span class="align-middle">
                                     <img src="/upload/{{$users->profile_image}}" class="rounded-circle object-fit-cover" width="40" height="40">
                                 </span>Hello, {{$users->fullname}}</h2>-->

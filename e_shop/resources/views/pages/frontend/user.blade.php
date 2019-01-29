@@ -29,7 +29,7 @@ Shopping Cart
                     </div>
                 </div>
                 <div class="panel-body">
-                        <form action="{{route('editProfile', $users->id)}}" method="post" class="container clearfix " enctype="multipart/form-data">
+                        <form action="{{route('editUser', $users->id)}}" method="post" class="container clearfix " enctype="multipart/form-data">
                             {{csrf_field()}}
                             <div class="form-group">
                             <input type="file" name="img">

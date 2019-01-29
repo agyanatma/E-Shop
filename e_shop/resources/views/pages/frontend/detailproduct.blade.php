@@ -1,53 +1,49 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="container-fluid container-detailproduct">
-        
-            <div class="row row-detail">
-            @foreach($products as $product)
-                <div class="col-md-5" style="align-items:center;">
-                    <div class="card-image-detail">
-                        <img class="card-image-detail rounded mx-auto d-block img-responsive" src="/upload/{{$product->images[0]->product_image}}" class="border" >
-                    </div>
-                </div>
-                <div class="col-md-7 clearfix">
-                    <div class="card-detail-body">
-                        <h2 class="card-detail-name" >{{$product->product_name}}</h2>
-                        <h4 class="card-detail-category" >{{$product->categories->category_name}}</h4>
-                        <div class="row" >
-                            <div class="col-md-5 ">
-                                <h2 class="card-detail-price" >Rp {{number_format($product->product_price, 0)}}</h2>
-                            </div>
-                            <div class="col-md-3 offset-2 ">
-                                <div class="input-group card-detail-count">
-                                    <span class="input-group-prepend">
-                                        <button type="button" class="quantity-left-minus btn btn-info btn-number"  data-type="minus" data-field="">
-                                            <span class="fas fa-minus"></span>
-                                        </button>
-                                    </span>
-                                    <input type="text" id="quantity" width="200px" name="quantity" class="form-control input-number" value="0" min="1" max="100">
-                                    <span class="input-group-append">
-                                        <button type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
-                                            <span class="fas fa-plus"></span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix card-detail-button" >
-                            <a href="" class="btn btn-lg btn-primary"><i class="fas fa-cart-plus"></i> Tambah Keranjang</a>
-                            <a href="" class="btn btn-lg btn-success"><i class="fas fa-money-bill"></i> Beli Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-10 offset-1" >
-                    <div class="card card-detail-description">
-                    <p>{{$product->description}}</p>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <img src="/upload/{{$products->images[0]->product_image}}" class="border" style="object-fit: cover" width="410" height="400">
+                @foreach($images as $item)
+                    <img src="/upload/{{$item->product_image}}" class="border" style="object-fit: cover; margin-top:10px" width="80" height="80">
+                @endforeach
             </div>
-            @endforeach
+        
+            <div class="col-md-7">
+                <h2>{{$products->product_name}}</h2>
+                <h4>{{$products->categories->category_name}}</h4><br><br><br><br>
+                <h1>Rp {{number_format($products->product_price, 0)}}</h1>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-prepend">
+                            <button type="button" class="quantity-left-minus btn btn-info btn-number"  data-type="minus" data-field="">
+                                <span class="fas fa-minus"></span>
+                            </button>
+                        </span>
+                        <input type="text" id="quantity" width="200px" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+                        <span class="input-group-append">
+                            <button type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
+                                <span class="fas fa-plus"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div><br><br><br>
+                
+                <span class="float-right">
+                    <form action="{{route('addCart')}}" method="POST">
+                        {{csrf_field()}}
+                        <input type="hidden" name="user_id" value="{{$users->id}}">
+                        <input type="hidden" name="product_id" value="{{$products->id}}">
+                        <input type="hidden" name="product_price" value="{{$products->product_price}}">
+                        <button type="submit" class="btn btn-primary">Tambah ke Keranjang</button>
+                        <button href="#" class="btn btn-success">Beli Sekarang</a>
+                    </form>
+                </span>
+            </div>
+            <div class="col-md-12">
+                <a href="#"></a>
+            </div>
         </div>
-    
+    </div>
 @endsection

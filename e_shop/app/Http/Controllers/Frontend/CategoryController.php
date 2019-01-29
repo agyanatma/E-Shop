@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Product;
+use App\Product_image;
+use App\Category_product;
+use App\User;
+use App\Orders;
 
 class CategoryController extends Controller
 {
@@ -33,5 +38,9 @@ class CategoryController extends Controller
         $new->save();
         return redirect('/category')->with('status','Data berhasil ditambah');
         
+    }
+    public function category(){
+        
+        return view('pages.frontend.category');
     }
 }

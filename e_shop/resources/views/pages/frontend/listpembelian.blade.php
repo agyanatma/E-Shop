@@ -13,9 +13,7 @@
                     <div class="col-lg-6" style="float:left">
                         <h1><span class="fas fa-dolly-flatbed" aria-hidden="true"></span>  Order</h1><br>
                     </div>
-                    <div class="col-lg-6">
-                        <a href="{{ route('newCategory')}}" type="submit" class="btn btn-primary" style="float:right">Add Order</a>
-                    </div>
+                    
                 </form>
             </div>
             <div class="container">
@@ -34,32 +32,31 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                    @if(count($orders) > 0)
-                                        @foreach ($orders as $order)
+                                    {{-- @if(count($orders) > 0)
+                                        @foreach ($orders as $order) --}}
                                         <tr>
-                                            <td class="align-middle">{{$order->buyer->fullname}}</td>
-                                            <td class="align-middle">{{$order->product->product_name}}</td>
-                                            <td class="align-middle">Rp {{number_format($order->product->product_price, 0)}}</td>
-                                            <td class="align-middle">{{number_format($order->qty, 0)}} pcs</td>
-                                            <td class="align-middle">Rp {{number_format($order->total, 0)}}</td>
-                                            <td class="align-middle">{{$order->order_date}}</td>
-                                            @if($order->status==1)
+                                            <td class="align-middle">Faisal rizky Rahadian</td>
+                                            <td class="align-middle">Komputer Asus</td>
+                                            <td class="align-middle">Rp 100000, 0)}}</td>
+                                            <td class="align-middle">2 pcs</td>
+                                            <td class="align-middle">Rp 200000, 0)}}</td>
+                                            <td class="align-middle">28 Januari 2-18</td>
+                                            {{-- @if($order->status==1) --}}
                                                 <td class="align-middle">Sudah Dibayar</td>
-                                            @else
+                                            {{-- @else --}}
                                                 <td class="align-middle">Belum Dibayar</td>
-                                            @endif 
-                                            <td class="align-middle" style="width:50px">
-                                                <span class="float-right">
-                                                    <a href="{{ route('deleteOrder', $order->id) }}" class="btn btn-danger" name="delete">Delete</a>
-                                                </span>
-                                            </td>
+                                            {{-- @endif  --}}
+                                            
                                         </tr>
-                                        @endforeach
+                                        {{-- @endforeach
                                     @else
                                         <h3>No posts found!</h3>
-                                    @endif
+                                    @endif --}}
                             </tbody>
                         </table>
+                        <div class="col-lg-6 offset-6">
+                                <a href="" type="submit" class="btn btn-primary" style="float:right">Bayar</a>
+                        </div>
                     </div>
                 </div>
             </div>
