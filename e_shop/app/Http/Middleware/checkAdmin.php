@@ -16,10 +16,10 @@ class checkAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && session('user_session')->admin()){
+        if(Auth::check() && Auth::user()->admin==1){
             return $next($request);
         }
         
-        return abort('404');
+        return redirect('login');
     }
 }

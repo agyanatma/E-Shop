@@ -17,8 +17,8 @@
     <script>
         $("document").ready(function(){
         setTimeout(function(){
-            $("div.alert").remove();
-        }, 3000 ); 
+            $("div.alert").slideUp(500);
+        }, 2000 ); 
         }); 
     </script>
 </body>

@@ -22,8 +22,17 @@ class OrderController extends Controller
         $order = Orders::find($id);
         $order->delete();
 
-        return redirect()->back()->with('status', 'Data berhasil dihapus');
-        
+        return redirect()->back()->with('status', 'Data berhasil dihapus');   
+    }
+
+    public function bayar(Request $request,$id){
+        $order = Orders::find($id);
+        if($order){
+            $order->status = '1';
+            $order->save();
+        }
+
+        return redirect()->back()->with('status','Barang sudah terbayar');
     }
     
 //FRONT END=====================================================================================================================================

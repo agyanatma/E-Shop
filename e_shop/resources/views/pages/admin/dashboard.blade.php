@@ -94,7 +94,11 @@
                                             @foreach ($item as $items)
                                             <tr>
                                                 <td>{{$items->email}}</td>
-                                                <td>{{$items->fullname}}</td>
+                                                @if($items->admin==1)
+                                                    <td>{{$items->fullname}} <span class="fas fa-crown"></span></td>
+                                                @else
+                                                    <td>{{$items->fullname}}</td>
+                                                @endif
                                                 <td>{{$items->address}}</td>
                                                 <td>{{$items->city}}</td>
                                                 <td>{{$items->postal_code}}</td>

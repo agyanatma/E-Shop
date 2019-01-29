@@ -16,7 +16,7 @@ class UserController extends Controller
 {
 
     public function dashboard(){
-        $item = User::all();
+        $item = User::orderBy('created_at')->get();
         $users = session()->get('user_session');
         $product = Product::count();
         $category = Category_product::count();
@@ -43,13 +43,11 @@ class UserController extends Controller
         $user = User::where('email', $email)->get();
         if(count($user)>0){
             $credentials = $request->only('email', 'password');
-            if (Auth::attempt($credentials)){
-                $request->session()->put('user_session', Auth::user());
-                return redirect()->intended('/');
-            } 
-            else {
+            if (! Auth::attempt($credentials)){
                 return redirect()->back()->with('status', 'Email atau password salah!');
-            }
+            } 
+            $request->session()->put('user_session', Auth::user());
+            return redirect()->intended('/');
         }
         else{
             return redirect()->back()->with('failed', 'Pengguna tidak terdaftar');
@@ -69,17 +67,18 @@ class UserController extends Controller
         $email = $request->email;
         $password = $request->password;
         $user = User::where('email', $email)->get();
-        //$admin = User::where('admin','=',1)->get();
-        //dd($user->toArray());
         if(count($user)>0){
             $credentials = $request->only('email', 'password');
-            if (Auth::attempt($credentials)){
-                $request->session()->put('user_session', Auth::user());
-                return redirect('admin/dashboard');
+            if (! Auth::attempt($credentials)){
+                return redirect()->back()->with('failed', 'Email atau password salah!');
             } 
-            else {
-                return redirect()->back()->with('status', 'Email atau password salah!');
+            $request->session()->put('user_session', Auth::user());
+            if(! Auth::user()->admin==1){
+                Session::flush();
+                Auth::logout();
+                return redirect()->back()->with('failed', 'Anda bukan termasuk admin');
             }
+            return redirect('admin/dashboard');
         }
         else{
             return redirect()->back()->with('failed', 'Pengguna tidak terdaftar');
@@ -92,7 +91,7 @@ class UserController extends Controller
 
     public function signupStore(Request $request){
         $this->validate($request,[
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:5',
             'fullname' => 'required',
             'address' => 'required',
@@ -177,6 +176,6 @@ class UserController extends Controller
     }
     
     public function password($id){
-
+        $password = $request->input('password');
     }
 }

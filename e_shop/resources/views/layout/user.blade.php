@@ -31,25 +31,25 @@
                                 <a class="btn btn-primary" href="{{ route('registerPage') }}">Register</a>
                             </li>
                         @endguest
-                        @if(Auth::user() && session('user_session')->admin==0)
+                        @if(Auth::check() && Auth::user()->admin==0)
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{$users->fullname}} <span class="caret"></span>
+                                    {{Auth::user()->fullname}} <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{route('profile', $users->id)}}">User Profile</a>
+                                    <a class="dropdown-item" href="{{route('profile', Auth::user()->id)}}">User Profile</a>
                                     <a class="dropdown-item" href="#">Daftar Belanja</a>
                                     <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
                                 </div>
                             </li>
                         @endif
-                        @if(Auth::user() && session('user_session')->admin==1)
+                        @if(Auth::check() && Auth::user()->admin==1)
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{$users->fullname}} (Admin)<span class="caret"></span>
+                                    {{Auth::user()->fullname}} <span class="fas fa-crown"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{route('profile', $users->id)}}">User Profile</a>
+                                    <a class="dropdown-item" href="{{route('profile', Auth::user()->id)}}">User Profile</a>
                                     <a class="dropdown-item" href="#">Daftar Belanja</a>
                                     <a class="dropdown-item" href="/admin/dashboard">Dashboard</a>
                                     <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
