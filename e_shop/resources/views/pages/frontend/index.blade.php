@@ -6,7 +6,21 @@
         <div style="padding:50px" >
                 <div class="card-fluid bg-white" >
                     <div class="row row-centered" style="padding:20px ">
- 
+                        <div class="col-md-2 ">
+                            <a href="sortheadphone"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[10]->category_image}}"></a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="sortkeyboard"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[2]->category_image}}"></a>
+                        </div>
+                        <div class="col-sm-2">
+                            <a href="sortleptop"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[11]->category_image}}"></a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="sortmonitor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[0]->category_image}}"></a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="sortprocessor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[3]->category_image}}"></a>
+                        </div>
                         <div class="col-md-2" >
                             <a href="lainlain"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;" src="upload/lain-lain.png"></a>
                         </div>

@@ -13,10 +13,10 @@ class CartController extends Controller
 {
     public function index(){
 
-        // $products = Product::with(['images'])->get();
-        // $categories = Category_product::all();
-        // $users = User::get();
-        //dd($products);
+        $products = Product::with(['images'])->get();
+        $categories = Category_product::all();
+        $users = User::get();
+        dd($products);
         return view('pages.frontend.cart')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
     

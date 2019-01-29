@@ -27,6 +27,7 @@ class ProductController extends Controller
         $products = Product::where('product_name', 'like', '%' .$searchkey. '%')->orderBy ('id')->get();
         $categories = Category_product::all();
         $users = User::get();
+        $users = session()->get('user_session');
         //dd($products);
         return view('pages.frontend.searchcontent')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }

@@ -42,19 +42,20 @@ class OrderController extends Controller
         $users = session()->get('user_session');
         $buyer = $users->id;
         $orders = Orders::with('product','buyer')->where('user_id','=',$buyer);
+        if (!Session::has('cart')){
+            return view ('pages.frontend.shopping-cart', ['products'=> null]);
+        }
+        $oldCart = Session::get('cart');
+        $cart = new Cart ($oldCart);
         //dd($orders->toArray());
 
-        return view('pages.frontend.checkout')->with('products', $products)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders);
+        return view('pages.frontend.shopping-cart')->with('products', $products)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders);
     }
 
-
-    // public function cartstore(){
-    //     return redirect()->back()->with('status', 'Cart telah berhasil di tambah ke')
-    // }
     public function checkout(Request $request){
         $user = $request->input('user_id');
         $product = $request->input('product_id');
-        $quantity = $request->input('quantity');
+        $quantity = $request->input('quantity', '1');
         $price = $request->input('product_price');
         $time = Carbon::today();
         //dd($product);
