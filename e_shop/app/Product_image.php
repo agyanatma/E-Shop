@@ -12,7 +12,7 @@ class Product_image extends Model
     protected $guarded = ['id'];
 
     public function product(){
-        return $this->hasOne('App\Product');
+        //return $this->hasOne('App\Product');
         return $this->belongsTo('App\Product');
     }
 }

@@ -13,9 +13,9 @@
                     <div class="col-lg-6" style="float:left">
                         <h1><span class="fas fa-dolly-flatbed" aria-hidden="true"></span>  Order</h1><br>
                     </div>
-                    <div class="col-lg-6">
+                    <!--<div class="col-lg-6">
                         <a href="{{ route('newCategory')}}" type="submit" class="btn btn-primary" style="float:right">Add Order</a>
-                    </div>
+                    </div>-->
                 </form>
             </div>
             <div class="container">

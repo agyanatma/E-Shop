@@ -9,7 +9,7 @@ use League\Fractal\TransformerAbstract;
 class UserTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'order'
+        'order',
     ];
 
     public function transform(User $user){
@@ -25,8 +25,8 @@ class UserTransformer extends TransformerAbstract
     }
 
     public function includeOrders(User $user){
-        $order = $user->order;
-        return $this->collection($order, new OrderTransformer);
+        $orders = $user->orders;
+        return $this->collection($orders, new OrderTransformer);
     }
 
 }

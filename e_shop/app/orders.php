@@ -15,7 +15,7 @@ class Orders extends Model
         return $this->hasOne('App\Product','id','product_id');
     }
 
-    public function buyer(){
+    public function buyer(){  //USER
         return $this->hasOne('App\User','id','user_id');
     }
 

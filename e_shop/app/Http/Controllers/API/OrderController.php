@@ -9,12 +9,12 @@ use App\Transformers\OrderTransformer;
 
 class OrderController extends Controller
 {
-    public function index(){
-        $order = $order->with('product', 'buyer')->get();
+    public function index(Orders $orders){
+        $orders = $orders->with('product', 'buyer')->get();
 
         $response = fractal()
-            ->collection($order)
-            ->transformWith(new OrderTransform)
+            ->collection($orders)
+            ->transformWith(new OrderTransformer)
             ->toArray();
 
         return response()->json($response, 201);
@@ -38,7 +38,7 @@ class OrderController extends Controller
 
         $response = fractal()
             ->item($order)
-            ->transformWith(new OrderTransform)
+            ->transformWith(new OrderTransformer)
             ->toArray();
 
         return response()->json($response, 201);

@@ -21,6 +21,8 @@ class UserController extends Controller
         $product = Product::count();
         $category = Category_product::count();
         $order = Orders::count();
+        //$user = User::with('order')->get();
+        //dd($user->toArray());
         return view('pages.admin.dashboard')->with('users', $users)->with('item', $item)->with('product', $product)->with('category', $category)->with('order', $order);
     }
 

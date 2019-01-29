@@ -99,13 +99,20 @@ class UserController extends Controller
     }
 
     public function profile(User $user){
-        $user = $user->find(Auth::user()->id);
+        $users = $user->find(Auth::user()->id);
 
         return fractal()
-            ->item($user)
+            ->item($users)
             ->transformWith(new UserTransformer)
             ->includeOrders()
             ->toArray();
     }
     
+    public function edit(Request $request, User $user){
+        $user->fullname = $request->get('fullname', $user->fullname);
+        $user->address = $request->get('address', $user->address);
+        $user->city = $request->get('city', $user->city);
+        $user->fullname = $request->get('fullname', $user->fullname);
+        $user->fullname = $request->get('fullname', $user->fullname);
+    }
 }
