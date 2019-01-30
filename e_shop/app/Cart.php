@@ -1,5 +1,6 @@
 <?php
 namespace App;
+use Gloudemans\Shoppingcart\ShoppingcartServiceProvider;
 class Cart{
     public $items = null;
     public $totalQty = 0;
@@ -14,17 +15,17 @@ class Cart{
     }
 
     public function add($item, $id) {
-        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
+        $storedItem = ['qty' => 0, 'product_price' => $item->product_price, 'item' => $item];
         if ($this->items) {
             if (array_key_exists($id, $this->items)){
                 $storedItem = $this->items[$id];
             }
         }
         $storedItem['qty']++;
-        $storedItem['price'] = $item->price * $storedItem['qty'];
+        $storedItem['product_price'] = $item->product_price * $storedItem['qty'];
         $this->items[$id] =$storedItem;
         $this->items[$id] = $storedItem;
         $this->totalQty++;
-        $this->totalPrice += $item->price;
+        $this->totalPrice += $item->product_price;
     }
 }

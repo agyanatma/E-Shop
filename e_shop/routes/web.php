@@ -79,17 +79,27 @@ Route::post('user/{id}/password/changed', 'Frontend\UserController@updatePass')-
 
 
 //CartPage
-Route::get('/add-to-cart/{id}', 'Frontend\ProductController@getAddToCart')->name('product.addToCart');
+Route::get('/order/cart', 'Frontend\OrderController@cart')->name('cart');
+Route::get('order/{id}/delete', 'Frontend\OrderController@deletecart')->name('deleteCart');
+Route::get('/pembayaran', 'Frontend\ProductController@getpembayaran')->name('pembayaranCart');
+Route::post('pembayaran', 'Frontend\ProductController@postpembayaran')->name('pembayaranCart');
+Route::get('/pembayaran', 'Frontend\OrderController@getcheckoutgan')->name('paid');
 
-Route::get('/shopping-cart', 'Frontend\ProductController@getCart')->name('product.shoppingCart');
-Route::get('/checkout', 'Frontend\ProductController@getCheckout')->name('checkoutCart');
+// Route::post('/pembayaran', 'Frontend\OrderController@postCheckoutgan')->name('checkoutGan');
+// Route::get('/cartblog', 'Frontend\CartController@index')->name('cart.index');
+// Route::post('/cartblogindex', 'Frontend\CartController@store')->name('cart.store');
 
-Route::post('checkout', 'Frontend\ProductController@postCheckout')->name('checkoutCart');
+// Route::get('/add-to-cart/{id}', 'Frontend\ProductController@getAddToCart')->name('product.addToCart');
+// Route::get('/shopping-cart', 'Frontend\ProductController@getCart')->name('product.shoppingCart');
+
 
 //OrderPage
 //Route::get('/order', 'Frontend\OrderController@order');
 Route::post('product/addcart', 'Frontend\OrderController@checkout')->name('addCart');
-Route::post('order/{id}/checkout/bayar', 'Frontend\OrderController@status')->name('paid');
+Route::post('order/bayar', 'Frontend\OrderController@bayar')->name('bayar');
+Route::get('/checkout', 'Frontend\ProductController@getCheckout')->name('checkoutCart');
+Route::post('checkout', 'Frontend\ProductController@postCheckout')->name('checkoutCart');
+Route::get('/pembayaran', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
 //});
 
                                         /*BACKEND PAGE*/

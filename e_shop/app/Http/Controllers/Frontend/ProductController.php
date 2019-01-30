@@ -11,6 +11,9 @@ use App\Product;
 use App\Product_image;
 use App\Category_product;
 use App\User;
+use App\Cart;
+use App\Orders;
+use Session;
 
 class ProductController extends Controller
 {
@@ -26,7 +29,6 @@ class ProductController extends Controller
         $searchkey = \Request::get('title');
         $products = Product::where('product_name', 'like', '%' .$searchkey. '%')->orderBy ('id')->get();
         $categories = Category_product::all();
-        $users = User::get();
         $users = session()->get('user_session');
         //dd($products);
         return view('pages.frontend.searchcontent')->with('products', $products)->with('categories', $categories)->with('users', $users);
@@ -73,6 +75,44 @@ class ProductController extends Controller
         return view('pages.frontend.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
     
+
+    // public function getAddToCart(Request $request, $id){
+    //     $products = Product::find($id);
+    //     $oldCart = Session::has('cart') ? Session::get('cart') :null;
+    //     $cart = new Cart($oldCart);
+    //     $cart->add($products, $products->id);
+    //     $users = session()->get('user_session');
+    //     $request->session()->put('cart', $cart);
+    //     //dd($request->session()->get('cart'));
+    //     //dd($product['qty']);
+    //     return redirect()->back()->with('success_message','Barang berhasil ditambah ke keranjang');
+    // }
+
+    // public function getCart(){
+    //     $products = Product::with(['images'])->get();
+    //     //$orders = Orders::with('product','buyer')->where('user_id','=',$buyer);
+    //     $categories = Category_product::all();
+    //     $users = session()->get('user_session');
+    //     $cart = Product::with(['images'])->get();
+    //     if (!Session::has('cart')){
+    //         return view ('pages.frontend.shopping-cart', ['products'=> null]);
+    //     }
+    //     $oldCart = Session::get('cart');
+    //     $cart = new Cart ($oldCart);
+        
+    //     return view('pages.frontend.shopping-cart', ['products' => $cart->items, 'totalPrice'=>$cart->totalPrice, 'users'=>$users, 'products'=>$products, 'categories'=> $categories, ]) ;
+    // }
+
+    // public function getCheckout(){
+    //     $users = session()->get('user_session');
+    //     if (!Session::get('cart')){
+    //         return view('pages.frontend.shopping-cart');
+    //     }
+    //      $oldCart = Session::get('cart');
+    //      $cart = new Cart ($oldCart);
+    //      $total = $cart -> totalPrice;
+    //      return view ('pages.frontend.checkoutCart', ['total' => $total, 'users'=>$users]);   
+    // }
 
 
 }

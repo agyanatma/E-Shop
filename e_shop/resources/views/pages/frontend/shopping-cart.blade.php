@@ -15,20 +15,19 @@
                             <th>Category</th>
                             <th>Price</th>
                             <th>Quantity</th>
+                            
                             <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
                             @if(count($products) > 0)
                             @foreach ($products as $product)
-                            <td>{{$product->product_price}}</td>
-                                    <td>{{$product['item']['title']}}</td>
                                 <tr>
                                     <td style="width:30px"><img class="img-fluid" src="{{ URL::to('/upload/'.$product->images[0]->product_image)}}"></td>
-                                    <td> {{$users->id}}</td>
                                     <td>{{$product->product_name}}</td>
                                     <td>{{$product->categories->category_name}}</td>
                                     <td>Rp {{number_format($product->product_price, 0)}}</td>
+                                    <td> <span class="badge">{{$product['qty']}}</span></td>
                                     <td><a href="{{route('detailproduct', $product->id)}}" class="btn btn-primary">Detail</a>
                                     </td>
                                 </tr>

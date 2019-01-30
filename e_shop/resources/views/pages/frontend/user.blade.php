@@ -10,10 +10,10 @@ Shopping Cart
         <div class="panel">
                 <div class="jumbotron" style="padding:0px; margin:auto">
                         <div class="row ">
-                            <div class="col-md-4 " style="float:left">
+                            <div class="col-md-2 " style="float:left">
                                 <img src="{{URL::to('/upload/'.$users->profile_image)}} style="margin:auto; max-height:200px; max-width:80% "  class="rounded mx-auto d-block img-responsive img-fluid" class="img-circle" alt="..." >
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <h1>Welcome</h1>
                                 <div class="text-left">
                                     <form class="form-group">
@@ -25,7 +25,17 @@ Shopping Cart
                             </div>
                             <div class="col-md-2" style="">
                                 <a style="margin-bottom:140px" href="#" class="btn btn-info" name="changebutton">Ganti Password</a>
-                        </div>
+                            </div>
+                            <div class="col-md-4">
+                                    <h3>Riwayat Pembelian</h3>
+                                    <div class="text-left">
+                                        <form class="form-group">
+                                                <h3>{{$orders->created_at}}</h3>
+                                                <p>{{$users->address}}, {{$users->city}}</p>
+                                                <p>{{$users->postal_code}}</p>
+                                        </form>
+                                    </div>
+                            </div>
                     </div>
                 </div>
                 <div class="panel-body">

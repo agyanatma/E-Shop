@@ -29,6 +29,6 @@ class checkUser
             }
         }
         
-        return redirect('/login')->with('gagal','Login terlebih dahulu');
+        return redirect('/loginaccount')->with('gagal','Login terlebih dahulu');
     }
 }

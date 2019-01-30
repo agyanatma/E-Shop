@@ -7,7 +7,8 @@ use App\Category_product;
 use App\User;
 use App\Orders;
 use Carbon\Carbon;
-
+use Auth;
+use Stripe\Stripe;
 class OrderController extends Controller
 {
     // public function index(){
@@ -37,25 +38,30 @@ class OrderController extends Controller
     }
 
     public function cart(){
-        $products = Product::with(['images'])->find($id);
-        $id = $products->id;
+        $products = Product::with(['images'])->get();
         $users = session()->get('user_session');
-        $buyer = $users->id;
-        $orders = Orders::with('product','buyer')->where('user_id','=',$buyer);
-        if (!Session::has('cart')){
-            return view ('pages.frontend.shopping-cart', ['products'=> null]);
-        }
-        $oldCart = Session::get('cart');
-        $cart = new Cart ($oldCart);
+        $buyer = Auth::user()->id;
+        $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
         //dd($orders->toArray());
-
-        return view('pages.frontend.shopping-cart')->with('products', $products)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders);
+        $categories = Category_product::all();
+        $total = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
+        $qty = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
+        $totalharga = $total * $qty ;
+        //dd($totalharga);
+        return view('pages.frontend.cart')->with('products', $products)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('qty', $qty)->with('totalharga', $totalharga);
     }
 
+    public function deleteCart($id){
+        $order = Orders::find($id);
+        $order->delete();
+        return redirect()->back()->with('status', 'Data berhasil dihapus');   
+    }
+    
     public function checkout(Request $request){
+        
         $user = $request->input('user_id');
         $product = $request->input('product_id');
-        $quantity = $request->input('quantity', '1');
+        $quantity = $request->input('quantity');
         $price = $request->input('product_price');
         $time = Carbon::today();
         //dd($product);
@@ -71,14 +77,44 @@ class OrderController extends Controller
         return redirect()->back()->with('success_message','Barang berhasil ditambah ke keranjang');
     }
 
+    public function getcheckoutgan(){
+        $products = Product::with(['images'])->get();
+        $users = session()->get('user_session');
+        $buyer = Auth::user()->id;
+        $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+        //dd($orders->toArray());
+        $categories = Category_product::all();
+        $total = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
+        $qty = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
+        $totalharga = $total * $qty;
+        return view('pages.frontend.checkoutgan')->with('products', $products)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('qty', $qty)->with('totalharga', $totalharga);
+    }
+
+    public function getCartadd(){
+        Cart::add([
+            ['id' => '293ad', 'name' => 'Product 1', 'qty' => 1, 'price' => 10.00],
+            ['id' => '4832k', 'name' => 'Product 2', 'qty' => 1, 'price' => 10.00,]
+          ]);
+    }
+
+    public function bayar(Request $request, $id){
+        $orders = Orders::find($id);
+        dd($orders->toArray());
+        if($order){
+            $order->status = '1';
+            $order->save();
+        }
+
+        return redirect()->back()->with('status','Barang sudah terbayar');
+    }
     // public function bayar(Request $request){
     //     $user = $request->input('user_id');
     //     $product = $request->input('product_id');
     //     $quantity = $request->input('quantity');
     //     $price = $request->input('product_price');
     //     $total = $request->input('total');
-    //     $status = $request->input('status')
-    //     $time = time::where('time', = 'today');
+    //     $status = $request->input('status');
+    //     $time = Carbon::where('time', = 'today');
     //     //dd($product);
 
     //     $store = new Orders;
@@ -91,4 +127,5 @@ class OrderController extends Controller
 
     //     return redirect()->back()->with('success_message','Barang berhasil ditambah ke keranjang');
     // }
+    
 }

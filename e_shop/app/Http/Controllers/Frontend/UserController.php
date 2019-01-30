@@ -47,7 +47,7 @@ class UserController extends Controller
 
     public function registeraccountStore(Request $request){
         $this->validate($request,[
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:5',
             'fullname' => 'required',
             'address' => 'required',
@@ -63,6 +63,7 @@ class UserController extends Controller
         $user->city = $request->city;
         $user->postal_code = $request->postal;
         $user->remember_token = $request->_token;
+        $user->api_token = bcrypt($request->email);
         if($request->hasFile('img')){
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
@@ -84,6 +85,7 @@ class UserController extends Controller
     
     public function user($id){
         $users = User::find($id);
+        
         //dd($profile->toArray());
         return view('pages.frontend.user')->with('users', $users);
     }

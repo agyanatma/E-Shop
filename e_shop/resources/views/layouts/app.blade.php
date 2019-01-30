@@ -11,8 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    
     <link rel="stylesheet" href="/css/costum1.css">
 
     <title>{{ config('app.name', 'E-Shop') }}</title>
@@ -46,12 +45,16 @@
                             </li>
                             @endguest
                         @if(Auth::user() && session('user_session')->admin==0)
-                                <div class="nav-item" style="margin-right:10px">
-                                    <button  class="btn btn-info " type="submit"><i  class="fas fa-cart-plus"></i></button>
-                                </div>
+                            <div class="nav-item" style="margin-right:10px">
+                            <a href="{{route('cart')}}"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Cart</a>
+                            </div>
+                                {{-- <div class="nav-item" style="margin-right:10px">
+                                <a href="{{route('product.shoppingCart')}}"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Cart</a>
+                                    <span class="badge">{{Session::has('cart') ? Session::get('cart')->totalQty : ''}}</span>
+                                </div> --}}
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{$users->fullname}} <span class="caret"></span>
+                                    {{Auth::user()->fullname}} <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{route('user', $users->id)}}">User Profile</a>
@@ -61,9 +64,12 @@
                             </li>
                         @endif
                         @if(Auth::user() && session('user_session')->admin==1)
+                        <div class="nav-item" style="margin-right:10px">
+                                <a href="{{route('cart')}}"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Cart</a>
+                                </div>
                         <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{$users->fullname}} (Admin)<span class="caret"></span>
+                                    {{Auth::user()->fullname}} (Admin)<span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{route('user', $users->id)}}">User Profile</a>

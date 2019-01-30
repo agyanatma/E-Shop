@@ -99,6 +99,7 @@ class UserController extends Controller
         $user->city = $request->city;
         $user->postal_code = $request->postal;
         $user->remember_token = $request->_token;
+        $user->api_token = bcrypt($request->email);
         if($request->hasFile('img')){
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
