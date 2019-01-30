@@ -30,7 +30,7 @@ Shopping Cart
                                     <h3>Riwayat Pembelian</h3>
                                     <div class="text-left">
                                         <form class="form-group">
-                                                <h3>{{$orders->created_at}}</h3>
+                                                <h3>{{$orders->order_date}}</h3>
                                                 <p>{{$users->address}}, {{$users->city}}</p>
                                                 <p>{{$users->postal_code}}</p>
                                         </form>

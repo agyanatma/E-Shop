@@ -42,7 +42,7 @@
                                             <h5 class="card-price-box">Rp {{number_format($product->product_price, 0)}}</h5>
                                             <form class="card-text-box-button" method="POST" >
                                                 {{csrf_field()}}
-                                                <a href="{{route('addCart',  $product->id)}}" class="btn btn-info" name="buy"><i class="fas fa-shopping-basket"></i></a>
+                                                <a href="{{route('addCart', ['id'=> $product->id])}}" class="btn btn-info" name="buy"><i class="fas fa-shopping-basket"></i></a>
                                             </form>
                                     </div>    
                                 </div>

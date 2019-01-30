@@ -16,11 +16,6 @@ class OrderController extends Controller
     //     return view('pages.order')->with('orders', $orders);
     // }
 
-    public function order(){
-        $title = 'ORDER';
-        //return view ('pages.index', compact ('title'));
-        return view ('pages.frontend.order')->with ('title', $title);
-    }
 
     public function listpembelian(){
         //$orders = Order::all();
@@ -64,7 +59,7 @@ class OrderController extends Controller
         $quantity = $request->input('quantity');
         $price = $request->input('product_price');
         $time = Carbon::today();
-        //dd($product);
+        //dd($request->all());
 
         $store = new Orders;
         $store->order_date = $time;
@@ -75,6 +70,39 @@ class OrderController extends Controller
         $store->save();
 
         return redirect()->back()->with('success_message','Barang berhasil ditambah ke keranjang');
+    }
+
+    public function update(Request $request, $id){
+        
+        /*$buyer = Auth::user()->id;
+        $order = $request->get('order_id');
+        $user = $request->get('user_id');
+        $product = $request->get('product_id');
+        $quantity = $request->get('quantity');
+        $price = $request->get('product_price');
+        $time = Carbon::today();
+        //dd($request->all());
+        $update = Order::find($id);
+        $update->user_id = $user_id;
+        $update->product_id = $product_id;
+        $update->quantity = $quantity;
+        $update->product_price = $product_price;
+        $update->time = $time;*/
+
+        //dd($orders->toArray());
+        $status = $request->all;
+        $id = Auth::user()->id;
+        $order = Orders::where([
+            ['user_id','=',$id],
+            ['status','=','0'],
+        ])->update(['status' => '1']);
+
+        
+        //dd($request->toArray());
+        //$order->status = '1';
+        //$order->save();
+        
+        return redirect()->back();
     }
 
     public function getcheckoutgan(){
@@ -97,16 +125,12 @@ class OrderController extends Controller
           ]);
     }
 
-    public function bayar(Request $request, $id){
-        $orders = Orders::find($id);
-        dd($orders->toArray());
-        if($order){
-            $order->status = '1';
-            $order->save();
-        }
+    
 
-        return redirect()->back()->with('status','Barang sudah terbayar');
-    }
+    
+        
+    
+
     // public function bayar(Request $request){
     //     $user = $request->input('user_id');
     //     $product = $request->input('product_id');

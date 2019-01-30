@@ -37,20 +37,15 @@
                                 <input type="hidden" name="user_id" value="{{$users->id}}">
                                 <input type="hidden" name="product_id" value="{{$products->id}}">
                                 <input type="hidden" name="product_price" value="{{$products->product_price}}">
-                                
                                 <button type="submit" class="btn btn-primary">Tambah ke Keranjang</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="col-md-4" style="x">
-                        <form action="{{route('checkoutgan')}}" method="POST">
-                            {{csrf_field()}}
-                            <input type="hidden" name="user_id" value="{{$users->id}}">
-                            <input type="hidden" name="product_id" value="{{$products->id}}">
-                            <input type="hidden" name="product_price" value="{{$products->product_price}}">
-                            <button type="submit" class="btn btn-primary">Checkout</button>
-                        </form>
+                            <div class="col-md-12 clearfix">
+                                    <a href="{{route('checkoutgan')}}" type="button" class="btn btn-block btn-success" style="float:right">CheckOut></a>
+                                </div>
                     </div>
                 </div>
             </div>

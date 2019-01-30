@@ -48,13 +48,12 @@
                 <h2 class="text-center"> Ringkasan Belanja</h2>
                 <h4 class="text-center"> Total Barang :  {{$qty}}</h4>
                 <h4 class="text-center"> Total Tagihan: Rp{{number_format ($totalharga), 0}}</h4>
-                        <form action="{{ route('bayar')}}" method="POST">
-                            {{csrf_field()}}
-                            <input type="hidden" name="user_id" value="">
-                            <input type="hidden" name="product_id" value="">
-                            <input type="hidden" name="product_price" value="">
-                            <button type="submit" class="btn btn-info btn-block">Bayar</button>
-                        </form>
+                <form action="{{ route('bayar', $order->id)}}" method="GET">
+                    {{ csrf_field() }}
+                    <input type="hidden" value="{{$order->status}}" name="status">
+                </form>
+                
+                <a href="{{ route('bayar', $order->id)}}" class="btn btn-info btn-block" name="bayar">Bayar</a>
             </div>
     </div>
 </div>

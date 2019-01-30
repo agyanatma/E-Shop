@@ -45,13 +45,13 @@
                             </li>
                             @endguest
                         @if(Auth::user() && session('user_session')->admin==0)
-                            <div class="nav-item" style="margin-right:10px">
-                            <a href="{{route('cart')}}"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Cart</a>
-                            </div>
-                                {{-- <div class="nav-item" style="margin-right:10px">
-                                <a href="{{route('product.shoppingCart')}}"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Cart</a>
-                                    <span class="badge">{{Session::has('cart') ? Session::get('cart')->totalQty : ''}}</span>
-                                </div> --}}
+                            <form class="navbar-form" role="search" method="get" action="{{route('cart', $order->id)}}">
+                                <div class="input-group">
+                                    <div class="nav-item" style="margin-right:10px">
+                                        <button class="btn btn-info " type="submit"><i class="fas fa-shopping-cart"></i></button>
+                                    </div>
+                                </div>
+                            </form>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{Auth::user()->fullname}} <span class="caret"></span>
@@ -64,9 +64,13 @@
                             </li>
                         @endif
                         @if(Auth::user() && session('user_session')->admin==1)
-                        <div class="nav-item" style="margin-right:10px">
-                                <a href="{{route('cart')}}"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Cart</a>
+                            <form class="navbar-form" role="search" method="get" action="{{route('cart')}}">
+                                <div class="input-group">
+                                    <div class="nav-item" style="margin-right:10px">
+                                        <button class="btn btn-info " type="submit"><i class="fas fa-shopping-cart"></i></button>
+                                    </div>
                                 </div>
+                            </form>
                         <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{Auth::user()->fullname}} (Admin)<span class="caret"></span>

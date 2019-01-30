@@ -79,11 +79,11 @@ Route::post('user/{id}/password/changed', 'Frontend\UserController@updatePass')-
 
 
 //CartPage
-Route::get('/order/cart', 'Frontend\OrderController@cart')->name('cart');
+Route::get('/order/cart/', 'Frontend\OrderController@cart')->name('cart');
 Route::get('order/{id}/delete', 'Frontend\OrderController@deletecart')->name('deleteCart');
 Route::get('/pembayaran', 'Frontend\ProductController@getpembayaran')->name('pembayaranCart');
 Route::post('pembayaran', 'Frontend\ProductController@postpembayaran')->name('pembayaranCart');
-Route::get('/pembayaran', 'Frontend\OrderController@getcheckoutgan')->name('paid');
+Route::get('/pembayaran/{id}', 'Frontend\OrderController@getcheckoutgan')->name('paid');
 
 // Route::post('/pembayaran', 'Frontend\OrderController@postCheckoutgan')->name('checkoutGan');
 // Route::get('/cartblog', 'Frontend\CartController@index')->name('cart.index');
@@ -96,7 +96,7 @@ Route::get('/pembayaran', 'Frontend\OrderController@getcheckoutgan')->name('paid
 //OrderPage
 //Route::get('/order', 'Frontend\OrderController@order');
 Route::post('product/addcart', 'Frontend\OrderController@checkout')->name('addCart');
-Route::post('order/bayar', 'Frontend\OrderController@bayar')->name('bayar');
+Route::get('order/bayar/{id}', 'Frontend\OrderController@update')->name('bayar');
 Route::get('/checkout', 'Frontend\ProductController@getCheckout')->name('checkoutCart');
 Route::post('checkout', 'Frontend\ProductController@postCheckout')->name('checkoutCart');
 Route::get('/pembayaran', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
