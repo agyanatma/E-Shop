@@ -28,8 +28,9 @@ class CartController extends Controller
     }
 
     public function store(){
-        Cart::add($request->product_id, $request->product_name, $request->product_price, $request->description )->assosiate('App\Product');
-        dd($cart->toArray);
+        Cart::add($request->product_id, $request->product_name, $request->product_price, $request->description )
+        ->assosiate('App\Product');
+        dd($cart->toArray());
         return redirect()->route('pages.frontend.cartblogindex')->with('success_message', 'Item was added to your cart !!');
     }
     // public function store(Request $request){

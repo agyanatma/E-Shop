@@ -34,7 +34,7 @@
             <div class="col-md-4 card">
                 <h2 class="text-center"> Ringkasan Belanja</h2>
                 <div class="text-center"> Total Harga</div>
-                <div class="text-center"> Rp{{number_format ($totalharga), 0}}</div>
+                <div class="text-center"> Rp{{number_format ($totalharga= $order->product->product_price * $order->qty), 0}}</div>
                 <div class="col-md-12 clearfix">
                     <a href="{{route('checkoutgan')}}" type="button" class="btn btn-block btn-success" style="float:right">CheckOut></a>
                 </div>                         

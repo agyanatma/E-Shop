@@ -41,9 +41,10 @@ class OrderController extends Controller
         $categories = Category_product::all();
         $total = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
         $qty = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
-        $totalharga = $total * $qty ;
+        
         //dd($totalharga);
-        return view('pages.frontend.cart')->with('products', $products)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('qty', $qty)->with('totalharga', $totalharga);
+       
+        return view('pages.frontend.cart')->with('products', $products)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('qty', $qty);
     }
 
     public function deleteCart($id){

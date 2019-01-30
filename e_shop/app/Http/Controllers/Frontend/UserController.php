@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\File;
 use App\User;
+use App\Product;
+use App\Category_product;
+use App\Orders;
 use Auth;
 
 class UserController extends Controller
@@ -85,48 +88,18 @@ class UserController extends Controller
     
     public function user($id){
         $users = User::find($id);
-        
-        //dd($profile->toArray());
-        return view('pages.frontend.user')->with('users', $users);
+        $orders = Auth::user()->orders;
+        $buyer = Auth::user()->id;
+        $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+        $categories = Category_product::all();
+        $total = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
+        $qty = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
+        $totalharga = $total * $qty;
+        //dd($orders->toArray());
+        return view('pages.frontend.user')->with('users', $users)->with('orders', $orders)->with('qty', $qty)->with('total', $total)->with('totalharga', $totalharga);
     }
     
-    public function update(Request $request,$id){
-        $this->validate($request,[
-            'email' => 'required|email',
-            'fullname' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'postal' => 'required|numeric',
-            'img' => 'image|mimes:jpeg,png,jpg'
-        ]);
-        $email = $request->get('email');
-        $name = $request->get('fullname');
-        $address = $request->get('address');
-        $city = $request->get('city');
-        $postal = $request->get('postal');
-                
-        $update = Product::find($id);
-        $update->email = $email;
-        $update->fullname = $name;
-        $update->address = $address;
-        $update->city = $city;
-        $update->postal_code = $postal;  
-        //dd($request->all());
-                
-        if($request->hasFile('img')){
-            $edit = public_path('\upload\{$update->profile_image}');
-            if(File::exists($edit)){
-                unlink($edit);  
-            }
-            $image = $request->file('img');
-             $imageName = $image->getClientOriginalName();
-            $storage = public_path('\upload');
-            $image->move($storage, $imageName);
-            $update->profile_image = $imageName;
-        }
-        $update->save();
-        return redirect()->back()->withErrors('Data berhasil update!');           
-    }
+    
     
     public function password($id){
     }

@@ -13,7 +13,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     
     <link rel="stylesheet" href="/css/costum1.css">
-
     <title>{{ config('app.name', 'E-Shop') }}</title>
 </head>
 <body >
@@ -89,7 +88,35 @@
        </div>
    </nav>
     </header>
-    <script>
+    <script >
+
+//tabel
+    function makeTableScroll() {
+            // Constant retrieved from server-side via JSP
+            var maxRows = 4;
+
+            var table = document.getElementById('myTable');
+            var wrapper = table.parentNode;
+            var rowsInTable = table.rows.length;
+            var height = 0;
+            if (rowsInTable > maxRows) {
+                for (var i = 0; i < maxRows; i++) {
+                    height += table.rows[i].clientHeight;
+                }
+                wrapper.style.height = height + "px";
+            }
+        }
+
+
+$("document").ready(function () {
+        $('#dtVerticalScrollExample').DataTable({
+        "scrollY": "200px",
+        "scrollCollapse": true,
+        });
+        $('.dataTables_length').addClass('bs-select');
+        });
+
+//quantity        
 $("document").ready(function(){
 
 setTimeout(function(){

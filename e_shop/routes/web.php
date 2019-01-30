@@ -86,8 +86,8 @@ Route::post('pembayaran', 'Frontend\ProductController@postpembayaran')->name('pe
 Route::get('/pembayaran/{id}', 'Frontend\OrderController@getcheckoutgan')->name('paid');
 
 // Route::post('/pembayaran', 'Frontend\OrderController@postCheckoutgan')->name('checkoutGan');
-// Route::get('/cartblog', 'Frontend\CartController@index')->name('cart.index');
-// Route::post('/cartblogindex', 'Frontend\CartController@store')->name('cart.store');
+Route::get('/cartblog', 'Frontend\CartController@index')->name('cart.index');
+Route::post('/cartblogindex', 'Frontend\CartController@store')->name('cart.store');
 
 // Route::get('/add-to-cart/{id}', 'Frontend\ProductController@getAddToCart')->name('product.addToCart');
 // Route::get('/shopping-cart', 'Frontend\ProductController@getCart')->name('product.shoppingCart');
@@ -102,6 +102,8 @@ Route::post('checkout', 'Frontend\ProductController@postCheckout')->name('checko
 Route::get('/pembayaran', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
 //});
 
+
+//Route::get('cart', 'Frontend\Cartcontroller@index')->name('cart.index');
                                         /*BACKEND PAGE*/
 
 

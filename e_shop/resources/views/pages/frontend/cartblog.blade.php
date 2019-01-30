@@ -17,9 +17,9 @@
                                 <div class="card-body clearfix" >
                                         <h6 class="card-title-box">{{$product->product_name}}</h6>
                                         <h5 class="card-price-box">Rp {{number_format($product->product_price, 0)}}</h5>
-                                        <form class="card-text-box-button" method="POST" >
+                                        <form action="{{route('cart.store')}}" class="card-text-box-button" method="POST" >
                                             {{csrf_field()}}
-                                            <a href="" class="btn btn-info" name="buy"><i class="fas fa-shopping-basket"></i></a>
+                                            <button type="submit" class="button button-plain">Add to Cart</button>
                                         </form>
                                 </div>    
                             </div>
