@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +20,7 @@ Route::get('/logout', 'Frontend\UserController@logout')->name('logoutUser');
 Route::get('/searchcontent', 'Frontend\ProductController@searchcontent');
 Route::get('/', 'Frontend\ProductController@user')->name('userPage');
 
-Route::get('product/{id}/detailproduct', 'Frontend\ProductController@detailproduct')->name('detailproduct');
+Route::get('product/{id}/detailproduct/', 'Frontend\ProductController@detailproduct')->name('detailproduct');
 //SortPage
 Route::get('/sortheadphone', 'Frontend\SortController@sortheadphone');
 Route::get('/sortkeyboard', 'Frontend\SortController@sortkeyboard');

@@ -7,6 +7,7 @@ use View;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 use App\Product;
 use App\Product_image;
 use App\Category_product;
@@ -18,6 +19,7 @@ use Session;
 class ProductController extends Controller
 {
     
+
     public function searchcontent(){
         $searchkey = \Request::get('title');
         $products = Product::where('product_name', 'like', '%' .$searchkey. '%')->orderBy ('id')->get();
@@ -44,13 +46,17 @@ class ProductController extends Controller
 
     // }
     public function detailproduct($id){
-        
+        if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
+            // Ignores notices and reports all other kinds... and warnings
+            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+            // error_reporting(E_ALL ^ E_WARNING); // Maybe this is enough
+        }
         $products = Product::with(['images'])->find($id);
         $id = $products->id;
         $images = Product_image::where('product_id','=',$id)->get();
         $categories = Category_product::all();
-        $orders = Orders::all();
         $users = session()->get('user_session');
+        
         if (Auth::user() && $orders = 1){
             $user = Auth::user();
             $buyer = Auth::user()->id;
@@ -58,9 +64,9 @@ class ProductController extends Controller
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.index')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.detailproduct')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
         }
-        
+       
         //dd($orders->toArray());
         return view('pages.frontend.detailproduct')->with('products', $products)->with('categories', $categories)->with('users', $users)->with('images', $images)->with('orders', $orders);
     }

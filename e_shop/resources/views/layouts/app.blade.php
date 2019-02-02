@@ -91,7 +91,7 @@
                                     {{Auth::user()->fullname}} (Admin)<span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{route('user', $users->id)}}">User Profile</a>
+                                    <a class="dropdown-item" href="{{route('user', ['id'=>$users->id])}}">User Profile</a>
                                     <a class="dropdown-item" href="#">Daftar Belanja</a>
                                     <a class="dropdown-item" href="/admin/dashboard">Dashboard</a>
                                     <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
