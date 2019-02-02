@@ -20,13 +20,15 @@ class UserTransformer extends TransformerAbstract
             'address' =>$user->address,
             'city' =>$user->city,
             'postal_code' =>$user->postal_code,
-            'profile_image' =>'/upload/'.$user->profile_image,
+            'image' =>[
+                'id' =>$user->images->id,
+                'url' =>'http://bukanjaknote.site/upload/'.$user->images->user_image
+            ]
         ];
     }
 
     public function includeOrder(User $user){
-        $order = $user->order;
-        return $this->collection($order, new OrderTransformer);
+        $orders = $user->order;
+        return $this->collection($orders, new OrderTransformer);
     }
-
 }

@@ -34,22 +34,17 @@ class ProductController extends Controller
         $product_id = $item->id;
         $image = Product_image::where('product_id', '=', $product_id)->get();
         //dd($delete->toArray());
-        foreach($image as $file){
-            if(file_exists((public_path('/upload/').$file->product_image))){
-                if($file->product_image != 'image.png'){
-                    unlink((public_path('/upload/').$file->product_image));
-                }
-                else{
-    
+        foreach($image as $files){
+            if(file_exists('upload/'.$files->product_image)){
+                if($files != 'image.png'){
+                    unlink('upload/'.$files->product_image);
                 }
             }
-            
         }
-        Product_image::where('product_id', '=', $product_id)->delete();
+        $image->delete();
         $item->delete();
 
         return redirect()->back()->with('status', 'Data berhasil dihapus');
-        
     }
 
     //TAMPILAN CREATE PAGE
@@ -79,9 +74,7 @@ class ProductController extends Controller
         $store->category_id = $category;
         $store->description = $description;
         $store->save();
-
         $product_id = $store->id;
-
         //dd($request->all());
                
         if($request->hasFile('img')){
@@ -89,8 +82,7 @@ class ProductController extends Controller
             $image_len = count($image);
             for($i=0; $i<$image_len; $i++){
                 $imageName = $image[$i]->getClientOriginalName();
-                $storage = public_path('\upload');
-                $image[$i]->move($storage, $imageName);
+                $image[$i]->move('upload', $imageName);
                 $imageId = $product_id;
 
                 $upload = new Product_image;
@@ -113,7 +105,6 @@ class ProductController extends Controller
 
     //TAMPILAN EDIT PAGE
     public function edit($id){
-
         $item = Product::with(['images'])->find($id);
         $id = $item->id;
         $images = $item->images;
@@ -151,8 +142,7 @@ class ProductController extends Controller
             $image_len = count($image);
             for($i=0; $i<$image_len; $i++){
                 $imageName = $image[$i]->getClientOriginalName();
-                $storage = public_path('\upload');
-                $image[$i]->move($storage, $imageName);
+                $image[$i]->move('upload', $imageName);
                 $imageId = $product_id;
 
                 $upload = new Product_image;
@@ -166,9 +156,10 @@ class ProductController extends Controller
 
     public function deleteImage($id){
         $image = Product_image::find($id);
+        $file = $image->product_image;
         //dd($image->toArray());
-        if(file_exists((public_path('/upload/').$image->product_image))){
-            unlink((public_path('/upload/').$image->product_image));
+        if(file_exists('upload/'.$file)){
+            unlink('upload/'.$file);
         }
         $image->delete();
 

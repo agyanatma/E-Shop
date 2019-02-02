@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\File;
 use App\User;
+use App\User_image;
 use App\Product;
 use App\Category_product;
 use App\Orders;
@@ -16,14 +17,16 @@ class UserController extends Controller
 {
 
     public function dashboard(){
-        $item = User::orderBy('created_at')->get();
-        $users = session()->get('user_session');
+        $item = User::orderBy('created_at', 'desc')->get();
+        $users = Auth::user()->with('images')->first();
         $product = Product::count();
         $category = Category_product::count();
         $order = Orders::count();
-        //$user = User::with('order')->get();
-        //dd($user->toArray());
-        return view('pages.admin.dashboard')->with('users', $users)->with('item', $item)->with('product', $product)->with('category', $category)->with('order', $order);
+        $profile = User::count();
+        //dd($users->toArray());
+        return view('pages.admin.dashboard')->with('users', $users)->with('item', $item)
+            ->with('product', $product)->with('category', $category)
+            ->with('order', $order)->with('profile', $profile);
     }
 
     public function login(){
@@ -110,17 +113,24 @@ class UserController extends Controller
         $user->city = $request->city;
         $user->postal_code = $request->postal;
         $user->api_token = bcrypt($request->email);
+        $user->save();
+        $user_id = $user->id;
+
         if($request->hasFile('img')){
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
-            $storage = public_path('\upload');
-            $image->move($storage, $imageName);
-            $user->profile_image = $imageName;
+            $image->move('upload', $imageName);
+            $upload = new User_image;
+            $upload->user_id = $user_id;
+            $upload->user_image = $imageName;
+            $upload->save();
         }
         else{
-            $user->profile_image = 'default.jpg';
+            $upload = new User_image;
+            $upload->user_id = $user_id;
+            $upload->user_image = 'default.jpg';
+            $upload->save();
         }
-        $user->save();
 
         return redirect('login')->with('alert-success','Anda berhasil terdaftar');
     }
@@ -132,7 +142,7 @@ class UserController extends Controller
     }
     
     public function profile($id){
-        $users = User::find($id);
+        $users = User::with(['images'])->find($id);
         //dd($profile->toArray());
         return view('pages.profile')->with('users', $users);
     }
@@ -153,31 +163,69 @@ class UserController extends Controller
         $city = $request->get('city');
         $postal = $request->get('postal');
                 
-        $update = Product::find($id);
-        $update->email = $email;
-        $update->fullname = $name;
-        $update->address = $address;
-        $update->city = $city;
-        $update->postal_code = $postal;  
+        $user = User::find($id);
+        $user->email = $email;
+        $user->fullname = $name;
+        $user->address = $address;
+        $user->city = $city;
+        $user->postal_code = $postal;
+        $user->save();
+        $user_id = $user->id;
+
         //dd($request->all());
                 
         if($request->hasFile('img')){
-            $edit = public_path('\upload\{$update->profile_image}');
-            if(File::exists($edit)){
-                unlink($edit);  
+            $file = ('upload'.$update->profile_image);
+            if(file_exists($file)){
+                unlink($file);
             }
             $image = $request->file('img');
-             $imageName = $image->getClientOriginalName();
-            $storage = public_path('\upload');
-            $image->move($storage, $imageName);
-            $update->profile_image = $imageName;
+            $imageName = $image->getClientOriginalName();
+            $image->move('upload', $imageName);
+            $upload = new User_image;
+            $upload->user_id = $user_id;
+            $upload->user_image = $imageName;
+            $upload->save();
         }
-        $update->save();
 
         return redirect()->back()->withErrors('Data berhasil update!');           
     }
-    
-    public function password($id){
-        $password = $request->input('password');
+
+    public function admin($id){
+        $user = User::find($id);
+        if($user->admin!=1){
+            $user->admin = '1';
+            $user->save();
+            return redirect()->back()->with('status','User '.$user->fullname.' telah menjadi admin');
+        }
+        return redirect()->back();
+    }
+
+    public function destroy($id){
+        $user = User::find($id);
+        $user_id = $user->id;
+        $image = User_image::where('user_id', '=', $user_id)->get();
+        $file = $image->user_image;
+        if(file_exists('upload'.$file)){
+            if($file != 'default.jpg'){
+                unlink('upload'.$file);
+            }
+        }
+        $image = User_image::where('user_id', '=', $user_id)->delete();
+        $user->delete();
+
+        return redirect()->back()->with('status', 'User berhasil dihapus');
+    }
+
+    public function deleteImage($id){
+        $image = User_image::find($id);
+        $file = $image->user_image;
+        //dd($image->toArray());
+        if(file_exists('upload/'.$file)){
+            unlink('upload/'.$file);
+        }
+        $image->delete();
+
+        return redirect()->back();
     }
 }

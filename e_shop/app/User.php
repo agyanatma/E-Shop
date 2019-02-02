@@ -12,7 +12,7 @@ class User extends Authenticatable
     public $primaryKey = 'id';
     public $timestamps = true;
     protected $hidden = [
-        'password', 'remember_token', 'api_token',
+        'password', 'remember_token', 'api_token','created_at', 'updated_at', 'admin'
     ];
     protected $guarded = ['id'];
 
@@ -22,5 +22,9 @@ class User extends Authenticatable
 
     public function order(){
         return $this->hasMany('App\Orders');
+    }
+
+    public function images(){
+        return $this->hasOne('App\User_image');
     }
 }

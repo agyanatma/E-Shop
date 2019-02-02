@@ -32,7 +32,7 @@
                                     @if(count($categories) > 0)
                                         @foreach ($categories as $category)
                                         <tr>
-                                            <td class="align-middle" style="width:80px"><img class="img" style="object-fit:cover" width="50px" height="50px" src="{{ URL::to('/upload/'.$category->category_image)}}"></td>
+                                            <td class="align-middle" style="width:80px"><img class="img" style="object-fit:cover" width="50px" height="50px" src="/upload/{{$category->images->category_image}}"></td>
                                             <td class="align-middle">{{$category->category_name}}</td>
                                             <td class="align-middle" style="width:160px">
                                                 <span class="float-right">

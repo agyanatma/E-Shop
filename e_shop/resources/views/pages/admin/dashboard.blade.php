@@ -1,15 +1,14 @@
 @extends('layout.admin')
 
 @section('content')
-
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
         <div class="container">
                 <div class="row">
                   <div class="col-md-12">
+                    @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                    @endif
                     <!-- Website Overview -->
                     <div class="card border-0">
                     <div class="card bg-light text-dark border-0">
@@ -19,7 +18,7 @@
                                     <span class="align-middle" style="font-size:large; margin-right:10px">
                                         <span class="fas fa-circle align-middle" style="font-size:small; margin-right:10px; color:rgb(36, 255, 25)"> </span>Active User
                                     </span>
-                                    <img src="/upload/{{$users->profile_image}}" class="rounded-circle object-fit-cover" width="40" height="40">
+                                        <a href="{{route ('profile', $users->id)}}"><img src="/upload/{{$users->images->user_image}}" class="rounded-circle object-fit-cover" width="40" height="40"></a>
                                 </span></h2>
                         </div>
                     </div>
@@ -57,28 +56,18 @@
                       </div>
                       </div>
                     </div>
-                      <!-- Latest Users -->
-
-                    <!--<div class="col-md-3">
-                        <div class="card-deck" style="margin-top:20px">
-                            <div class="card bg-warning">
-                                <div class="card-body text-center">
-                                    <img src="/upload/hinahina.jpg" class="rounded-circle object-fit-cover" style="margin:20px 10px 50px" width="100" height="100">
-                                    <h4>Welcome Home,</h4>
-                                    <h3>User admin</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
                     <div class="col-md-12" style="margin-top:20px">
                         <div class="card border-0">
                             <div class="card-header bg-light" style="border:none; padding:5px">
-                                <h2 class="align-middle" style="margin-left:10px"><span class="fas fa-users"> </span> Latest Users</h2>
-                                <!--<h2 class="align-middle"><span class="align-middle">
-                                    <img src="/upload/{{$users->profile_image}}" class="rounded-circle object-fit-cover" width="40" height="40">
-                                </span>Hello, {{$users->fullname}}</h2>-->
+                                <h2 class="align-middle" style="margin-left:10px"><span class="fas fa-users"> </span> Latest Users
+                                <span>
+                                    <p class="float-right" style="font-size:large; margin-right:10px; margin-top:10px">Total Users: {{$profile}}</p>    
+                                </span></h2>
                             </div>
-                            <div class="card-body" style="margin:-20px">
+                            <div class="card-body" style="
+                            margin:-20px; 
+                            overflow-y: auto;
+                            -ms-overflow-style: -ms-autohiding-scrollbar;">
                                 <table class="table table-hover table-bordered" style="height:100%">
                                     <thead>
                                         <tr>
@@ -87,21 +76,28 @@
                                             <th>Address</th>
                                             <th>City</th>
                                             <th>Postal Code</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @if(count($item) > 0)
                                             @foreach ($item as $items)
                                             <tr>
-                                                <td>{{$items->email}}</td>
+                                                <td class="align-middle">{{$items->email}}</td>
                                                 @if($items->admin==1)
-                                                    <td>{{$items->fullname}} <span class="fas fa-crown"></span></td>
+                                                    <td class="align-middle">{{$items->fullname}} <span class="fas fa-crown"></span></td>
                                                 @else
-                                                    <td>{{$items->fullname}}</td>
+                                                    <td class="align-middle">{{$items->fullname}}</td>
                                                 @endif
-                                                <td>{{$items->address}}</td>
-                                                <td>{{$items->city}}</td>
-                                                <td>{{$items->postal_code}}</td>
+                                                <td class="align-middle">{{$items->address}}</td>
+                                                <td class="align-middle">{{$items->city}}</td>
+                                                <td class="align-middle">{{$items->postal_code}}</td>
+                                                <td class="align-middle" style="width:150px">
+                                                    <a href="{{ route('admin', $items->id) }}" class="btn btn-sm btn-warning" name="admin">Admin</a>
+                                                    <span>
+                                                        <a href="{{ route('adminDelete', $items->id) }}" class="btn btn-sm btn-danger" name="delete">Delete</a>
+                                                    </span>
+                                                </td>
                                             </tr>
                                             @endforeach
                                         @else

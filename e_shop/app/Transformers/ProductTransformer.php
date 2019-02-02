@@ -3,11 +3,7 @@
 namespace App\Transformers;
 
 use App\Product;
-use App\Product_image;
-use App\Orders;
-use App\Transformers\CategoryTransformer;
 use App\Transformers\ImageTransformer;
-use App\Transformers\OrderTransformer;
 use League\Fractal\TransformerAbstract;
 
 class ProductTransformer extends TransformerAbstract
@@ -20,13 +16,9 @@ class ProductTransformer extends TransformerAbstract
         return [
             'id' =>$product->id,
             'name' =>$product->product_name,
-            'category' =>[
-                'id' =>$product->categories->id,
-                'name' =>$product->categories->category_name,
-                'image' =>'/upload/'.$product->categories->category_image
-            ],
+            'category' =>$product->categories->category_name,
             'price' =>$product->product_price,
-            'description' =>$product->description,
+            'description' =>$product->description
         ];
     }
 

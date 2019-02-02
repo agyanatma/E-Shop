@@ -27,12 +27,11 @@ class OrderController extends Controller
 
     public function bayar($id){
         $order = Orders::find($id);
-        if($order->status!=0){
-            return redirect()->back();
+        if($order->status==1){
+            $order->status = '2';
+            $order->save();
+            return redirect()->back()->with('status','Barang sudah disetujui');
         }
-        $order->status = '1';
-        $order->save();
-
-        return redirect()->back()->with('status','Barang sudah terbayar');
+        return redirect()->back();
     }
 }

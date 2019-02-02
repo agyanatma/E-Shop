@@ -10,6 +10,9 @@ class Product extends Model
     public $primaryKey = 'id';
     public $timestamps = true;
     protected $guarded = ['id'];
+    protected $hidden = [
+        'created_at', 'updated_at', 'category_id'
+    ];
 
     public function categories(){
         return $this->hasOne('App\Category_product','id','category_id');

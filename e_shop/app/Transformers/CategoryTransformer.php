@@ -12,16 +12,19 @@ class CategoryTransformer extends TransformerAbstract
         'product'
     ];
 
-    public function transform(Category_product $category){
+    public function transform(Category_product $categories){
         return [
-            'id' =>$category->id,
-            'name' =>$category->category_name,
-            'image' =>'/upload/'.$category->category_image,
+            'id' =>$categories->id,
+            'name' =>$categories->category_name,
+            'image' =>[
+                'id' =>$categories->images->id,
+                'url' =>'http://bukanjaknote.site/upload/'.$categories->images->category_image
+            ]
         ];
     }
 
-    public function includeProduct(Category_product $category){
-        $product = $category->product;
+    public function includeProduct(Category_product $categories){
+        $product = $categories->product;
         return $this->collection($product, new ProductTransformer);
     }
 }
