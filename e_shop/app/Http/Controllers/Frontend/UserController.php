@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -11,7 +10,7 @@ use App\Product;
 use App\Category_product;
 use App\Orders;
 use Auth;
-
+Use Illuminate\Support\Facades\Input as input;
 class UserController extends Controller
 {
 
@@ -92,15 +91,91 @@ class UserController extends Controller
         $buyer = Auth::user()->id;
         $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
         $categories = Category_product::all();
-        $total = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
-        $qty = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
-        $totalharga = $total * $qty;
-        //dd($orders->toArray());
-        return view('pages.frontend.user')->with('users', $users)->with('orders', $orders)->with('qty', $qty)->with('total', $total)->with('totalharga', $totalharga);
+        $total = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('total');
+        $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
+        
+        $totalharga = $total * $totalqty;
+        //dd($users->toArray());
+        
+        return view('pages.frontend.user')->with('users', $users)->with('orders', $orders)->with('totalqty', $totalqty)->with('total', $total)->with('totalharga', $totalharga)->with('buyer', $buyer);
     }
     
+    public function update(Request $request,$id){
+        
+        $this->validate($request,[
+            'email' => 'required|email',
+            'fullname' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'postal' => 'required|numeric',
+            'img' => 'image|mimes:jpeg,png,jpg'
+        ]);
+        $profile_image = $request->get('asdad');
+        $email = $request->get('email');
+        $name = $request->get('fullname');
+        $address = $request->get('address');
+        $city = $request->get('city');
+        $postal = $request->get('postal');
+                
+        $update = User::find($id);
+        $update->$profile_image;
+        $update->email = $email;
+        $update->fullname = $name;
+        $update->address = $address;
+        $update->city = $city;
+        $update->postal_code = $postal;  
+        // /dd($request->all());
+                
+        if($request->hasFile('img')){
+            $edit = public_path('\upload\{$update->profile_image}');
+            if(file_exists($edit)){
+                unlink($edit);  
+            }
+            $image = $request->file('img');
+            $imageName = $image->getClientOriginalName();
+            
+            $image->move('upload', $imageName);
+            $update->profile_image = $imageName;
+        }
+        
+        $update->save();
+        return redirect()->back()->withErrors('Data berhasil update!');           
+    }
     
+    public function gantipassword($id){
+        $users = Auth::user()->id;
+        $users = session()->get('user_session');
+        
+        //dd($users);
+        return view('pages.frontend.gantipassword')->with('users', $users);
+    }
+
+    public function updatepassword(Request $request,$id){
+        $this->validate($request,[
+            'currentpassword' => 'required|min:5',
+            'newpassword' => 'required|min:5',
+            'newpasswordconfirm' => 'required|min:5',
+        ]);
+        // $password = $request->input('password');
+        // $user =  User::find(Auth::user()->id);
+        // if(Hash::check(Input::get('currentpassword'), $user['password']) && 
+        // Input::get('password')==Input::get('newpasswordconfirm')){
+        //     $user->password = bcrypt(Input::get('password'));
+        //     $user->save();
+        //     return back()->with('success', 'Password berhasil diupdate!');    
+        // }
+        // else {
+        //     return back()->with('error', 'Ganti Password Gagal! silakan coba kembali');
+        // }
     
-    public function password($id){
+        // $password = $request->input('password');
+        // $password = $request->get('newpassword');
+        // $updatepassword = Auth::user()->id;
+        // $updatepassword->password = bcrypt($request->get('newpassword'));
+        // $updatepassword ->save();
+        // $user->password = bcrypt($request->password);
+        
+        
+              
     }
 }

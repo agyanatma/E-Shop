@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+<script>
+        $(document).ready(function(){
+        
+            $('#cartBtn').click(function(){
+                alert('Barang sudah bertambah');
+            });
+        });
+        
+        </script>
 @if (session('status'))
 <div class="alert alert-success">
     {{ session('status') }}
@@ -16,15 +25,16 @@
             </div>
         
             <div class="col-md-7">
+            
                 <h2>{{$products->product_name}}</h2>
                 <h4>{{$products->categories->category_name}}</h4><br><br><br><br>
                 <h1>Rp {{number_format($products->product_price, 0)}}</h1>
                 <div class="row row-centered">
-                    <div class="col-md-8" style="padding-top:20px">
-                        <form action="{{route('addCart')}}" method="POST">
+                    <div class="col-md-6" style="padding-top:20px">
+                        <form action="{{route('addCart', $products->id)}}" method="POST">
                             {{csrf_field()}}
                             <div class="row ">
-                                <div class="input-group-prepend col-md-4 " style="padding-bottom:20px"> 
+                                <div class="input-group-prepend col-md-5 " style="padding-bottom:20px"> 
                                         <button type="button" class="quantity-left-minus btn btn-info btn-number"  data-type="minus" data-field="">
                                             <span class="fas fa-minus"></span>
                                         </button>
@@ -33,19 +43,26 @@
                                             <span class="fas fa-plus"></span>
                                         </button>
                                 </div>
-                                <div class="form-group col-md-8" style=" padding-left:150px">
+                                <div class="form-group col-md-7" style=" padding-left:150px">
                                 <input type="hidden" name="user_id" value="{{$users->id}}">
                                 <input type="hidden" name="product_id" value="{{$products->id}}">
                                 <input type="hidden" name="product_price" value="{{$products->product_price}}">
-                                <button type="submit" class="btn btn-primary">Tambah ke Keranjang</button>
+                                <button type="submit" id="cartBtn" class="btn btn-info">Tambah ke Keranjang</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-4" style="x">
-                            <div class="col-md-12 clearfix">
-                                    <a href="{{route('checkoutgan')}}" type="button" class="btn btn-block btn-success" style="float:right">CheckOut></a>
-                                </div>
+                    <div class="col-md-4 offset-2" style="">
+                        <form action="{{route('langsungbayar')}}" method="POST">
+                                {{csrf_field()}}
+                                <div class="form-group col-md-7" style=" padding-left:150px"></div>
+                                <input type="hidden" name="user_id" value="{{$users->id}}">
+                                <input type="hidden" name="product_id" value="{{$products->id}}">
+                                <input type="hidden" name="product_price" value="{{$products->product_price}}">
+                                <input type="hidden" name="quantity" value="1">
+                                {{-- <input type="hidden" name="order" value="{{$orders->id}}">   --}}
+                            <button type="submit" id="cartBtn" class="btn btn-primary">Bayar</button>
+                        </form>
                     </div>
                 </div>
             </div>

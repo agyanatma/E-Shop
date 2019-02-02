@@ -11,7 +11,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <link rel="stylesheet" href="/css/costum1.css">
     <title>{{ config('app.name', 'E-Shop') }}</title>
 </head>
@@ -43,11 +45,14 @@
                                     <a class="btn btn-info" href="{{ route('registeraccountPage') }}">Register</a>
                             </li>
                             @endguest
+                            
                         @if(Auth::user() && session('user_session')->admin==0)
-                            <form class="navbar-form" role="search" method="get" action="{{route('cart', $order->id)}}">
+                        <form class="navbar-form" role="cart" method="get" action="{{route('cart',)}}">
                                 <div class="input-group">
                                     <div class="nav-item" style="margin-right:10px">
-                                        <button class="btn btn-info " type="submit"><i class="fas fa-shopping-cart"></i></button>
+                                        <button class="btn btn-info " type="submit">
+                                            <i class="fas fa-shopping-cart"> 
+                                            <span class="badge" style="background:#d9534f"></span></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -63,13 +68,24 @@
                             </li>
                         @endif
                         @if(Auth::user() && session('user_session')->admin==1)
-                            <form class="navbar-form" role="search" method="get" action="{{route('cart')}}">
+                            <form class="navbar-form" role="cart" method="get" action="{{route('cart',)}}">
                                 <div class="input-group">
                                     <div class="nav-item" style="margin-right:10px">
-                                        <button class="btn btn-info " type="submit"><i class="fas fa-shopping-cart"></i></button>
+                                        <button class="btn btn-info " type="submit">
+                                            <i class="fas fa-shopping-cart"> 
+                                                    @if(Auth::user() && [ 'status', '=', '0'] ) 
+                                                        {{$totalqty}}
+                                                    @endif
+                                            </span></i></button>
                                     </div>
                                 </div>
                             </form>
+                            
+                            {{-- <li>
+                               <a href="{{route('product.shoppingCart')}}">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i> SHopping Cart
+                                <span class="badge">{{Session::has('cart') ? Session::get('cart')->totalQty : ''}}</span>
+                            </li> --}}
                         <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{Auth::user()->fullname}} (Admin)<span class="caret"></span>
@@ -88,33 +104,38 @@
        </div>
    </nav>
     </header>
-    <script >
+    {{-- var xadminFee = $order->status;
+ if(xadminFee == 2){
+     document.getElementById("completeReg").style.display = "block"; // This is for displaying the complete registration process.
+ }else{
+    document.getElementById("completeReg").style.display = "none"; --}}
+{{-- 
+    // let cartCount = document.getElementById('fbcommentcount').getElementsByClassName('fb_comments_count');
+    // setTimeout(function(){
+    //     document
+    // }) --}}
+{{--     
+    // let visitCount = document.getElementById('postVisitCount').value;
+    // let visitCountPlusOne = parseInt(visitCount) + 1;
+
+    // document.getElementById('postVisitCount').value = visitCountPlusOne;
+    // $.ajax({
+    // url. $formVar.prop('{{route('post.update', ['id'=>$id])}}'),
+    // method: 'PUT',
+    // data: $formVar.serialize()
+    // }); --}}
+<script >
+//cart
+    
 
 //tabel
-    function makeTableScroll() {
-            // Constant retrieved from server-side via JSP
-            var maxRows = 4;
-
-            var table = document.getElementById('myTable');
-            var wrapper = table.parentNode;
-            var rowsInTable = table.rows.length;
-            var height = 0;
-            if (rowsInTable > maxRows) {
-                for (var i = 0; i < maxRows; i++) {
-                    height += table.rows[i].clientHeight;
-                }
-                wrapper.style.height = height + "px";
-            }
-        }
-
-
-$("document").ready(function () {
-        $('#dtVerticalScrollExample').DataTable({
-        "scrollY": "200px",
-        "scrollCollapse": true,
-        });
-        $('.dataTables_length').addClass('bs-select');
-        });
+$(document).ready(function() {
+    $('#example').DataTable( {
+        scrollY:        '50vh',
+        scrollCollapse: true,
+        paging:         false
+    } );
+} );
 
 //quantity        
 $("document").ready(function(){
@@ -178,12 +199,13 @@ $('.quantity-left-minus').click(function(e){
         });
         </script>
    @yield('content')
-   <footer class="align-center">
+   
+   
+</body>
+<footer class="align-center fixed-bottom">
         <div class="container" >
-          <h6 class="m-0 text-center ">Copyright &copy; 2019 - All Rights Reserved -  <a link="codelabs.co.id">Code Labs Indonesia</a></h6>
+          <h6 class="m-0 text-center ">Copyright &copy; 2019 - All Rights Reserved -  <a link="bukanjaknote.site">Bukanjaknote.site</a></h6>
         </div>
         <!-- /.container -->
     </footer>
-   
-</body>
 </html>

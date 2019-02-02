@@ -17,13 +17,6 @@ use Session;
 
 class ProductController extends Controller
 {
-    public function index(){
-        $products = Product::with(['images'])->get();
-        $categories = Category_product::all();
-        $users = User::get();
-        //dd($products);
-        return view('pages.frontend.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
-    }
     
     public function searchcontent(){
         $searchkey = \Request::get('title');
@@ -51,13 +44,25 @@ class ProductController extends Controller
 
     // }
     public function detailproduct($id){
+        
         $products = Product::with(['images'])->find($id);
         $id = $products->id;
         $images = Product_image::where('product_id','=',$id)->get();
         $categories = Category_product::all();
+        $orders = Orders::all();
         $users = session()->get('user_session');
-        //dd($images->toArray());
-        return view('pages.frontend.detailproduct')->with('products', $products)->with('categories', $categories)->with('users', $users)->with('images', $images);
+        if (Auth::user() && $orders = 1){
+            $user = Auth::user();
+            $buyer = Auth::user()->id;
+            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
+            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
+            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
+            return view('pages.frontend.index')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+        }
+        
+        //dd($orders->toArray());
+        return view('pages.frontend.detailproduct')->with('products', $products)->with('categories', $categories)->with('users', $users)->with('images', $images)->with('orders', $orders);
     }
     
     public function tambahproduct(){
@@ -66,10 +71,32 @@ class ProductController extends Controller
         return view ('pages.frontend.tambahproduct')->with ('title', $title);
     }
 
-    public function guest(){
-        $products = Product::with(['images'])->get();
+    public function user(){
+        $products = Product::with(['images'])->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
+        $orders = Orders::all();
+        if (Auth::user() && $orders = 1){
+            $user = Auth::user();
+            $buyer = Auth::user()->id;
+            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
+            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
+            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
+            return view('pages.frontend.index')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+        }
+        else{
+            return view('pages.frontend.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
+        }
+        
+    
+    }
+
+    public function guest(){
+        $products = Product::with(['images'])->paginate(24);
+        $categories = Category_product::all();
+        $users = session()->get('user_session');
+        
         //$user = Auth::user();
         //dd($user);
         return view('pages.frontend.index')->with('products', $products)->with('categories', $categories)->with('users', $users);

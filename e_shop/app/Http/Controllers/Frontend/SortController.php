@@ -15,7 +15,7 @@ use App\User;
 class SortController extends Controller
 {
     public function sortheadphone(){
-        $products = Product::with(['images'])->where('category_id', '=', 11)->get();
+        $products = Product::with(['images'])->where('category_id', '=', 11)->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);
@@ -23,7 +23,7 @@ class SortController extends Controller
     }
 
     public function sortkeyboard(){
-        $products = Product::with(['images'])->where('category_id', '=', 3)->get();
+        $products = Product::with(['images'])->where('category_id', '=', 3)->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);
@@ -31,7 +31,7 @@ class SortController extends Controller
     }
 
     public function sortleptop(){
-        $products = Product::with(['images'])->where('category_id', '=', 12)->get();
+        $products = Product::with(['images'])->where('category_id', '=', 12)->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);
@@ -39,7 +39,7 @@ class SortController extends Controller
     }
 
     public function sortmonitor(){
-        $products = Product::with(['images'])->where('category_id', '=', 1)->get();
+        $products = Product::with(['images'])->where('category_id', '=', 1)->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);
@@ -47,7 +47,7 @@ class SortController extends Controller
     }
 
     public function sortprocessor(){
-        $products = Product::with(['images'])->where('category_id', '=', 4)->get();
+        $products = Product::with(['images'])->where('category_id', '=', 4)->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);
@@ -55,7 +55,7 @@ class SortController extends Controller
     }
 
     public function sortbattery(){
-        $products = Product::with(['images'])->where('category_id', '=', 8)->get();
+        $products = Product::with(['images'])->where('category_id', '=', 8)->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);
@@ -63,7 +63,7 @@ class SortController extends Controller
     }
 
     public function sortcpu(){
-        $products = Product::with(['images'])->where('category_id', '=', 5)->get();
+        $products = Product::with(['images'])->where('category_id', '=', 5)->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);
@@ -71,7 +71,7 @@ class SortController extends Controller
     }
 
     public function sorthdmi(){
-        $products = Product::with(['images'])->where('category_id', '=', 6)->get();
+        $products = Product::with(['images'])->where('category_id', '=', 6)->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);
@@ -79,7 +79,7 @@ class SortController extends Controller
     }
     
     public function sortmotherboard(){
-        $products = Product::with(['images'])->where('category_id', '=', 9)->get();
+        $products = Product::with(['images'])->where('category_id', '=', 9)->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);
@@ -87,7 +87,7 @@ class SortController extends Controller
     }
     
     public function sortmouse(){
-        $products = Product::with(['images'])->where('category_id', '=', 2)->get();
+        $products = Product::with(['images'])->where('category_id', '=', 2)->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);
@@ -95,7 +95,7 @@ class SortController extends Controller
     }
 
     public function sortpowercable(){
-        $products = Product::with(['images'])->where('category_id', '=', 7)->get();
+        $products = Product::with(['images'])->where('category_id', '=', 7)->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);
@@ -103,7 +103,7 @@ class SortController extends Controller
     }    
     
     public function sortprinter(){
-        $products = Product::with(['images'])->where('category_id', '=', 10)->get();
+        $products = Product::with(['images'])->where('category_id', '=', 10)->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);
@@ -111,7 +111,7 @@ class SortController extends Controller
     }
 
     public function lainlain(){
-        $products = Product::with(['images'])->get();
+        $products = Product::with(['images'])->paginate(24);
         $categories = Category_product::all();
         $users = session()->get('user_session');
         //dd($products);

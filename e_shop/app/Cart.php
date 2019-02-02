@@ -1,6 +1,5 @@
 <?php
 namespace App;
-use Gloudemans\Shoppingcart\ShoppingcartServiceProvider;
 class Cart{
     public $items = null;
     public $totalQty = 0;
@@ -27,5 +26,11 @@ class Cart{
         $this->items[$id] = $storedItem;
         $this->totalQty++;
         $this->totalPrice += $item->product_price;
+    }
+    public function order(){
+        return $this->hasMany('App\Orders');
+    }
+    public function product(){
+        return $this->hasOne('App\Product','id','product_id');
     }
 }

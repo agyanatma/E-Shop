@@ -9,7 +9,7 @@ use App\Product_image;
 use App\Category_product;
 use App\User;
 use App\Orders;
-
+use Auth;
 class CategoryController extends Controller
 {
     public function index(){

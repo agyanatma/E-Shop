@@ -6,24 +6,26 @@
         <div style="padding:50px" >
                 <div class="card-fluid bg-white" >
                     <div class="row row-centered" style="padding:20px ">
-                        <div class="col-md-2 ">
-                            <a href="sortheadphone"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[10]->category_image}}"></a>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="sortkeyboard"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[2]->category_image}}"></a>
-                        </div>
-                        <div class="col-sm-2">
-                            <a href="sortleptop"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[11]->category_image}}"></a>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="sortmonitor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[0]->category_image}}"></a>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="sortprocessor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[3]->category_image}}"></a>
-                        </div>
-                        <div class="col-md-2" >
-                            <a href="lainlain"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;" src="upload/lain-lain.png"></a>
-                        </div>
+                            
+                                    <div class="col-md-2 ">
+                                        <a href="sortheadphone"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[10]->category_image}}"></a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="sortkeyboard"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[2]->category_image}}"></a>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <a href="sortleptop"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[11]->category_image}}"></a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="sortmonitor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[0]->category_image}}"></a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="sortprocessor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[3]->category_image}}"></a>
+                                    </div>
+                                    <div class="col-md-2" >
+                                        <a href="lainlain"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;" src="upload/lain-lain.png"></a>
+                                    </div>
+                               
                     </div>
                 </div>
             <div class="container-fluid my-container ">
@@ -40,7 +42,7 @@
                                             <h5 class="card-price-box">Rp {{number_format($product->product_price, 0)}}</h5>
                                             <form class="card-text-box-button" method="POST" >
                                                 {{csrf_field()}}
-                                                <a href="" class="btn btn-info" name="buy"><i class="fas fa-shopping-basket"></i></a>
+                                                <a href="{{route('addCart', ['id'=> $product->id])}}" class="btn btn-info" name="buy"><i class="fas fa-shopping-basket"></i></a>
                                             </form>
                                     </div>    
                                 </div>
@@ -50,6 +52,9 @@
                                 <h2>No posts found!</h2>
                             @endif
                 </div>
+            </div>
+            <div class="pagination fixed" style="" >
+                {{$products->links()}}
             </div>
         </div>
 </div>

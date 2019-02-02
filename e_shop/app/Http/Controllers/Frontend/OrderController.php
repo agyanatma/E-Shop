@@ -9,14 +9,9 @@ use App\Orders;
 use Carbon\Carbon;
 use Auth;
 use Stripe\Stripe;
+use Session;
 class OrderController extends Controller
 {
-    // public function index(){
-    //     $orders = Order::all();
-    //     return view('pages.order')->with('orders', $orders);
-    // }
-
-
     public function listpembelian(){
         //$orders = Order::all();
         //$products = Product::with(['images'])->find($id);
@@ -39,12 +34,11 @@ class OrderController extends Controller
         $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
         //dd($orders->toArray());
         $categories = Category_product::all();
-        $total = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
-        $qty = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
-        
-        //dd($totalharga);
-       
-        return view('pages.frontend.cart')->with('products', $products)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('qty', $qty);
+        $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
+        $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
+        $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
+        //dd($total);
+        return view('pages.frontend.cart')->with('products', $products)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
     }
 
     public function deleteCart($id){
@@ -53,27 +47,86 @@ class OrderController extends Controller
         return redirect()->back()->with('status', 'Data berhasil dihapus');   
     }
     
-    public function checkout(Request $request){
-        
-        $user = $request->input('user_id');
-        $product = $request->input('product_id');
-        $quantity = $request->input('quantity');
-        $price = $request->input('product_price');
-        $time = Carbon::today();
-        //dd($request->all());
+    public function checkout(Request $request, $id){
+        $products = Product::find($id);
+        $cart = session()->get('cart');
+        if(!$cart) {
+        $cart = [
+            $user = $request->input('user_id'),
+            $product = $request->input('product_id'),
+            $quantity = $request->input('quantity'),
+            $price = $request->input('product_price'),
+            $time = Carbon::today(),
 
-        $store = new Orders;
-        $store->order_date = $time;
-        $store->user_id = $user;
-        $store->product_id = $product;
-        $store->qty = $quantity;
-        $store->total = $price;
-        $store->save();
+            $store = new Orders,
+            $store->order_date = $time,
+            $store->user_id = $user,
+            $store->product_id = $product,
+            $store->qty = $quantity,
+            $store->total = $quantity * $price,
+            $store->save(),
+            $cart = session()->get('cart'),
+        ];
 
-        return redirect()->back()->with('success_message','Barang berhasil ditambah ke keranjang');
+            session()->put('cart', $cart);
+ 
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
+        }
+
+        $cart[$id] = [
+            $user = $request->input('user_id'),
+            $product = $request->input('product_id'),
+            $quantity = $request->input('quantity'),
+            $price = $request->input('product_price'),
+            $time = Carbon::today(),
+
+            $store = new Orders,
+            $store->order_date = $time,
+            $store->user_id = $user,
+            $store->product_id = $product,
+            $store->qty = $quantity,
+            $store->total = $quantity * $price,
+            $store->save(),
+            $cart = session()->get('cart'),
+        ];
+ 
+        session()->put('cart', $cart);
+ 
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request)
+    {
+        if($request->id and $request->quantity)
+        {
+            $cart = session()->get('cart');
+ 
+            $cart[$request->id]["quantity"] = $request->quantity;
+ 
+            session()->put('cart', $cart);
+ 
+            session()->flash('success', 'Cart updated successfully');
+        }
+    }
+ 
+    public function remove(Request $request)
+    {
+        if($request->id) {
+ 
+            $cart = session()->get('cart');
+ 
+            if(isset($cart[$request->id])) {
+ 
+                unset($cart[$request->id]);
+ 
+                session()->put('cart', $cart);
+            }
+ 
+            session()->flash('success', 'Product removed successfully');
+        }
+    }
+
+    public function updatestatus(Request $request, $id){
         
         /*$buyer = Auth::user()->id;
         $order = $request->get('order_id');
@@ -89,7 +142,6 @@ class OrderController extends Controller
         $update->quantity = $quantity;
         $update->product_price = $product_price;
         $update->time = $time;*/
-
         //dd($orders->toArray());
         $status = $request->all;
         $id = Auth::user()->id;
@@ -103,7 +155,29 @@ class OrderController extends Controller
         //$order->status = '1';
         //$order->save();
         
-        return redirect()->back();
+        return redirect()->route('userPage');
+    }
+
+    public function langsungbayar(Request $request){
+        $buyer = Auth::user()->id;
+        $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+
+        $user = $request->input('user_id');
+        $product = $request->input('product_id');
+        $quantity = $request->input('quantity', '1');
+        $price = $request->input('product_price');
+        $time = Carbon::today();
+        //dd($request->all());
+
+        $store = new Orders;
+        $store->order_date = $time;
+        $store->user_id = $user;
+        $store->product_id = $product;
+        $store->qty = $quantity;
+        $store->total = $quantity * $price;
+        $store->save();
+
+        return redirect()->back()->with('success_message','Barang berhasil ditambah ke keranjang');
     }
 
     public function getcheckoutgan(){
@@ -113,44 +187,11 @@ class OrderController extends Controller
         $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
         //dd($orders->toArray());
         $categories = Category_product::all();
-        $total = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
-        $qty = Orders::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
-        $totalharga = $total * $qty;
-        return view('pages.frontend.checkoutgan')->with('products', $products)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('qty', $qty)->with('totalharga', $totalharga);
-    }
-
-    public function getCartadd(){
-        Cart::add([
-            ['id' => '293ad', 'name' => 'Product 1', 'qty' => 1, 'price' => 10.00],
-            ['id' => '4832k', 'name' => 'Product 2', 'qty' => 1, 'price' => 10.00,]
-          ]);
-    }
-
-    
-
-    
+        $total = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('total');
+        $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
         
-    
+        return view('pages.frontend.checkoutgan')->with('products', $products)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty);
+    }
 
-    // public function bayar(Request $request){
-    //     $user = $request->input('user_id');
-    //     $product = $request->input('product_id');
-    //     $quantity = $request->input('quantity');
-    //     $price = $request->input('product_price');
-    //     $total = $request->input('total');
-    //     $status = $request->input('status');
-    //     $time = Carbon::where('time', = 'today');
-    //     //dd($product);
-
-    //     $store = new Orders;
-    //     $store->order_date = $time;
-    //     $store->user_id = $user;
-    //     $store->product_id = $product;
-    //     $store->qty = $quantity;
-    //     $store->total = $price;
-    //     $store->save();
-
-    //     return redirect()->back()->with('success_message','Barang berhasil ditambah ke keranjang');
-    // }
-    
+   
 }

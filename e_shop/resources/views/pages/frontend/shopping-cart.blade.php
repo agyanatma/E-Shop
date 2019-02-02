@@ -20,14 +20,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                            @if(count($products) > 0)
-                            @foreach ($products as $product)
+                            @if(count($orders) > 0)
+                            @foreach ($orders as $order)
                                 <tr>
                                     <td style="width:30px"><img class="img-fluid" src="{{ URL::to('/upload/'.$product->images[0]->product_image)}}"></td>
-                                    <td>{{$product->product_name}}</td>
-                                    <td>{{$product->categories->category_name}}</td>
-                                    <td>Rp {{number_format($product->product_price, 0)}}</td>
-                                    <td> <span class="badge">{{$product['qty']}}</span></td>
+                                    <h6>{{$order->product->category_name}}</h6>
+                                <h6>{{$order->product->product_name}}</h6>
+                                <h6>Rp. {{number_format($order->product->product_price), 0}}</h6>
                                     <td><a href="{{route('detailproduct', $product->id)}}" class="btn btn-primary">Detail</a>
                                     </td>
                                 </tr>
@@ -39,7 +38,7 @@
         <div class="row">
                 
             <div class="col-md-12">
-                <h1>Total : {{$totalPrice}}</h1>
+                <h1>Total : RP.{{number_format($totalPrice)}}</h1>
             </div>
         </div>
         

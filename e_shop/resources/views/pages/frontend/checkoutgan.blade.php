@@ -19,6 +19,7 @@
                 <div>
                         @if(count($orders) > 0)
                             @foreach ($orders as $order)
+                            @if(Auth::user() && $order->status==0)
                                 <div class="col-md-8 card "style="padding-bottom:20px; padding-top:20px; ">
                                     <div class="row">
                                         <div class=" col-md-2">
@@ -37,7 +38,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                    
+                            @endif
                             @endforeach
                             @else
                             <h3>No posts found!</h3>
@@ -45,14 +46,15 @@
                     </div>
             </div>
             <div class="col-md-4 card">
+                
                 <h2 class="text-center"> Ringkasan Belanja</h2>
-                <h4 class="text-center"> Total Barang :  {{$qty}}</h4>
-                <h4 class="text-center"> Total Tagihan: Rp{{number_format ($totalharga), 0}}</h4>
+                <h4 class="text-center"> Total Barang :  {{$totalqty}}</h4>
+            
+                <h4 class="text-center"> Total Tagihan: Rp{{number_format ($total), 0}}</h4>
                 <form action="{{ route('bayar', $order->id)}}" method="GET">
                     {{ csrf_field() }}
                     <input type="hidden" value="{{$order->status}}" name="status">
                 </form>
-                
                 <a href="{{ route('bayar', $order->id)}}" class="btn btn-info btn-block" name="bayar">Bayar</a>
             </div>
     </div>

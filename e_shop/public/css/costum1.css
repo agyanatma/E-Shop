@@ -287,6 +287,19 @@ p{
   height: auto;
 }
 
+.pagination{
+    text-align: center;
+    justify-content: center;
+    
+}
+
+.show {
+    display: block;
+}
+.hidden {
+    display: none;
+}
+
 .table-wrapper-scroll-y {
     display: block;
     max-height: 200px;
