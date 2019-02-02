@@ -72,7 +72,6 @@ class OrderController extends Controller
  
             return redirect()->back()->with('success', 'Product added to cart successfully!');
         }
-
         $cart[$id] = [
             $user = $request->input('user_id'),
             $product = $request->input('product_id'),
