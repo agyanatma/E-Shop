@@ -15,7 +15,7 @@ class Category_product extends Model
     ];
 
     public function product(){
-        return $this->hasMany('App\Product','id');
+        return $this->hasMany('App\Product','category_id','id');
     }
 
     public function images(){

@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/product', 'Api\ProductController@index');//done
 Route::get('/category', 'Api\CategoryController@index');//done
-
+Route::get('/category/sortby/{id}', 'Api\CategoryController@sort');
 Route::get('/order', 'Api\OrderController@index');//kurang tampilan product, user
 Route::get('/user', 'Api\UserController@index');//done
 
