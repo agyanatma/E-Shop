@@ -28,13 +28,13 @@ class ProductController extends Controller
         $image = Product_image::where('product_id', '=', $product_id)->get();
         //dd($delete->toArray());
         foreach($image as $files){
-            if(file_exists('upload/'.$files->product_image)){
-                if($files != 'image.png'){
-                    unlink('upload/'.$files->product_image);
+            if(file_exists('upload'.$files->product_image)){
+                if($files->product_image != 'image.png'){
+                    unlink('upload'.$files->product_image);
                 }
             }
         }
-        $image->delete();
+        Product_image::where('product_id', '=', $product_id)->delete();
         $item->delete();
         return redirect()->back()->with('status', 'Data berhasil dihapus');
     }
@@ -141,6 +141,9 @@ class ProductController extends Controller
         $file = $image->product_image;
         //dd($image->toArray());
         if(file_exists('upload/'.$file)){
+            if($file != 'image.png'){
+
+            }
             unlink('upload/'.$file);
         }
         $image->delete();
