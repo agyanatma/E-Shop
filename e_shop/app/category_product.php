@@ -7,10 +7,15 @@ class Category_product extends Model
     public $primaryKey = 'id';
     public $timestamps = true;
     protected $guarded = ['id'];
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
     public function product(){
-        return $this->hasMany('App\Product');
+        return $this->hasMany('App\Product','id');
     }
     public function images(){
-        return $this->hasMany('App\Category_image');
+        return $this->hasOne('App\Category_image','category_id');
     }
+
 }

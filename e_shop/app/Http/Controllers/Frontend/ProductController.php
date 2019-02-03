@@ -8,6 +8,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
+
 use App\Product;
 use App\Product_image;
 use App\Category_product;
@@ -15,6 +16,7 @@ use App\User;
 use App\Cart;
 use App\Orders;
 use Session;
+
 
 class ProductController extends Controller
 {

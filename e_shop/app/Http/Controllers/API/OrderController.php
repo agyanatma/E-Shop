@@ -5,19 +5,29 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Orders;
 use App\Transformers\OrderTransformer;
+use App\Transformers\Status;
 
 
 class OrderController extends Controller
 {
-    public function index(){
-        $order = $order->with('product', 'buyer')->get();
+    public function index(Orders $orders){
+        try{
+        $orders = $orders->with('product', 'buyer')->get();
 
         $response = fractal()
-            ->collection($order)
-            ->transformWith(new OrderTransform)
+            ->collection($orders)
+            ->transformWith(new OrderTransformer)
+            //->includeProduct()
             ->toArray();
 
-        return response()->json($response, 201);
+            if(!$orders){
+                return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
+            }
+            return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
+        }
+        catch(\Exception $e){
+            return response()->json(Status::response(null, 'error', $e->getMessage()), 404);
+        }
     }
     
     public function order(Request $request, Orders $order){
@@ -36,15 +46,34 @@ class OrderController extends Controller
             'total' =>$request->total,
         ]);
 
-        $response = fractal()
-            ->item($order)
-            ->transformWith(new OrderTransform)
-            ->toArray();
+        $response = [
+            'order' =>$order
+        ];
 
         return response()->json($response, 201);
     }
 
-    public function payed(Request $request, Order $order){
+    public function confirm(Request $request, Orders $orders, $id){
+        try{
+            $order = Orders::find($id);
+            if($order->status==0){
+                $order->status = '1';
+                $order->save();
+            }
+            $response = [
+                'order' =>$order
+            ];
+            if(!$order){
+                return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
+            }
+            if($order->status!='1'){
+                return response()->json(Status::response($response, 'failed', 'Nothing Happen', 401), 401);
+            }
+            return response()->json(Status::response($response, 'success', 'Waiting for confirmation', 200), 200);
+        }
+        catch(\Exception $e){
+            return response()->json(Status::response(null, 'error', $e->getMessage()), 404);
+        }
         
     }
 }

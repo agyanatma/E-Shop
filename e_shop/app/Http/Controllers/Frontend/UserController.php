@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\File;
 use App\User;
+use App\User_image;
 use App\Product;
 use App\Category_product;
 use App\Orders;
@@ -64,19 +65,25 @@ class UserController extends Controller
         $user->address = $request->address;
         $user->city = $request->city;
         $user->postal_code = $request->postal;
-        $user->remember_token = $request->_token;
         $user->api_token = bcrypt($request->email);
+        $user->save();
+        $user_id = $user->id;
+
         if($request->hasFile('img')){
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
-            $storage = public_path('\upload');
-            $image->move($storage, $imageName);
-            $user->profile_image = $imageName;
+            $image->move('upload', $imageName);
+            $upload = new User_image;
+            $upload->user_id = $user_id;
+            $upload->user_image = $imageName;
+            $upload->save();
         }
         else{
-            $user->profile_image = 'default.jpg';
+            $upload = new User_image;
+            $upload->user_id = $user_id;
+            $upload->user_image = 'default.jpg';
+            $upload->save();
         }
-        $user->save();
         return redirect('loginaccount')->with('alert-success','Anda berhasil terdaftar');
     }
     public function logout(){
@@ -86,7 +93,8 @@ class UserController extends Controller
     }
     
     public function user($id){
-        $users = User::find($id);
+        
+        $users = User::with(['images'])->find($id);
         $orders = Auth::user()->orders;
         $buyer = Auth::user()->id;
         $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
@@ -110,35 +118,36 @@ class UserController extends Controller
             'postal' => 'required|numeric',
             'img' => 'image|mimes:jpeg,png,jpg'
         ]);
-        $profile_image = $request->get('asdad');
         $email = $request->get('email');
         $name = $request->get('fullname');
         $address = $request->get('address');
         $city = $request->get('city');
         $postal = $request->get('postal');
                 
-        $update = User::find($id);
-        $update->$profile_image;
-        $update->email = $email;
-        $update->fullname = $name;
-        $update->address = $address;
-        $update->city = $city;
-        $update->postal_code = $postal;  
-        // /dd($request->all());
+        $user = User::find($id);
+        $user->email = $email;
+        $user->fullname = $name;
+        $user->address = $address;
+        $user->city = $city;
+        $user->postal_code = $postal;
+        $user->save();
+        $user_id = $user->id;
+
+        //dd($request->all());
                 
         if($request->hasFile('img')){
-            $edit = public_path('\upload\{$update->profile_image}');
-            if(file_exists($edit)){
-                unlink($edit);  
+            $file = ('upload'.$user->user_image);
+            if(file_exists($file)){
+                unlink($file);
             }
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
-            
             $image->move('upload', $imageName);
-            $update->profile_image = $imageName;
+            $upload = new User_image;
+            $upload->user_id = $user_id;
+            $upload->user_image = $imageName;
+            $upload->save();
         }
-        
-        $update->save();
         return redirect()->back()->withErrors('Data berhasil update!');           
     }
     

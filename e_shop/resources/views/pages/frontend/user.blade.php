@@ -11,7 +11,7 @@ Shopping Cart
                 <div class="container" style="padding:10px; margin:auto">
                         <div class="row ">
                             <div class="col-md-2 " style="float:left">
-                                <img src="{{URL::to('/upload/'.$users->profile_image)}}" style="width:auto; height:150px; border-radius:50% margin-right:25px">
+                                <img src="{{URL::to('/upload/'.$users->profile_images)}}" style="width:auto; height:150px; border-radius:50% margin-right:25px">
                             </div>
                             <div class="col-md-4">
                                 <div class="text-left">

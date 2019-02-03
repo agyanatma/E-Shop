@@ -10,6 +10,7 @@ use App\Category_product;
 use App\User;
 use App\Orders;
 use Auth;
+use App\Category_image;
 class CategoryController extends Controller
 {
     public function index(){
@@ -23,8 +24,11 @@ class CategoryController extends Controller
             'category_name' => 'required',
             'img' => 'image|mimes:jpeg,png,jpg'
         ]);
-        $new = new Category_product;
-        $new->category_name = $request->category_name;
+        $item = new Category_product;
+        $item->category_name = $request->category_name;
+        $item->save();
+
+        $category_id = $item->id;
         if($request->hasFile('img')){
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();

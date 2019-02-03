@@ -108,9 +108,23 @@ Route::delete('remove-from-cart', 'OrderController@remove');
 
 //});
 
-
 //Route::get('cart', 'Frontend\Cartcontroller@index')->name('cart.index');
                                         /*BACKEND PAGE*/
+Route::get('/', 'Backend\ProductController@guest')->name('userPage');
+
+//LOGIN REGISTER
+Route::get('login', 'Backend\UserController@login')->name('loginPage');
+Route::post('login/store', 'Backend\UserController@loginStore')->name('store.login');
+Route::get('register', 'Backend\UserController@signup')->name('registerPage');
+Route::post('register/store', 'Backend\UserController@signupStore')->name('store.register');
+Route::get('logout', 'Backend\UserController@logout')->name('logoutUser');
+
+//INDEX
+Route::get('category/{category_name}', 'Backend\CategoryController@product')->name('productCategory');
+Route::get('product/{id}/detail', 'Backend\ProductController@detail')->name('detailProduct');
+
+
+
 
 
 
@@ -137,16 +151,17 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/category/{id}/delete', 'Backend\CategoryController@destroy')->name('deleteCategory');
     Route::get('admin/category/{id}/edit', 'Backend\CategoryController@edit')->name('editCategory');
     Route::post('admin/category/{id}/update', 'Backend\CategoryController@update')->name('updateCategory');
+    Route::get('admin/category/{id}/edit/delete', 'Backend\CategoryController@deleteImage')->name('delete.category');
+
     //CRUD ORDER
     Route::get('admin/order', 'Backend\OrderController@index')->name('indexOrder');
     Route::get('admin/order/{id}/delete', 'Backend\OrderController@destroy')->name('deleteOrder');
     Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('editOrder');
-    Route::post('admin/order/{id}/pay', 'Backend\OrderController@bayar')->name('payOrder');
-//CRUD USER PROFILE
-    Route::get('profile/{id}', 'Backend\UserController@profile')->name('profile');
-    Route::post('profile/{id}/edit', 'Backend\UserController@update')->name('editProfile');
-    Route::get('profile/{id}/password', 'Backend\UserController@password')->name('changePassword');
-    Route::post('profile/{id}/password/changed', 'Backend\UserController@updatePass')->name('updatePassword');
+    Route::get('admin/order/{id}/pay', 'Backend\OrderController@bayar')->name('payOrder');
+
+    //CRUD USER
+    Route::get('admin/user/{id}/change', 'Backend\UserController@admin')->name('admin');
+    Route::get('admin/user/{id}/destroy', 'Backend\UserController@destroy')->name('adminDelete');
 
 });
 
