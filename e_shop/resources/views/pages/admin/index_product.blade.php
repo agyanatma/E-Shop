@@ -34,7 +34,7 @@
                                 @if(count($products) > 0)
                                     @foreach ($products as $product)
                                     <tr>
-                                        <td class="align-middle" style="width:80px"><img class="img" style="object-fit:cover" width="50px" height="50px"  src="{{ URL::to('/upload/'.$product->images[0]->product_image)}}"></td>
+                                        <td class="align-middle" style="width:80px"><img class="img" style="object-fit:cover" width="50px" height="50px"  src="{{$product->images[0]->product_image}}"></td>
                                         <td class="align-middle">{{$product->product_name}}</td>
                                         <td class="align-middle">{{$product->categories->category_name}}</td>
                                         <td class="align-middle">Rp {{number_format($product->product_price, 0)}}</td>

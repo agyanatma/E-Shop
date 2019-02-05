@@ -8,19 +8,19 @@
                     <div class="row row-centered" style="padding:20px ">
                             
                                     <div class="col-md-2 ">
-                                        <a href="sortheadphone"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[8]->category_image}}"></a>
+                                        <a href="sortheadphone"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[8]->category_image}}"></a>
                                     </div>
                                     <div class="col-md-2">
-                                        <a href="sortkeyboard"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[7]->category_image}}"></a>
+                                        <a href="sortkeyboard"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[7]->category_image}}"></a>
                                     </div>
                                     <div class="col-sm-2">
-                                        <a href="sortleptop"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[2]->category_image}}"></a>
+                                        <a href="sortleptop"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[2]->category_image}}"></a>
                                     </div>
                                     <div class="col-md-2">
-                                        <a href="sortmonitor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[0]->category_image}}"></a>
+                                        <a href="sortmonitor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[0]->category_image}}"></a>
                                     </div>
                                     <div class="col-md-2">
-                                        <a href="sortprocessor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[1]->category_image}}"></a>
+                                        <a href="sortprocessor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[1]->category_image}}"></a>
                                     </div>
                                     <div class="col-md-2" >
                                         <a href="lainlain"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;" src="upload/lain-lain.png"></a>
@@ -36,7 +36,7 @@
                         </ol>
                         <div class="carousel-inner">
                           <div class="carousel-item active">
-                            <img class="d-block w-100" style="max-height: 50px; max-width: 100%;"  src="upload/{{$product[0]->product_image}}" alt="First slide">
+                            <img class="d-block w-100" style="max-height: 50px; max-width: 100%;"  src="{{$product[0]->product_image}}" alt="First slide">
                           </div>
                           <div class="carousel-item">
                             <img class="d-block w-100" src="..." alt="Second slide">
@@ -61,7 +61,7 @@
                             <div class="col-md-3" style="padding-bottom:20px; padding-top:20px; ">
                                 <div class="card card-box " >
                                     <div>
-                                        <a href="{{route('detailproduct', $row->id)}}"><img class="card-image rounded mx-auto d-block img-responsive " style="" src="{{ URL::to('/upload/'.$row->images[0]->product_image)}}"></a>
+                                        <a href="{{route('detailproduct', $row->id)}}"><img class="card-image rounded mx-auto d-block img-responsive " style="" src="{{ $row->images[0]->product_image}}"></a>
                                     </div>
                                     <div class="card-body clearfix" >
                                             <h6 class="card-title-box">{{$row->product_name}}</h6>

@@ -23,7 +23,7 @@
                                 <div class="col-md-8 card "style="padding-bottom:20px; padding-top:20px; ">
                                     <div class="row">
                                         <div class=" col-md-2">
-                                            <a href="{{route('detailproduct', $order->product->id)}}"> <img style="width:100px" class="img-fluid" src="{{URL::to('/upload/'.$order->product->images[0]->product_image)}}"> </a>
+                                            <a href="{{route('detailproduct', $order->product->id)}}"> <img style="width:100px" class="img-fluid" src="{{$order->product->images[0]->product_image}}"> </a>
                                         </div>
                                         <div class="clearfix col-md-5" >
                                             <h6>{{$order->product->category_name}}</h6>

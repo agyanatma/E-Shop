@@ -20,7 +20,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Orders');
     }
 
-    public function images(){
-        return $this->hasOne('App\User_image');
+    public function getProfileImageAttribute($value){
+        return '/upload/'.$value;
+    }
+
+    public function getFullnameAttribute($value){
+        return ucfirst($value);
     }
 }

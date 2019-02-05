@@ -7,40 +7,40 @@
                 <div class="card-fluid bg-white" >
                     <div class="row row-centered" style="padding:20px ">
                         <div class="col-md-2 ">
-                            <a href="sortmonitor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[0]->category_image}}"></a>
+                            <a href="sortmonitor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[0]->category_image}}"></a>
                         </div>
                         <div class="col-md-2">
-                            <a href="sortprocessor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[1]->category_image}}"></a>
+                            <a href="sortprocessor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[1]->category_image}}"></a>
                         </div>
                         <div class="col-sm-2">
-                            <a href="sortleptop"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[2]->category_image}}"></a>
+                            <a href="sortleptop"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[2]->category_image}}"></a>
                         </div>
                         <div class="col-md-2">
-                            <a href="sortcpu"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[3]->category_image}}"></a>
+                            <a href="sortcpu"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[3]->category_image}}"></a>
                         </div>
                         <div class="col-md-2">
-                            <a href="sorthdmi"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[4]->category_image}}"></a>
+                            <a href="sorthdmi"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[4]->category_image}}"></a>
                         </div>
                         <div class="col-md-2" >
-                            <a href="sortpowercable"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;" src="upload/{{$categories[5]->category_image}}"></a>
+                            <a href="sortpowercable"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;" src="{{$categories[5]->category_image}}"></a>
                         </div>
                         <div class="col-md-2 " style="padding-top:20px">
-                            <a href="sortbattery"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[6]->category_image}}"></a>
+                            <a href="sortbattery"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[6]->category_image}}"></a>
                         </div>
                         <div class="col-md-2" style="padding-top:20px">
-                            <a href="sortmotherboard"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[10]->category_image}}"></a>
+                            <a href="sortmotherboard"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[10]->category_image}}"></a>
                         </div>
                         <div class="col-sm-2" style="padding-top:20px">
-                            <a href="sortkeyboard"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[7]->category_image}}"></a>
+                            <a href="sortkeyboard"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[7]->category_image}}"></a>
                         </div>
                         <div class="col-md-2" style="padding-top:20px">
-                            <a href="sortheadphone"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[8]->category_image}}"></a>
+                            <a href="sortheadphone"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[8]->category_image}}"></a>
                         </div>
                         <div class="col-md-2" style="padding-top:20px">
-                            <a href="sortmouse"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="upload/{{$categories[9]->category_image}}"></a>
+                            <a href="sortmouse"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[9]->category_image}}"></a>
                         </div>
                         <div class="col-md-2" style="padding-top:20px">
-                            <a href="sortprinter"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;" src="upload/{{$categories[11]->category_image}}"></a>
+                            <a href="sortprinter"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;" src="{{$categories[11]->category_image}}"></a>
                         </div>
 
                     </div>
@@ -52,7 +52,7 @@
                                     <div class="col-md-3" style="padding-bottom:20px; padding-top:20px; ">
                                         <div class="card card-box " >
                                             <div>
-                                                <a href="{{route('detailproduct', $row->id)}}"><img class="card-image rounded mx-auto d-block img-responsive " style="" src="{{ URL::to('/upload/'.$row->images[0]->product_image)}}"></a>
+                                                <a href="{{route('detailproduct', $row->id)}}"><img class="card-image rounded mx-auto d-block img-responsive " style="" src="{{$row->images[0]->product_image}}"></a>
                                             </div>
                                             <div class="card-body clearfix" >
                                                     <h6 class="card-title-box">{{$row->product_name}}</h6>

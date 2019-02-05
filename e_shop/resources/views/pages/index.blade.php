@@ -61,7 +61,7 @@
                             <div class="col-md-3" style="padding-bottom:20px; padding-top:20px; ">
                                 <div class="card card-box " >
                                     <div>
-                                        <a href="{{route('detailproduct', $row->id)}}"><img class="card-image rounded mx-auto d-block img-responsive " style="" src="{{ URL::to('/upload/'.$row->images[0]->product_image)}}"></a>
+                                        <a href="{{route('detailproduct', $row->id)}}"><img class="card-image rounded mx-auto d-block img-responsive " style="" src="{{ $row->images[0]->product_image}}"></a>
                                     </div>
                                     <div class="card-body clearfix" >
                                             <h6 class="card-title-box">{{$row->product_name}}</h6>

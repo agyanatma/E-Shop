@@ -23,7 +23,7 @@
                             @if(count($products) > 0)
                                 @foreach ($products as $product)
                                 <tr>
-                                    <td style="width:30px"><img class="img-fluid" src="{{ URL::to('/upload/'.$product->images[0]->product_image)}}"></td>
+                                    <td style="width:30px"><img class="img-fluid" src="{{ $product->images[0]->product_image}}"></td>
                                     <td>{{$product->product_name}}</td>
                                     <td>{{$product->categories->category_name}}</td>
                                     <td>Rp {{number_format($product->product_price, 0)}}</td>

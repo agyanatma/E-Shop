@@ -18,6 +18,7 @@ class Product extends Model
     public function images(){
         return $this->hasMany('App\Product_image');
     }
+
     public function order(){
         return $this->hasMany('App\Orders');
     }

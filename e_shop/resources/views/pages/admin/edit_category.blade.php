@@ -24,7 +24,8 @@
             <br><br>
             <div class="row">
                 <div class="col-sm-2">
-                    <img class="img-fluid" height="100px" src="/upload/{{$categories->category_image}}"/><br>
+                    <img class="img-fluid" height="100px" src="{{$categories->category_image}}"/><br>
+                    
                 </div>
             </div>
             <br/>

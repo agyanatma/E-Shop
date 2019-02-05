@@ -19,7 +19,7 @@
                                     <span class="align-middle" style="font-size:large; margin-right:10px">
                                         <span class="fas fa-circle align-middle" style="font-size:small; margin-right:10px; color:rgb(36, 255, 25)"> </span>Active User
                                     </span>
-                                    <img src="/upload/{{$users->profile_image}}" class="rounded-circle object-fit-cover" width="40" height="40">
+                                        <a href="{{route ('profile', $users->id)}}"><img src="{{$users->profile_image}}" class="rounded-circle object-fit-cover" width="40" height="40"></a>
                                 </span></h2>
                         </div>
                     </div>

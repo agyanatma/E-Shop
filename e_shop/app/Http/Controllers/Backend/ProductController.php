@@ -111,7 +111,7 @@ class ProductController extends Controller
             'product_name' => 'required',
             'product_price' => 'required|numeric',
             'category_name' => 'required',
-            'product_image' => 'image|mimes:jpeg,png,jpg'
+            'img' => 'image|mimes:jpeg,png,jpg'
         ]);
         $name = $request->get('product_name');
         $price = $request->get('product_price');
@@ -146,8 +146,8 @@ class ProductController extends Controller
     public function deleteImage($id){
         $image = Product_image::find($id);
         //dd($image->toArray());
-        if(file_exists((public_path('/upload/').$image->product_image))){
-            unlink((public_path('/upload/').$image->product_image));
+        if(file_exists('upload/'.$file) && $file != 'image.png'){
+            unlink('upload/'.$file);
         }
         $image->delete();
         return redirect()->back();

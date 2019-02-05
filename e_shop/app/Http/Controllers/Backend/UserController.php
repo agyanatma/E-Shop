@@ -13,8 +13,8 @@ class UserController extends Controller
 {
 
     public function dashboard(){
-        $item = User::orderBy('created_at')->get();
-        $users = session()->get('user_session');
+        $item = User::orderBy('created_at', 'desc')->get();
+        $users = Auth::user();
         $product = Product::count();
         $category = Category_product::count();
         $order = Orders::count();
@@ -100,11 +100,11 @@ class UserController extends Controller
         $user->postal_code = $request->postal;
         $user->remember_token = $request->_token;
         $user->api_token = bcrypt($request->email);
+
         if($request->hasFile('img')){
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
-            $storage = public_path('\upload');
-            $image->move($storage, $imageName);
+            $image->move('upload', $imageName);
             $user->profile_image = $imageName;
         }
         else{
@@ -140,30 +140,48 @@ class UserController extends Controller
         $city = $request->get('city');
         $postal = $request->get('postal');
                 
-        $update = Product::find($id);
-        $update->email = $email;
-        $update->fullname = $name;
-        $update->address = $address;
-        $update->city = $city;
-        $update->postal_code = $postal;  
+        $user = User::find($id);
+        $user->email = $email;
+        $user->fullname = $name;
+        $user->address = $address;
+        $user->city = $city;
+        $user->postal_code = $postal;
+
         //dd($request->all());
                 
         if($request->hasFile('img')){
-            $edit = public_path('\upload\{$update->profile_image}');
-            if(File::exists($edit)){
-                unlink($edit);  
+            $file = ('upload'.$update->profile_image);
+            if(file_exists($file) && $file !='default.jpg'){
+                unlink($file);
             }
             $image = $request->file('img');
-             $imageName = $image->getClientOriginalName();
-            $storage = public_path('\upload');
-            $image->move($storage, $imageName);
-            $update->profile_image = $imageName;
+            $imageName = $image->getClientOriginalName();
+            $image->move('upload', $imageName);
+            $user->profile_image = $imageName;
         }
-        $update->save();
+        $user->save();
+
         return redirect()->back()->withErrors('Data berhasil update!');           
     }
-    
-    public function password($id){
-        $password = $request->input('password');
+
+    public function admin($id){
+        $user = User::find($id);
+        if($user->admin!=1){
+            $user->admin = '1';
+            $user->save();
+            return redirect()->back()->with('status','User '.$user->fullname.' telah menjadi admin');
+        }
+        return redirect()->back();
+    }
+
+    public function destroy($id){
+        $user = User::find($id);
+        $file = $user->profile_image;
+        if(file_exists('upload'.$file) && $file !='default.jpg'){
+            unlink('upload'.$file);
+        }
+        $user->delete();
+
+        return redirect()->back()->with('status', 'User berhasil dihapus');
     }
 }

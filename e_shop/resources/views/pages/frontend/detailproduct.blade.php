@@ -18,9 +18,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5">
-                <img src="/upload/{{$products->images[0]->product_image}}" class="border" style="object-fit: cover" width="410" height="400">
+                <img src="{{$products->images[0]->product_image}}" class="border" style="object-fit: cover" width="410" height="400">
                 @foreach($images as $item)
-                    <img src="/upload/{{$item->product_image}}" class="border" style="object-fit: cover; margin-top:10px" width="80" height="80">
+                    <img src="{{$item->product_image}}" class="border" style="object-fit: cover; margin-top:10px" width="80" height="80">
                 @endforeach
             </div>
         

@@ -14,15 +14,8 @@ class Category_product extends Model
     public function product(){
         return $this->hasMany('App\Product','category_id','id');
     }
-    public function images(){
-        return $this->hasOne('App\Category_image','category_id');
-    }
 
-    public function image_product(){
-        return $this->hasManyThrough(
-            'App\Product_image',
-            'App\Product'
-            
-        );
+    public function getCategoryImageAttribute($value){
+        return '/upload/'.$value;
     }
 }

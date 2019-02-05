@@ -66,11 +66,11 @@ class UserController extends Controller
         $user->postal_code = $request->postal;
         $user->remember_token = $request->_token;
         $user->api_token = bcrypt($request->email);
+
         if($request->hasFile('img')){
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
-            $storage = public_path('\upload');
-            $image->move($storage, $imageName);
+            $image->move('upload', $imageName);
             $user->profile_image = $imageName;
         }
         else{
@@ -89,7 +89,7 @@ class UserController extends Controller
         $users = User::find($id);
         $orders = Auth::user()->orders;
         $categories = Category_product::all();
-        //dd($users->toArray());
+        dd($users->toArray());
         if (Auth::user() && $orders = 1){
             $user = Auth::user();
             $buyer = Auth::user()->id;
@@ -118,35 +118,32 @@ class UserController extends Controller
             'postal' => 'required|numeric',
             'img' => 'image|mimes:jpeg,png,jpg'
         ]);
-        $profile_image = $request->get('asdad');
         $email = $request->get('email');
         $name = $request->get('fullname');
         $address = $request->get('address');
         $city = $request->get('city');
         $postal = $request->get('postal');
                 
-        $update = User::find($id);
-        $update->$profile_image;
-        $update->email = $email;
-        $update->fullname = $name;
-        $update->address = $address;
-        $update->city = $city;
-        $update->postal_code = $postal;  
-        // /dd($request->all());
+        $user = User::find($id);
+        $user->email = $email;
+        $user->fullname = $name;
+        $user->address = $address;
+        $user->city = $city;
+        $user->postal_code = $postal;
+
+        //dd($request->all());
                 
         if($request->hasFile('img')){
-            $edit = public_path('\upload\{$update->profile_image}');
-            if(file_exists($edit)){
-                unlink($edit);  
+            $file = ('upload'.$update->profile_image);
+            if(file_exists($file) && $file !='default.jpg'){
+                unlink($file);
             }
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
-            
             $image->move('upload', $imageName);
-            $update->profile_image = $imageName;
+            $user->profile_image = $imageName;
         }
-        
-        $update->save();
+        $user->save();
         return redirect()->back()->withErrors('Data berhasil update!');           
     }
     
