@@ -16,6 +16,7 @@ class CreateCategoryProductsTable extends Migration
         Schema::create('category_products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('category_name');
+            $table->string('category_image');
             $table->timestamps();
         });
     }

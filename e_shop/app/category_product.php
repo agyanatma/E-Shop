@@ -18,4 +18,11 @@ class Category_product extends Model
         return $this->hasOne('App\Category_image','category_id');
     }
 
+    public function image_product(){
+        return $this->hasManyThrough(
+            'App\Product_image',
+            'App\Product'
+            
+        );
+    }
 }
