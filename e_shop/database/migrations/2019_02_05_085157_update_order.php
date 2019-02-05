@@ -13,7 +13,7 @@ class UpdateOrder extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             $table->string('price')->after('product_id');
         });
     }
@@ -25,7 +25,7 @@ class UpdateOrder extends Migration
      */
     public function down()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             $table->dropColumn('price');
         });
     }
