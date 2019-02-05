@@ -135,36 +135,36 @@ class OrderController extends Controller
         // session()->put('cart', $cart);
  
 
-    public function update(Request $request)
-    {
-        if($request->id and $request->quantity)
-        {
-            $cart = session()->get('cart');
+    // public function update(Request $request)
+    // {
+    //     if($request->id and $request->quantity)
+    //     {
+    //         $cart = session()->get('cart');
  
-            $cart[$request->id]["quantity"] = $request->quantity;
+    //         $cart[$request->id]["quantity"] = $request->quantity;
  
-            session()->put('cart', $cart);
+    //         session()->put('cart', $cart);
  
-            session()->flash('success', 'Cart updated successfully');
-        }
-    }
+    //         session()->flash('success', 'Cart updated successfully');
+    //     }
+    // }
  
-    public function remove(Request $request)
-    {
-        if($request->id) {
+    // public function remove(Request $request)
+    // {
+    //     if($request->id) {
  
-            $cart = session()->get('cart');
+    //         $cart = session()->get('cart');
  
-            if(isset($cart[$request->id])) {
+    //         if(isset($cart[$request->id])) {
  
-                unset($cart[$request->id]);
+    //             unset($cart[$request->id]);
  
-                session()->put('cart', $cart);
-            }
+    //             session()->put('cart', $cart);
+    //         }
  
-            session()->flash('success', 'Product removed successfully');
-        }
-    }
+    //         session()->flash('success', 'Product removed successfully');
+    //     }
+    // }
 
     public function updatestatus(Request $request, $id){
         
@@ -208,7 +208,7 @@ class OrderController extends Controller
         $price = $request->input('product_price');
         $time = Carbon::today();
         //dd($request->all());
-
+        
         $store = new Orders;
         $store->order_date = $time;
         $store->user_id = $user;
