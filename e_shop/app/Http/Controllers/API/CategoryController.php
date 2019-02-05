@@ -30,7 +30,7 @@ class CategoryController extends Controller
 
     public function sort(Category_product $categories, $id){
         try{
-            $categories = $categories->with(['product','product.images'])->find($id);
+            $categories = $categories->with(['product','product.image'])->find($id);
             //dd($categories->toArray());
             
             $response = [

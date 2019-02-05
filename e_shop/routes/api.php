@@ -29,5 +29,5 @@ Route::post('/login', 'Api\UserController@login');//done
 Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/user/profile', 'Api\UserController@profile');//done
     Route::put('user/profile/{user}', 'Api\UserController@update');//kurang list
-    Route::put('order/confirm/{order}', 'Api\OrderController@confirm');//done
+    Route::post('order/confirm/{order}', 'Api\OrderController@confirm');//done
 });
