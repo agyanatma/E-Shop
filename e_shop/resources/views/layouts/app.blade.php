@@ -73,7 +73,9 @@
                                     <div class="nav-item" style="margin-right:10px">
                                         <button class="btn btn-info " type="submit">
                                             <i class="fas fa-shopping-cart"> 
-                                                    
+                                                    @if(Auth::user()) 
+                                                        {{$totalqty}}
+                                                    @endif
                                             </span></i></button>
                                     </div>
                                 </div>

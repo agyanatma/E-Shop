@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\File;
 use App\User;
-use App\User_image;
 use App\Product;
 use App\Category_product;
 use App\Orders;
@@ -65,25 +64,19 @@ class UserController extends Controller
         $user->address = $request->address;
         $user->city = $request->city;
         $user->postal_code = $request->postal;
+        $user->remember_token = $request->_token;
         $user->api_token = bcrypt($request->email);
-        $user->save();
-        $user_id = $user->id;
-
         if($request->hasFile('img')){
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
-            $image->move('upload', $imageName);
-            $upload = new User_image;
-            $upload->user_id = $user_id;
-            $upload->user_image = $imageName;
-            $upload->save();
+            $storage = public_path('\upload');
+            $image->move($storage, $imageName);
+            $user->profile_image = $imageName;
         }
         else{
-            $upload = new User_image;
-            $upload->user_id = $user_id;
-            $upload->user_image = 'default.jpg';
-            $upload->save();
+            $user->profile_image = 'default.jpg';
         }
+        $user->save();
         return redirect('loginaccount')->with('alert-success','Anda berhasil terdaftar');
     }
     public function logout(){
@@ -93,19 +86,26 @@ class UserController extends Controller
     }
     
     public function user($id){
-        
-        $users = User::with(['images'])->find($id);
+        $users = User::find($id);
         $orders = Auth::user()->orders;
-        $buyer = Auth::user()->id;
-        $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
         $categories = Category_product::all();
-        $total = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('total');
-        $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
-        
-        $totalharga = $total * $totalqty;
         //dd($users->toArray());
-        
+        if (Auth::user() && $orders = 1){
+            $user = Auth::user();
+            $buyer = Auth::user()->id;
+            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
+            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
+            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
+            
+        return view('pages.frontend.user')->with('categories', $categories)->with('users', $users
+            )->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
+            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+        }
+        else{
+
         return view('pages.frontend.user')->with('users', $users)->with('orders', $orders)->with('totalqty', $totalqty)->with('total', $total)->with('totalharga', $totalharga)->with('buyer', $buyer);
+        }
     }
     
     public function update(Request $request,$id){
@@ -118,45 +118,57 @@ class UserController extends Controller
             'postal' => 'required|numeric',
             'img' => 'image|mimes:jpeg,png,jpg'
         ]);
+        $profile_image = $request->get('asdad');
         $email = $request->get('email');
         $name = $request->get('fullname');
         $address = $request->get('address');
         $city = $request->get('city');
         $postal = $request->get('postal');
                 
-        $user = User::find($id);
-        $user->email = $email;
-        $user->fullname = $name;
-        $user->address = $address;
-        $user->city = $city;
-        $user->postal_code = $postal;
-        $user->save();
-        $user_id = $user->id;
-
-        //dd($request->all());
+        $update = User::find($id);
+        $update->$profile_image;
+        $update->email = $email;
+        $update->fullname = $name;
+        $update->address = $address;
+        $update->city = $city;
+        $update->postal_code = $postal;  
+        // /dd($request->all());
                 
         if($request->hasFile('img')){
-            $file = ('upload'.$user->user_image);
-            if(file_exists($file)){
-                unlink($file);
+            $edit = public_path('\upload\{$update->profile_image}');
+            if(file_exists($edit)){
+                unlink($edit);  
             }
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
+            
             $image->move('upload', $imageName);
-            $upload = new User_image;
-            $upload->user_id = $user_id;
-            $upload->user_image = $imageName;
-            $upload->save();
+            $update->profile_image = $imageName;
         }
+        
+        $update->save();
         return redirect()->back()->withErrors('Data berhasil update!');           
     }
     
     public function gantipassword($id){
         $users = Auth::user()->id;
         $users = session()->get('user_session');
-        
+        if (Auth::user() && $orders = 1){
+            $user = Auth::user();
+            $buyer = Auth::user()->id;
+            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
+            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
+            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
+            
+        return view('pages.frontend.gantipassword')->with('users', $users)
+        ->with('buyer', $buyer)->with('orders', $orders)
+            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+        }
+        else{
         //dd($users);
         return view('pages.frontend.gantipassword')->with('users', $users);
+        }
     }
 
     public function updatepassword(Request $request,$id){

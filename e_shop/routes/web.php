@@ -110,7 +110,7 @@ Route::delete('remove-from-cart', 'OrderController@remove');
 
 //Route::get('cart', 'Frontend\Cartcontroller@index')->name('cart.index');
                                         /*BACKEND PAGE*/
-Route::get('/', 'Backend\ProductController@guest')->name('userPage');
+//Route::get('/', 'Backend\ProductController@guest')->name('userPage');
 
 //LOGIN REGISTER
 Route::get('login', 'Backend\UserController@login')->name('loginPage');

@@ -13,9 +13,9 @@
                     <div class="col-lg-6" style="float:left">
                         <h1><span class="fas fa-dolly-flatbed" aria-hidden="true"></span>  Order</h1><br>
                     </div>
-                    <!--<div class="col-lg-6">
+                    <div class="col-lg-6">
                         <a href="{{ route('newCategory')}}" type="submit" class="btn btn-primary" style="float:right">Add Order</a>
-                    </div>-->
+                    </div>
                 </form>
             </div>
             <div class="container">
@@ -43,16 +43,14 @@
                                             <td class="align-middle">{{number_format($order->qty, 0)}} pcs</td>
                                             <td class="align-middle">Rp {{number_format($order->total, 0)}}</td>
                                             <td class="align-middle">{{$order->order_date}}</td>
-                                            @if($order->status==2)
+                                            @if($order->status==1)
                                                 <td class="align-middle">Sudah Dibayar</td>
-                                            @elseif($order->status==1)
-                                                <td class="align-middle">Menunggu Konfirmasi</td>
-                                            @elseif($order->status==0)
+                                            @else
                                                 <td class="align-middle">Belum Dibayar</td>
                                             @endif 
-                                            <td class="align-middle" style="width:180px">
+                                            <td class="align-middle" style="width:170px">
                                                 <span class="float-right">
-                                                    <a href="{{ route('payOrder', $order->id) }}" class="btn btn-success" name="setujui">Setujui
+                                                    <a href="{{ route('payOrder', $order->id) }}" class="btn btn-success" name="bayar">Bayar
                                                     <span>
                                                         <a href="{{ route('deleteOrder', $order->id) }}" class="btn btn-danger" style="margin-left:5px" name="delete">Delete</a>
                                                     </span></a>

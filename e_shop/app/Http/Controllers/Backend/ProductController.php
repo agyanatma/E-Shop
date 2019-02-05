@@ -27,16 +27,21 @@ class ProductController extends Controller
         $product_id = $item->id;
         $image = Product_image::where('product_id', '=', $product_id)->get();
         //dd($delete->toArray());
-        foreach($image as $files){
-            if(file_exists('upload'.$files->product_image)){
-                if($files->product_image != 'image.png'){
-                    unlink('upload'.$files->product_image);
+        foreach($image as $file){
+            if(file_exists((public_path('/upload/').$file->product_image))){
+                if($file->product_image != 'image.png'){
+                    unlink((public_path('/upload/').$file->product_image));
+                }
+                else{
+    
                 }
             }
+            
         }
         Product_image::where('product_id', '=', $product_id)->delete();
         $item->delete();
         return redirect()->back()->with('status', 'Data berhasil dihapus');
+        
     }
     //TAMPILAN CREATE PAGE
     public function show(){
@@ -71,7 +76,8 @@ class ProductController extends Controller
             $image_len = count($image);
             for($i=0; $i<$image_len; $i++){
                 $imageName = $image[$i]->getClientOriginalName();
-                $image[$i]->move('upload', $imageName);
+                $storage = public_path('\upload');
+                $image[$i]->move($storage, $imageName);
                 $imageId = $product_id;
                 $upload = new Product_image;
                 $upload->product_id = $imageId;
@@ -126,7 +132,8 @@ class ProductController extends Controller
             $image_len = count($image);
             for($i=0; $i<$image_len; $i++){
                 $imageName = $image[$i]->getClientOriginalName();
-                $image[$i]->move('upload', $imageName);
+                $storage = public_path('\upload');
+                $image[$i]->move($storage, $imageName);
                 $imageId = $product_id;
                 $upload = new Product_image;
                 $upload->product_id = $imageId;
@@ -138,13 +145,9 @@ class ProductController extends Controller
     }
     public function deleteImage($id){
         $image = Product_image::find($id);
-        $file = $image->product_image;
         //dd($image->toArray());
-        if(file_exists('upload/'.$file)){
-            if($file != 'image.png'){
-
-            }
-            unlink('upload/'.$file);
+        if(file_exists((public_path('/upload/').$image->product_image))){
+            unlink((public_path('/upload/').$image->product_image));
         }
         $image->delete();
         return redirect()->back();

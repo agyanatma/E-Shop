@@ -11,7 +11,7 @@ Shopping Cart
                 <div class="container" style="padding:10px; margin:auto">
                         <div class="row ">
                             <div class="col-md-2 " style="float:left">
-                                <img src="{{URL::to('/upload/'.$users->profile_images)}}" style="width:auto; height:150px; border-radius:50% margin-right:25px">
+                                <img src="{{URL::to('/upload/'.$users->profile_image)}}" style="width:auto; height:150px; border-radius:50% margin-right:25px">
                             </div>
                             <div class="col-md-4">
                                 <div class="text-left">
@@ -45,17 +45,17 @@ Shopping Cart
                                                             <tr>
                                                                 @if(Auth::user() && $order->status==2)
                                                                     <td class="align-middle">{{$order->product->product_name}}</td>
-                                                                    <td class="align-middle">Rp.{{number_format($order->total)}}</td>
+                                                                    <td class="align-middle">Rp.{{number_format($order->product->product_price)}}</td>
                                                                     <td class="align-middle">{{$order->qty}}</td>
-                                                                    <td class="align-middle">Rp.{{number_format($totalhargadanquantity= $order->total * $order->qty), 0}}</td>
+                                                                    <td class="align-middle">Rp.{{number_format($order->total), 0}}</td>
                                                                     <td class="align-middle">{{date('d F, Y', strtotime($order->order_date))}} at {{date('g:ia', strtotime($order->order_date))}} </td>
                                                                     <td class="align-middle">Sudah Membayar</td>
                                                                 @endif
                                                                 @if(Auth::user() && $order->status==1)
                                                                     <td class="align-middle">{{$order->product->product_name}}</td>
-                                                                    <td class="align-middle">Rp.{{number_format($order->total)}}</td>
+                                                                    <td class="align-middle">Rp.{{number_format($order->product->product_price)}}</td>
                                                                     <td class="align-middle">{{$order->qty}}</td>
-                                                                    <td class="align-middle">Rp.{{number_format($totalhargadanquantity= $order->total * $order->qty), 0}}</td>
+                                                                    <td class="align-middle">Rp.{{number_format($order->total), 0}}</td>
                                                                     <td class="align-middle">{{date('d F, Y', strtotime($order->order_date))}} at {{date('g:ia', strtotime($order->order_date))}} </td>
                                                                     <td class="align-middle">Menunggu Konfirmasi</td>
                                                                 @endif

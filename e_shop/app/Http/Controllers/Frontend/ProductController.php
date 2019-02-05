@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Product;
 use App\Product_image;
 use App\Category_product;
+use App\Category_image;
 use App\User;
 use App\Cart;
 use App\Orders;
@@ -81,7 +82,7 @@ class ProductController extends Controller
 
     public function user(){
         $products = Product::with(['images'])->paginate(24);
-        $categories = Category_product::all();
+        $categories = Category_product::get();
         $users = session()->get('user_session');
         $orders = Orders::all();
         if (Auth::user() && $orders = 1){
@@ -91,6 +92,7 @@ class ProductController extends Controller
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
+            //dd($totalqty);
             return view('pages.frontend.index')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
         }
         else{
@@ -102,9 +104,9 @@ class ProductController extends Controller
 
     public function guest(){
         $products = Product::with(['images'])->paginate(24);
-        $categories = Category_product::all();
-        $users = session()->get('user_session');
         
+        $users = session()->get('user_session');
+        $categories = Category_product::with('images')->get();
         //$user = Auth::user();
         //dd($user);
         return view('pages.frontend.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
