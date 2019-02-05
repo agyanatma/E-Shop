@@ -38,7 +38,7 @@
             <div class="row">
                 @foreach($images as $image)
                     <div class="col-sm-2">
-                        <img class="img-fluid" height="100px" src="{{ URL::to('/upload/'.$image->product_image)}}"/><br>
+                        <img class="img-fluid" height="100px" src="{{$image->product_image}}"/><br>
                         <a href="{{ route('deleteImage', $image->id) }}" class="btn btn-primary" name="action" value="deleteImage">Delete</a>
                     </div>
                 @endforeach

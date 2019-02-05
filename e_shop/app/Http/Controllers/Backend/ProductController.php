@@ -119,7 +119,7 @@ class ProductController extends Controller
             'product_name' => 'required',
             'product_price' => 'required|numeric',
             'category_name' => 'required',
-            'product_image' => 'image|mimes:jpeg,png,jpg'
+            'img' => 'image|mimes:jpeg,png,jpg'
         ]);
 
         $name = $request->get('product_name');
@@ -158,10 +158,7 @@ class ProductController extends Controller
         $image = Product_image::find($id);
         $file = $image->product_image;
         //dd($image->toArray());
-        if(file_exists('upload/'.$file)){
-            if($file != 'image.png'){
-
-            }
+        if(file_exists('upload/'.$file) && $file != 'image.png'){
             unlink('upload/'.$file);
         }
         $image->delete();

@@ -17,4 +17,8 @@ class Product_image extends Model
     public function product(){
         return $this->belongsTo('App\Product');
     }
+
+    public function getProductImageAttribute($value){
+        return '/upload/'.$value;
+    }
 }

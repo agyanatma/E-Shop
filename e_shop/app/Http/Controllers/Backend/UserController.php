@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\File;
 use App\User;
-use App\User_image;
 use App\Product;
 use App\Category_product;
 use App\Orders;
@@ -18,7 +17,7 @@ class UserController extends Controller
 
     public function dashboard(){
         $item = User::orderBy('created_at', 'desc')->get();
-        $users = Auth::user()->with('images')->first();
+        $users = Auth::user();
         $product = Product::count();
         $category = Category_product::count();
         $order = Orders::count();
@@ -113,24 +112,17 @@ class UserController extends Controller
         $user->city = $request->city;
         $user->postal_code = $request->postal;
         $user->api_token = bcrypt($request->email);
-        $user->save();
-        $user_id = $user->id;
 
         if($request->hasFile('img')){
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
             $image->move('upload', $imageName);
-            $upload = new User_image;
-            $upload->user_id = $user_id;
-            $upload->user_image = $imageName;
-            $upload->save();
+            $user->profile_image = $imageName;
         }
         else{
-            $upload = new User_image;
-            $upload->user_id = $user_id;
-            $upload->user_image = 'default.jpg';
-            $upload->save();
+            $user->profile_image = 'default.jpg';
         }
+        $user->save();
 
         return redirect('login')->with('alert-success','Anda berhasil terdaftar');
     }
@@ -169,24 +161,20 @@ class UserController extends Controller
         $user->address = $address;
         $user->city = $city;
         $user->postal_code = $postal;
-        $user->save();
-        $user_id = $user->id;
 
         //dd($request->all());
                 
         if($request->hasFile('img')){
             $file = ('upload'.$update->profile_image);
-            if(file_exists($file)){
+            if(file_exists($file) && $file !='default.jpg'){
                 unlink($file);
             }
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
             $image->move('upload', $imageName);
-            $upload = new User_image;
-            $upload->user_id = $user_id;
-            $upload->user_image = $imageName;
-            $upload->save();
+            $user->profile_image = $imageName;
         }
+        $user->save();
 
         return redirect()->back()->withErrors('Data berhasil update!');           
     }
@@ -203,29 +191,12 @@ class UserController extends Controller
 
     public function destroy($id){
         $user = User::find($id);
-        $user_id = $user->id;
-        $image = User_image::where('user_id', '=', $user_id)->get();
-        $file = $image->user_image;
-        if(file_exists('upload'.$file)){
-            if($file != 'default.jpg'){
-                unlink('upload'.$file);
-            }
+        $file = $user->profile_image;
+        if(file_exists('upload'.$file) && $file !='default.jpg'){
+            unlink('upload'.$file);
         }
-        $image = User_image::where('user_id', '=', $user_id)->delete();
         $user->delete();
 
         return redirect()->back()->with('status', 'User berhasil dihapus');
-    }
-
-    public function deleteImage($id){
-        $image = User_image::find($id);
-        $file = $image->user_image;
-        //dd($image->toArray());
-        if(file_exists('upload/'.$file)){
-            unlink('upload/'.$file);
-        }
-        $image->delete();
-
-        return redirect()->back();
     }
 }

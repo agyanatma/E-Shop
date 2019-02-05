@@ -36,32 +36,23 @@ class UserController extends Controller
             $user->city = $request->city;
             $user->postal_code = $request->postal_code;
             $user->api_token = bcrypt($request->email);
-            $user->save();
-            $user_id = $user->id;
 
             if($request->hasFile('profile_image')){
                 $image = $request->file('profile_image');
                 $imageName = $image->getClientOriginalName();
                 $image->move('upload', $imageName);
-                $upload = new User_image;
-                $upload->user_id = $user_id;
-                $upload->user_image = $imageName;
-                $upload->save();
+                $user->profile_image = $imageName;
             }
             else{
-                $upload = new User_image;
-                $upload->user_id = $user_id;
-                $upload->user_image = 'default.jpg';
-                $upload->save();
+                $user->profile_image = 'default.jpg';
             }
+            $user->save();
     
-            $response = fractal()
-                ->item($user)
-                ->transformWith(new UserTransformer)
-                ->addMeta([
-                    'token' =>$user->api_token,
-                ])
-                ->toArray();
+            $response = [
+                'user' =>$user,
+                'token' =>$user->api_token
+            ];
+
             if(!$user){
                 return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
             }
@@ -80,13 +71,11 @@ class UserController extends Controller
     
             $user = $user->find(Auth::user()->id);
     
-            $response = fractal()
-                ->item($user)
-                ->transformWith(new UserTransformer)
-                ->addMeta([
-                    'token' =>$user->api_token,
-                ])
-                ->toArray();
+            $response = [
+                'users' =>$user,
+                'token' =>$user->api_token
+            ];
+
             if(!$user){
                 return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
             }
@@ -105,12 +94,11 @@ class UserController extends Controller
 
     public function index(User $user){
         try{
-        $user = $user->with('images')->get();
+        $user = $user->all();
 
-        $response = fractal()
-            ->collection($user)
-            ->transformWith(new UserTransformer)
-            ->toArray();
+        $response = [
+            'users' =>$user
+        ];
 
             if(!$user){
                 return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
@@ -124,13 +112,11 @@ class UserController extends Controller
 
     public function profile(User $user){
         try{
-            $user = $user->find(Auth::user()->id);
+            $user = $user->with('order','product','product.images','categories')->find(Auth::user()->id);
 
-            $response = fractal()
-                ->item($user)
-                ->transformWith(new UserTransformer)
-                ->includeOrder()
-                ->toArray();
+            $response = $response = [
+                'user' =>$user
+            ];
 
             if(!$user){
                 return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
@@ -149,25 +135,22 @@ class UserController extends Controller
             'address' => 'required',
             'city' => 'required',
             'postal_code' => 'required|numeric',
-            //'profile_image' => 'image|mimes:jpeg,png,jpg'
+            'profile_image' => 'image|mimes:jpeg,png,jpg'
         ]);
         
         try{
         $email = $request->get('email');
-        $name = $request->get('fullname');
+        $fullname = $request->get('fullname');
         $address = $request->get('address');
         $city = $request->get('city');
-        $postal = $request->get('postal');
+        $postal_code = $request->get('postal_code');
                 
         $user = User::find($id);
         $user->email = $email;
-        $user->fullname = $name;
+        $user->fullname = $fullname;
         $user->address = $address;
         $user->city = $city;
         $user->postal_code = $postal_code;
-        $user->save();
-        $user_id = $user->id;
-
         //dd($request->all());
                 
         if($request->hasFile('img')){
@@ -178,19 +161,13 @@ class UserController extends Controller
             $image = $request->file('img');
             $imageName = $image->getClientOriginalName();
             $image->move('upload', $imageName);
-            $upload = new User_image;
-            $upload->user_id = $user_id;
-            $upload->user_image = $imageName;
-            $upload->save();
+            $user->user_image = $imageName;
         }
+        $user->save();
 
-        $response = fractal()
-                ->item($user)
-                ->transformWith(new UserTransformer)
-                ->addMeta([
-                    'token' =>$user->api_token,
-                ])
-                ->toArray();
+        $response = [
+            'user' =>$user
+        ];
             if(!$user){
                 return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
             }
@@ -201,3 +178,6 @@ class UserController extends Controller
         }
     }
 }
+
+
+    

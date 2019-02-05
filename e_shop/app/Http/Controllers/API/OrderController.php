@@ -12,13 +12,11 @@ class OrderController extends Controller
 {
     public function index(Orders $orders){
         try{
-        $orders = $orders->with('product', 'buyer')->get();
+        $orders = $orders->with('product','product.images', 'buyer')->get();
 
-        $response = fractal()
-            ->collection($orders)
-            ->transformWith(new OrderTransformer)
-            //->includeProduct()
-            ->toArray();
+        $response = [
+            'orders' =>$orders
+        ];
 
             if(!$orders){
                 return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
@@ -55,7 +53,7 @@ class OrderController extends Controller
 
     public function confirm(Request $request, Orders $orders, $id){
         try{
-            $order = Orders::find($id);
+            $order = Orders::with('product','product.images', 'buyer')->find($id);
             if($order->status==0){
                 $order->status = '1';
                 $order->save();
