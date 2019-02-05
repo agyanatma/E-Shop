@@ -29,4 +29,22 @@ class ProductController extends Controller
             return response()->json(Status::response(null, 'error', $e->getMessage()), 404);
         }
     }
+
+    public function sortby(Product $product){
+        $category =$product->categories;
+        $product = $product->with(['categories','images'])->find($category->id);
+        dd($product->toArray());
+
+        $response = fractal()
+            ->collection($product)
+            ->transformWith(new ProductTransformer)
+            ->includeImages()
+            ->toArray();
+        
+        if(!$product){
+            return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
+        }
+        return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
+
+    }
 }

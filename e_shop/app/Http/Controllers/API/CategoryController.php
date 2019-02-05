@@ -30,20 +30,19 @@ class CategoryController extends Controller
         
     }
 
-    public function sort(Category_product $categories){
+    public function sort($id){
         try{
-            $categories = $categories->with('product','images')->find($categories->id);
+            $categories = Category_product::with(['product','product.images'])->find($id);
+            //dd($categories->toArray());
             
-            $response = fractal()
-                ->collection($categories)
-                ->transformWith(new CategoryTransformer)
-                ->includeProduct()
-                ->toArray();
+            $response = [
+                'category' =>$categories
+            ];
 
-                if(!$categories){
-                    return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
-                }
-                return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
+            if(!$categories){
+                return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
+            }
+            return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
         }
         catch(\Exception $e){
             return response()->json(Status::response(null, 'error', $e->getMessage()), 404);
