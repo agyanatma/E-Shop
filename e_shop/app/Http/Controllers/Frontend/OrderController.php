@@ -58,18 +58,20 @@ class OrderController extends Controller
             $quantity = $request->input('quantity');
             $price = $request->input('product_price');
             $time = Carbon::today();
-
+            //cek order sudah ada atau belum
             $order = Orders::where([
                 'user_id' => $user,
                 'product_id' => $product,
                 'status' => 0,
             ])->first();
-
+            //jika sudah ada
             if ($order) {
                 $order->qty = $quantity;
                 $order->total = $quantity * $price;
                 $order->save();
-            } else {
+            } 
+            //jika belum
+            else {
                 $store = new Orders;
                 $store->order_date = $time;
                 $store->user_id = $user;
