@@ -15,7 +15,7 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "spatie/laravel-fractal": "^5.4",
-        "stripe/stripe-php": "3.*"
+        "yajra/laravel-datatables-oracle": "^8.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

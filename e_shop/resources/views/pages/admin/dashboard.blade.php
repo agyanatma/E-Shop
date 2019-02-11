@@ -10,7 +10,6 @@
         <div class="container">
                 <div class="row">
                   <div class="col-md-12">
-                    <!-- Website Overview -->
                     <div class="card border-0">
                     <div class="card bg-light text-dark border-0">
                         <div class="card-body" style="padding:5px; border:none">
@@ -19,7 +18,7 @@
                                     <span class="align-middle" style="font-size:large; margin-right:10px">
                                         <span class="fas fa-circle align-middle" style="font-size:small; margin-right:10px; color:rgb(36, 255, 25)"> </span>Active User
                                     </span>
-                                        <a href="{{route ('profile', $users->id)}}"><img src="{{$users->profile_image}}" class="rounded-circle object-fit-cover" width="40" height="40"></a>
+                                        <a href="{{route ('user', $users->id)}}"><img src="{{$users->profile_image}}" class="rounded-circle object-fit-cover" width="40" height="40"></a>
                                 </span></h2>
                         </div>
                     </div>
@@ -57,66 +56,50 @@
                       </div>
                       </div>
                     </div>
-                      <!-- Latest Users -->
-
-                    <!--<div class="col-md-3">
-                        <div class="card-deck" style="margin-top:20px">
-                            <div class="card bg-warning">
-                                <div class="card-body text-center">
-                                    <img src="/upload/hinahina.jpg" class="rounded-circle object-fit-cover" style="margin:20px 10px 50px" width="100" height="100">
-                                    <h4>Welcome Home,</h4>
-                                    <h3>User admin</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
                     <div class="col-md-12" style="margin-top:20px">
                         <div class="card border-0">
                             <div class="card-header bg-light" style="border:none; padding:5px">
-                                <h2 class="align-middle" style="margin-left:10px"><span class="fas fa-users"> </span> Latest Users</h2>
-                                <!--<h2 class="align-middle"><span class="align-middle">
-                                    <img src="/upload/{{$users->profile_image}}" class="rounded-circle object-fit-cover" width="40" height="40">
-                                </span>Hello, {{$users->fullname}}</h2>-->
+                                <h2 class="align-middle" style="margin-left:10px"><i class="fas fa-users"></i> Users</h2>
                             </div>
-                            <div class="card-body" style="margin:-20px">
-                                <table class="table table-hover table-bordered" style="height:100%">
-                                    <thead>
+                            <div class="card-body bg-light">
+                                <table id="datauser" class="table table-bordered">
+                                    <thead style="background: white">
                                         <tr>
                                             <th>Email</th>
                                             <th>Name</th>
                                             <th>Address</th>
                                             <th>City</th>
                                             <th>Postal Code</th>
+                                            <th ></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if(count($item) > 0)
-                                            @foreach ($item as $items)
-                                            <tr>
-                                                <td>{{$items->email}}</td>
-                                                @if($items->admin==1)
-                                                    <td>{{$items->fullname}} <span class="fas fa-crown"></span></td>
-                                                @else
-                                                    <td>{{$items->fullname}}</td>
-                                                @endif
-                                                <td>{{$items->address}}</td>
-                                                <td>{{$items->city}}</td>
-                                                <td>{{$items->postal_code}}</td>
-                                            </tr>
-                                            @endforeach
-                                        @else
-                                            <tr>
-                                                <h3>No User Found</h3>
-                                            </tr>
-                                        @endif
+                                        
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
                     </div>
                 </div>
-              </div>
-
-    
+            </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(function(){
+        $('#datauser').DataTable({
+            processing: false,
+            serverSide: true,
+            ajax: '{!! route('table.user') !!}',
+            columns: [
+                {data: 'email', name: 'email'},
+                {data: 'fullname', name: 'fullname'},
+                {data: 'address', name: 'address'},
+                {data: 'city', name: 'city'},
+                {data: 'postal_code', name: 'postal_code'},
+                {data: 'action', name: 'action', searchable: false, orderable: false}
+            ]
+        });
+    });
+</script>
+@endpush

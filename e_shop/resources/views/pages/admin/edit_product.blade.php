@@ -1,18 +1,17 @@
 @extends('layout.admin')
 
 @section('content')
-    <div class="container">
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
-        @if(count($errors)>0)
-            @foreach($errors->all() as $error)
-                <p class="alert alert-danger">{{$error}}</p>
-            @endforeach
-        @endif
-    </div>
+<div class="container">
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if(count($errors)>0)
+        @foreach($errors->all() as $error)
+            <p class="alert alert-danger">{{$error}}</p>
+        @endforeach
+    @endif
     <div class="form-group container">
         <form action="{{route('updateProduct', $item->id)}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
@@ -44,7 +43,7 @@
                 @endforeach
             </div>
             <button type="submit" class="btn btn-primary float-right" name="action" value="update">Update</button>
-            
         </form>
     </div>
+</div>
 @endsection

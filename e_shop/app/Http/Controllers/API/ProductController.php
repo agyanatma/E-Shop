@@ -13,18 +13,26 @@ class ProductController extends Controller
     public function index(Product $product){
         try{
             $product = $product->with(['categories','images'])->get();
-
-            $response = [
-                'products' =>$product
-            ];
         
             if(!$product){
-                return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
+                return response()->json([
+                    'product'   =>array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
             }
-            return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
+            return response()->json([
+                'product'   =>$product, 
+                'status'    =>'success',
+                'message'   =>'Get data success',
+                'code'      =>'200'], 200);
         }
         catch(\Exception $e){
-            return response()->json(Status::response(null, 'error', $e->getMessage()), 404);
+            return response()->json([
+                'product'   =>array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
         }
     }
 }

@@ -12,7 +12,6 @@ use App\Category_product;
 use App\User;
 class ProductController extends Controller
 {
-    //ADMIN ONLY========================================================================================================================================
     //ADMIN INDEX
     public function index(){
         $products = Product::with(['images'])->get();
@@ -21,6 +20,21 @@ class ProductController extends Controller
         //dd($products->toArray());
         return view('pages.admin.index_product')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
+
+    public function dataTables(){
+        $item = Product::with(['images'])->query();
+
+        return Datatables::of($item)
+            ->addColumn('action', function($item){
+                return '<a href="admin/user/'.$item->id.'/change" class="btn btn-xs btn-warning">Admin</a><span>'.
+                        '<a href="admin/user/'.$item->id.'/destroy" class="btn btn-xs btn-danger">Delete</a></span>';
+            })
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+
     //HAPUS PRODUK
     public function destroy($id){
         $item = Product::find($id);
@@ -48,7 +62,6 @@ class ProductController extends Controller
         $categories = Category_product::all();
         $users = session()->get('user_session');
         return view('pages.admin.create_product')->with('categories', $categories)->with('users', $users);
-        
     }
     public function storeDetail(Request $request){
         $this->validate($request,[
@@ -151,28 +164,5 @@ class ProductController extends Controller
         }
         $image->delete();
         return redirect()->back();
-    }
-    //CATEGORY PAGE
-    
-    //==================================================================================================================================================
-    //USER INTERFACE====================================================================================================================================
-    //USER INDEX
-    public function guest(){
-        $products = Product::with(['images'])->get();
-        $categories = Category_product::all();
-        $users = session()->get('user_session');
-        //$user = Auth::user();
-        //dd($user);
-        return view('pages.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
-    }
-    //DETAIL PAGE
-    public function detail($id){
-        $products = Product::with(['images'])->find($id);
-        $id = $products->id;
-        $images = Product_image::where('product_id','=',$id)->get();
-        $categories = Category_product::all();
-        $users = session()->get('user_session');
-        //dd($images->toArray());
-        return view('pages.detail')->with('products', $products)->with('categories', $categories)->with('users', $users)->with('images', $images);
     }
 }

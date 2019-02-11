@@ -94,6 +94,7 @@ Route::get('/product/bayar', 'Frontend\OrderController@getcheckoutgan')->name('l
 //Route::get('/checkout', 'Frontend\ProductController@getCheckout')->name('checkoutCart');
 //Route::post('checkout', 'Frontend\ProductController@postCheckout')->name('checkoutCart');
 
+Route::get('/', 'Backend\ProductController@main')->name('userPage');
 //OrderPage
 //Route::get('/order', 'Frontend\OrderController@order');
 
@@ -125,9 +126,11 @@ Route::get('product/{id}/detail', 'Backend\ProductController@detail')->name('det
 Route::get('admin', function(){
     return view('pages.admin.login');
 })->name('adminLogin');
+
 Route::post('admin/login', 'Backend\UserController@loginAdmin')->name('store.admin');
 Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/dashboard', 'Backend\UserController@dashboard')->name('adminPage');
+    
     //CRUD PRODUCT
     Route::get('admin/product', 'Backend\ProductController@index')->name('adminPage');
     Route::get('admin/product/{id}/delete', 'Backend\ProductController@destroy')->name('deleteProduct');
@@ -155,6 +158,7 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     //CRUD USER
     Route::get('admin/user/{id}/change', 'Backend\UserController@admin')->name('admin');
     Route::get('admin/user/{id}/destroy', 'Backend\UserController@destroy')->name('adminDelete');
+    Route::get('admin/user/datatables', 'Backend\UserController@dataTables')->name('table.user');
 
     Route::get('profile/{id}', 'Backend\UserController@profile')->name('profile');
     Route::post('profile/{id}/edit', 'Backend\UserController@update')->name('editProfile');
@@ -165,7 +169,3 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     //Route::post('product/addcart', 'Backend\OrderController@checkout')->name('addCart');
     //Route::post('order/{id}/checkout/bayar', 'Backend\OrderController@status')->name('paid');
 });
-
-
-//USER ONLY======================================================================================================================================
-

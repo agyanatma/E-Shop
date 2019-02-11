@@ -9,7 +9,7 @@
         @endif
         <div class="col-lg-6">
             <form class="form-inline">
-                <img style="margin:20px" width="200px" src="{{URL::to('/upload/'.$users->profile_image)}}">
+                <img style="margin:20px" width="200px" src="{{$users->profile_image}}">
                 <form class="form-group">
                     <h2>{{$users->fullname}}</h2><br>
                     <p>{{$users->address}}, {{$users->city}}</p><br>
