@@ -27,6 +27,19 @@ class ProductController extends Controller
         return view('pages.admin.index_product')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
 
+    public function dataTables(){
+        $item = Product::with(['images'])->query();
+
+        return Datatables::of($item)
+            ->addColumn('action', function($item){
+                return '<a href="admin/user/'.$item->id.'/change" class="btn btn-xs btn-warning">Admin</a><span>'.
+                        '<a href="admin/user/'.$item->id.'/destroy" class="btn btn-xs btn-danger">Delete</a></span>';
+            })
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
 
     //HAPUS PRODUK
     public function destroy($id){
@@ -175,7 +188,7 @@ class ProductController extends Controller
     //USER INTERFACE====================================================================================================================================
 
     //USER INDEX
-    public function guest(){
+    public function main(){
         $products = Product::with(['images'])->get();
         $categories = Category_product::all();
         $users = session()->get('user_session');

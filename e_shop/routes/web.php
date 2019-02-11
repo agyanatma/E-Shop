@@ -12,7 +12,7 @@
 */
 
 
-Route::get('/', 'Backend\ProductController@guest')->name('userPage');
+Route::get('/', 'Backend\ProductController@main')->name('userPage');
 
 //LOGIN REGISTER
 Route::get('login', 'Backend\UserController@login')->name('loginPage');
@@ -30,10 +30,11 @@ Route::get('product/{id}/detail', 'Backend\ProductController@detail')->name('det
 Route::get('admin', function(){
     return view('pages.admin.login');
 })->name('adminLogin');
+
 Route::post('admin/login', 'Backend\UserController@loginAdmin')->name('store.admin');
 Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/dashboard', 'Backend\UserController@dashboard')->name('adminPage');
-
+    
     //CRUD PRODUCT
     Route::get('admin/product', 'Backend\ProductController@index')->name('adminPage');
     Route::get('admin/product/{id}/delete', 'Backend\ProductController@destroy')->name('deleteProduct');
@@ -62,6 +63,7 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     //CRUD USER
     Route::get('admin/user/{id}/change', 'Backend\UserController@admin')->name('admin');
     Route::get('admin/user/{id}/destroy', 'Backend\UserController@destroy')->name('adminDelete');
+    Route::get('admin/user/datatables', 'Backend\UserController@dataTables')->name('table.user');
 
 });
 

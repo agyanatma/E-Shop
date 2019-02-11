@@ -18,32 +18,32 @@ class CategoryController extends Controller
             ];
 
             if(!$categories){
-                return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
+                return response()->json(Status::response(array(), 'error', 'Nothing Found', 404), 404);
             }
             return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
         }
         catch(\Exception $e){
-            return response()->json(Status::response(null, 'error', $e->getMessage()), 404);
+            return response()->json(Status::response(array(), 'error', $e->getMessage()), 404);
         }
         
     }
 
     public function sort(Category_product $categories, $id){
         try{
-            $categories = $categories->with(['product','product.image'])->find($id);
+            $categories = $categories->with(['product','product.images'])->find($id);
             //dd($categories->toArray());
             
             $response = [
-                'category' =>$categories
+                'category' =>[$categories]
             ];
 
             if(!$categories){
-                return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
+                return response()->json(Status::response(array(), 'error', 'Nothing Found', 404), 404);
             }
             return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
         }
         catch(\Exception $e){
-            return response()->json(Status::response(null, 'error', $e->getMessage()), 404);
+            return response()->json(Status::response(array(), 'error', $e->getMessage()), 404);
         }
         
     }

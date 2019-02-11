@@ -10,6 +10,7 @@ use App\User_image;
 use App\Transformers\UserTransformer;
 use App\Transformers\Status;
 use Auth;
+use Hash;
 
 
 class UserController extends Controller
@@ -17,7 +18,7 @@ class UserController extends Controller
     //AUTHENTICATION=====================================================================================================================================
 
     public function register(Request $request, User $user){
-        $this->validate($request,[
+        $validate = \Validator::make($request->all(),[
             'email' => 'required|email|unique:users',
             'password' => 'required|min:5',
             'fullname' => 'required',
@@ -26,7 +27,14 @@ class UserController extends Controller
             'postal_code' => 'required|numeric',
             'profile_image' => 'image|mimes:jpeg,png,jpg'
         ]);
-
+        if($validate->fails()){
+                return response()->json([
+                    'user'      =>(object)array(), 
+                    'status'    =>'failed',
+                    'message'   =>$validate->messages()->first(),
+                    'code'      =>'422'], 422);
+            }
+        
         try{
             $user = new User();
             $user->email = $request->email;
@@ -54,19 +62,45 @@ class UserController extends Controller
             ];
 
             if(!$user){
-                return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
+                return response()->json([
+                    'user'      =>(object)array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
             }
-            return response()->json(Status::response($response, 'success', 'Register success', 201), 201);
+            
+            return response()->json([
+                'user'      =>$user,
+                'token'     =>$user->api_token, 
+                'status'    =>'success',
+                'message'   =>'Register success',
+                'code'      =>'200'], 200);
         }
         catch(\Exception $e){
-            return response()->json(Status::response(null, 'error', $e->getMessage()), 404);
+            return response()->json([
+                'user'      =>(object)array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
         }
     }
 
     public function login(Request $request, User $user){
+        $validate = \Validator::make($request->all(),[
+            'email' => 'required|email',
+            'password' => 'required|min:5'
+        ]);
+        if($validate->fails()){
+            return response()->json([
+                'user'   =>(object)array(), 
+                'status'    =>'failed',
+                'message'   =>$validate->messages()->first(),
+                'code'      =>'422'], 422);
+            }
+
         try{
             if(! Auth::attempt(['email' =>$request->email, 'password' =>$request->password])){
-                return response()->json(['error' => 'Your credential invalid'], 401);
+                return response()->json(Status::response((object)array(), 'failed', 'Your credentials invalid', 401), 401);
             }
     
             $user = $user->find(Auth::user()->id);
@@ -77,12 +111,26 @@ class UserController extends Controller
             ];
 
             if(!$user){
-                return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
+                return response()->json([
+                    'user'      =>(object)array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
             }
-            return response()->json(Status::response($response, 'success', 'Login success', 200), 200);
+            
+            return response()->json([
+                'user'      =>$user,
+                'token'     =>$user->api_token,
+                'status'    =>'success',
+                'message'   =>'Login success',
+                'code'      =>'200'], 200);
         }
         catch(\Exception $e){
-            return response()->json(Status::response(null, 'error', $e->getMessage()), 404);
+            return response()->json([
+                'user'      =>(object)array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
         }
         
     }
@@ -101,12 +149,12 @@ class UserController extends Controller
         ];
 
             if(!$user){
-                return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
+                return response()->json(Status::response((object)array(), 'error', 'Nothing Found', 404), 404);
             }
             return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
             }
         catch(\Exception $e){
-            return response()->json(Status::response(null, 'error', $e->getMessage()), 404);
+            return response()->json(Status::response((object)array(), 'error', $e->getMessage()), 404);
         }
     }
 
@@ -119,62 +167,96 @@ class UserController extends Controller
             ];
 
             if(!$user){
-                return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
+                return response()->json(Status::response((object)array(), 'error', 'Nothing Found', 404), 404);
             }
             return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
             }
         catch(\Exception $e){
-            return response()->json(Status::response(null, 'error', $e->getMessage()), 404);
+            return response()->json(Status::response((object)array(), 'error', $e->getMessage()), 404);
         }
     }
     
     public function update(Request $request, User $user){
-        $this->validate($request,[
-            'email' => 'required|email',
+        $validate = \Validator::make($request->all(),[
+            'email' => 'required|email|unique:users',
             'fullname' => 'required',
             'address' => 'required',
             'city' => 'required',
             'postal_code' => 'required|numeric',
             'profile_image' => 'image|mimes:jpeg,png,jpg'
         ]);
+        if($validate->fails()){
+                return response()->json(Status::response((object)array(), 'failed', $validate->messages()->first(), 422), 422);
+            }
         
         try{
-        $email = $request->get('email');
-        $fullname = $request->get('fullname');
-        $address = $request->get('address');
-        $city = $request->get('city');
-        $postal_code = $request->get('postal_code');
-                
-        $user = User::find($id);
-        $user->email = $email;
-        $user->fullname = $fullname;
-        $user->address = $address;
-        $user->city = $city;
-        $user->postal_code = $postal_code;
-        //dd($request->all());
-                
-        if($request->hasFile('img')){
-            $file = ('upload'.$update->profile_image);
-            if(file_exists($file)){
-                unlink($file);
+            $email = $request->get('email');
+            $name = $request->get('fullname');
+            $address = $request->get('address');
+            $city = $request->get('city');
+            $postal = $request->get('postal_code');
+                    
+            $user = User::find($id);
+            $user->email = $email;
+            $user->fullname = $name;
+            $user->address = $address;
+            $user->city = $city;
+            $user->postal_code = $postal;
+
+            if($request->hasFile('profile_image')){
+                $file = ('upload'.$update->profile_image);
+                if(file_exists($file) && $file !='default.jpg'){
+                    unlink($file);
+                }
+                $image = $request->file('profile_image');
+                $imageName = $image->getClientOriginalName();
+                $image->move('upload', $imageName);
+                $user->profile_image = $imageName;
             }
-            $image = $request->file('img');
-            $imageName = $image->getClientOriginalName();
-            $image->move('upload', $imageName);
-            $user->user_image = $imageName;
-        }
-        $user->save();
+            $user->save();
 
         $response = [
             'user' =>$user
         ];
             if(!$user){
-                return response()->json(Status::response(null, 'error', 'Nothing Found', 404), 404);
+                return response()->json(Status::response((object)array(), 'error', 'Nothing Found', 404), 404);
             }
             return response()->json(Status::response($response, 'success', 'Update success', 201), 201);
         }
         catch(\Exception $e){
-            return response()->json(Status::response(null, 'error', $e->getMessage()), 404);
+            return response()->json(Status::response((object)array(), 'error', $e->getMessage()), 404);
+        }
+    }
+
+    public function password(Request $request, User $user){
+        $validate = \Validator::make($request->all(),[
+            'current' => 'required',
+            'password' => 'required|confirmed',
+            'password_conf' => 'required'
+        ]);
+        if($validate->fails()){
+                return response()->json(Status::response((object)array(), 'failed', $validate->messages()->first(), 422), 422);
+            }
+        
+        try{
+            $user = $user->find(Auth::id());
+
+            if(!Hash::check($request->current,$user->password)){
+                return response()->json(Status::response((object)array(), 'failed', 'Current password invalid', 422), 422);
+            }
+            $user->password = bcrypt($request->password);
+            $user->save();
+
+        $response = [
+            'user' =>$user
+        ];
+            if(!$user){
+                return response()->json(Status::response((object)array(), 'error', 'Nothing Found', 404), 404);
+            }
+            return response()->json(Status::response($response, 'success', 'Password changed', 201), 201);
+        }
+        catch(\Exception $e){
+            return response()->json(Status::response((object)array(), 'error', $e->getMessage()), 404);
         }
     }
 }
