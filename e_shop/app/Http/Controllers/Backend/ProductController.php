@@ -15,9 +15,6 @@ use App\User;
 
 class ProductController extends Controller
 {
-
-    //ADMIN ONLY========================================================================================================================================
-
     //ADMIN INDEX
     public function index(){
         $products = Product::with(['images'])->get();
@@ -65,7 +62,6 @@ class ProductController extends Controller
         $categories = Category_product::all();
         $users = session()->get('user_session');
         return view('pages.admin.create_product')->with('categories', $categories)->with('users', $users);
-        
     }
 
     public function storeDetail(Request $request){

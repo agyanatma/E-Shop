@@ -229,6 +229,6 @@ return [
         'Fractal' => Spatie\Fractal\FractalFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
-    ],
+    ]
 
 ];
