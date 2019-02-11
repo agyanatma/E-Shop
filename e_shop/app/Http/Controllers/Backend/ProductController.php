@@ -178,33 +178,4 @@ class ProductController extends Controller
 
         return redirect()->back();
     }
-
-
-    //CATEGORY PAGE
-    
-
-    //==================================================================================================================================================
-
-    //USER INTERFACE====================================================================================================================================
-
-    //USER INDEX
-    public function main(){
-        $products = Product::with(['images'])->get();
-        $categories = Category_product::all();
-        $users = session()->get('user_session');
-        //$user = Auth::user();
-        //dd($user);
-        return view('pages.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
-    }
-
-    //DETAIL PAGE
-    public function detail($id){
-        $products = Product::with(['images'])->find($id);
-        $id = $products->id;
-        $images = Product_image::where('product_id','=',$id)->get();
-        $categories = Category_product::all();
-        $users = session()->get('user_session');
-        //dd($images->toArray());
-        return view('pages.detail')->with('products', $products)->with('categories', $categories)->with('users', $users)->with('images', $images);
-    }
 }
