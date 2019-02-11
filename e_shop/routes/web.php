@@ -94,7 +94,7 @@ Route::get('/product/bayar', 'Frontend\OrderController@getcheckoutgan')->name('l
 //Route::get('/checkout', 'Frontend\ProductController@getCheckout')->name('checkoutCart');
 //Route::post('checkout', 'Frontend\ProductController@postCheckout')->name('checkoutCart');
 
-Route::get('/', 'Backend\ProductController@main')->name('userPage');
+//Route::get('/', 'Backend\ProductController@main')->name('userPage');
 //OrderPage
 //Route::get('/order', 'Frontend\OrderController@order');
 
