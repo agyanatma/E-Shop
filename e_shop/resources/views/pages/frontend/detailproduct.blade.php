@@ -45,7 +45,6 @@
                                 </div>
                                 @endforeach
                             </div>
-                            
                 </div>
                 <div class="col-12 col-sm-8 col-md-7 col-lg-7">
                     <h2 id="detail-product-name" class="card-detail-name text-justify">{{$products->product_name}}</h2>
