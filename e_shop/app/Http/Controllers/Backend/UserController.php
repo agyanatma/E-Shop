@@ -34,8 +34,8 @@ class UserController extends Controller
 
         return Datatables::of($item)
             ->addColumn('action', function($item){
-                return '<a href="'.route('admin',$item->id).'"  class="btn btn-xs btn-info">Admin</a><span>'.
-                        '<a href="'.route('adminDelete',$item->id).'" class="btn btn-xs btn-info" style="margin-left:10px"><i class="fas fa-trash-alt"></i></a></span>';
+                return '<a href="'.route('admin',$item->id).'" class="btn btn-xs btn-info"><i class="fas fa-crown"></i></a><span>'.'
+                        <a href="'.route('adminDelete',$item->id).'" class="btn btn-xs btn-info" style="width:"10px"><i class="fas fa-trash-alt"></i></a></span>';
             })
             ->rawColumns(['action'])
             ->removeColumn('profile_image')

@@ -88,7 +88,6 @@
 <script>
     $(function(){
         $('#datauser').DataTable({
-            responsive: true,
             processing: false,
             serverSide: true,
             ajax: '{!! route('table.user') !!}',
