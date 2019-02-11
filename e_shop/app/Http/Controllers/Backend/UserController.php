@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Backend;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -22,11 +20,7 @@ class UserController extends Controller
         $product = Product::count();
         $category = Category_product::count();
         $order = Orders::count();
-        $profile = User::count();
-        //dd($users->toArray());
-        return view('pages.admin.dashboard')->with('users', $users)->with('item', $item)
-            ->with('product', $product)->with('category', $category)
-            ->with('order', $order)->with('profile', $profile);
+        return view('pages.admin.dashboard')->with('users', $users)->with('item', $item)->with('product', $product)->with('category', $category)->with('order', $order);
     }
 
     public function dataTables(){
@@ -45,9 +39,7 @@ class UserController extends Controller
     public function login(){
         return view ('pages.login');
     }
-
     public function loginStore(Request $request){
-
         $this->validate($request,[
             'email' => 'required|email',
             'password' => 'required',
@@ -55,7 +47,6 @@ class UserController extends Controller
         [
             'required' => 'Masukkan email dan password untuk masuk!'
         ]);
-
         $email = $request->email;
         $password = $request->password;
         $user = User::where('email', $email)->get();
@@ -102,11 +93,9 @@ class UserController extends Controller
             return redirect()->back()->with('failed', 'Pengguna tidak terdaftar');
         }
     }
-
     public function signup(Request $request){
         return view ('pages.register');
     }
-
     public function signupStore(Request $request){
         $this->validate($request,[
             'email' => 'required|email|unique:users',
@@ -117,7 +106,6 @@ class UserController extends Controller
             'postal' => 'required|numeric',
             'img' => 'image|mimes:jpeg,png,jpg'
         ]);
-
         $user = new User();
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
@@ -125,6 +113,7 @@ class UserController extends Controller
         $user->address = $request->address;
         $user->city = $request->city;
         $user->postal_code = $request->postal;
+        $user->remember_token = $request->_token;
         $user->api_token = bcrypt($request->email);
 
         if($request->hasFile('img')){
@@ -137,10 +126,8 @@ class UserController extends Controller
             $user->profile_image = 'default.jpg';
         }
         $user->save();
-
         return redirect('login')->with('alert-success','Anda berhasil terdaftar');
     }
-
     public function logout(){
         Session::flush();
         Auth::logout();
@@ -152,7 +139,7 @@ class UserController extends Controller
         //dd($profile->toArray());
         return view('pages.profile')->with('users', $users);
     }
-
+    
     public function update(Request $request,$id){
         $this->validate($request,[
             'email' => 'required|email',
@@ -162,7 +149,6 @@ class UserController extends Controller
             'postal' => 'required|numeric',
             'img' => 'image|mimes:jpeg,png,jpg'
         ]);
-
         $email = $request->get('email');
         $name = $request->get('fullname');
         $address = $request->get('address');

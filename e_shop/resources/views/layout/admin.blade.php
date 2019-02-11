@@ -10,7 +10,8 @@
     <title>{{ config('app.name', 'E-Shop') }}</title>
 </head>
 <body>
-   <nav class="navbar navbar-expand-sm bg-light" style="margin-bottom: 30px">
+    @if(Auth::user())
+    <nav class="navbar navbar-expand-sm bg-light" style="margin-bottom: 30px">
        <div class="container">
            <a class="navbar-brand text-dark" href="{{ url('/admin/dashboard') }}">
                {{ config('app.name', 'E-Shop') }}
@@ -36,6 +37,7 @@
                </div>
        </div>
    </nav>
+   @endif
    @yield('content')
    <!-- Placed at the end of the document so the pages load faster -->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

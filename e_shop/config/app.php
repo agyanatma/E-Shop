@@ -176,7 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Spatie\Fractal\FractalServiceProvider::class,
+       
 
     ],
 
@@ -228,6 +228,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Fractal' => Spatie\Fractal\FractalFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        
 
     ]
 

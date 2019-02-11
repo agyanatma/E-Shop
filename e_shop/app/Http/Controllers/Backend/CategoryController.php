@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Backend;
-
 use Illuminate\Http\Request;
 use App\Category_product;
 use Auth;
@@ -14,11 +12,9 @@ class CategoryController extends Controller
         //dd($categories->toArray());
         return view('pages.admin.index_category')->with('categories', $categories);
     }
-
     public function new(){
         return view('pages.admin.create_category');
     }
-
     public function store(Request $request){
         $this->validate($request,[
             'category_name' => 'required',
@@ -39,21 +35,20 @@ class CategoryController extends Controller
             $item->category_image = 'image.png';
             $item->save();
         }
+        $new->save();
 
-        return redirect('admin/category')->with('status','Data berhasil ditambah');
+        return redirect('/admin/category')->with('status','Data berhasil ditambah');
         
     }
-
     public function edit($id){
         $categories = Category_product::find($id);
         $id = $categories->id;
         return view('pages.admin.edit_category')->with('categories', $categories);
     }
-
     public function update(Request $request,$id){
         $this->validate($request,[
             'category_name' => 'required',
-            'img' => 'image|mimes:jpeg,png,jpg'
+            'category_image' => 'image|mimes:jpeg,png,jpg'
         ]);
 
         $item = Category_product::find($id);
@@ -71,9 +66,8 @@ class CategoryController extends Controller
         }
         $item->save();
 
-        return redirect('admin/category')->with('status','Data berhasil diubah');
+        return redirect('/admin/category')->with('status','Data berhasil diubah');
     }
-
     public function destroy($id){
         $category = Category_product::find($id);
         $file = $category->category_image;
@@ -81,8 +75,7 @@ class CategoryController extends Controller
             unlink('upload/'.$file);
         }
         $category->delete();
-
-        return redirect('admin/category')->with('status', 'Data berhasil dihapus');
+        return redirect()->back()->with('status', 'Data berhasil dihapus');
         
     }
 }

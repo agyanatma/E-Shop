@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Backend;
-
 use DB;
 use View;
 use Auth;
@@ -12,7 +10,6 @@ use App\Product;
 use App\Product_image;
 use App\Category_product;
 use App\User;
-
 class ProductController extends Controller
 {
     //ADMIN INDEX
@@ -44,26 +41,28 @@ class ProductController extends Controller
         $product_id = $item->id;
         $image = Product_image::where('product_id', '=', $product_id)->get();
         //dd($delete->toArray());
-        foreach($image as $files){
-            if(file_exists('upload'.$files->product_image)){
-                if($files->product_image != 'image.png'){
-                    unlink('upload'.$files->product_image);
+        foreach($image as $file){
+            if(file_exists((public_path('/upload/').$file->product_image))){
+                if($file->product_image != 'image.png'){
+                    unlink((public_path('/upload/').$file->product_image));
+                }
+                else{
+    
                 }
             }
+            
         }
         Product_image::where('product_id', '=', $product_id)->delete();
         $item->delete();
-
         return redirect()->back()->with('status', 'Data berhasil dihapus');
+        
     }
-
     //TAMPILAN CREATE PAGE
     public function show(){
         $categories = Category_product::all();
         $users = session()->get('user_session');
         return view('pages.admin.create_product')->with('categories', $categories)->with('users', $users);
     }
-
     public function storeDetail(Request $request){
         $this->validate($request,[
             'product_name' => 'required',
@@ -71,7 +70,6 @@ class ProductController extends Controller
             'category_name' => 'required',
             'img[]' => 'image|mimes:jpeg,png,jpg'
         ]);
-
         $name = $request->input('product_name');
         $price = $request->input('product_price');
         $category = $request->input('category_name');
@@ -91,9 +89,9 @@ class ProductController extends Controller
             $image_len = count($image);
             for($i=0; $i<$image_len; $i++){
                 $imageName = $image[$i]->getClientOriginalName();
-                $image[$i]->move('upload', $imageName);
+                $storage = public_path('\upload');
+                $image[$i]->move($storage, $imageName);
                 $imageId = $product_id;
-
                 $upload = new Product_image;
                 $upload->product_id = $imageId;
                 $upload->product_image = $imageName;
@@ -111,7 +109,6 @@ class ProductController extends Controller
         return redirect('/admin/product')->with('status', 'Data berhasil dimasukkan');
     }
         
-
     //TAMPILAN EDIT PAGE
     public function edit($id){
         $item = Product::with(['images'])->find($id);
@@ -122,7 +119,6 @@ class ProductController extends Controller
         //dd($item->toArray());
         return view('pages.admin.edit_product')->with('item', $item)->with('categories', $categories)->with('images', $images)->with('users', $users);
     }
-
     public function update(Request $request,$id){
         $this->validate($request,[
             'product_name' => 'required',
@@ -130,7 +126,6 @@ class ProductController extends Controller
             'category_name' => 'required',
             'img' => 'image|mimes:jpeg,png,jpg'
         ]);
-
         $name = $request->get('product_name');
         $price = $request->get('product_price');
         $category = $request->get('category_name');
@@ -144,16 +139,15 @@ class ProductController extends Controller
         $store->save();
     
         $product_id = $store->id;
-
         //dd($product_id);
         if($request->hasFile('img')){
             $image = $request->file('img');
             $image_len = count($image);
             for($i=0; $i<$image_len; $i++){
                 $imageName = $image[$i]->getClientOriginalName();
-                $image[$i]->move('upload', $imageName);
+                $storage = public_path('\upload');
+                $image[$i]->move($storage, $imageName);
                 $imageId = $product_id;
-
                 $upload = new Product_image;
                 $upload->product_id = $imageId;
                 $upload->product_image = $imageName;
@@ -162,16 +156,13 @@ class ProductController extends Controller
         }
         return redirect('/admin/product')->with('status','Data berhasil update');
     }
-
     public function deleteImage($id){
         $image = Product_image::find($id);
-        $file = $image->product_image;
         //dd($image->toArray());
         if(file_exists('upload/'.$file) && $file != 'image.png'){
             unlink('upload/'.$file);
         }
         $image->delete();
-
         return redirect()->back();
     }
 }

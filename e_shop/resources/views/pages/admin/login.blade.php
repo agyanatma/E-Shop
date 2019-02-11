@@ -1,9 +1,12 @@
-@extends('layout.login')
+@extends('layout.admin')
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center align-items-center" style="height:80vh">
-            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="row justify-content-right" style="height:100vh">
+            <div class="col-lg-7">
+                
+            </div>
+            <div class="col-lg-5 mx-auto" style="margin-top:200px">
                 @if(count($errors)>0)
                 <p class="alert alert-danger">Masukkan email dan password untuk masuk</p>
                 @endif
@@ -14,7 +17,7 @@
                 @endif
                 <h1 style="margin-bottom: 30px; font-size:70px; text-align:center">{{ config('app.name', 'E-Shop') }}</h1>
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body bg-light">
                         <h1 class="card-title">Login</h1><br>
                         <form action="{{route('store.admin')}}" method="post" class="container">
                             {{csrf_field()}}

@@ -1,15 +1,15 @@
 @extends('layout.admin')
 
 @section('content')
+
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="container">
                 <div class="row">
                   <div class="col-md-12">
-                    @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                    @endif
-                    <!-- Website Overview -->
                     <div class="card border-0">
                     <div class="card bg-light text-dark border-0">
                         <div class="card-body" style="padding:5px; border:none">
@@ -18,7 +18,7 @@
                                     <span class="align-middle" style="font-size:large; margin-right:10px">
                                         <span class="fas fa-circle align-middle" style="font-size:small; margin-right:10px; color:rgb(36, 255, 25)"> </span>Active User
                                     </span>
-                                        <a href="{{route ('profile', $users->id)}}"><img src="{{$users->profile_image}}" class="rounded-circle object-fit-cover" width="40" height="40"></a>
+                                        <a href="{{route ('user', $users->id)}}"><img src="{{$users->profile_image}}" class="rounded-circle object-fit-cover" width="40" height="40"></a>
                                 </span></h2>
                         </div>
                     </div>

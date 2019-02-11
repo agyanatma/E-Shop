@@ -1,9 +1,6 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
-
 class Orders extends Model
 {
     protected $table = 'orders';
@@ -21,5 +18,4 @@ class Orders extends Model
     public function buyer(){  //USER
         return $this->hasOne('App\User','id','user_id');
     }
-
 }
