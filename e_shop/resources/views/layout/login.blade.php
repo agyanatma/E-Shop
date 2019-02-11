@@ -12,7 +12,7 @@
 
     <title>{{ config('app.name', 'E-Shop') }}</title>
 </head>
-<body style="background:rgb(232, 232, 232)">
+<body class="bg-light">
    @yield('content')
     <script>
         $("document").ready(function(){
