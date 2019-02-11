@@ -111,7 +111,7 @@ class ProductController extends Controller
             'product_name' => 'required',
             'product_price' => 'required|numeric',
             'category_name' => 'required',
-            'img' => 'image|mimes:jpeg,png,jpg'
+            //'img' => 'image|mimes:jpeg,png,jpg'
         ]);
         $name = $request->get('product_name');
         $price = $request->get('product_price');

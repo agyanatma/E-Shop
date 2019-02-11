@@ -36,16 +36,8 @@ Route::get('/sortpowercable', 'Frontend\SortController@sortpowercable');
 Route::get('/sortprinter', 'Frontend\SortController@sortprinter');
 Route::get('/lainlain', 'Frontend\SortController@lainlain');
 
-//Route::group(['middleware'=>['checkUser']],function(){
+Route::group(['middleware'=>['checkUser']],function(){
     
-    //ORDERING
-    //Route::post('order/store', 'Backend\OrderController@addCart')->name('addCart');
-   
-    
-    
-
-
-
 //ProductPage
 //Route::get('product', 'Frontend\ProductController@index');
 //Route::get('/', 'Frontend\ProductController@index');
@@ -68,6 +60,7 @@ Route::get('/user', 'Frontend\UserController@user');
 
 Route::get('user/{id}/user', 'Frontend\UserController@user')->name('user');
 Route::post('user/{id}/edit', 'Frontend\UserController@update')->name('editUser');
+Route::get('user/{id}/settings', 'Frontend\UserController@settings')->name('settings');
 Route::get('user/{id}/password', 'Frontend\UserController@gantipassword')->name('gantipassword');
 Route::post('user/{id}/password/changed', 'Frontend\UserController@updatepassword')->name('updatepassword');
 //Route::get('/upload/{Logo.png}','Frontend\UserController@registeraccount'); 
@@ -80,8 +73,8 @@ Route::get('/order/cart/', 'Frontend\OrderController@cart')->name('cart');
 Route::get('order/{id}/delete', 'Frontend\OrderController@deletecart')->name('deleteCart');
 Route::get('/pembayaran/', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
 Route::get('order/bayar/{id}', 'Frontend\OrderController@updatestatus')->name('bayar');
-Route::post('/product/bayar', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
-//Route::get('/product/bayar', 'Frontend\OrderController@getcheckoutgan')->name('langsungbayar');
+//Route::post('/product/bayar', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
+Route::get('/product/bayar', 'Frontend\OrderController@getcheckoutgan')->name('langsungbayar');
 //Route::get('/pembayaran', 'Frontend\OrderController@getcheckoutgan')->name('langsungbayar');
 //Route::match('POST' 'GET'), ('/product/bayar', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
 
@@ -92,12 +85,12 @@ Route::post('/product/bayar', 'Frontend\OrderController@langsungbayar')->name('l
 // Route::get('/cartblog', 'Frontend\CartController@index')->name('cart.index');
 //Route::post('/cartblogindex', 'Frontend\CartController@store')->name('cart.store');
 
-Route::get('/add-to-cart/{id}', 'Frontend\ProductController@getAddToCart')->name('product.addToCart');
-Route::get('/shopping-cart', 'Frontend\ProductController@getCart')->name('product.shoppingCart');
+// Route::get('/add-to-cart/{id}', 'Frontend\ProductController@getAddToCart')->name('product.addToCart');
+// Route::get('/shopping-cart', 'Frontend\ProductController@getCart')->name('product.shoppingCart');
 
-Route::patch('update-cart', 'OrderController@update');
+// Route::patch('update-cart', 'OrderController@update');
  
-Route::delete('remove-from-cart', 'OrderController@remove');
+// Route::delete('remove-from-cart', 'OrderController@remove');
 //Route::get('/checkout', 'Frontend\ProductController@getCheckout')->name('checkoutCart');
 //Route::post('checkout', 'Frontend\ProductController@postCheckout')->name('checkoutCart');
 
@@ -106,7 +99,7 @@ Route::delete('remove-from-cart', 'OrderController@remove');
 
 
 
-//});
+});
 
 //Route::get('cart', 'Frontend\Cartcontroller@index')->name('cart.index');
                                         /*BACKEND PAGE*/
@@ -163,8 +156,15 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/user/{id}/change', 'Backend\UserController@admin')->name('admin');
     Route::get('admin/user/{id}/destroy', 'Backend\UserController@destroy')->name('adminDelete');
 
+    Route::get('profile/{id}', 'Backend\UserController@profile')->name('profile');
+    Route::post('profile/{id}/edit', 'Backend\UserController@update')->name('editProfile');
+    Route::get('profile/{id}/password', 'Backend\UserController@password')->name('changePassword');
+    Route::post('profile/{id}/password/changed', 'Backend\UserController@updatePass')->name('updatePassword');
+    //ORDERING
+    //Route::post('order/store', 'Backend\OrderController@addCart')->name('addCart');
+    //Route::post('product/addcart', 'Backend\OrderController@checkout')->name('addCart');
+    //Route::post('order/{id}/checkout/bayar', 'Backend\OrderController@status')->name('paid');
 });
-
 
 
 //USER ONLY======================================================================================================================================

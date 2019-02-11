@@ -17,17 +17,24 @@ class SortController extends Controller
     public function sortheadphone(){
         $products = Product::with(['images'])->where('category_id', '=', 9)->paginate(24);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         $orders = Orders::all();
         
         if (Auth::user() && $orders = 1){
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.sortlist.sortheadphone')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.sortlist.sortheadphone')->with('categories', $categories)
+            ->with('products', $products)->with('user', $user)->with('users', $users)
+            ->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
+            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty)->with('totalorder', $totalorder);
         }
         //dd($products);
         return view('pages.frontend.sortlist.sortheadphone')->with('products', $products)->with('categories', $categories)->with('users', $users);
@@ -36,7 +43,7 @@ class SortController extends Controller
     public function sortkeyboard(){
         $products = Product::with(['images'])->where('category_id', '=', 8)->paginate(24);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         //dd($products);
         $orders = Orders::all();
         
@@ -44,10 +51,18 @@ class SortController extends Controller
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.sortlist.sortkeyboard')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.sortlist.sortkeyboard')->with('categories', $categories)
+            ->with('products', $products)->with('user', $user)->with('users', $users)
+            ->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
+            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty)
+            ->with('totalorder', $totalorder);
         }
         return view('pages.frontend.sortlist.sortkeyboard')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
@@ -55,7 +70,7 @@ class SortController extends Controller
     public function sortleptop(){
         $products = Product::with(['images'])->where('category_id', '=', 3)->paginate(24);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         //dd($products);
         $orders = Orders::all();
         
@@ -63,10 +78,18 @@ class SortController extends Controller
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.sortlist.sortleptop')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.sortlist.sortleptop')
+            ->with('categories', $categories)->with('products', $products)->with('user', $user)
+            ->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)
+            ->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)
+            ->with('qty', $qty)->with('totalorder', $totalorder);
         }
         return view('pages.frontend.sortlist.sortleptop')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
@@ -74,7 +97,7 @@ class SortController extends Controller
     public function sortmonitor(){
         $products = Product::with(['images'])->where('category_id', '=', 1)->paginate(24);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         //dd($products);
         $orders = Orders::all();
         
@@ -82,10 +105,18 @@ class SortController extends Controller
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.sortlist.sortmonitor')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.sortlist.sortmonitor')
+            ->with('categories', $categories)->with('products', $products)->with('user', $user)
+            ->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)
+            ->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)
+            ->with('qty', $qty)->with('totalorder', $totalorder);
         }
         return view('pages.frontend.sortlist.sortmonitor')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
@@ -93,7 +124,7 @@ class SortController extends Controller
     public function sortprocessor(){
         $products = Product::with(['images'])->where('category_id', '=', 2)->paginate(24);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         //dd($products);
         $orders = Orders::all();
         
@@ -101,10 +132,18 @@ class SortController extends Controller
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.sortlist.sortprocessor')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.sortlist.sortprocessor')
+            ->with('categories', $categories)->with('products', $products)->with('user', $user)
+            ->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)
+            ->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)
+            ->with('qty', $qty)->with('totalorder', $totalorder);
         }
         return view('pages.frontend.sortlist.sortprocessor')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
@@ -112,7 +151,7 @@ class SortController extends Controller
     public function sortbattery(){
         $products = Product::with(['images'])->where('category_id', '=', 7)->paginate(24);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         //dd($products);
         $orders = Orders::all();
         
@@ -120,10 +159,18 @@ class SortController extends Controller
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.sortlist.sortbattery')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.sortlist.sortbattery')
+            ->with('categories', $categories)->with('products', $products)->with('user', $user)
+            ->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)
+            ->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)
+            ->with('qty', $qty)->with('totalorder', $totalorder);
         }
         return view('pages.frontend.sortlist.sortbattery')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
@@ -131,7 +178,7 @@ class SortController extends Controller
     public function sortcpu(){
         $products = Product::with(['images'])->where('category_id', '=', 4)->paginate(24);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         //dd($products);
         $orders = Orders::all();
         
@@ -139,10 +186,18 @@ class SortController extends Controller
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.sortlist.sortcpu')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.sortlist.sortcpu')
+            ->with('categories', $categories)->with('products', $products)->with('user', $user)
+            ->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)
+            ->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)
+            ->with('qty', $qty)->with('totalorder', $totalorder);
         }
         return view('pages.frontend.sortlist.sortcpu')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
@@ -150,7 +205,7 @@ class SortController extends Controller
     public function sorthdmi(){
         $products = Product::with(['images'])->where('category_id', '=', 5)->paginate(24);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         //dd($products);
         $orders = Orders::all();
         
@@ -158,10 +213,18 @@ class SortController extends Controller
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.sortlist.sorthdmi')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.sortlist.sorthdmi')
+            ->with('categories', $categories)->with('products', $products)->with('user', $user)
+            ->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)
+            ->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)
+            ->with('qty', $qty)->with('totalorder', $totalorder);
         }
         return view('pages.frontend.sortlist.sorthdmi')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
@@ -169,7 +232,7 @@ class SortController extends Controller
     public function sortmotherboard(){
         $products = Product::with(['images'])->where('category_id', '=', 11)->paginate(24);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         //dd($products);
         $orders = Orders::all();
         
@@ -177,10 +240,18 @@ class SortController extends Controller
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.sortlist.sortmotherboard')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.sortlist.sortmotherboard')
+            ->with('categories', $categories)->with('products', $products)->with('user', $user)
+            ->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)
+            ->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)
+            ->with('qty', $qty)->with('totalorder', $totalorder);
         }
         return view('pages.frontend.sortlist.sortmotherboard')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
@@ -188,7 +259,7 @@ class SortController extends Controller
     public function sortmouse(){
         $products = Product::with(['images'])->where('category_id', '=', 10)->paginate(24);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         //dd($products);
         $orders = Orders::all();
         
@@ -196,10 +267,18 @@ class SortController extends Controller
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.sortlist.sortmouse')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.sortlist.sortmouse')
+            ->with('categories', $categories)->with('products', $products)->with('user', $user)
+            ->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)
+            ->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)
+            ->with('qty', $qty)->with('totalorder', $totalorder);
         }
         return view('pages.frontend.sortlist.sortmouse')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
@@ -207,7 +286,7 @@ class SortController extends Controller
     public function sortpowercable(){
         $products = Product::with(['images'])->where('category_id', '=', 6)->paginate(24);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         //dd($products);
         $orders = Orders::all();
         
@@ -215,10 +294,18 @@ class SortController extends Controller
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.sortlist.sortpowercable')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.sortlist.sortpowercable')
+            ->with('categories', $categories)->with('products', $products)->with('user', $user)
+            ->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)
+            ->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)
+            ->with('qty', $qty)->with('totalorder', $totalorder);
         }
         return view('pages.frontend.sortlist.sortpowercable')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }    
@@ -226,7 +313,7 @@ class SortController extends Controller
     public function sortprinter(){
         $products = Product::with(['images'])->where('category_id', '=', 12)->paginate(24);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         //dd($products);
         $orders = Orders::all();
         
@@ -234,40 +321,43 @@ class SortController extends Controller
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
-            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )
-            ->where('status', '=', '0');
-            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)
-            ->where('status', '=', '0')->sum('qty');
-            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )
-            ->where('status', '=', '0')->sum('total');
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
+            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
+            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
+            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
             return view('pages.frontend.sortlist.sortprinter')->with('categories', $categories)
             ->with('products', $products)->with('user', $user)->with('users', $users)
             ->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
-            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty)->with('totalorder', $totalorder);
         }
         return view('pages.frontend.sortlist.sortprinter')->with('products', $products)->with('categories', $categories)->with('users', $users);
     }
 
     public function lainlain(){
         $products = Product::with(['images'])->paginate(24);
-        $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $categories = Category_product::get();
+        $users = Auth::User();
         $orders = Orders::all();
         if (Auth::user() && $orders = 1){
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
-            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )
-            ->where('status', '=', '0');
-            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)
-            ->where('status', '=', '0')->sum('qty');
-            $total = Orders::with('product','buyer')->where('user_id','=',$buyer 
-            )->where('status', '=', '0')->sum('total');
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
+            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
+            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
+            $total = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('total');
             //dd($totalqty);
             return view('pages.frontend.sortlist.lainlain')->with('categories', $categories)
             ->with('products', $products)->with('user', $user)->with('users', $users)
             ->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
-            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty)
+            ->with('totalorder', $totalorder);
         }
         else{
             return view('pages.frontend.sortlist.lainlain')->with('products', $products)->with('categories', $categories)->with('users', $users);

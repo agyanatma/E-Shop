@@ -69,53 +69,55 @@ link{
     background-color: white;
     max-width:100%;
     max-height:auto;
+    
 }
 
+/*Index*/
 .card-box{
     background-color: white;
-    height :325px;
-    width: 400px;
     padding: 0px;
     box-shadow: 0px 0px 30px 0px grey;
 }
 
-.card-header{
-    height: 300px;
-    padding: 0px;
-}
-
 .card-body{
     padding: 0px;
-    height: 200px;
-    
 }
 
 .card-image{
-    height: 200px; 
-    width: 270px; 
-    object-fit: cover;
+    height: 150px;
+    width: 100%; 
+    align-content: space-around;
     background-color: transparent;
+    object-fit: cover;
 }
 
 .card-title-box{
-    text-align: center;
-    padding-top: 15px;
-    height: 70px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: left;
+    padding-top: 20px;
+    height: 100px;
     max-width: auto;
+    
 }
 
 .card-price-box{
     float: left;
     padding: 0px;
-    margin-left: 15px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding-top: 5px;
     
 }
 .card-text-box-button{
     float: right;
-    padding: 0px;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 
+
+
+
+/**/
 .card-title{
     text-align: center;
 }
@@ -144,6 +146,7 @@ link{
 
 .row-detail{
     padding:0px;
+    
 }
 
 .card-detail-body{
@@ -152,14 +155,78 @@ link{
 }
 
 .card-image-detail{
-    max-height: 400px; 
-    max-width: 400px; 
-    padding-bottom: 10px;
-    object-fit: contain;
+    height: 250px; 
+    width: 100%;
+    align-content: space-around;
+    background-color: white;
+    object-fit: cover;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0,0,0,.6);
+    
+}
+
+
+.product-section{
+    display: grid;
+    grid-template-columns: 80px 80px;
+    grid-gap: 100px;
+    padding: 100px 0 100px;
+    /* .selected{
+        border: 1px solid #979797;
+    } */
+    
+}
+
+
+.product-section-images{
+    display: grid;
+    grid-template-columns: repeat(5, 80px);
+    justify-content: space-around;
+    
+    margin-top: 20px;
+}
+
+.product-section-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    text-align: center;
+    margin: auto;
+    
+    
+    /* img{
+        opacity: 0;
+        transition: opacity 0 .10s ease-in-out;
+    }
+
+    img.active {
+        opacity: 1;
+    } */
+}
+
+.product-section-thumbnail{
+    display: flex;
+    align-items: center;
+    border: 1px solid lightgray;
+    background-color: white;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0,0,0,.6);
+    transition-duration: .5s;
+    object-fit:cover;
+}
+
+
+
+.product-section-thumbnail:hover{
+    border: 1px solid #979797;
 }
 
 .card-detail-name{
-    text-align: left;
+    
     padding: 0px;
     font-size: 30px;
     
@@ -167,11 +234,12 @@ link{
 
 .card-detail-category{
     padding: 0px;
-    font-size: 25px;
+    margin-left: 20px;
 }
 
 .card-detail-price{
-    padding-top: 40px;
+    padding: 0px;
+    font-size: 30px;
 }
 
 .card-detail-count{
@@ -184,18 +252,121 @@ link{
 }
 
 .card-detail-description{
-    margin-top: 20px;
-    height: 300px;
+    
+    height: 150px;
     width: auto;
-    padding-top: 30px;
-    box-shadow: 0px 0px 10px 0px gray;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0,0,0,.6);
+    transition-duration: .5s;
+    background-color: white;
     
 }
 
-.col-md-6{
-    padding:0px;
+#description-title{
+    
 }
 
+#description-detail{
+    margin:10px;
+    
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+/*Detail Random Product*/
+
+
+.card-box-detail{
+    background-color: white;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0,0,0,.6);
+    transition-duration: .5s;
+}
+
+.card-body-detail{
+    padding: 0px;
+    
+}
+
+
+.card-image-random-detail{
+    height: 80px; 
+    max-width: auto;
+    align-content: space-around;
+    background-color: transparent;
+    object-fit: cover;
+}
+
+.card-title-box-detail{
+    text-align: left;
+    padding-top: 5px;
+    margin: 10px;
+    height: 70px;
+    max-width: auto;
+}
+
+#random-title-product-name{
+    /* font-size: 15px; */
+}
+
+.card-price-box-detail{
+    float: left;
+    margin-left: 10px;
+    margin-top: 25px;
+    
+}
+
+.card-text-box-button-detail{
+    float: right;
+    margin-right: 10px;
+}
+
+/*Cart Product*/
+
+.card-box-cart{
+    background-color: white;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0,0,0,.6);
+    transition-duration: .5s;
+}
+
+.card-body-cart{
+    padding: 0px;
+    
+}
+
+
+.card-image-random-cart{
+    max-height: 150px; 
+    width: auto; 
+    align-content: space-around;
+    background-color: transparent;
+    
+}
+
+.card-title-box-cart{
+    text-align: left;
+    padding-top: 5px;
+    margin: 10px;
+    height: 70px;
+    max-width: auto;
+}
+
+.card-price-box-cart{
+    float: left;
+    margin-left: 10px;
+    margin-top: 25px;
+   
+    
+}
+
+.card-text-box-button-cart{
+    float: right;
+    margin-right: 10px;
+}
+
+/*LOGIN*/
 .login-form{
     padding-right: 20px;
     border-radius: 10px;
@@ -215,8 +386,10 @@ link{
 }
 
 h1{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: #17A2B8;
+    
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    
     text-align: center;
     text-transform: uppercase;
     font-size: 40px;
@@ -225,20 +398,34 @@ h1{
 }
 
 h2{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: #17A2B8;
+    
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    
   
 }
 
 h3{
-    color: #17A2B8;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+    
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
     font-size: 25px;
 }
 
 h4{
-    color: #17A2B8;
+   
     
+}
+
+h5{
+    
+    /* color: #FF612F; */
+}
+
+h6{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 5px;
 }
 
 p{
@@ -299,6 +486,19 @@ p{
 .hidden {
     display: none;
 }
+
+      div.image-zoom div.box {
+        border-color: #808080;
+        border-style: outset;
+      }
+      div.image-zoom div.popup {
+        border-color: #800080;
+        border-style: inset;
+      }
+      div.image-zoom div.thumbnail {
+        border-color: #800000;
+        border-style: outset;
+      }
 
 .table-wrapper-scroll-y {
     display: block;

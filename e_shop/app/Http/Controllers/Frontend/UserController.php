@@ -87,20 +87,24 @@ class UserController extends Controller
     
     public function user($id){
         $users = User::find($id);
-        $orders = Auth::user()->orders;
-        $categories = Category_product::all();
-        dd($users->toArray());
+        //dd($users->toArray());
+        
         if (Auth::user() && $orders = 1){
             $user = Auth::user();
             $buyer = Auth::user()->id;
-            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            
+            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '1')->orWhere('status', '=', '2')->latest()->take(3)->get();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
             
-        return view('pages.frontend.user')->with('categories', $categories)->with('users', $users
-            )->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
-            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+        return view('pages.frontend.user')->with('users', $users
+            )->with('buyer', $buyer)->with('orders', $orders)
+            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty)->with('totalorder', $totalorder);
         }
         else{
 
@@ -118,6 +122,7 @@ class UserController extends Controller
             'postal' => 'required|numeric',
             'img' => 'image|mimes:jpeg,png,jpg'
         ]);
+        
         $email = $request->get('email');
         $name = $request->get('fullname');
         $address = $request->get('address');
@@ -134,7 +139,7 @@ class UserController extends Controller
         //dd($request->all());
                 
         if($request->hasFile('img')){
-            $file = ('upload'.$update->profile_image);
+            $file = ('upload'.$user->profile_image);
             if(file_exists($file) && $file !='default.jpg'){
                 unlink($file);
             }
@@ -144,23 +149,52 @@ class UserController extends Controller
             $user->profile_image = $imageName;
         }
         $user->save();
-        return redirect()->back()->withErrors('Data berhasil update!');           
+        return redirect()->back()->withStatus('Data berhasil update!');           
     }
-    
+
+    public function settings($id){
+        $users = Auth::user();
+        
+        if (Auth::user() && $orders = 1){
+            $users = Auth::user();
+            $buyer = Auth::user()->id;
+            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
+            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
+            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
+            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
+            
+        return view('pages.frontend.gantiinfouser')->with('users', $users)
+        ->with('buyer', $buyer)->with('orders', $orders)->with('totalorder', $totalorder)
+        ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);    
+        }
+        else{
+        //dd($users);
+        return view('pages.frontend.gantiinfouser')->with('users', $users);
+        }
+    }
+
     public function gantipassword($id){
-        $users = Auth::user()->id;
-        $users = session()->get('user_session');
+        $users = Auth::user();
+        
         if (Auth::user() && $orders = 1){
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
             
         return view('pages.frontend.gantipassword')->with('users', $users)
-        ->with('buyer', $buyer)->with('orders', $orders)
-            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+        ->with('buyer', $buyer)->with('orders', $orders)->with('totalorder', $totalorder)
+        ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
         }
         else{
         //dd($users);
@@ -170,25 +204,41 @@ class UserController extends Controller
 
     public function updatepassword(Request $request,$id){
         $this->validate($request,[
-            'currentpassword' => 'required|min:5',
-            'newpassword' => 'required|min:5',
-            'newpasswordconfirm' => 'required|min:5',
+            'password' => 'required|min:5',
+            'newpassword' => 'required_with:newpasswordconfirm|same:newpasswordconfirm|min:5',
+            'newpasswordconfirm' => 'min:5',
         ]);
-        // $password = $request->input('password');
-        // $user =  User::find(Auth::user()->id);
-        // if(Hash::check(Input::get('currentpassword'), $user['password']) && 
-        // Input::get('password')==Input::get('newpasswordconfirm')){
-        //     $user->password = bcrypt(Input::get('password'));
+        $password = $request->get('password');
+        $newpassword = $request->get('newpassword');
+        $newpasswordconfirm = $request->get('newpasswordconfirm');
+        $updatepassword = User::find($id);
+        if (Hash::check($request->password, $updatepassword->password)){
+            $updatepassword->password = bcrypt($request->get('newpassword'));
+            $updatepassword->save();
+            return redirect()->back()->withStatus('Password berhasil update!');  
+             }
+        else{
+            return redirect()->back()->withError('Current Password salah! silakan Coba lagi !');
+        }
+
+        // $city = $request->get('city');
+        // $postal = $request->get('postal');
+                
+        // $user = User::find($id);
+        // $user->email = $email;
+        // if(Hash::check(Input::get('currentpassword'), $user['currentpassword']) && 
+        // Input::get('newpassword')==Input::get('newpasswordconfirm')){
+        //     $user->password = bcrypt(Input::get('newpassword'));
         //     $user->save();
         //     return back()->with('success', 'Password berhasil diupdate!');    
         // }
         // else {
         //     return back()->with('error', 'Ganti Password Gagal! silakan coba kembali');
         // }
-    
+        
         // $password = $request->input('password');
         // $password = $request->get('newpassword');
-        // $updatepassword = Auth::user()->id;
+        // $updatepassword = Auth::user();
         // $updatepassword->password = bcrypt($request->get('newpassword'));
         // $updatepassword ->save();
         // $user->password = bcrypt($request->password);

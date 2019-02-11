@@ -8,7 +8,7 @@
                 <div class="text-left">
                     <div class="card" >
                         <div class="wrapper" style="margin-left:20px">
-                            <h2 class="text-center"> Alamat Pengiriman</h2>
+                            <h2 class="text-center">Shipping Address</h2>
                         <div>
                             <h4>{{$users->fullname}}</h4>
                         </div>
@@ -31,7 +31,7 @@
                                             <h6>Rp. {{number_format($order->product->product_price), 0}}</h6>
                                         </div>
                                         <div class="col-md-2 text-center">
-                                            <h6>Jumlah :{{$order->qty}}</h6>
+                                            <h6>Items :{{$order->qty}}</h6>
                                         </div>
                                         <div class="col-md-3 text-center ">
                                             <a href="{{ route('deleteCart', $order->id) }}" class="btn btn-info" name="delete"><i class="fas fa-trash-alt"></i></a>
@@ -47,15 +47,15 @@
             </div>
             <div class="col-md-4 card">
                 
-                <h2 class="text-center"> Ringkasan Belanja</h2>
-                <h4 class="text-center"> Total Barang :  {{$totalqty}}</h4>
+                <h2 class="text-center">Shopping Summary</h2>
+                <h4 class="text-center"> Total Items:  {{$totalqty}}</h4>
             
-                <h4 class="text-center"> Total Tagihan: Rp{{number_format ($total), 0}}</h4>
+                <h4 class="text-center"> Total Bill: Rp. {{number_format ($total), 0}}</h4>
                 <form action="{{ route('bayar', $order->id)}}" method="GET">
                     {{ csrf_field() }}
                     <input type="hidden" value="{{$order->status}}" name="status">
                 </form>
-                <a href="{{ route('bayar', $order->id)}}" class="btn btn-info btn-block" name="bayar">Bayar</a>
+                <a href="{{ route('bayar', $order->id)}}" class="btn btn-info btn-block" name="bayar">Pay</a>
             </div>
     </div>
 </div>

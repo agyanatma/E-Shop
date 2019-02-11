@@ -3,9 +3,7 @@
 @section('content')
 
    
-        @if(count($errors)>0)
-            <p class="alert alert-danger">Masukkan email dan password untuk masuk</p>
-        @endif
+        
    
         <div class="container-fluid">
             <h1 class="text-center col-md-2 offset-5" style="margin-top: 15px">{{ config('app.name', 'E-Shop') }}</h1>
@@ -19,6 +17,14 @@
                                             <h3 class="card-title" class="text-center">Sign In</h3>
                                             <form action="{{route('store.loginaccount')}}" method="post" class="container">
                                                 {{csrf_field()}}
+                                                @if (session('failed'))
+                                                    <div class="alert alert-danger">
+                                                        {{ session('failed') }}
+                                                    </div>
+                                                @endif
+                                                @if(count($errors)>0)
+                                                    <p class="alert alert-danger">Masukkan email dan password untuk masuk</p>
+                                                @endif
                                                 <div class="form-group">
                                                 <label>Email:</label>
                                                 <input type="email" class="form-control" name="email" placeholder="example@mail.com" value="{{old('email')}}">
@@ -27,7 +33,7 @@
                                                 <label>Password:</label>
                                                 <input type="password" class="form-control" name="password" placeholder="Password">
                                                 </div>
-                                                <div >
+                                                <div>
                                                 <button type="submit" class="btn btn-info btn-block" style="float: center" name="action" value="create">Login</button>
                                                 </div>
                                             </form>

@@ -17,16 +17,12 @@ class checkUser
      */
     public function handle($request, Closure $next)
     {
-        $userId = $request->id;
+        //$userId = $request->id;
         //$idLog = session('user_session')->id;
-        
+        //dd($userId);
         if(Auth::check()){
-            if($userId == Auth::user()->id){
+            
                 return $next($request);
-            }
-            else{
-                return abort('404');
-            }
         }
         
         return redirect('/loginaccount')->with('gagal','Login terlebih dahulu');

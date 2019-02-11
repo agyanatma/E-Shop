@@ -5,16 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <link rel="stylesheet" href="/css/costum1.css">
+    <link rel="stylesheet"  href="/css/costum1.scss">
+    {{-- Costume Alert --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {{-- table --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>  
+    {{-- Image zoom --}}
+    <link rel="stylesheet" href="/css/jquery.wm-zoom-1.0.min.css">
+    <script src="/js/jquery-1.11.1.js"></script>
+    <script src="/js/jquery.wm-zoom-1.0.min.js"></script>
+
+    <script src="/js/prefixfree.min.js"></script>
+    <script src="/js/zoom-slideshow.js"></script>
+    
+    
+
     <title>{{ config('app.name', 'E-Shop') }}</title>
 </head>
 <body >
@@ -25,7 +37,6 @@
                {{ config('app.name', 'E-Shop') }}
            </a>
            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                
                    <ul class="navbar-nav ml-auto">
                         <form class="navbar-form" role="search" method="get" action="{{url("/searchcontent")}}">
                                 <div class="input-group">
@@ -46,13 +57,17 @@
                             </li>
                             @endguest
                             
-                        @if(Auth::user() && session('user_session')->admin==0)
+                        @if(Auth::user()&& session('user_session')->admin==0)
                         <form class="navbar-form" role="cart" method="get" action="{{route('cart',)}}">
                                 <div class="input-group">
                                     <div class="nav-item" style="margin-right:10px">
                                         <button class="btn btn-info " type="submit">
                                             <i class="fas fa-shopping-cart"> 
-                                            <span class="badge" style="background:#d9534f"></span></i></button>
+                                            <span class="badge" style="background:#d9534f">
+                                                @if(Auth::user()->status==0) 
+                                                    {{$totalorder}}
+                                                @endif
+                                            </span></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -62,19 +77,19 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{route('user', $users->id)}}">User Profile</a>
-                                    <a class="dropdown-item" href="#">Daftar Belanja</a>
+                                    <a class="dropdown-item" href="#">Wishlist</a>
                                     <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
                                 </div>
                             </li>
                         @endif
-                        @if(Auth::user() && session('user_session')->admin==1)
+                        @if(Auth::user()&& session('user_session')->admin==1)
                             <form class="navbar-form" role="cart" method="get" action="{{route('cart',)}}">
                                 <div class="input-group">
                                     <div class="nav-item" style="margin-right:10px">
                                         <button class="btn btn-info " type="submit">
                                             <i class="fas fa-shopping-cart"> 
-                                                    @if(Auth::user()) 
-                                                        {{$totalqty}}
+                                                    @if(Auth::user()->status==0) 
+                                                        {{$totalorder}}
                                                     @endif
                                             </span></i></button>
                                     </div>
@@ -92,7 +107,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{route('user', ['id'=>$users->id])}}">User Profile</a>
-                                    <a class="dropdown-item" href="#">Daftar Belanja</a>
+                                    <a class="dropdown-item" href="#">Wishlist</a>
                                     <a class="dropdown-item" href="/admin/dashboard">Dashboard</a>
                                     <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
                                 </div>
@@ -125,17 +140,12 @@
     // data: $formVar.serialize()
     // }); --}}
 <script >
+//imagedetailselected
+
+
+
 //cart
     
-
-//tabel
-$(document).ready(function() {
-    $('#example').DataTable( {
-        scrollY:        '50vh',
-        scrollCollapse: true,
-        paging:         false
-    } );
-} );
 
 //quantity        
 $("document").ready(function(){

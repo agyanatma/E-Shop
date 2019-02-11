@@ -27,9 +27,31 @@ class ProductController extends Controller
         $searchkey = \Request::get('title');
         $products = Product::where('product_name', 'like', '%' .$searchkey. '%')->orderBy ('id')->get();
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
+        
         //dd($products);
-        return view('pages.frontend.searchcontent')->with('products', $products)->with('categories', $categories)->with('users', $users);
+        if (Auth::user() && $orders = 1){
+            $user = Auth::user();
+            $buyer = Auth::user()->id;
+            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
+            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
+            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
+            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
+            
+        return view('pages.frontend.searchcontent')->with('categories', $categories)->with('users', $users
+            )->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
+            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty)
+            ->with('products', $products)->with('totalorder' , $totalorder)
+            ->with('status','Barang berhasil ditambah ke keranjang');
+        }
+        else{
+        return view('pages.frontend.searchcontent')->with('status','Barang berhasil ditambah ke keranjang')
+        ->with('products', $products)->with('categories', $categories)->with('users', $users);
+        }
     }
 
     public function shop(){
@@ -43,7 +65,7 @@ class ProductController extends Controller
         
     //     $products = Product::with(['images'])->where('id', $id)->get();
     //     $categories = Category_product::all();
-    //     $users = session()->get('user_session');
+    //     $users = Auth::User();
     //     //dd($products->find($id)->toArray());
     //     return view('pages.frontend.detailproduct')->with('products', $products)->with('categories', $categories)->with('users', $users);
 
@@ -58,20 +80,32 @@ class ProductController extends Controller
         $id = $products->id;
         $images = Product_image::where('product_id','=',$id)->get();
         $categories = Category_product::all();
-        $users = session()->get('user_session');
-        
+        $users = Auth::User();
+        $productrandom = Product::inRandomOrder()->with(['images'])->take(6)->get();
+        //dd($productrandom->toArray());
         if (Auth::user() && $orders = 1){
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            return view('pages.frontend.detailproduct')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            
+            return view('pages.frontend.detailproduct')->with('categories', $categories)
+            ->with('products', $products)->with('user', $user)->with('users', $users)
+            ->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
+            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty)
+            ->with('totalorder', $totalorder)->with('productrandom', $productrandom)
+            ->with('images', $images);
         }
        
         //dd($orders->toArray());
-        return view('pages.frontend.detailproduct')->with('products', $products)->with('categories', $categories)->with('users', $users)->with('images', $images)->with('orders', $orders);
+        return view('pages.frontend.detailproduct')->with('products', $products)->with('categories', $categories)
+        ->with('users', $users)->with('images', $images)->with('orders', $orders)->with('productrandom', $productrandom);
     }
     
     public function tambahproduct(){
@@ -83,17 +117,24 @@ class ProductController extends Controller
     public function user(){
         $products = Product::with(['images'])->paginate(24);
         $categories = Category_product::get();
-        $users = session()->get('user_session');
+        $users = Auth::user();
         $orders = Orders::all();
         if (Auth::user() && $orders = 1){
             $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Orders::with('product','buyer')->where([
+                'user_id' => $buyer,
+                'status' => 0,
+            ])->count();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
-            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
+            
             //dd($totalqty);
-            return view('pages.frontend.index')->with('categories', $categories)->with('products', $products)->with('user', $user)->with('users', $users)->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+            return view('pages.frontend.index')->with('categories', $categories)
+            ->with('products', $products)->with('user', $user)->with('users', $users)
+            ->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
+            ->with('totalqty', $totalqty)->with('qty', $qty)->with('totalorder', $totalorder);
         }
         else{
             return view('pages.frontend.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
@@ -105,7 +146,7 @@ class ProductController extends Controller
     public function guest(){
         $products = Product::with(['images'])->paginate(24);
         
-        $users = session()->get('user_session');
+        $users = Auth::User();
         $categories = Category_product::with('images')->get();
         //$user = Auth::user();
         //dd($user);
@@ -118,7 +159,7 @@ class ProductController extends Controller
         $oldCart = Session::has('cart') ? Session::get('cart') :null;
         $cart = new Cart($oldCart);
         $cart->add($products, $products->id);
-        $users = session()->get('user_session');
+        $users = Auth::User();
         $request->session()->put('cart', $cart);
         //dd($request->session()->get('cart'));
         //dd($product['qty']);
@@ -129,7 +170,7 @@ class ProductController extends Controller
         $products = Product::with(['images'])->get();
         //$orders = Orders::with('product','buyer')->where('user_id','=',$buyer);
         $categories = Category_product::all();
-        $users = session()->get('user_session');
+        $users = Auth::User();
         $cart = Product::with(['images'])->get();
         if (!Session::has('cart')){
             return view ('pages.frontend.shopping-cart', ['products'=> null]);
@@ -141,7 +182,7 @@ class ProductController extends Controller
     }
 
     public function getCheckout(){
-        $users = session()->get('user_session');
+        $users = Auth::User();
         if (!Session::get('cart')){
             return view('pages.frontend.shopping-cart');
         }
