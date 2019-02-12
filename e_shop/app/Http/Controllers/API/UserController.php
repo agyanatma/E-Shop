@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
-use App\User_image;
+use App\Wishlist;
 use App\Transformers\UserTransformer;
 use App\Transformers\Status;
 use Auth;
@@ -94,7 +94,13 @@ class UserController extends Controller
 
         try{
             if(! Auth::attempt(['email' =>$request->email, 'password' =>$request->password])){
-                return response()->json(Status::response((object)array(), 'failed', 'Your credentials invalid', 401), 401);
+                if($validate->fails()){
+                    return response()->json([
+                        'user'      =>(object)array(), 
+                        'status'    =>'failed',
+                        'message'   =>'Your credential invalid',
+                        'code'      =>'401'], 401);
+                }
             }
     
             $user = $user->find(Auth::user()->id);
@@ -130,34 +136,36 @@ class UserController extends Controller
 
     public function index(User $user){
         try{
-        $user = $user->all();
+            $user = User::select(
+                'id','email','fullname','address','city','postal_code','profile_image'
+            )->get();
 
-        if(!$user){
+            if(!$user){
+                return response()->json([
+                    'user'      =>(object)array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
+            }
+            
+            return response()->json([
+                'user'      =>$user,
+                'status'    =>'success',
+                'message'   =>'Get data success',
+                'code'      =>'200'], 200);
+        }
+        catch(\Exception $e){
             return response()->json([
                 'user'      =>(object)array(), 
                 'status'    =>'error',
-                'message'   =>'Nothing Happen',
+                'message'   =>$e->getMessage(),
                 'code'      =>'404'], 404);
         }
-        
-        return response()->json([
-            'user'      =>$user,
-            'status'    =>'success',
-            'message'   =>'Get data success',
-            'code'      =>'200'], 200);
-    }
-    catch(\Exception $e){
-        return response()->json([
-            'user'      =>(object)array(), 
-            'status'    =>'error',
-            'message'   =>$e->getMessage(),
-            'code'      =>'404'], 404);
-    }
     }
 
     public function profile(User $user){
         try{
-            $user = $user->with('order','product','product.images','categories')->find(Auth::user()->id);
+            $user = $user->with(['order','order.product','order.product.images'])->find(Auth::id());
 
             if(!$user){
                 return response()->json([
@@ -184,11 +192,10 @@ class UserController extends Controller
     
     public function update(Request $request, User $user){
         $validate = \Validator::make($request->all(),[
-            'email' => 'required|email|unique:users',
-            'fullname' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'postal_code' => 'required|numeric',
+            'fullname' => 'max:30',
+            'address' => 'max:50',
+            'city' => 'max:50',
+            'postal_code' => 'numeric',
             'profile_image' => 'image|mimes:jpeg,png,jpg'
         ]);
         if($validate->fails()){
@@ -200,30 +207,9 @@ class UserController extends Controller
         }
         
         try{
-            $email = $request->get('email');
-            $name = $request->get('fullname');
-            $address = $request->get('address');
-            $city = $request->get('city');
-            $postal = $request->get('postal_code');
-                    
-            $user = User::find($id);
-            $user->email = $email;
-            $user->fullname = $name;
-            $user->address = $address;
-            $user->city = $city;
-            $user->postal_code = $postal;
-
-            if($request->hasFile('profile_image')){
-                $file = ('upload'.$update->profile_image);
-                if(file_exists($file) && $file !='default.jpg'){
-                    unlink($file);
-                }
-                $image = $request->file('profile_image');
-                $imageName = $image->getClientOriginalName();
-                $image->move('upload', $imageName);
-                $user->profile_image = $imageName;
-            }
-            $user->save();
+            $user->update($request->except(
+                'email','password','api_token','admin'
+            ));
 
             if(!$user){
                 return response()->json([
@@ -252,7 +238,7 @@ class UserController extends Controller
         $validate = \Validator::make($request->all(),[
             'current' => 'required',
             'password' => 'required|confirmed',
-            'password_conf' => 'required'
+            'password_confirmation' => 'required'
         ]);
         if($validate->fails()){
             return response()->json([
@@ -292,6 +278,106 @@ class UserController extends Controller
         catch(\Exception $e){
             return response()->json([
                 'user'      =>(object)array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
+        }
+    }
+
+//====================================================================================================================================================
+
+//WISHLIST FUNCTION===================================================================================================================================
+
+    public function wishlist(Wishlist $wishlist){
+        try{
+            $wishlist = Wishlist::with(['product','product','product.images'])->where('user_id','=',Auth::id())->get();
+
+            if(!$wishlist){
+                return response()->json([
+                    'wishlist'  =>array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
+            }
+            
+            return response()->json([
+                'wishlist'  =>$wishlist,
+                'status'    =>'success',
+                'message'   =>'Get data success',
+                'code'      =>'200'], 200);
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'wishlist'  =>array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
+        }
+    }
+
+
+    public function add(Request $request, Wishlist $wishlist){
+        try{
+            $validate = \Validator::make($request->all(),[
+                'product' => 'required'
+            ]);
+            if($validate->fails()){
+                return response()->json([
+                    'wishlist'  =>array(), 
+                    'status'    =>'failed',
+                    'message'   =>$validate->messages()->first(),
+                    'code'      =>'422'], 422);
+            }
+
+            $item = new Wishlist;
+            $item->user_id = Auth::id();
+            $item->product_id = $request->product;
+            $item->save();
+            $wishlist = Wishlist::with(['product','product','product.images'])->where('user_id','=',Auth::id())->get();
+
+            if(!$wishlist){
+                return response()->json([
+                    'wishlist'   =>array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
+            }
+            return response()->json([
+                'wishlist'   =>$wishlist, 
+                'status'    =>'success',
+                'message'   =>'Add success',
+                'code'      =>'200'], 200);
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'wishlist'   =>array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
+        }
+    }
+
+    public function destroy($id){
+        try{
+            $item = Wishlist::find($id);
+            $item->delete();
+
+            if(!$item){
+                return response()->json([
+                    'wishlist'   =>array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
+            }
+            return response()->json([
+                'wishlist'   =>array(), 
+                'status'    =>'success',
+                'message'   =>'Delete success',
+                'code'      =>'200'], 200);
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'wishlist'   =>array(), 
                 'status'    =>'error',
                 'message'   =>$e->getMessage(),
                 'code'      =>'404'], 404);

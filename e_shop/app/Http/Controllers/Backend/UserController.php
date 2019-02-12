@@ -41,8 +41,8 @@ class UserController extends Controller
                 return "User";
             })
             ->addColumn('action', function($item){
-                return '<a href="'.route('admin',$item->id).'" class="btn btn-xs btn-info"><i class="fas fa-crown"></i></a><span>'.'
-                        <a href="'.route('adminDelete',$item->id).'" class="btn btn-xs btn-info"><i class="fas fa-trash-alt"></i></a></span>';
+                return '<a href="'.route('admin',$item->id).'" class="btn btn-xs btn-warning"><i class="fas fa-crown"></i></a><span>'.'
+                        <a href="'.route('adminDelete',$item->id).'" class="btn btn-xs btn-danger"><i class="fas fa-trash-alt"></i></a></span>';
             })
             ->rawColumns(['action'])
             ->removeColumn('profile_image')

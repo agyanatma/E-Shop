@@ -8,9 +8,7 @@
             </div>
         @endif
         @if(count($errors)>0)
-            @foreach($errors->all() as $error)
-                <p class="alert alert-danger">{{$error}}</p>
-            @endforeach
+            <p class="alert alert-danger">{{$error->first()}}</p>
         @endif
     </div>
     <div class="form-group container">

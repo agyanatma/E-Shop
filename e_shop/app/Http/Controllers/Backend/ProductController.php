@@ -38,8 +38,8 @@ class ProductController extends Controller
             })
             ->addColumn('action', function($item){
                 return  '<a href="'.route('detailproduct', $item->id).'" class="btn btn-xs btn-info" style="margin-right:7px"><i class="fas fa-eye"></i></a>'.
-                        '<a href="'.route('editProduct', $item->id).'" class="btn btn-xs btn-info" style="margin-right:7px"><i class="fas fa-edit"></i></a>'.
-                        '<a href="'.route('deleteProduct', $item->id).'" class="btn btn-xs btn-info"><i class="fas fa-trash-alt"></i></a>';
+                        '<a href="'.route('editProduct', $item->id).'" class="btn btn-xs btn-warning" style="margin-right:7px"><i class="fas fa-edit"></i></a>'.
+                        '<a href="'.route('deleteProduct', $item->id).'" class="btn btn-xs btn-danger"><i class="fas fa-trash-alt"></i></a>';
             })
             ->rawColumns(['images','action'])
             ->make(true);
@@ -79,8 +79,10 @@ class ProductController extends Controller
             'product_name' => 'required',
             'product_price' => 'required|numeric',
             'category_name' => 'required',
-            'img[]' => 'image|mimes:jpeg,png,jpg'
+            'img' => 'image|mimes:jpeg,png,jpg',
+            'img.*' => 'image|mimes:jpeg,png,jpg'
         ]);
+
         $name = $request->input('product_name');
         $price = $request->input('product_price');
         $category = $request->input('category_name');
@@ -133,13 +135,14 @@ class ProductController extends Controller
             'product_name' => 'required',
             'product_price' => 'required|numeric',
             'category_name' => 'required',
-            //'image' => 'image|mimes:jpeg,png,jpg'
+            'image' => 'image|mimes:jpeg,png,jpg',
+            'image.*' => 'image|mimes:jpeg,png,jpg'
         ]);
+
         $name = $request->get('product_name');
         $price = $request->get('product_price');
         $category = $request->get('category_name');
         $description = $request->get('description');
-        $image = $request->file('image');
         
         $store = Product::find($id);
         $store->product_name = $name;
@@ -147,10 +150,10 @@ class ProductController extends Controller
         $store->category_id = $category;
         $store->description = $description;
         $store->save();
-    
         $product_id = $store->id;
         //dd($product_id);
         if($request->hasFile('image')){
+            $image = $request->file('image');
             $image_len = count($image);
             for($i=0; $i<$image_len; $i++){
                 $imageName = $image[$i]->getClientOriginalName();
@@ -162,7 +165,6 @@ class ProductController extends Controller
                 $upload->save();
             }
         }
-        
         return redirect('/admin/product')->with('status','Data berhasil update');
     }
     public function deleteImage($id){

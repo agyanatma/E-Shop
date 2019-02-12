@@ -8,9 +8,7 @@
         </div>
     @endif
     @if(count($errors)>0)
-        @foreach($errors->all() as $error)
-            <p class="alert alert-danger">{{$error}}</p>
-        @endforeach
+        <p class="alert alert-danger">{{$errors->first()}}</p>
     @endif
     <div class="form-group container">
         <form action="{{route('updateProduct', $item->id)}}" method="post" enctype="multipart/form-data">
@@ -32,7 +30,7 @@
             <textarea type="text" class="form-control" name="description" rows="5" maxlength="200" placeholder="Deskripsi Barang (Max. 200 Kata)">{{$item->description}}</textarea>
             <br><br>
             <label>Gambar:</label>
-            <input type="file" accept=".png,.jpg,.jpeg" name="image[]" multiple>
+            <input type="file" accept=".png,.jpg,.jpeg" name="image" multiple>
             <span><button type="submit" class="btn btn-primary float-right" name="action" value="update">Update</button></span>
             <br><br>
             <div class="row">

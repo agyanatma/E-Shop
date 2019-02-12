@@ -96,8 +96,8 @@
                 {data: 'fullname', name: 'fullname', class: 'align-middle'},
                 {data: 'address', name: 'address', class: 'align-middle'},
                 {data: 'city', name: 'city', class: 'align-middle'},
-                {data: 'postal_code', name: 'postal_code', class: 'align-middle'},
-                {data: 'role', name: 'role', class: 'align-middle', searchable: false},
+                {data: 'postal_code', name: 'postal_code', width:'90', class: 'align-middle'},
+                {data: 'role', name: 'role', width:'30', class: 'align-middle', searchable: false},
                 {data: 'action', name: 'action', searchable: false, orderable: false, width:91}
             ]
         });

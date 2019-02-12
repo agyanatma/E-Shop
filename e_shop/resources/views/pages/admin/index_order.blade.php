@@ -6,17 +6,15 @@
         <div class="alert alert-success">
             {{ session('status') }}
         </div>
+    @elseif (session('failed'))
+        <div class="alert alert-danger">
+            {{ session('failed') }}
+        </div>
     @endif
     <div class="row">
-        <div class="col">
-            <form class="form-inline">
-                <div class="col-lg-6" style="float:left">
-                    <h1><span class="fas fa-dolly-flatbed" aria-hidden="true"></span>  Order</h1><br>
-                </div>
-            </form>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-bordered">
+        <h1><span class="fas fa-dolly-flatbed" aria-hidden="true"></span>  Order</h1><br>
+        <div class="table-responsive"  style="margin-top:20px">
+            <table id="dataorder" class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -30,38 +28,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                        @if(count($orders) > 0)
-                            @foreach ($orders as $order)
-                            <tr>
-                                <td class="align-middle">{{$order->buyer->fullname}}</td>
-                                <td class="align-middle">{{$order->product->product_name}}</td>
-                                <td class="align-middle">Rp {{number_format($order->price, 0)}}</td>
-                                <td class="align-middle">{{number_format($order->qty, 0)}} pcs</td>
-                                <td class="align-middle">Rp {{number_format($order->total, 0)}}</td>
-                                <td class="align-middle">{{$order->order_date}}</td>
-                                @if($order->status==2)
-                                    <td class="align-middle">Sudah Dibayar</td>
-                                @elseif($order->status==1)
-                                    <td class="align-middle">Menunggu Konfirmasi</td>
-                                @elseif($order->status==0)
-                                    <td class="align-middle">Belum Dibayar</td>
-                                @endif 
-                                <td class="align-middle" style="width:180px">
-                                    <span class="float-right">
-                                        <a href="{{ route('payOrder', $order->id) }}" class="btn btn-success" name="setujui">Setujui
-                                        <span>
-                                            <a href="{{ route('deleteOrder', $order->id) }}" class="btn btn-danger" style="margin-left:5px" name="delete">Delete</a>
-                                        </span></a>
-                                    </span>
-                                </td>
-                            </tr>
-                            @endforeach
-                        @else
-                            <h3>No posts found!</h3>
-                        @endif
+                        
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(function(){
+            $('#dataorder').DataTable({
+                processing: false,
+                serverSide: true,
+                ajax: '{!! route('table.order') !!}',
+                columns: [
+                    {data: 'fullname', name: 'fullname', class: 'align-middle'},
+                    {data: 'product_name', name: 'product_name', class: 'align-middle'},
+                    {data: 'price', name: 'price', class: 'align-middle'},
+                    {data: 'qty', name: 'qty', class: 'align-middle', width:80},
+                    {data: 'total', name: 'total', class: 'align-middle'},
+                    {data: 'order_date', name: 'order_date', class: 'align-middle', width:90},
+                    {data: 'status', name: 'status', class: 'align-middle'},
+                    {data: 'action', name: 'action', searchable: false, orderable: false, width:90, class: 'align-middle'}
+                ]
+            });
+        });
+    </script>
+@endpush
 @endsection

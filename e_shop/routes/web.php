@@ -154,12 +154,14 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/category/{id}/edit', 'Backend\CategoryController@edit')->name('editCategory');
     Route::post('admin/category/{id}/update', 'Backend\CategoryController@update')->name('updateCategory');
     Route::get('admin/category/{id}/edit/delete', 'Backend\CategoryController@deleteImage')->name('delete.category');
+    Route::get('admin/category/datatables', 'Backend\CategoryController@dataTables')->name('table.category');
 
     //CRUD ORDER
     Route::get('admin/order', 'Backend\OrderController@index')->name('indexOrder');
     Route::get('admin/order/{id}/delete', 'Backend\OrderController@destroy')->name('deleteOrder');
     Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('editOrder');
     Route::get('admin/order/{id}/pay', 'Backend\OrderController@bayar')->name('payOrder');
+    Route::get('admin/order/datatables', 'Backend\OrderController@dataTables')->name('table.order');
 
     //CRUD USER
     Route::get('admin/user/{id}/change', 'Backend\UserController@admin')->name('admin');

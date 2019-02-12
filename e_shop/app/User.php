@@ -20,6 +20,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Orders');
     }
 
+    public function wishlist(){
+        return $this->hasMany('App\Wishlist');
+    }
+
     public function getProfileImageAttribute($value){
         return '/upload/'.$value;
     }

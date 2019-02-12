@@ -14,25 +14,32 @@ class OrderController extends Controller
 {
     public function index(Orders $orders){
         try{
-        $orders = $orders->with('product','product.images', 'buyer')->get();
-
-        $response = [
-            'orders' =>$orders
-        ];
+            $orders = $orders->with('product','product.images', 'buyer')->get();
 
             if(!$orders){
-                return response()->json(Status::response(array(), 'error', 'Nothing Found', 404), 404);
+                return response()->json([
+                    'orders'    =>array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
             }
-            return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
-        }
+            return response()->json([
+                'orders'    =>$orders, 
+                'status'    =>'success',
+                'message'   =>'Get data success',
+                'code'      =>'200'], 200);
+            }
         catch(\Exception $e){
-            return response()->json(Status::response(array(), 'error', $e->getMessage()), 404);
+            return response()->json([
+                'orders'    =>array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
         }
     }
     
-    public function order(Request $request, Orders $order){
+    public function order(Request $request, Orders $orders){
         $validate = \Validator::make($request->all(),[
-            'buyer' => 'required',
             'product' => 'required',
             'price' => 'required|numeric',
             'quantity' => 'required|numeric',
@@ -40,54 +47,107 @@ class OrderController extends Controller
             'order_date' => 'required'
         ]);
         if($validate->fails()){
-            return response()->json(Status::response(array(), 'failed', $validate->messages()->first(), 422), 422);
+            return response()->json([
+                'orders'    =>array(), 
+                'status'    =>'failed',
+                'message'   =>$validate->messages()->first(),
+                'code'      =>'422'], 422);
         }
         
         try{
-            $order = new Orders();
-            $order->user_id = $request->buyer;
-            $order->product_id = $request->product;
-            $order->price = $request->price;
-            $order->qty = $request->quantity;
-            $order->total = $request->total;
-            $order->order_date = $request->order_date;
-            $order->save();
+            $orders = new Orders;
+            $orders->user_id = Auth::id();
+            $orders->product_id = $request->product;
+            $orders->price = $request->price;
+            $orders->qty = $request->quantity;
+            $orders->total = $request->total;
+            $orders->order_date = $request->order_date;
+            $orders->status = "1";
+            $orders->save();
 
-            $response = [
-                'order' =>$order
-            ];
-
-            if(!$order){
-                return response()->json(Status::response(array(), 'error', 'Nothing Found', 404), 404);
+            if(!$orders){
+                return response()->json([
+                    'orders'    =>array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
             }
-            return response()->json(Status::response($response, 'success', 'Ordering success', 200), 200);
-        }
+            return response()->json([
+                'orders'    =>$orders, 
+                'status'    =>'success',
+                'message'   =>'Order success',
+                'code'      =>'200'], 200);
+            }
         catch(\Exception $e){
-            return response()->json(Status::response(array(), 'error', $e->getMessage()), 404);
+            return response()->json([
+                'orders'    =>array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
         }
     }
 
     public function confirm(Request $request, Orders $orders, $id){
         try{
-            $order = Orders::with('product','product.images', 'buyer')->find($id);
-            if($order->status==0){
-                $order->status = '1';
-                $order->save();
+            $orders = Orders::with('product','product.images', 'buyer')->find($id);
+            if($orders->status==0){
+                $orders->status = '1';
+                $orders->save();
             }
-            $response = [
-                'order' =>$order
-            ];
-            if(!$order){
-                return response()->json(Status::response(array(), 'error', 'Nothing Found', 404), 404);
+            
+            if(!$orders){
+                return response()->json([
+                    'orders'    =>array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
             }
-            if($order->status!='1'){
-                return response()->json(Status::response($response, 'failed', 'Nothing Happen', 401), 401);
+            if($orders->status!='1'){
+                return response()->json([
+                    'orders'    =>array(), 
+                    'status'    =>'failed',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'401'], 401);
             }
-            return response()->json(Status::response($response, 'success', 'Waiting for confirmation', 200), 200);
+            return response()->json([
+                'orders'    =>$orders, 
+                'status'    =>'success',
+                'message'   =>'Waiting confirmation',
+                'code'      =>'200'], 200);
+            }
+        catch(\Exception $e){
+            return response()->json([
+                'orders'    =>array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
+        }
+    }
+
+    public function destroy($id){
+        try{
+            $item = Orders::find($id);
+            $item->delete();
+
+            if(!$item){
+                return response()->json([
+                    'orders'    =>array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
+            }
+            return response()->json([
+                'orders'    =>array(), 
+                'status'    =>'success',
+                'message'   =>'Order success',
+                'code'      =>'200'], 200);
         }
         catch(\Exception $e){
-            return response()->json(Status::response(array(), 'error', $e->getMessage()), 404);
+            return response()->json([
+                'orders'    =>array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
         }
-        
     }
 }
