@@ -63,7 +63,7 @@ class OrderController extends Controller
                 }
             })
             ->addColumn('action', function($item){
-                return  '<a href="'.route('payOrder', $item->id).'" class="btn btn-xs btn-warning" style="margin-right:7px; width:40px"><i class="fas fa-edit"></i></a>'.
+                return  '<a href="'.route('payOrder', $item->id).'" class="btn btn-xs btn-success" style="margin-right:7px; width:40px"><i class="fas fa-check"></i></a>'.
                         '<a href="'.route('deleteOrder', $item->id).'" class="btn btn-xs btn-danger" style="width:40px"><i class="fas fa-trash-alt"></i></a>';
             })
             ->rawColumns(['images','action'])
