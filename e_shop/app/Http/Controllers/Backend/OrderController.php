@@ -26,7 +26,7 @@ class OrderController extends Controller
     public function bayar(Request $request,$id){
         $order = Orders::find($id);
         if($order){
-            $order->status = '1';
+            $order->status = '2';
             $order->save();
         }
 

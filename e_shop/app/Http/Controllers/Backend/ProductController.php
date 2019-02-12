@@ -116,7 +116,7 @@ class ProductController extends Controller
         $images = $item->images;
         $categories = Category_product::all();
         $users = session()->get('user_session');
-        //dd($item->toArray());
+        //dd($item->description);
         return view('pages.admin.edit_product')->with('item', $item)->with('categories', $categories)->with('images', $images)->with('users', $users);
     }
     public function update(Request $request,$id){

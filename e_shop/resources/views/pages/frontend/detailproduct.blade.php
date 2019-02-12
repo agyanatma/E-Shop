@@ -35,8 +35,8 @@
     @endif
         <div class="row ">
                 <div class="col-12 col-sm-4 col-md-5 col-lg-5 wm-zoom-container my-zoom-2 " >
-                            <div class="wm-zoom-box product-section-image">
-                                <img id="myimage" src="{{$products->images[0]->product_image}}" class="wm-zoom-default-img card-image-detail rounded mx-auto d-block img-responsive " data-hight-src="{{$products->images[0]->product_image}}" data-loader-src="/upload/loader.gif">
+                            <div class="wm-zoom-box product-section-image card-image-detail">
+                                <img id="myimage" src="{{$products->images[0]->product_image}}" class="wm-zoom-default-img card-image-detail rounded mx-auto d-block img-fluid" data-hight-src="{{$products->images[0]->product_image}}" data-loader-src="/upload/loader.gif">
                             </div>
                             <div class="product-section-images">
                                 @foreach($images as $item)
@@ -75,15 +75,15 @@
                                         </div>
                                     </div>
                             </form>
-                            <form class="col-lg-2 col-md-1 col-sm-2 col-12 " action="{{route('langsungbayar')}}" method="GET">
+                            <form class="col-lg-2 col-md-1 col-sm-2 col-12 " action="{{route('langsungbayar', $products->id)}}" method="POST">
                                 {{csrf_field()}}
                                 <div class="row">
                                     <input type="hidden" name="user_id" value="{{$users->id}}">
                                     <input type="hidden" name="product_id" value="{{$products->id}}">
-                                    <input type="hidden" name="product_price" value="{{$products->product_price}}">
+                                    <input type="hidden" name="price" value="{{$products->product_price}}">
                                     <input type="hidden" name="quantity" value="1">
                                     {{-- <input type="hidden" name="order" value="{{$orders->id}}">   --}}
-                                    <button type="submit" id="cartBtn" class="btn btn-info">Checkout</button>
+                                    <button type="submit" id="cartBtn" class="btn btn-info">Buy Now</button>
                                 </div>
                             </form> 
                     </div>
@@ -99,6 +99,7 @@
         <br>
         <h1> Random Product</h1>
         <div class="row" style="padding-bottom:20px">
+            
                 @if(count($productrandom) > 0)
                     @foreach ($productrandom as $row)
                     <div class="col-md-4 col-lg-2 col-sm-6 col-12" style="padding-bottom:20px; padding-top:20px; ">

@@ -48,41 +48,41 @@
                 <div class="card-fluid bg-white" >
                     <div class="row row-centered" style="padding:20px ">
                                 <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                                    <a href="sortheadphone"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[8]->category_image}}"></a>
+                                    <a href="sortheadphone"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="/upload/037-headphones.png"></a>
                                 </div>
                                 <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                                    <a href="sortkeyboard"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[7]->category_image}}"></a>
+                                    <a href="sortkeyboard"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="/upload/031-wireless-keyboard.png"></a>
                                 </div>
                                 <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                                    <a href="sortleptop"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[2]->category_image}}"></a>
+                                    <a href="sortleptop"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="/upload/008-laptop.png"></a>
                                 </div>
                                 <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                                    <a href="sortmonitor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[0]->category_image}}"></a>
+                                    <a href="sortmonitor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="/upload/001-monitor.png"></a>
                                 </div>
                                 <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                                    <a href="sortprocessor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="{{$categories[1]->category_image}}"></a>
+                                    <a href="sortprocessor"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;"  src="/upload/006-chip.png"></a>
                                 </div>
                                 <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                                    <a href="lainlain"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;" src="upload/lain-lain.png"></a>
+                                    <a href="lainlain"><img class="rounded mx-auto d-block img-responsive " style="max-height: 50px; max-width: 100%;" src="/upload/lain-lain.png"></a>
                                 </div>                                       
                     </div>
                 </div>
                 
             <div class="container my-container ">
-                <div class="row">
+                <div class="row ">
                         @if(count($products) > 0)
                             @foreach ($products as $row)
                             <div class="col-md-6 col-lg-3 col-sm-12" style="padding-bottom:20px; padding-top:20px; ">
                                 <div class=" card-box " >
-                                    <div style="min-height:200px">
+                                    <div style="align-self-center">
                                         <a href="{{route('detailproduct', $row->id)}}"><img class="card-image rounded mx-auto d-block img-responsive " style="" src="{{ $row->images[0]->product_image}}"></a>
                                     </div>
-                                    <div class="card-body clearfix" >
+                                    <div class="card-body clearfix " >
                                             <div class="card-title-box">
-                                                <h6>{{$row->product_name}}</h6>
+                                                <h6 class="font-weight-light text-justify">{{$row->product_name}}</h6>
                                             </div>
                                             <div class="card-price-box">
-                                                <h5 >Rp {{number_format($row->product_price, 0)}}</h5>
+                                                <h5 class="font-weight-light text-justify">Rp {{number_format($row->product_price, 0)}}</h5>
                                             </div>
                                             <div class=" card-text-box-button" style="float:right">
                                                 @if(Auth::check() && Auth::user())
@@ -99,7 +99,6 @@
                                                 @endif
                                             </div>
                                     </div>
-
                                 </div>
                             </div>
                                 @endforeach

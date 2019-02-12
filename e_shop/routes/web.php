@@ -10,17 +10,16 @@
 |
 */
                                         /*FRONTEND PAGE*/
-              
+
+Route::get('/', 'Frontend\ProductController@user')->name('userPage');     
 Route::get('/loginaccount', 'Frontend\UserController@loginaccount')->name('loginaccountPage');
 Route::post('/loginaccount/log', 'Frontend\UserController@loginaccountStore')->name('store.loginaccount');
 Route::get('/registeraccount', 'Frontend\UserController@registeraccount')->name('registeraccountPage');
 Route::post('/registeraccount/reg', 'Frontend\UserController@registeraccountStore')->name('store.registeraccount');
 Route::get('/logout', 'Frontend\UserController@logout')->name('logoutUser');
-
 Route::get('/searchcontent', 'Frontend\ProductController@searchcontent');
-Route::get('/', 'Frontend\ProductController@user')->name('userPage');
-
 Route::get('product/{id}/detailproduct/', 'Frontend\ProductController@detailproduct')->name('detailproduct');
+
 //SortPage
 Route::get('/sortheadphone', 'Frontend\SortController@sortheadphone');
 Route::get('/sortkeyboard', 'Frontend\SortController@sortkeyboard');
@@ -38,23 +37,6 @@ Route::get('/lainlain', 'Frontend\SortController@lainlain');
 
 Route::group(['middleware'=>['checkUser']],function(){
     
-//ProductPage
-//Route::get('product', 'Frontend\ProductController@index');
-//Route::get('/', 'Frontend\ProductController@index');
-
-//Route::get('/index', 'Frontend\ProductController@index');
-//Route::get('/shop', 'Frontend\ProductController@shop');
-//Route::get('/tambahproduct', 'Frontend\ProductController@tambahproduct');
-//Route::get('/detailproduct', 'Frontend\ProductController@detailproduct');
-//Route::get('/wishlist', 'Frontend\ProductController@wishlist');
-//Route::get('product', 'Frontend\ProductController@index');
-//Route::get('/category/{id}/image', 'Frontend\ProductController@index');
-//Route::get('category/{category_name}', 'Frontend\CategoryController@product')->name('productCategory');
-
-
-//CategoryPage
-//Route::get('/category', 'Frontend\CategoryController@category');
-
 //UsersPage
 Route::get('/user', 'Frontend\UserController@user');
 
@@ -63,59 +45,21 @@ Route::post('user/{id}/edit', 'Frontend\UserController@update')->name('editUser'
 Route::get('user/{id}/settings', 'Frontend\UserController@settings')->name('settings');
 Route::get('user/{id}/password', 'Frontend\UserController@gantipassword')->name('gantipassword');
 Route::post('user/{id}/password/changed', 'Frontend\UserController@updatepassword')->name('updatepassword');
-//Route::get('/upload/{Logo.png}','Frontend\UserController@registeraccount'); 
-
 
 //CartPage
-Route::post('product/{id}/addcart', 'Frontend\OrderController@langsungbayar')->name('addcartlangsung');
+Route::post('product/{id}/addcart', 'Frontend\OrderController@tambahlangsung')->name('addcartlangsung');
 Route::post('product/addcart/{id}', 'Frontend\OrderController@checkout')->name('addCart');
 Route::get('/order/cart/', 'Frontend\OrderController@cart')->name('cart');
 Route::get('order/{id}/delete', 'Frontend\OrderController@deletecart')->name('deleteCart');
 Route::get('/pembayaran/', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
+Route::post('/product/langsungbayar/{id}', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
+Route::get('/langsungbayargan/', 'Frontend\OrderController@langsungbayargan')->name('langsungbayargan');
 Route::get('order/bayar/{id}', 'Frontend\OrderController@updatestatus')->name('bayar');
-//Route::post('/product/bayar', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
-Route::get('/product/bayar', 'Frontend\OrderController@getcheckoutgan')->name('langsungbayar');
-//Route::get('/pembayaran', 'Frontend\OrderController@getcheckoutgan')->name('langsungbayar');
+Route::get('/product/langsungbayar/{id}/bayar', 'Frontend\OrderController@updatestatusbayarlangsung')->name('bayarlangsung');
+//Route::get('/product/bayar', 'Frontend\OrderController@getcheckoutgan')->name('pembayaran');
+
 //Route::match('POST' 'GET'), ('/product/bayar', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
-
-//Route::get('/pembayaran', 'Frontend\ProductController@getpembayaran')->name('pembayaranCart');
-//Route::post('pembayaran', 'Frontend\ProductController@postpembayaran')->name('pembayaranCart');
-//Route::get('/pembayaran/{id}', 'Frontend\OrderController@checkoutgan')->name('paid');
-// Route::post('/pembayaran', 'Frontend\OrderController@postCheckoutgan')->name('checkoutGan');
-// Route::get('/cartblog', 'Frontend\CartController@index')->name('cart.index');
-//Route::post('/cartblogindex', 'Frontend\CartController@store')->name('cart.store');
-
-// Route::get('/add-to-cart/{id}', 'Frontend\ProductController@getAddToCart')->name('product.addToCart');
-// Route::get('/shopping-cart', 'Frontend\ProductController@getCart')->name('product.shoppingCart');
-
-// Route::patch('update-cart', 'OrderController@update');
- 
-// Route::delete('remove-from-cart', 'OrderController@remove');
-//Route::get('/checkout', 'Frontend\ProductController@getCheckout')->name('checkoutCart');
-//Route::post('checkout', 'Frontend\ProductController@postCheckout')->name('checkoutCart');
-
-//Route::get('/', 'Backend\ProductController@main')->name('userPage');
-//OrderPage
-//Route::get('/order', 'Frontend\OrderController@order');
-
-
-
 });
-
-//Route::get('cart', 'Frontend\Cartcontroller@index')->name('cart.index');
-                                        /*BACKEND PAGE*/
-//Route::get('/', 'Backend\ProductController@guest')->name('userPage');
-
-//LOGIN REGISTER
-Route::get('login', 'Backend\UserController@login')->name('loginPage');
-Route::post('login/store', 'Backend\UserController@loginStore')->name('store.login');
-Route::get('register', 'Backend\UserController@signup')->name('registerPage');
-Route::post('register/store', 'Backend\UserController@signupStore')->name('store.register');
-Route::get('logout', 'Backend\UserController@logout')->name('logoutUser');
-
-//INDEX
-Route::get('category/{category_name}', 'Backend\CategoryController@product')->name('productCategory');
-Route::get('product/{id}/detail', 'Backend\ProductController@detail')->name('detailProduct');
 
 
 
@@ -164,8 +108,5 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::post('profile/{id}/edit', 'Backend\UserController@update')->name('editProfile');
     Route::get('profile/{id}/password', 'Backend\UserController@password')->name('changePassword');
     Route::post('profile/{id}/password/changed', 'Backend\UserController@updatePass')->name('updatePassword');
-    //ORDERING
-    //Route::post('order/store', 'Backend\OrderController@addCart')->name('addCart');
-    //Route::post('product/addcart', 'Backend\OrderController@checkout')->name('addCart');
-    //Route::post('order/{id}/checkout/bayar', 'Backend\OrderController@status')->name('paid');
+    
 });

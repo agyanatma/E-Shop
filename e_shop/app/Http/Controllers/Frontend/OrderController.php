@@ -32,7 +32,7 @@ class OrderController extends Controller
             'status' => 0,
         ])->count();
         //dd($totalorder);
-        $productrandom = Product::inRandomOrder()->with(['images'])->take(4)->get();
+        $productrandom = Product::inRandomOrder()->with(['images'])->take(6)->get();
         //dd($productrandom);
         $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
         $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
@@ -126,7 +126,19 @@ class OrderController extends Controller
         return redirect()->route('userPage');
     }
 
-    public function langsungbayar(Request $request, $id){
+    public function updatestatusbayarlangsung(Request $request, $id){
+        
+        $status = $request->all;
+        $id = Auth::user()->id;
+        $order = Orders::where([
+            ['user_id','=',$id],
+            ['status','=','0'],
+        ])->update(['status' => '1']);
+
+        return redirect()->route('userPage');
+    }
+
+    public function tambahlangsung(Request $request, $id){
         if($products = Product::find($id)){
             $user = $request->input('user_id');
             $product = $request->input('product_id');
@@ -159,6 +171,66 @@ class OrderController extends Controller
             }
 
         return redirect()->back()->with('status','Barang berhasil ditambah ke keranjang');
+        }
+    }
+
+    public function langsungbayar(Request $request, $id){
+        
+        if($products = Product::find($id)){
+            $user = $request->input('user_id');
+            $product = $request->input('product_id');
+            $quantity = $request->input('quantity', '1');
+            $price = $request->input('price');
+            $time = Carbon::today();
+            //dd($request->price);
+            //cek order sudah ada atau belum
+            $order = Orders::where([
+                'user_id' => $user,
+                'product_id' => $product,
+                'status' => 0,
+            ])->first();
+            //jika sudah ada
+            if ($order) {
+                $order->qty += $quantity;
+                $order->total += $quantity * $price;
+                $order->save();
+            } 
+            //jika belum
+            else {
+                $store = new Orders;
+                $store->order_date = $time;
+                $store->user_id = $user;
+                $store->product_id = $product;
+                $store->price = $price;
+                $store->qty = $quantity;
+                $store->total = $quantity * $price;
+                $store->save();
+            }
+            
+        
+        if (Auth::user() && $orders = 1){
+        $products = Product::with(['images'])->get();
+        $users = Auth::User();
+        $buyer = Auth::user()->id;
+        $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->get();
+        //dd($orders->toArray());
+        $categories = Category_product::all();
+        $totalorder = Orders::with('product','buyer')->where([
+            'user_id' => $buyer,
+            'status' => 0,
+        ])->count();
+        
+        $total = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->get()->sum('total');
+        $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->get()->sum('qty');
+        //dd($orders->toArray());
+        //dd($total);
+            return view('pages.frontend.langsungbayargan')->with('products', $products)->with('users', $users)
+            ->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
+            ->with('total', $total)->with('totalqty', $totalqty)->with('totalorder', $totalorder);
+            }
+        return view('pages.frontend.langsungbayargan')->with('users', $users)->with('buyer', $buyer)
+        ->with('orders', $orders)
+        ->with('status','Barang berhasil ditambah ke pembayaran');
         }
     }
 
