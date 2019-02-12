@@ -23,13 +23,26 @@ class UserController extends Controller
         return view('pages.admin.dashboard')->with('users', $users)->with('item', $item)->with('product', $product)->with('category', $category)->with('order', $order);
     }
 
+    public function login_admin(){
+        if(Auth::check()){
+            return redirect('/admin/dashboard');
+        }
+        return view('pages.admin.login');
+    }
+
     public function dataTables(){
         $item = User::all();
 
         return Datatables::of($item)
+            ->addColumn('role', function($item){
+                if($item->admin=='1'){
+                    return "Admin";
+                }
+                return "User";
+            })
             ->addColumn('action', function($item){
                 return '<a href="'.route('admin',$item->id).'" class="btn btn-xs btn-info"><i class="fas fa-crown"></i></a><span>'.'
-                        <a href="'.route('adminDelete',$item->id).'" class="btn btn-xs btn-info" style="width:"10px"><i class="fas fa-trash-alt"></i></a></span>';
+                        <a href="'.route('adminDelete',$item->id).'" class="btn btn-xs btn-info"><i class="fas fa-trash-alt"></i></a></span>';
             })
             ->rawColumns(['action'])
             ->removeColumn('profile_image')

@@ -1,13 +1,12 @@
 @extends('layout.admin')
 
 @section('content')
-
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
         <div class="container">
+                @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+                @endif
                 <div class="row">
                   <div class="col-md-12">
                     <div class="card border-0">
@@ -70,6 +69,7 @@
                                             <th>Address</th>
                                             <th>City</th>
                                             <th>Postal Code</th>
+                                            <th>Role</th>
                                             <th ></th>
                                         </tr>
                                     </thead>
@@ -92,12 +92,13 @@
             serverSide: true,
             ajax: '{!! route('table.user') !!}',
             columns: [
-                {data: 'email', name: 'email'},
-                {data: 'fullname', name: 'fullname'},
-                {data: 'address', name: 'address'},
-                {data: 'city', name: 'city'},
-                {data: 'postal_code', name: 'postal_code'},
-                {data: 'action', name: 'action', searchable: false, orderable: false}
+                {data: 'email', name: 'email', class: 'align-middle'},
+                {data: 'fullname', name: 'fullname', class: 'align-middle'},
+                {data: 'address', name: 'address', class: 'align-middle'},
+                {data: 'city', name: 'city', class: 'align-middle'},
+                {data: 'postal_code', name: 'postal_code', class: 'align-middle'},
+                {data: 'role', name: 'role', class: 'align-middle', searchable: false},
+                {data: 'action', name: 'action', searchable: false, orderable: false, width:91}
             ]
         });
     });

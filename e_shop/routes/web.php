@@ -101,7 +101,7 @@ Route::delete('remove-from-cart', 'OrderController@remove');
 //Route::get('/checkout', 'Frontend\ProductController@getCheckout')->name('checkoutCart');
 //Route::post('checkout', 'Frontend\ProductController@postCheckout')->name('checkoutCart');
 
-Route::get('/', 'Backend\ProductController@main')->name('userPage');
+
 //OrderPage
 //Route::get('/order', 'Frontend\OrderController@order');
 
@@ -114,7 +114,7 @@ Route::get('/', 'Backend\ProductController@main')->name('userPage');
 //Route::get('/', 'Backend\ProductController@guest')->name('userPage');
 
 //LOGIN REGISTER
-Route::get('login', 'Backend\UserController@login')->name('loginPage');
+/*Route::get('login', 'Backend\UserController@login')->name('loginPage');
 Route::post('login/store', 'Backend\UserController@loginStore')->name('store.login');
 Route::get('register', 'Backend\UserController@signup')->name('registerPage');
 Route::post('register/store', 'Backend\UserController@signupStore')->name('store.register');
@@ -122,7 +122,7 @@ Route::get('logout', 'Backend\UserController@logout')->name('logoutUser');
 
 //INDEX
 Route::get('category/{category_name}', 'Backend\CategoryController@product')->name('productCategory');
-Route::get('product/{id}/detail', 'Backend\ProductController@detail')->name('detailProduct');
+Route::get('product/{id}/detail', 'Backend\ProductController@detail')->name('detailProduct');*/
 
 
 
@@ -130,9 +130,7 @@ Route::get('product/{id}/detail', 'Backend\ProductController@detail')->name('det
 
 
 //ADMIN ONLY===================================================================================================================================
-Route::get('admin', function(){
-    return view('pages.admin.login');
-})->name('adminLogin');
+Route::get('admin', 'Backend\UserController@login_admin')->name('adminLogin');
 
 Route::post('admin/login', 'Backend\UserController@loginAdmin')->name('store.admin');
 Route::group(['middleware'=>['checkAdmin']],function(){
@@ -147,6 +145,7 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/product/{id}/edit', 'Backend\ProductController@edit')->name('editProduct');
     Route::post('admin/product/{id}/update', 'Backend\ProductController@update')->name('updateProduct');
     Route::get('admin/product/{id}/edit/delete', 'Backend\ProductController@deleteImage')->name('deleteImage');
+    Route::get('admin/product/datatables', 'Backend\ProductController@dataTables')->name('table.product');
     //CRUD CATEGORY
     Route::get('admin/category', 'Backend\CategoryController@index')->name('indexCategory');
     Route::get('admin/category/new', 'Backend\CategoryController@new')->name('newCategory');

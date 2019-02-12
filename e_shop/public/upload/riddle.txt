@@ -1,0 +1,97 @@
+<SpellTimer>
+  <SortPriority>0</SortPriority>
+  <IsChecked>false</IsChecked>
+  <IsExpanded>false</IsExpanded>
+  <Enabled>true</Enabled>
+  <Left>0</Left>
+  <Top>0</Top>
+  <ID>10</ID>
+  <Guid>1ac3b3e7-a598-4fed-8c3d-9c660962eb4f</Guid>
+  <PanelID>9c43823a-52a1-47d4-80ec-db92b1c9315a</PanelID>
+  <Panel>Damage</Panel>
+  <SpellTitle>Straight Shot</SpellTitle>
+  <RegexEnabled>true</RegexEnabled>
+  <Keyword>You use Riddle of Fire</Keyword>
+  <KeywordForExtend1 />
+  <KeywordForExtend2 />
+  <RecastTime>20</RecastTime>
+  <RecastTimeExtending1>0</RecastTimeExtending1>
+  <RecastTimeExtending2>0</RecastTimeExtending2>
+  <OverlapRecastTime>false</OverlapRecastTime>
+  <IsNotResetBarOnExtended>false</IsNotResetBarOnExtended>
+  <ProgressBarVisible>true</ProgressBarVisible>
+  <Font FontFamily="The Font" Size="14" Stretch="Normal" Style="Normal" Weight="Bold" />
+  <FontColor>AliceBlue</FontColor>
+  <FontOutlineColor>#16789D</FontOutlineColor>
+  <WarningTime>0</WarningTime>
+  <ChangeFontColorsWhenWarning>false</ChangeFontColorsWhenWarning>
+  <WarningFontColor>OrangeRed</WarningFontColor>
+  <WarningFontOutlineColor>DarkRed</WarningFontOutlineColor>
+  <BarWidth>240</BarWidth>
+  <BarHeight>10</BarHeight>
+  <BarColor>#008080</BarColor>
+  <BarOutlineColor>#191970</BarOutlineColor>
+  <BarBlurRadius>0</BarBlurRadius>
+  <BackgroundColor>#FFFFFF</BackgroundColor>
+  <BackgroundAlpha>0</BackgroundAlpha>
+  <DisplayNo>71</DisplayNo>
+  <DontHide>true</DontHide>
+  <ExtendBeyondOriginalRecastTime>false</ExtendBeyondOriginalRecastTime>
+  <HideSpellName>false</HideSpellName>
+  <HideCounter>false</HideCounter>
+  <IsCounterToCenter>false</IsCounterToCenter>
+  <IsReverse>true</IsReverse>
+  <MatchDateTime>0001-01-01T00:00:00</MatchDateTime>
+  <UseHotbarRecastTime>false</UseHotbarRecastTime>
+  <HotbarName />
+  <ReduceIconBrightness>true</ReduceIconBrightness>
+  <SpellIcon>Straight_Shot_Icon.png</SpellIcon>
+  <SpellIconSize>50</SpellIconSize>
+  <IsNotResetAtWipeout>false</IsNotResetAtWipeout>
+  <TimeupHide>false</TimeupHide>
+  <ToInstance>false</ToInstance>
+  <UpperLimitOfExtension>0</UpperLimitOfExtension>
+  <BlinkTime>0</BlinkTime>
+  <BlinkIcon>false</BlinkIcon>
+  <BlinkBar>false</BlinkBar>
+  <JobFilter />
+  <PartyJobFilter />
+  <ZoneFilter />
+  <TimersMustRunningForStart />
+  <TimersMustStoppingForStart />
+  <IsSequentialTTS>false</IsSequentialTTS>
+  <MatchTextToSpeak />
+  <MatchAdvancedConfig>
+    <IsEnabled>false</IsEnabled>
+    <ToMainDevice>true</ToMainDevice>
+    <ToSubDevice>false</ToSubDevice>
+    <ToDicordTextChat>false</ToDicordTextChat>
+  </MatchAdvancedConfig>
+  <OverTime>0</OverTime>
+  <OverTextToSpeak />
+  <OverAdvancedConfig>
+    <IsEnabled>false</IsEnabled>
+    <ToMainDevice>true</ToMainDevice>
+    <ToSubDevice>false</ToSubDevice>
+    <ToDicordTextChat>false</ToDicordTextChat>
+  </OverAdvancedConfig>
+  <BeforeTime>5</BeforeTime>
+  <BeforeTextToSpeak>Riddle of Fire</BeforeTextToSpeak>
+  <BeforeAdvancedConfig>
+    <IsEnabled>false</IsEnabled>
+    <ToMainDevice>true</ToMainDevice>
+    <ToSubDevice>false</ToSubDevice>
+    <ToDicordTextChat>false</ToDicordTextChat>
+  </BeforeAdvancedConfig>
+  <TimeupTextToSpeak />
+  <TimeupAdvancedConfig>
+    <IsEnabled>false</IsEnabled>
+    <ToMainDevice>true</ToMainDevice>
+    <ToSubDevice>false</ToSubDevice>
+    <ToDicordTextChat>false</ToDicordTextChat>
+  </TimeupAdvancedConfig>
+  <MatchSound />
+  <OverSound />
+  <BeforeSound>onepoint23.wav</BeforeSound>
+  <TimeupSound />
+</SpellTimer>

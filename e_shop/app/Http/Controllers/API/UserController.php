@@ -55,11 +55,6 @@ class UserController extends Controller
                 $user->profile_image = 'default.jpg';
             }
             $user->save();
-    
-            $response = [
-                'user' =>$user,
-                'token' =>$user->api_token
-            ];
 
             if(!$user){
                 return response()->json([
@@ -71,7 +66,6 @@ class UserController extends Controller
             
             return response()->json([
                 'user'      =>$user,
-                'token'     =>$user->api_token, 
                 'status'    =>'success',
                 'message'   =>'Register success',
                 'code'      =>'200'], 200);
@@ -92,11 +86,11 @@ class UserController extends Controller
         ]);
         if($validate->fails()){
             return response()->json([
-                'user'   =>(object)array(), 
+                'user'      =>(object)array(), 
                 'status'    =>'failed',
                 'message'   =>$validate->messages()->first(),
                 'code'      =>'422'], 422);
-            }
+        }
 
         try{
             if(! Auth::attempt(['email' =>$request->email, 'password' =>$request->password])){
@@ -104,11 +98,6 @@ class UserController extends Controller
             }
     
             $user = $user->find(Auth::user()->id);
-    
-            $response = [
-                'users' =>$user,
-                'token' =>$user->api_token
-            ];
 
             if(!$user){
                 return response()->json([
@@ -120,7 +109,6 @@ class UserController extends Controller
             
             return response()->json([
                 'user'      =>$user,
-                'token'     =>$user->api_token,
                 'status'    =>'success',
                 'message'   =>'Login success',
                 'code'      =>'200'], 200);
@@ -144,35 +132,53 @@ class UserController extends Controller
         try{
         $user = $user->all();
 
-        $response = [
-            'users' =>$user
-        ];
-
-            if(!$user){
-                return response()->json(Status::response((object)array(), 'error', 'Nothing Found', 404), 404);
-            }
-            return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
-            }
-        catch(\Exception $e){
-            return response()->json(Status::response((object)array(), 'error', $e->getMessage()), 404);
+        if(!$user){
+            return response()->json([
+                'user'      =>(object)array(), 
+                'status'    =>'error',
+                'message'   =>'Nothing Happen',
+                'code'      =>'404'], 404);
         }
+        
+        return response()->json([
+            'user'      =>$user,
+            'status'    =>'success',
+            'message'   =>'Get data success',
+            'code'      =>'200'], 200);
+    }
+    catch(\Exception $e){
+        return response()->json([
+            'user'      =>(object)array(), 
+            'status'    =>'error',
+            'message'   =>$e->getMessage(),
+            'code'      =>'404'], 404);
+    }
     }
 
     public function profile(User $user){
         try{
             $user = $user->with('order','product','product.images','categories')->find(Auth::user()->id);
 
-            $response = $response = [
-                'user' =>$user
-            ];
-
             if(!$user){
-                return response()->json(Status::response((object)array(), 'error', 'Nothing Found', 404), 404);
+                return response()->json([
+                    'user'      =>(object)array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
             }
-            return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
-            }
+            
+            return response()->json([
+                'user'      =>$user,
+                'status'    =>'success',
+                'message'   =>'Get data success',
+                'code'      =>'200'], 200);
+        }
         catch(\Exception $e){
-            return response()->json(Status::response((object)array(), 'error', $e->getMessage()), 404);
+            return response()->json([
+                'user'      =>(object)array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
         }
     }
     
@@ -186,8 +192,12 @@ class UserController extends Controller
             'profile_image' => 'image|mimes:jpeg,png,jpg'
         ]);
         if($validate->fails()){
-                return response()->json(Status::response((object)array(), 'failed', $validate->messages()->first(), 422), 422);
-            }
+            return response()->json([
+                'user'      =>(object)array(), 
+                'status'    =>'failed',
+                'message'   =>$validate->messages()->first(),
+                'code'      =>'422'], 422);
+        }
         
         try{
             $email = $request->get('email');
@@ -215,16 +225,26 @@ class UserController extends Controller
             }
             $user->save();
 
-        $response = [
-            'user' =>$user
-        ];
             if(!$user){
-                return response()->json(Status::response((object)array(), 'error', 'Nothing Found', 404), 404);
+                return response()->json([
+                    'user'      =>(object)array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
             }
-            return response()->json(Status::response($response, 'success', 'Update success', 201), 201);
+            
+            return response()->json([
+                'user'      =>$user,
+                'status'    =>'success',
+                'message'   =>'Update success',
+                'code'      =>'200'], 200);
         }
         catch(\Exception $e){
-            return response()->json(Status::response((object)array(), 'error', $e->getMessage()), 404);
+            return response()->json([
+                'user'      =>(object)array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
         }
     }
 
@@ -235,28 +255,46 @@ class UserController extends Controller
             'password_conf' => 'required'
         ]);
         if($validate->fails()){
-                return response()->json(Status::response((object)array(), 'failed', $validate->messages()->first(), 422), 422);
-            }
+            return response()->json([
+                'user'      =>(object)array(), 
+                'status'    =>'failed',
+                'message'   =>$validate->messages()->first(),
+                'code'      =>'422'], 422);
+        }
         
         try{
             $user = $user->find(Auth::id());
 
             if(!Hash::check($request->current,$user->password)){
-                return response()->json(Status::response((object)array(), 'failed', 'Current password invalid', 422), 422);
+                return response()->json([
+                    'user'      =>(object)array(), 
+                    'status'    =>'failed',
+                    'message'   =>'Current password invalid',
+                    'code'      =>'422'], 422);
             }
             $user->password = bcrypt($request->password);
             $user->save();
 
-        $response = [
-            'user' =>$user
-        ];
             if(!$user){
-                return response()->json(Status::response((object)array(), 'error', 'Nothing Found', 404), 404);
+                return response()->json([
+                    'user'      =>(object)array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
             }
-            return response()->json(Status::response($response, 'success', 'Password changed', 201), 201);
+            
+            return response()->json([
+                'user'      =>$user,
+                'status'    =>'success',
+                'message'   =>'Update success',
+                'code'      =>'200'], 200);
         }
         catch(\Exception $e){
-            return response()->json(Status::response((object)array(), 'error', $e->getMessage()), 404);
+            return response()->json([
+                'user'      =>(object)array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
         }
     }
 }

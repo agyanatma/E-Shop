@@ -11,9 +11,8 @@ class OrderController extends Controller
 {
     public function index(){
         $orders = Orders::with('product', 'buyer')->get();
-        $users = session()->get('user_session');
-        //dd($total);
-        return view('pages.admin.index_order')->with('orders', $orders)->with('users', $users);
+        //dd($orders->toArray());
+        return view('pages.admin.index_order')->with('orders', $orders);
     }
 
     public function destroy($id){
@@ -26,7 +25,7 @@ class OrderController extends Controller
     public function bayar(Request $request,$id){
         $order = Orders::find($id);
         if($order){
-            $order->status = '1';
+            $order->status = '2';
             $order->save();
         }
 

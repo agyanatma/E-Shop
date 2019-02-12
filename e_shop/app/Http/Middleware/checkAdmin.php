@@ -20,6 +20,6 @@ class checkAdmin
             return $next($request);
         }
         
-        return redirect('login');
+        return redirect('admin');
     }
 }

@@ -8,7 +8,7 @@ class User extends Authenticatable
     public $primaryKey = 'id';
     public $timestamps = true;
     protected $hidden = [
-        'password', 'remember_token', 'api_token','created_at', 'updated_at', 'admin'
+        'password', 'remember_token','created_at', 'updated_at', 'admin'
     ];
     protected $guarded = ['id'];
 

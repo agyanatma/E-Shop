@@ -10,6 +10,8 @@ use App\Product;
 use App\Product_image;
 use App\Category_product;
 use App\User;
+use DataTables;
+
 class ProductController extends Controller
 {
     //ADMIN INDEX
@@ -22,15 +24,24 @@ class ProductController extends Controller
     }
 
     public function dataTables(){
-        $item = Product::with(['images'])->query();
+        $item = Product::with(['categories','images'])->get();
 
         return Datatables::of($item)
-            ->addColumn('action', function($item){
-                return '<a href="admin/user/'.$item->id.'/change" class="btn btn-xs btn-warning">Admin</a><span>'.
-                        '<a href="admin/user/'.$item->id.'/destroy" class="btn btn-xs btn-danger">Delete</a></span>';
+            ->editColumn('product_price', function ($item) {
+                return 'Rp '.number_format($item->product_price, 0);
             })
-            ->addIndexColumn()
-            ->rawColumns(['action'])
+            ->addColumn('category_name', function($item){
+                return $item->categories->category_name;
+            })
+            ->addColumn('images', function($item){
+                return '<img class="img" style="object-fit:cover" width="50px" height="50px" src="'.$item->images[0]->product_image.'">';
+            })
+            ->addColumn('action', function($item){
+                return  '<a href="'.route('detailproduct', $item->id).'" class="btn btn-xs btn-info" style="margin-right:7px"><i class="fas fa-eye"></i></a>'.
+                        '<a href="'.route('editProduct', $item->id).'" class="btn btn-xs btn-info" style="margin-right:7px"><i class="fas fa-edit"></i></a>'.
+                        '<a href="'.route('deleteProduct', $item->id).'" class="btn btn-xs btn-info"><i class="fas fa-trash-alt"></i></a>';
+            })
+            ->rawColumns(['images','action'])
             ->make(true);
     }
 
@@ -89,8 +100,7 @@ class ProductController extends Controller
             $image_len = count($image);
             for($i=0; $i<$image_len; $i++){
                 $imageName = $image[$i]->getClientOriginalName();
-                $storage = public_path('\upload');
-                $image[$i]->move($storage, $imageName);
+                $image[$i]->move('upload', $imageName);
                 $imageId = $product_id;
                 $upload = new Product_image;
                 $upload->product_id = $imageId;
@@ -115,21 +125,21 @@ class ProductController extends Controller
         $id = $item->id;
         $images = $item->images;
         $categories = Category_product::all();
-        $users = session()->get('user_session');
         //dd($item->toArray());
-        return view('pages.admin.edit_product')->with('item', $item)->with('categories', $categories)->with('images', $images)->with('users', $users);
+        return view('pages.admin.edit_product')->with('item', $item)->with('categories', $categories)->with('images', $images);
     }
     public function update(Request $request,$id){
         $this->validate($request,[
             'product_name' => 'required',
             'product_price' => 'required|numeric',
             'category_name' => 'required',
-            'img' => 'image|mimes:jpeg,png,jpg'
+            //'image' => 'image|mimes:jpeg,png,jpg'
         ]);
         $name = $request->get('product_name');
         $price = $request->get('product_price');
         $category = $request->get('category_name');
         $description = $request->get('description');
+        $image = $request->file('image');
         
         $store = Product::find($id);
         $store->product_name = $name;
@@ -140,13 +150,11 @@ class ProductController extends Controller
     
         $product_id = $store->id;
         //dd($product_id);
-        if($request->hasFile('img')){
-            $image = $request->file('img');
+        if($request->hasFile('image')){
             $image_len = count($image);
             for($i=0; $i<$image_len; $i++){
                 $imageName = $image[$i]->getClientOriginalName();
-                $storage = public_path('\upload');
-                $image[$i]->move($storage, $imageName);
+                $image[$i]->move('upload', $imageName);
                 $imageId = $product_id;
                 $upload = new Product_image;
                 $upload->product_id = $imageId;
@@ -154,11 +162,12 @@ class ProductController extends Controller
                 $upload->save();
             }
         }
+        
         return redirect('/admin/product')->with('status','Data berhasil update');
     }
     public function deleteImage($id){
         $image = Product_image::find($id);
-        //dd($image->toArray());
+        $file = $image->product_image;
         if(file_exists('upload/'.$file) && $file != 'image.png'){
             unlink('upload/'.$file);
         }
