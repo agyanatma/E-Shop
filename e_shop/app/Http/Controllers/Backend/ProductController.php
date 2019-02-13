@@ -53,12 +53,9 @@ class ProductController extends Controller
         $image = Product_image::where('product_id', '=', $product_id)->get();
         //dd($delete->toArray());
         foreach($image as $file){
-            if(file_exists((public_path('/upload/').$file->product_image))){
+            if(file_exists('upload'.$file->product_image)){
                 if($file->product_image != 'image.png'){
-                    unlink((public_path('/upload/').$file->product_image));
-                }
-                else{
-    
+                    unlink('upload'.$file->product_image);
                 }
             }
             
@@ -79,8 +76,7 @@ class ProductController extends Controller
             'product_name' => 'required',
             'product_price' => 'required|numeric',
             'category_name' => 'required',
-            'img' => 'image|mimes:jpeg,png,jpg',
-            'img.*' => 'image|mimes:jpeg,png,jpg'
+            'img.*' => 'image|mimes:jpeg,png,jpg',
         ]);
 
         $name = $request->input('product_name');
@@ -135,8 +131,7 @@ class ProductController extends Controller
             'product_name' => 'required',
             'product_price' => 'required|numeric',
             'category_name' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg',
-            'image.*' => 'image|mimes:jpeg,png,jpg'
+            'img.*' => 'image|mimes:jpeg,png,jpg',
         ]);
 
         $name = $request->get('product_name');
@@ -152,8 +147,8 @@ class ProductController extends Controller
         $store->save();
         $product_id = $store->id;
         //dd($product_id);
-        if($request->hasFile('image')){
-            $image = $request->file('image');
+        if($request->hasFile('img')){
+            $image = $request->file('img');
             $image_len = count($image);
             for($i=0; $i<$image_len; $i++){
                 $imageName = $image[$i]->getClientOriginalName();

@@ -70,7 +70,7 @@
                                             <th>City</th>
                                             <th>Postal Code</th>
                                             <th>Role</th>
-                                            <th ></th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>

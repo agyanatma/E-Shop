@@ -8,7 +8,7 @@
             </div>
         @endif
         @if(count($errors)>0)
-            <p class="alert alert-danger">{{$error->first()}}</p>
+            <p class="alert alert-danger">{{$errors->first()}}</p>
         @endif
     </div>
     <div class="form-group container">

@@ -24,7 +24,7 @@
                         <th>Total Price</th>
                         <th>Order Date</th>
                         <th>Status</th>
-                        <th></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

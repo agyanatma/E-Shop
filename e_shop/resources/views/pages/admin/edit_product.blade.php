@@ -11,7 +11,7 @@
         <p class="alert alert-danger">{{$errors->first()}}</p>
     @endif
     <div class="form-group container">
-        <form action="{{route('updateProduct', $item->id)}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('updateProduct', $item->id)}}" method="post" class="col-md-8" enctype="multipart/form-data">
             {{csrf_field()}}
             <label>Nama Produk:</label>
             <input type="text" class="form-control" name="product_name" value="{{$item->product_name}}" placeholder="Produk">
@@ -30,19 +30,19 @@
             <textarea type="text" class="form-control" name="description" rows="5" maxlength="200" placeholder="Deskripsi Barang (Max. 200 Kata)">{{$item->description}}</textarea>
             <br><br>
             <label>Gambar:</label>
-            <input type="file" accept=".png,.jpg,.jpeg" name="image" multiple>
-            <span><button type="submit" class="btn btn-primary float-right" name="action" value="update">Update</button></span>
-            <br><br>
-            <div class="row">
-                @foreach($images as $image)
-                    <div class="col-sm-2">
-                        <img class="img-fluid" height="100px" src="{{$image->product_image}}"/><br>
-                        <a href="{{ route('deleteImage', $image->id) }}" class="btn btn-block btn-danger" name="action" value="deleteImage">Delete</a>
-                    </div>
-                @endforeach
-            </div>
-            
+            <input class="form-control" type="file" name="img[]" multiple><br>
+            <button type="submit" class="btn btn-primary float-right">Update</button><br><br>
         </form>
     </div>
+    <div class="row">
+        @foreach($images as $image)
+            <div class="col-sm-2">
+                <img class="img-fluid" src="{{$image->product_image}}"/><br>
+                <a href="{{ route('deleteImage', $image->id) }}" class="btn btn-block btn-danger" name="action" value="deleteImage">Delete</a>
+            </div>
+        @endforeach
+    </div>
+            
+        
 </div>
 @endsection
