@@ -1,23 +1,19 @@
-@extends('layout.admin')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
     <div class="row">
             <h1><span class="fas fa-box-open" aria-hidden="true"></span>  Product</h1>
             <div class="table-responsive" style="margin-top:20px">
                 <table id="dataproduct" class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Product</th>
                             <th>Category</th>
                             <th>Price</th>
                             <th>Image</th>
-                            <th><a href="{{ route('product.new')}}" type="submit" class="btn btn-primary align-middle float-right" style="width:145px">Add Product</a></th>
+                            <th><a href="{{ route('create.product') }}" type="submit" class="btn btn-primary align-middle float-right" style="width:145px">Add Product</a></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +32,7 @@
                 serverSide: true,
                 ajax: '{!! route('table.product') !!}',
                 columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'align-middle text-center', width:30},
                     {data: 'product_name', name: 'product_name', class: 'align-middle'},
                     {data: 'category_name', name: 'category_name', class: 'align-middle'},
                     {data: 'product_price', name: 'product_price', class: 'align-middle'},

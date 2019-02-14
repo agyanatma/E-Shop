@@ -114,58 +114,58 @@ Route::delete('remove-from-cart', 'OrderController@remove');
 //Route::get('/', 'Backend\ProductController@guest')->name('userPage');
 
 //LOGIN REGISTER
-/*Route::get('login', 'Backend\UserController@login')->name('loginPage');
+/*Route::get('login', function(){
+    return view ('pages.login');
+})->name('loginPage');
 Route::post('login/store', 'Backend\UserController@loginStore')->name('store.login');
 Route::get('register', 'Backend\UserController@signup')->name('registerPage');
 Route::post('register/store', 'Backend\UserController@signupStore')->name('store.register');
-Route::get('logout', 'Backend\UserController@logout')->name('logoutUser');
+
 
 //INDEX
 Route::get('category/{category_name}', 'Backend\CategoryController@product')->name('productCategory');
 Route::get('product/{id}/detail', 'Backend\ProductController@detail')->name('detailProduct');*/
 
-
+Route::get('logout', 'Backend\UserController@logout')->name('logout.user');
 
 
 
 
 //ADMIN ONLY===================================================================================================================================
-Route::get('admin', 'Backend\UserController@login_admin')->name('adminLogin');
+Route::get('admin', 'Backend\UserController@login')->name('login.admin');
 
-Route::post('admin/login', 'Backend\UserController@loginAdmin')->name('store.admin');
+Route::post('admin/login', 'Backend\UserController@loginStore')->name('store.admin');
 Route::group(['middleware'=>['checkAdmin']],function(){
-    Route::get('admin/dashboard', 'Backend\UserController@dashboard')->name('adminPage');
+    Route::get('admin/dashboard', 'Backend\UserController@index')->name('index.admin');
     
     //CRUD PRODUCT
-    Route::get('admin/product', 'Backend\ProductController@index')->name('adminPage');
-    Route::get('admin/product/{id}/delete', 'Backend\ProductController@destroy')->name('deleteProduct');
-    Route::post('admin/product/{id}/store', 'Backend\ProductController@storeDetail')->name('storeDetail');
-    Route::get('admin/product/new', 'Backend\ProductController@show')->name('product.new');
-    Route::post('admin/product/new/store', 'Backend\ProductController@store')->name('product.create');
-    Route::get('admin/product/{id}/edit', 'Backend\ProductController@edit')->name('editProduct');
-    Route::post('admin/product/{id}/update', 'Backend\ProductController@update')->name('updateProduct');
-    Route::get('admin/product/{id}/edit/delete', 'Backend\ProductController@deleteImage')->name('deleteImage');
+    Route::get('admin/product', 'Backend\ProductController@index')->name('product.admin');
+    Route::get('admin/product/new', 'Backend\ProductController@create')->name('create.product');
+    Route::post('admin/product/new/store', 'Backend\ProductController@store')->name('store.product');
+    Route::get('admin/product/{id}/edit', 'Backend\ProductController@edit')->name('edit.product');
+    Route::post('admin/product/{id}/update', 'Backend\ProductController@update')->name('update.product');
+    Route::get('admin/product/{id}/delete', 'Backend\ProductController@destroy')->name('destroy.product');
+    Route::get('admin/product/{id}/edit/imagedel', 'Backend\ProductController@deleteImage')->name('imagedel.product');
     Route::get('admin/product/datatables', 'Backend\ProductController@dataTables')->name('table.product');
     //CRUD CATEGORY
-    Route::get('admin/category', 'Backend\CategoryController@index')->name('indexCategory');
-    Route::get('admin/category/new', 'Backend\CategoryController@new')->name('newCategory');
-    Route::post('admin/category/new/store', 'Backend\CategoryController@store')->name('storeCategory');
-    Route::get('admin/category/{id}/delete', 'Backend\CategoryController@destroy')->name('deleteCategory');
-    Route::get('admin/category/{id}/edit', 'Backend\CategoryController@edit')->name('editCategory');
-    Route::post('admin/category/{id}/update', 'Backend\CategoryController@update')->name('updateCategory');
-    Route::get('admin/category/{id}/edit/delete', 'Backend\CategoryController@deleteImage')->name('delete.category');
+    Route::get('admin/category', 'Backend\CategoryController@index')->name('category.admin');
+    Route::get('admin/category/new', 'Backend\CategoryController@create')->name('create.category');
+    Route::post('admin/category/new/store', 'Backend\CategoryController@store')->name('store.category');
+    Route::get('admin/category/{id}/edit', 'Backend\CategoryController@edit')->name('edit.category');
+    Route::post('admin/category/{id}/update', 'Backend\CategoryController@update')->name('update.category');
+    Route::get('admin/category/{id}/delete', 'Backend\CategoryController@destroy')->name('destroy.category');
     Route::get('admin/category/datatables', 'Backend\CategoryController@dataTables')->name('table.category');
 
     //CRUD ORDER
-    Route::get('admin/order', 'Backend\OrderController@index')->name('indexOrder');
-    Route::get('admin/order/{id}/delete', 'Backend\OrderController@destroy')->name('deleteOrder');
-    Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('editOrder');
-    Route::get('admin/order/{id}/pay', 'Backend\OrderController@bayar')->name('payOrder');
+    Route::get('admin/order', 'Backend\OrderController@index')->name('order.admin');
+    Route::get('admin/order/{id}/delete', 'Backend\OrderController@destroy')->name('destroy.order');
+    Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('edit.order');
+    Route::get('admin/order/{id}/pay', 'Backend\OrderController@bayar')->name('pay.order');
     Route::get('admin/order/datatables', 'Backend\OrderController@dataTables')->name('table.order');
 
     //CRUD USER
-    Route::get('admin/user/{id}/change', 'Backend\UserController@admin')->name('admin');
-    Route::get('admin/user/{id}/destroy', 'Backend\UserController@destroy')->name('adminDelete');
+    Route::get('admin/user/{id}/edit', 'Backend\UserController@edit')->name('edit.admin');
+    Route::get('admin/user/{id}/destroy', 'Backend\UserController@destroy')->name('destroy.admin');
     Route::get('admin/user/datatables', 'Backend\UserController@dataTables')->name('table.user');
 
 });

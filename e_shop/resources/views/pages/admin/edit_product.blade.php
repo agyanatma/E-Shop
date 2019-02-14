@@ -1,17 +1,8 @@
-@extends('layout.admin')
+@extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
-    @if(count($errors)>0)
-        <p class="alert alert-danger">{{$errors->first()}}</p>
-    @endif
     <div class="form-group container">
-        <form action="{{route('updateProduct', $item->id)}}" method="post" class="col-md-8" enctype="multipart/form-data">
+        <form action="{{route('update.product', $item->id)}}" method="post" class="col-md-8" enctype="multipart/form-data">
             {{csrf_field()}}
             <label>Nama Produk:</label>
             <input type="text" class="form-control" name="product_name" value="{{$item->product_name}}" placeholder="Produk">
@@ -34,15 +25,18 @@
             <button type="submit" class="btn btn-primary float-right">Update</button><br><br>
         </form>
     </div>
-    <div class="row">
-        @foreach($images as $image)
-            <div class="col-sm-2">
-                <img class="img-fluid" src="{{$image->product_image}}"/><br>
-                <a href="{{ route('deleteImage', $image->id) }}" class="btn btn-block btn-danger" name="action" value="deleteImage">Delete</a>
-            </div>
-        @endforeach
+    <div class="container">
+        <div class="row">
+            @foreach($images as $image)
+                <div class="col-sm-2">
+                    <div class="card" style="width:150px">
+                        <img class="card-img-top" src="{{$image->product_image}}" alt="Card image">
+                        <div class="card-img-overlay" style="padding:0">
+                            <a href="{{ route('imagedel.product', $image->id) }}" class="btn btn-xs btn-danger float-right"><i class="fas fa-times"></i></a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
-            
-        
-</div>
 @endsection

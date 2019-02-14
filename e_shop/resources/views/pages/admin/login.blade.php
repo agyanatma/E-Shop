@@ -1,11 +1,11 @@
-@extends('layout.login')
+@extends('layouts.login')
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center align-items-center" style="height:80vh">
             <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                 @if(count($errors)>0)
-                <p class="alert alert-danger">Masukkan email dan password untuk masuk</p>
+                    <p class="alert alert-danger">{{$errors->first()}}</p>
                 @endif
                 @if (session('failed'))
                     <div class="alert alert-danger">

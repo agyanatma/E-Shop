@@ -1,10 +1,6 @@
 <?php
 namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
-use App\Product;
-use App\Product_image;
-use App\Category_product;
-use App\User;
 use App\Orders;
 use DataTables;
 
@@ -39,6 +35,7 @@ class OrderController extends Controller
         $item = Orders::with('product', 'buyer')->get();
 
         return Datatables::of($item)
+            ->addIndexColumn()
             ->editColumn('fullname', function ($item) {
                 return $item->buyer->fullname;
             })
@@ -63,8 +60,8 @@ class OrderController extends Controller
                 }
             })
             ->addColumn('action', function($item){
-                return  '<a href="'.route('payOrder', $item->id).'" class="btn btn-xs btn-success" style="margin-right:7px; width:40px"><i class="fas fa-check"></i></a>'.
-                        '<a href="'.route('deleteOrder', $item->id).'" class="btn btn-xs btn-danger" style="width:40px"><i class="fas fa-trash-alt"></i></a>';
+                return  '<a href="'.route('pay.order', $item->id).'" class="btn btn-xs btn-success" style="margin-right:7px; width:40px"><i class="fas fa-check"></i></a>'.
+                        '<a href="'.route('destroy.order', $item->id).'" class="btn btn-xs btn-danger" style="width:40px"><i class="fas fa-trash-alt"></i></a>';
             })
             ->rawColumns(['images','action'])
             ->make(true);

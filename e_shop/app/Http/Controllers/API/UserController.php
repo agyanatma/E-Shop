@@ -94,13 +94,11 @@ class UserController extends Controller
 
         try{
             if(! Auth::attempt(['email' =>$request->email, 'password' =>$request->password])){
-                if($validate->fails()){
                     return response()->json([
                         'user'      =>(object)array(), 
                         'status'    =>'failed',
                         'message'   =>'Your credential invalid',
                         'code'      =>'401'], 401);
-                }
             }
     
             $user = $user->find(Auth::user()->id);

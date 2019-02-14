@@ -1,18 +1,8 @@
-@extends('layout.admin')
+@extends('layouts.admin')
 
 @section('content')
-    <div class="container">
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
-        @if(count($errors)>0)
-            <p class="alert alert-danger">{{$errors->first()}}</p>
-        @endif
-    </div>
     <div class="form-group container">
-        <form action="{{route('storeCategory')}}" method="post" class="col-md-8" enctype="multipart/form-data">
+        <form action="{{route('store.category')}}" method="post" class="col-md-8" enctype="multipart/form-data">
             {{csrf_field()}}
             <label>Nama Kategori:</label>
             <input type="text" class="form-control" name="category_name" value="{{old('category_name')}}" placeholder="Kategori">
