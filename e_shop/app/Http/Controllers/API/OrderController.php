@@ -124,6 +124,32 @@ class OrderController extends Controller
         }
     }
 
+    public function history(Orders $orders){
+        try{
+        $orders = $orders->with(['product','product.images'])->where('user_id', Auth::id())->get();
+
+        if(!$orders){
+            return response()->json([
+                'orders'    =>array(), 
+                'status'    =>'error',
+                'message'   =>'Nothing Happen',
+                'code'      =>'404'], 404);
+        }
+        return response()->json([
+            'orders'    =>$orders, 
+            'status'    =>'success',
+            'message'   =>'Get data success',
+            'code'      =>'200'], 200);
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'orders'    =>array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
+        }
+    }
+
     public function destroy($id){
         try{
             $item = Orders::find($id);

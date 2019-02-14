@@ -32,6 +32,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/user/profile/password/{user}', 'Api\UserController@password');
     Route::post('/order/buy','Api\OrderController@order');
     Route::get('/order/confirm/{order}', 'Api\OrderController@confirm');//done
+    Route::get('/order/history', 'Api\OrderController@history');//done
     Route::delete('/order/delete/{id}', 'Api\OrderController@destroy');
     Route::post('/wishlist/add', 'Api\UserController@add');//done
     Route::delete('/wishlist/delete/{id}', 'Api\UserController@destroy');
