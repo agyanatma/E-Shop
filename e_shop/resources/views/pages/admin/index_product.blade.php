@@ -28,6 +28,7 @@
     <script>
         $(function(){
             $('#dataproduct').DataTable({
+                responsive: true,
                 processing: false,
                 serverSide: true,
                 ajax: '{!! route('table.product') !!}',

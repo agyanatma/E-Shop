@@ -84,6 +84,7 @@
 <script>
     $(function(){
         $('#datauser').DataTable({
+            responsive: true,
             processing: false,
             serverSide: true,
             ajax: '{!! route('table.user') !!}',
@@ -95,7 +96,7 @@
                 {data: 'city', name: 'city', class: 'align-middle'},
                 {data: 'postal_code', name: 'postal_code', width:'90', class: 'align-middle'},
                 {data: 'role', name: 'role', width:'30', class: 'align-middle', searchable: false},
-                {data: 'action', name: 'action', searchable: false, orderable: false, width:91}
+                {data: 'action', name: 'action', searchable: false, orderable: false, width:95}
             ]
         });
     });

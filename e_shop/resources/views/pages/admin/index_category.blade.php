@@ -26,6 +26,7 @@
     <script>
         $(function(){
             $('#datacategory').DataTable({
+                responsive: true,
                 processing: false,
                 serverSide: true,
                 ajax: '{!! route('table.category') !!}',

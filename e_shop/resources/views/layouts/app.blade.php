@@ -58,7 +58,7 @@
                             @endguest
                             
                         @if(Auth::check() && Auth::user()->admin==0)
-                            <form class="navbar-form" role="cart" method="get" action="{{route('cart',)}}">
+                            <form class="navbar-form" role="cart" method="get" action="{{route('cart')}}">
                                 <div class="input-group">
                                     <div class="nav-item" style="margin-right:10px">
                                         <button class="btn  btn-info " type="submit">
@@ -90,7 +90,7 @@
                             </li>
                         @endif
                         @if(Auth::check() && Auth::user()->admin==1)
-                            <form class="navbar-form" role="cart" method="get" action="{{route('cart',)}}">
+                            <form class="navbar-form" role="cart" method="get" action="{{route('cart')}}">
                                 <div class="input-group">
                                     <div class="nav-item" style="margin-right:10px">
                                         <button class="btn btn-info  " type="submit">

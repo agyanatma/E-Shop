@@ -31,6 +31,7 @@
     <script>
         $(function(){
             $('#dataorder').DataTable({
+                responsive: true,
                 processing: false,
                 serverSide: true,
                 ajax: '{!! route('table.order') !!}',
