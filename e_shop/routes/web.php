@@ -21,20 +21,7 @@ Route::get('/searchcontent', 'Frontend\ProductController@searchcontent');
 Route::get('product/{id}/detailproduct/', 'Frontend\ProductController@detailproduct')->name('detailproduct');
 
 //SortPage
-Route::get('/sortheadphone', 'Frontend\SortController@sortheadphone');
-Route::get('/sortkeyboard', 'Frontend\SortController@sortkeyboard');
-Route::get('/sortleptop', 'Frontend\SortController@sortleptop');
-Route::get('/sortmonitor', 'Frontend\SortController@sortmonitor');
-Route::get('/sortprocessor', 'Frontend\SortController@sortprocessor');
-Route::get('/sortbattery', 'Frontend\SortController@sortbattery');
-Route::get('/sortcpu', 'Frontend\SortController@sortcpu');
-Route::get('/sorthdmi', 'Frontend\SortController@sorthdmi');
-Route::get('/sortmotherboard', 'Frontend\SortController@sortmotherboard');
-Route::get('/sortmouse', 'Frontend\SortController@sortmouse');
-Route::get('/sortpowercable', 'Frontend\SortController@sortpowercable');
-Route::get('/sortprinter', 'Frontend\SortController@sortprinter');
 Route::get('/lainlain', 'Frontend\SortController@lainlain')->name('lainlain');
-
 Route::get('/sort/category/{id}', 'Frontend\SortController@sortbycategory')->name('sortbycategory');
 
 Route::group(['middleware'=>['checkUser']],function(){

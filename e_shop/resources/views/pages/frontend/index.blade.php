@@ -47,20 +47,26 @@
                 @endif
                 <div class="card-fluid"  style="margin-top: 50px; ">
                     <div class="row row-centered" style="padding:20px">
-                        @if(count($categories) > 0)
-                            @foreach ($categories as $category)
-                                    <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                                        <a href="{{route('sortbycategory', ['id'=> $category->id])}}"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;"  src="{{$category->category_image}}"></a>
-                                    </div>
-                            @endforeach
-                        @endif
                         <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                            <a href="lainlain"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/lain-lain.png"></a>
+                                <a href="/sort/category/1"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/001-monitor.png"></a>
+                            </div>
+                        <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
+                                <a href="/sort/category/3"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/008-laptop.png"></a>
+                            </div>
+                        <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
+                                <a href="/sort/category/9"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/037-headphones.png"></a>
+                            </div>
+                        <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
+                                <a href="/sort/category/10"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/038-mouse.png"></a>
+                            </div>
+                        <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
+                                <a href="/sort/category/11"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/040-motherboard.png"></a>
+                            </div>
+                        <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
+                            <a href="/lainlain"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/lain-lain.png"></a>
                         </div>                                
                     </div>
                 </div>
-                
-                
                 <div class="row ">
                         @if(count($products) > 0)
                             @foreach ($products as $row)

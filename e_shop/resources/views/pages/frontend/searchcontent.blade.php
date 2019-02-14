@@ -1,24 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-@if (session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-@endif
 
-@if (session('failed'))
-<div class="alert alert-danger">
-{{ session('failed') }}
-</div>
-@endif
 
-@if(count($errors)>0)
-<p class="alert alert-danger">Error</p>
-@endif
-
-<div class="container my-container" style="padding:20px">
-                <div id="carouselExampleIndicators" class="carousel slide " style=" max-height:300px;" style="padding-bottom:20px" data-ride="carousel">
+<div class="container-fluid my-container" style="padding:20px">
+                <div id="carouselExampleIndicators" class="carousel slide carousel-body" style=" max-height:300px;" style="padding-bottom:20px" data-ride="carousel">
                         <ol class="carousel-indicators">
                           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                           <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -39,27 +25,48 @@
                           <span class="carousel-control-prev-icon"  aria-hidden="true"></span>
                           <span class="sr-only" >Previous</span>
                         </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <a class="carousel-control-next "  href="#carouselExampleIndicators" role="button" data-slide="next">
                           <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Next</span>
+                          <span class="sr-only" >Next</span>
                         </a>
                 </div>
-                <div class="card-fluid "  >
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                
+                @if (session('failed'))
+                <div class="alert alert-danger">
+                {{ session('failed') }}
+                </div>
+                @endif
+                
+                @if(count($errors)>0)
+                <p class="alert alert-danger">Error</p>
+                @endif
+                <div class="card-fluid"  style="margin-top: 50px; ">
                     <div class="row row-centered" style="padding:20px">
-                        @if(count($categories) > 0)
-                            @foreach ($categories as $category)
-                                    <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                                        <a href="{{route('sortbycategory', ['id'=> $category->id])}}"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;"  src="{{$category->category_image}}"></a>
-                                    </div>
-                            @endforeach
-                        @endif
                         <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                            <a href="lainlain"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/lain-lain.png"></a>
+                                <a href="/sort/category/1"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/001-monitor.png"></a>
+                            </div>
+                        <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
+                                <a href="/sort/category/3"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/008-laptop.png"></a>
+                            </div>
+                        <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
+                                <a href="/sort/category/9"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/037-headphones.png"></a>
+                            </div>
+                        <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
+                                <a href="/sort/category/10"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/038-mouse.png"></a>
+                            </div>
+                        <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
+                                <a href="/sort/category/11"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/040-motherboard.png"></a>
+                            </div>
+                        <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
+                            <a href="/lainlain"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/lain-lain.png"></a>
                         </div>                                
                     </div>
                 </div>
-                
-            <div class="container my-container ">
                 <div class="row ">
                         @if(count($products) > 0)
                             @foreach ($products as $row)
