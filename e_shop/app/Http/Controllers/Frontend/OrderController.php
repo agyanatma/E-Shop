@@ -9,6 +9,7 @@ use App\Orders;
 use Carbon\Carbon;
 use Auth;
 use Stripe\Stripe;
+use App\Wishlist;
 use Session;
 class OrderController extends Controller
 {
@@ -26,7 +27,7 @@ class OrderController extends Controller
         $users = Auth::User();
         $buyer = Auth::user()->id;
         $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
-        $categories = Category_product::all();
+        
         $totalorder = Orders::with('product','buyer')->where([
             'user_id' => $buyer,
             'status' => 0,
@@ -39,7 +40,7 @@ class OrderController extends Controller
         $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
         //dd($id);
         return view('pages.frontend.cart')->with('products', $products)->with('users', $users)
-        ->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
+        ->with('buyer', $buyer)->with('orders', $orders)
         ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty)
         ->with('productrandom', $productrandom)->with('totalorder', $totalorder);
     }
@@ -47,7 +48,7 @@ class OrderController extends Controller
     public function deleteCart($id){
         $order = Orders::find($id);
         $order->delete();
-        return redirect()->back()->with('status', 'Data berhasil dihapus');   
+        return redirect()->back()->with('status', 'Data has been remove successfully');   
     }
     
     public function checkout(Request $request, $id){
@@ -84,33 +85,12 @@ class OrderController extends Controller
             
             return redirect()->back()->with('status', 'Product added to cart successfully!');
         }
-        // else {
-        //     $order = Orders::find($id)->where('product_id', '=', $id);
-        //     $products['quantity']+= $quantity;
-        //     dd($products);
-        //     return redirect()->back()->with('success', 'Product added to cart successfully!');
-        // }
         
     }
         
 
     public function updatestatus(Request $request, $id){
         
-        /*$buyer = Auth::user()->id;
-        $order = $request->get('order_id');
-        $user = $request->get('user_id');
-        $product = $request->get('product_id');
-        $quantity = $request->get('quantity');
-        $price = $request->get('product_price');
-        $time = Carbon::today();
-        //dd($request->all());
-        $update = Order::find($id);
-        $update->user_id = $user_id;
-        $update->product_id = $product_id;
-        $update->quantity = $quantity;
-        $update->product_price = $product_price;
-        $update->time = $time;*/
-        //dd($orders->toArray());
         $status = $request->all;
         $id = Auth::user()->id;
         $order = Orders::where([
@@ -118,11 +98,6 @@ class OrderController extends Controller
             ['status','=','0'],
         ])->update(['status' => '1']);
 
-        
-        //dd($request->toArray());
-        //$order->status = '1';
-        //$order->save();
-        
         return redirect()->route('userPage');
     }
 
@@ -170,7 +145,7 @@ class OrderController extends Controller
                 $store->save();
             }
 
-        return redirect()->back()->with('status','Barang berhasil ditambah ke keranjang');
+        return redirect()->back()->with('status','Items has been added to cart successfully');
         }
     }
 
@@ -214,7 +189,6 @@ class OrderController extends Controller
         $buyer = Auth::user()->id;
         $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->get();
         //dd($orders->toArray());
-        $categories = Category_product::all();
         $totalorder = Orders::with('product','buyer')->where([
             'user_id' => $buyer,
             'status' => 0,
@@ -225,12 +199,13 @@ class OrderController extends Controller
         //dd($orders->toArray());
         //dd($total);
             return view('pages.frontend.langsungbayargan')->with('products', $products)->with('users', $users)
-            ->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
-            ->with('total', $total)->with('totalqty', $totalqty)->with('totalorder', $totalorder);
+            ->with('buyer', $buyer)->with('orders', $orders)
+            ->with('total', $total)->with('totalqty', $totalqty)->with('totalorder', $totalorder)
+            ->with('status','Items has been added to payment successfully');
             }
         return view('pages.frontend.langsungbayargan')->with('users', $users)->with('buyer', $buyer)
         ->with('orders', $orders)
-        ->with('status','Barang berhasil ditambah ke pembayaran');
+        ->with('status','Items has been added to payment successfully');
         }
     }
 
@@ -240,7 +215,6 @@ class OrderController extends Controller
         $buyer = Auth::user()->id;
         $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
         //dd($orders->toArray());
-        $categories = Category_product::all();
         $totalorder = Orders::with('product','buyer')->where([
             'user_id' => $buyer,
             'status' => 0,
@@ -249,8 +223,7 @@ class OrderController extends Controller
         $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
         
         return view('pages.frontend.checkoutgan')->with('products', $products)->with('users', $users)
-        ->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
-        ->with('total', $total)->with('totalqty', $totalqty)->with('totalorder', $totalorder);
+        ->with('buyer', $buyer)->with('orders', $orders)->with('total', $total)->with('totalqty', $totalqty)->with('totalorder', $totalorder);
     }
 
    

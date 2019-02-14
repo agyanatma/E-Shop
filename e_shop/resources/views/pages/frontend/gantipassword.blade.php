@@ -2,13 +2,12 @@
 
 @section('content')
 <div class="container">
-        <h1 class="text-center col-md-2 offset-5" style="margin-top: 15px">{{ config('app.name', 'E-Shop') }}</h1>
-            <div class="row">
+        <h2 class="title-user text-center text-uppercase" style="align-text:center; padding-top:10px">Change Password</h2>
+            <div class="row justify-content-between" style="padding-bottom:100px">
                     <div class="col-md-6 offset-3"  style="margin-top: 15px">
                             <div class="card card-login" style="">
-                                <div class="form-group ">
-                                        <h3 class="card-title" class="text-center">Change Password</h3>
-                                        <form action="{{route('updatepassword', $users->id)}}" method="POST" class="container">
+                                <div class="form-group " >
+                                        <form action="{{route('updatepassword', $users->id)}}" method="POST" class="container" style="padding:50px 10px 30px 10px">
                                             {{csrf_field()}}
                                             
                                             @if (session('status'))
@@ -23,7 +22,7 @@
                                             @endif
                                             <div class="form-group">
                                             <label>Current Password:</label>
-                                            <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                                                 @if ($errors->has('password'))
                                                     <div class="alert alert-danger">
                                                     {{$errors->first('password')}}
@@ -32,7 +31,7 @@
                                             </div>
                                             <div class="form-group">
                                             <label>New Password:</label>
-                                            <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="Password" required>
+                                            <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="New Password" required>
                                                 @if ($errors->has('newpassword'))
                                                     <div class="alert alert-danger">
                                                     {{$errors->first('newpassword')}}
@@ -41,7 +40,7 @@
                                             </div>
                                             <div class="form-group">
                                             <label>Confirm New Password</label>
-                                            <input type="password" class="form-control" id="newpasswordconfirm" name="newpasswordconfirm" placeholder="Password" required>
+                                            <input type="password" class="form-control" id="newpasswordconfirm" name="newpasswordconfirm" placeholder="New Password Confirm" required>
                                                 @if ($errors->has('newpasswordconfirm'))
                                                     <div class="alert alert-danger">
                                                     {{$errors->first('newpasswordconfirm')}}

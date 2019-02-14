@@ -33,18 +33,27 @@ Route::get('/sortmotherboard', 'Frontend\SortController@sortmotherboard');
 Route::get('/sortmouse', 'Frontend\SortController@sortmouse');
 Route::get('/sortpowercable', 'Frontend\SortController@sortpowercable');
 Route::get('/sortprinter', 'Frontend\SortController@sortprinter');
-Route::get('/lainlain', 'Frontend\SortController@lainlain');
+Route::get('/lainlain', 'Frontend\SortController@lainlain')->name('lainlain');
+
+Route::get('/sort/category/{id}', 'Frontend\SortController@sortbycategory')->name('sortbycategory');
 
 Route::group(['middleware'=>['checkUser']],function(){
     
 //UsersPage
 Route::get('/user', 'Frontend\UserController@user');
-
 Route::get('user/{id}/user', 'Frontend\UserController@user')->name('user');
 Route::post('user/{id}/edit', 'Frontend\UserController@update')->name('editUser');
 Route::get('user/{id}/settings', 'Frontend\UserController@settings')->name('settings');
 Route::get('user/{id}/password', 'Frontend\UserController@gantipassword')->name('gantipassword');
 Route::post('user/{id}/password/changed', 'Frontend\UserController@updatepassword')->name('updatepassword');
+
+//wishlist
+Route::post('product/{id}/wishlist', 'Frontend\WishlistController@tambahwishlist')->name('addWishlist');
+Route::get('/wishlist/', 'Frontend\WishlistController@wishlist')->name('wishlist');
+Route::get('wishlist/{id}/deletewishlist', 'Frontend\WishlistController@deletewishlist')->name('deletewishlist');
+Route::get('wishlist/ubahwishlist', 'Frontend\WishlistController@ubahwishlist')->name('ubahwishlist');
+Route::get('searchwishlist/', 'Frontend\WishlistController@searchwishlist')->name('searchwishlist');
+
 
 //CartPage
 Route::post('product/{id}/addcart', 'Frontend\OrderController@tambahlangsung')->name('addcartlangsung');
@@ -61,15 +70,11 @@ Route::get('/product/langsungbayar/{id}/bayar', 'Frontend\OrderController@update
 //Route::match('POST' 'GET'), ('/product/bayar', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
 });
 
-
-
-
+/* BACKEND */
 
 
 //ADMIN ONLY===================================================================================================================================
-Route::get('admin', function(){
-    return view('pages.admin.login');
-})->name('adminLogin');
+Route::get('admin', 'Backend\UserController@login_admin')->name('adminLogin');
 
 Route::post('admin/login', 'Backend\UserController@loginAdmin')->name('store.admin');
 Route::group(['middleware'=>['checkAdmin']],function(){
@@ -84,6 +89,7 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/product/{id}/edit', 'Backend\ProductController@edit')->name('editProduct');
     Route::post('admin/product/{id}/update', 'Backend\ProductController@update')->name('updateProduct');
     Route::get('admin/product/{id}/edit/delete', 'Backend\ProductController@deleteImage')->name('deleteImage');
+    Route::get('admin/product/datatables', 'Backend\ProductController@dataTables')->name('table.product');
     //CRUD CATEGORY
     Route::get('admin/category', 'Backend\CategoryController@index')->name('indexCategory');
     Route::get('admin/category/new', 'Backend\CategoryController@new')->name('newCategory');

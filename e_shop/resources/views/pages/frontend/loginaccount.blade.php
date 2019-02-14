@@ -2,12 +2,16 @@
 
 @section('content')
 
-   
+@if(count($errors)>0)
+    <ul>
+        @foreach($errors->all() as $error)
+            <li class="alert alert-danger">{{$error}}</li>
+        @endforeach
+    </ul>
+@endif
         
-   
         <div class="container-fluid">
-            <h1 class="text-center col-md-2 offset-5" style="margin-top: 15px">{{ config('app.name', 'E-Shop') }}</h1>
-                <div class="row">
+                <div class="row" style="padding:20px 0 40px 0;">
                         <div class="col-md-6" >
                                 <img class="rounded mx-auto d-block img-responsive img-fluid" style="height: auto; max-width: 100%;" width="500px" src="upload/Logo-edit.png">
                             </div>

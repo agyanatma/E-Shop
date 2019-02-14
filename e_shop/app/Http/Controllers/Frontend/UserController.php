@@ -10,7 +10,10 @@ use App\Product;
 use App\Category_product;
 use App\Orders;
 use Auth;
+use Carbon\Carbon;
 Use Illuminate\Support\Facades\Input as input;
+use App\Wishlist;
+use App\Product_image;
 class UserController extends Controller
 {
 
@@ -23,7 +26,7 @@ class UserController extends Controller
             'password' => 'required',
         ],
         [
-            'required' => 'Masukkan email dan password untuk masuk!'
+            'required' => 'Input your email and password to enter!'
         ]);
         $email = $request->email;
         $password = $request->password;
@@ -35,11 +38,11 @@ class UserController extends Controller
                 return redirect()->intended('/');
             } 
             else {
-                return redirect()->back()->with('status', 'Email atau password salah!');
+                return redirect()->back()->with('status', 'Email or password wrong!');
             }
         }
         else{
-            return redirect()->back()->with('failed', 'Pengguna tidak terdaftar');
+            return redirect()->back()->with('failed', 'User is not registered!');
         }
     }
 
@@ -77,7 +80,7 @@ class UserController extends Controller
             $user->profile_image = 'default.jpg';
         }
         $user->save();
-        return redirect('loginaccount')->with('alert-success','Anda berhasil terdaftar');
+        return redirect('loginaccount')->with('alert-success','You has successfully registered');
     }
     public function logout(){
         Session::flush();
@@ -92,23 +95,21 @@ class UserController extends Controller
         if (Auth::user() && $orders = 1){
             $user = Auth::user();
             $buyer = Auth::user()->id;
-            
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '1')->orWhere('status', '=', '2')->latest()->take(3)->get();
             $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
             $totalorder = Orders::with('product','buyer')->where([
                 'user_id' => $buyer,
                 'status' => 0,
             ])->count();
-            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
             
         return view('pages.frontend.user')->with('users', $users
             )->with('buyer', $buyer)->with('orders', $orders)
-            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty)->with('totalorder', $totalorder);
+            ->with('total', $total)->with('qty', $qty)->with('totalorder', $totalorder);
         }
         else{
 
-        return view('pages.frontend.user')->with('users', $users)->with('orders', $orders)->with('totalqty', $totalqty)->with('total', $total)->with('totalharga', $totalharga)->with('buyer', $buyer);
+        return view('pages.frontend.user')->with('users', $users)->with('orders', $orders)->with('total', $total)->with('totalharga', $totalharga)->with('buyer', $buyer);
         }
     }
     
@@ -116,7 +117,7 @@ class UserController extends Controller
         
         $this->validate($request,[
             'email' => 'required|email',
-            'fullname' => 'required',
+            'fullname' => 'required|max:12',
             'address' => 'required',
             'city' => 'required',
             'postal' => 'required|numeric',
@@ -149,7 +150,7 @@ class UserController extends Controller
             $user->profile_image = $imageName;
         }
         $user->save();
-        return redirect()->back()->withStatus('Data berhasil update!');           
+        return redirect()->back()->withStatus('Data has been successfully update!');           
     }
 
     public function settings($id){
@@ -163,13 +164,8 @@ class UserController extends Controller
                 'user_id' => $buyer,
                 'status' => 0,
             ])->count();
-            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
-            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
-            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            
         return view('pages.frontend.gantiinfouser')->with('users', $users)
-        ->with('buyer', $buyer)->with('orders', $orders)->with('totalorder', $totalorder)
-        ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);    
+        ->with('buyer', $buyer)->with('orders', $orders)->with('totalorder', $totalorder);
         }
         else{
         //dd($users);
@@ -188,13 +184,9 @@ class UserController extends Controller
                 'user_id' => $buyer,
                 'status' => 0,
             ])->count();
-            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
-            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
-            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            
         return view('pages.frontend.gantipassword')->with('users', $users)
-        ->with('buyer', $buyer)->with('orders', $orders)->with('totalorder', $totalorder)
-        ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty);
+        ->with('buyer', $buyer)->with('orders', $orders)->with('totalorder', $totalorder);
+        
         }
         else{
         //dd($users);
@@ -218,32 +210,11 @@ class UserController extends Controller
             return redirect()->back()->withStatus('Password berhasil update!');  
              }
         else{
-            return redirect()->back()->withError('Current Password salah! silakan Coba lagi !');
+            return redirect()->back()->withError('The password is currently incorrect! Please Try Again !');
         }
-
-        // $city = $request->get('city');
-        // $postal = $request->get('postal');
-                
-        // $user = User::find($id);
-        // $user->email = $email;
-        // if(Hash::check(Input::get('currentpassword'), $user['currentpassword']) && 
-        // Input::get('newpassword')==Input::get('newpasswordconfirm')){
-        //     $user->password = bcrypt(Input::get('newpassword'));
-        //     $user->save();
-        //     return back()->with('success', 'Password berhasil diupdate!');    
-        // }
-        // else {
-        //     return back()->with('error', 'Ganti Password Gagal! silakan coba kembali');
-        // }
-        
-        // $password = $request->input('password');
-        // $password = $request->get('newpassword');
-        // $updatepassword = Auth::user();
-        // $updatepassword->password = bcrypt($request->get('newpassword'));
-        // $updatepassword ->save();
-        // $user->password = bcrypt($request->password);
-        
         
               
     }
+
+    
 }

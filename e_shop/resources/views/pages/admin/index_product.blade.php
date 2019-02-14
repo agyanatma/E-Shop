@@ -8,42 +8,42 @@
         </div>
     @endif
     <div class="row">
-        <div class="col-lg-6" style="float:left">
-            <h1><span class="fas fa-box-open" aria-hidden="true"></span>  Product</h1><br>
-        </div>
-            <div class="table-responsive">
-                <table class="table table-bordered">
+            <h1><span class="fas fa-box-open" aria-hidden="true"></span>  Product</h1>
+            <div class="table-responsive" style="margin-top:20px">
+                <table id="dataproduct" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Images</th>
+                            <th>Image</th>
                             <th>Product</th>
                             <th>Category</th>
                             <th>Price</th>
-                            <th><a href="{{ route('product.new')}}" type="submit" class="btn btn-primary align-middle float-right" style="width:125px">Add Product</a></th>
+                            <th><a href="{{ route('product.new')}}" type="submit" class="btn btn-primary align-middle float-right" style="width:145px">Add Product</a></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if(count($products) > 0)
-                            @foreach ($products as $product)
-                            <tr>
-                                <td class="align-middle" style="width:80px"><img class="img" style="object-fit:cover" width="50px" height="50px"  src="{{$product->images[0]->product_image}}"></td>
-                                <td class="align-middle">{{$product->product_name}}</td>
-                                <td class="align-middle">{{$product->categories->category_name}}</td>
-                                <td class="align-middle">Rp {{number_format($product->product_price, 0)}}</td>
-                                <td class="align-middle" style="width:160px">
-                                    <span class="float-right">
-                                        <a href="{{ route('editProduct', $product->id) }}" class="btn btn-warning" name="edit">Edit</a>
-                                        <a href="{{ route('deleteProduct', $product->id) }}" class="btn btn-danger" name="delete">Delete</a>
-                                    </span>
-                                </td>
-                            </tr>
-                            @endforeach
-                        @else
-                            <h3>No posts found!</h3>
-                        @endif
+                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+        $(function(){
+            $('#dataproduct').DataTable({
+                processing: false,
+                serverSide: true,
+                ajax: '{!! route('table.product') !!}',
+                columns: [
+                    {data: 'images', name: 'images', class: 'align-middle', width:60, searchable: false, orderable: false},
+                    {data: 'product_name', name: 'product', class: 'align-middle'},
+                    {data: 'category_name', name: 'category', class: 'align-middle'},
+                    {data: 'product_price', name: 'price', class: 'align-middle'},
+                    {data: 'action', name: 'action', searchable: false, orderable: false, width:145, class: 'align-middle'}
+                ]
+            });
+        });
+    </script>
+    @endpush
 @endsection

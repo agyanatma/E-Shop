@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-
 <div class="container my-container ">
         <div style="padding:15px">
             <div class="row">

@@ -53,14 +53,9 @@
                                         <a href="{{route('sortbycategory', ['id'=> $category->id])}}"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;"  src="{{$category->category_image}}"></a>
                                     </div>
                             @endforeach
-                        @endif
-                        <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                            <a href="lainlain"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/lain-lain.png"></a>
-                        </div>                                
+                        @endif                                
                     </div>
                 </div>
-                
-                
                 <div class="row ">
                         @if(count($products) > 0)
                             @foreach ($products as $row)

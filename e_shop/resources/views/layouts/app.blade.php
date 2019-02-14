@@ -12,7 +12,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/costum1.css">
     
-    
+     
     {{-- Costume Alert --}}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     {{-- table --}}
@@ -30,25 +30,24 @@
 
     <title>{{ config('app.name', 'E-Shop') }}</title>
 </head>
-<body >
-    <header>
-   <nav class="navbar navbar-expand-md " >
+<header id="header" >
+   <nav class="navbar navbar-expand-md navbar-expand-xs navbar-expand-col " style="">
        <div class="container-fluid">
-           <a class="navbar-brand" href="{{ url('/') }}">
+           <a class="navbar-brand" href="{{ url('/') }}" style="color:white">
                {{ config('app.name', 'E-Shop') }}
            </a>
            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                    <ul class="navbar-nav ml-auto">
-                        <form class="navbar-form" role="search" method="get" action="{{url("/searchcontent")}}">
+                            <form class="navbar-form" role="search" method="get" action="{{url("/searchcontent")}}">
                                 <div class="input-group">
                                     <div class="nav-item" style="margin-right:10px">
                                         <input class="form-control form-control-borderless"  type="search" placeholder="Search topics or keywords" name="title">
                                     </div>
                                     <div class="nav-item" style="margin-right:10px">
-                                        <button class="btn btn-info " type="submit"><i class="fas fa-search"></i></button>
+                                        <button class="btn  btn-info" type="submit"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
-                        </form>
+                            </form>
                             @guest
                             <li class="nav-item">
                                     <a class="btn btn-info" style="margin-right:10px" href="{{ route('loginaccountPage') }}">Login</a>
@@ -58,17 +57,21 @@
                             </li>
                             @endguest
                             
-                        @if(Auth::user()&& session('user_session')->admin==0)
-                        <form class="navbar-form" role="cart" method="get" action="{{route('cart',)}}">
+                        @if(Auth::check() && Auth::user()->admin==0)
+                            <form class="navbar-form" role="cart" method="get" action="{{route('cart',)}}">
                                 <div class="input-group">
                                     <div class="nav-item" style="margin-right:10px">
-                                        <button class="btn btn-info " type="submit">
+                                        <button class="btn  btn-info " type="submit">
                                             <i class="fas fa-shopping-cart"> 
-                                            <span class="badge" style="background:#d9534f">
+                                            
                                                 @if(Auth::user()->status==0) 
-                                                    {{$totalorder}}
-                                                @endif
-                                            </span></i></button>
+                                                    <div class="quantity-tags-navbar">
+                                                        <span >{{$totalorder}}</span>
+                                                    </div>
+                                                @endif  
+                                           
+                                            </i>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -78,75 +81,56 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{route('user', $users->id)}}">User Profile</a>
-                                    <a class="dropdown-item" href="#">Wishlist</a>
+                                    <a class="dropdown-item" href="{{route('wishlist', ['id'=>$users->id])}}">Wishlist</a>
                                     <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
                                 </div>
                             </li>
+                            <li style="max-height:30px max-width:30px">
+                                    <img src="{{$users->profile_image}}" class="card-image-user-header rounded-circle mx-auto d-block img-fluid " >
+                            </li>
                         @endif
-                        @if(Auth::user()&& session('user_session')->admin==1)
+                        @if(Auth::check() && Auth::user()->admin==1)
                             <form class="navbar-form" role="cart" method="get" action="{{route('cart',)}}">
                                 <div class="input-group">
                                     <div class="nav-item" style="margin-right:10px">
-                                        <button class="btn btn-info " type="submit">
+                                        <button class="btn btn-info  " type="submit">
                                             <i class="fas fa-shopping-cart"> 
-                                                    @if(Auth::user()->status==0) 
-                                                        {{$totalorder}}
-                                                    @endif
-                                            </span></i></button>
+                                                @if(Auth::user()->status==0) 
+                                                    <div class="quantity-tags-navbar">
+                                                        <span >{{$totalorder}}</span>
+                                                    </div>
+                                                @endif
+                                            </i>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
                             
-                            {{-- <li>
-                               <a href="{{route('product.shoppingCart')}}">
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i> SHopping Cart
-                                <span class="badge">{{Session::has('cart') ? Session::get('cart')->totalQty : ''}}</span>
-                            </li> --}}
-                        <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{Auth::user()->fullname}} (Admin)<span class="caret"></span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{route('user', ['id'=>$users->id])}}">User Profile</a>
-                                    <a class="dropdown-item" href="#">Wishlist</a>
-                                    <a class="dropdown-item" href="/admin/dashboard">Dashboard</a>
-                                    <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
-                                </div>
-                        </li>
-
+                            <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{Auth::user()->fullname}}(Admin)<span class="caret"></span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{route('user', ['id'=>$users->id])}}">User Profile</a>
+                                        <a class="dropdown-item" href="{{route('wishlist', ['id'=>$users->id])}}">Wishlist</a>
+                                        <a class="dropdown-item" href="/admin/dashboard">Dashboard</a>
+                                        <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
+                                    </div>
+                            </li>
+                            <li style="max-height:50px">
+                                    <img src="{{$users->profile_image}}" class="card-image-user-header rounded-circle mx-auto d-block img-fluid " >
+                            </li>
                         @endif
                    </ul>
                </div>
        </div>
    </nav>
     </header>
-    {{-- var xadminFee = $order->status;
- if(xadminFee == 2){
-     document.getElementById("completeReg").style.display = "block"; // This is for displaying the complete registration process.
- }else{
-    document.getElementById("completeReg").style.display = "none"; --}}
-{{-- 
-    // let cartCount = document.getElementById('fbcommentcount').getElementsByClassName('fb_comments_count');
-    // setTimeout(function(){
-    //     document
-    // }) --}}
-{{--     
-    // let visitCount = document.getElementById('postVisitCount').value;
-    // let visitCountPlusOne = parseInt(visitCount) + 1;
-
-    // document.getElementById('postVisitCount').value = visitCountPlusOne;
-    // $.ajax({
-    // url. $formVar.prop('{{route('post.update', ['id'=>$id])}}'),
-    // method: 'PUT',
-    // data: $formVar.serialize()
-    // }); --}}
-<script >
-//imagedetailselected
-
-
-
-//cart
+<body id="content">
     
+    
+<script >
+
 
 //quantity        
 $("document").ready(function(){
@@ -189,33 +173,33 @@ $('.quantity-left-minus').click(function(e){
 }); 
 
 //animation
-        $('div.alert').delay(3000).slideUp(300);
+        // $('div.alert').delay(3000).slideUp(300);
 
-            $(document).ready(function(){
+        //     $(document).ready(function(){
         
-                $('.col-md-3').hover(
+        //         $('.col-md-3').hover(
                     
-                    function(){
-                        $(this).animate({
-                            marginTop: "-=1%",
-                        },200);
-                    },
+        //             function(){
+        //                 $(this).animate({
+        //                     marginTop: "-=1%",
+        //                 },200);
+        //             },
         
-                function(){
-                    $(this).animate({
-                        marginTop: "0%"
-                    },200);
-                }
-            );
-        });
+        //         function(){
+        //             $(this).animate({
+        //                 marginTop: "0%"
+        //             },200);
+        //         }
+        //     );
+        // });
         </script>
    @yield('content')
    
    
 </body>
-<footer class="align-center fixed-bottom">
+    <footer class="align-center fixed-bottom">
         <div class="container" >
-          <h6 class="m-0 text-center ">Copyright &copy; 2019 - All Rights Reserved -  <a link="bukanjaknote.site">Bukanjaknote.site</a></h6>
+          <h6 class="m-0 text-center " style="color:white;">Copyright &copy; 2019 - All Rights Reserved -  <a link="bukanjaknote.site">Bukanjaknote.site</a></h6>
         </div>
         <!-- /.container -->
     </footer>

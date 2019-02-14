@@ -17,7 +17,7 @@ use App\User;
 use App\Cart;
 use App\Orders;
 use Session;
-
+use App\Wishlist;
 
 class ProductController extends Controller
 {
@@ -25,31 +25,25 @@ class ProductController extends Controller
 
     public function searchcontent(){
         $searchkey = \Request::get('title');
-        $products = Product::where('product_name', 'like', '%' .$searchkey. '%')->orderBy ('id')->get();
-        $categories = Category_product::all();
+        $products = Product::where('product_name', 'like', '%' .$searchkey. '%')->orderBy ('id')->paginate(24);
+        $categories = Category_product::take(5)->get();
         $users = Auth::User();
         
         //dd($products);
         if (Auth::user() && $orders = 1){
-            $user = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
             $totalorder = Orders::with('product','buyer')->where([
                 'user_id' => $buyer,
                 'status' => 0,
             ])->count();
-            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
-            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
-            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            
         return view('pages.frontend.searchcontent')->with('categories', $categories)->with('users', $users
-            )->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
-            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty)
+            )->with('buyer', $buyer)->with('orders', $orders)
             ->with('products', $products)->with('totalorder' , $totalorder)
-            ->with('status','Barang berhasil ditambah ke keranjang');
+            ->with('status','Product has been successfully added to cart');
         }
         else{
-        return view('pages.frontend.searchcontent')->with('status','Barang berhasil ditambah ke keranjang')
+        return view('pages.frontend.searchcontent')->with('status','Product has been successfully added to cart')
         ->with('products', $products)->with('categories', $categories)->with('users', $users);
         }
     }
@@ -60,26 +54,10 @@ class ProductController extends Controller
         return view ('pages.frontend.shop')->with ('title', $title);
     }
 
-    // public function detailproduct($id){
-    //     //$products = Product::find($id);
-        
-    //     $products = Product::with(['images'])->where('id', $id)->get();
-    //     $categories = Category_product::all();
-    //     $users = Auth::User();
-    //     //dd($products->find($id)->toArray());
-    //     return view('pages.frontend.detailproduct')->with('products', $products)->with('categories', $categories)->with('users', $users);
-
-    // }
     public function detailproduct($id){
-        if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
-            // Ignores notices and reports all other kinds... and warnings
-            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
-            // error_reporting(E_ALL ^ E_WARNING); // Maybe this is enough
-        }
+        
         $products = Product::with(['images'])->find($id);
-        $id = $products->id;
         $images = Product_image::where('product_id','=',$id)->get();
-        $categories = Category_product::all();
         $users = Auth::User();
         $productrandom = Product::inRandomOrder()->with(['images'])->take(6)->get();
         //dd($productrandom->toArray());
@@ -91,21 +69,17 @@ class ProductController extends Controller
                 'user_id' => $buyer,
                 'status' => 0,
             ])->count();
-            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
-            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
-            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            
-            return view('pages.frontend.detailproduct')->with('categories', $categories)
+            return view('pages.frontend.detailproduct')
             ->with('products', $products)->with('user', $user)->with('users', $users)
-            ->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
-            ->with('total', $total)->with('totalqty', $totalqty)->with('qty', $qty)
+            ->with('buyer', $buyer)->with('orders', $orders)
             ->with('totalorder', $totalorder)->with('productrandom', $productrandom)
             ->with('images', $images);
         }
-       
+        return view('pages.frontend.detailproduct')->with('products', $products)
+        ->with('users', $users)->with('images', $images)->with('productrandom', $productrandom);
+      
         //dd($orders->toArray());
-        return view('pages.frontend.detailproduct')->with('products', $products)->with('categories', $categories)
-        ->with('users', $users)->with('images', $images)->with('orders', $orders)->with('productrandom', $productrandom);
+        
     }
     
     public function tambahproduct(){
@@ -115,82 +89,36 @@ class ProductController extends Controller
     }
 
     public function user(){
-        $products = Product::with(['images'])->paginate(24);
-        $categories = Category_product::get();
         $users = Auth::user();
-        $orders = Orders::all();
+        $products = Product::with(['images'])->paginate(24);
+        //$categories = Category_product::with(['images'])->find($id);
+        $categories = Category_product::take(5)->get();
+        
+        
+        //dd($categories->toArray());
         if (Auth::user() && $orders = 1){
-            $user = Auth::user();
+            $users = Auth::user();
             $buyer = Auth::user()->id;
             $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
             $totalorder = Orders::with('product','buyer')->where([
                 'user_id' => $buyer,
                 'status' => 0,
             ])->count();
-            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
-            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
             
             //dd($totalqty);
-            return view('pages.frontend.index')->with('categories', $categories)
-            ->with('products', $products)->with('user', $user)->with('users', $users)
-            ->with('buyer', $buyer)->with('orders', $orders)->with('category', $categories)
-            ->with('totalqty', $totalqty)->with('qty', $qty)->with('totalorder', $totalorder);
+            return view('pages.frontend.index')
+            ->with('products', $products)->with('users', $users)
+            ->with('buyer', $buyer)->with('orders', $orders)->with('categories', $categories)
+            ->with('totalorder', $totalorder);
         }
         else{
-            return view('pages.frontend.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
+            return view('pages.frontend.index')->with('products', $products)
+            ->with('categories', $categories)->with('users', $users);
         }
         
     
     }
 
-    public function guest(){
-        $products = Product::with(['images'])->paginate(24);
-        
-        $users = Auth::User();
-        $categories = Category_product::with('images')->get();
-        //$user = Auth::user();
-        //dd($user);
-        return view('pages.frontend.index')->with('products', $products)->with('categories', $categories)->with('users', $users);
-    }
-    
-
-    public function getAddToCart(Request $request, $id){
-        $products = Product::find($id);
-        $oldCart = Session::has('cart') ? Session::get('cart') :null;
-        $cart = new Cart($oldCart);
-        $cart->add($products, $products->id);
-        $users = Auth::User();
-        $request->session()->put('cart', $cart);
-        //dd($request->session()->get('cart'));
-        //dd($product['qty']);
-        return redirect()->back()->with('success_message','Barang berhasil ditambah ke keranjang');
-    }
-
-    public function getCart(){
-        $products = Product::with(['images'])->get();
-        //$orders = Orders::with('product','buyer')->where('user_id','=',$buyer);
-        $categories = Category_product::all();
-        $users = Auth::User();
-        $cart = Product::with(['images'])->get();
-        if (!Session::has('cart')){
-            return view ('pages.frontend.shopping-cart', ['products'=> null]);
-        }
-        $oldCart = Session::get('cart');
-        $cart = new Cart ($oldCart);
-        
-        return view('pages.frontend.shopping-cart', ['products' => $cart->items, 'totalPrice'=>$cart->totalPrice, 'users'=>$users, 'products'=>$products, 'categories'=> $categories, ]) ;
-    }
-
-    public function getCheckout(){
-        $users = Auth::User();
-        if (!Session::get('cart')){
-            return view('pages.frontend.shopping-cart');
-        }
-         $oldCart = Session::get('cart');
-         $cart = new Cart ($oldCart);
-         $total = $cart -> totalPrice;
-         return view ('pages.frontend.checkoutCart', ['total' => $total, 'users'=>$users]);   
-    }
 
 
 }

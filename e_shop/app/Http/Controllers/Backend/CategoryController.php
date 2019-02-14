@@ -35,7 +35,7 @@ class CategoryController extends Controller
             $item->category_image = 'image.png';
             $item->save();
         }
-        $new->save();
+        $item->save();
 
         return redirect('/admin/category')->with('status','Data berhasil ditambah');
         
@@ -48,7 +48,7 @@ class CategoryController extends Controller
     public function update(Request $request,$id){
         $this->validate($request,[
             'category_name' => 'required',
-            'category_image' => 'image|mimes:jpeg,png,jpg'
+            'img' => 'image|mimes:jpeg,png,jpg'
         ]);
 
         $item = Category_product::find($id);
