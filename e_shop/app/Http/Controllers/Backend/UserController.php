@@ -14,20 +14,13 @@ use DataTables;
 class UserController extends Controller
 {
 
-    public function dashboard(){
+    public function index(){
         $item = User::all();
         $users = Auth::user();
         $product = Product::count();
         $category = Category_product::count();
         $order = Orders::count();
         return view('pages.admin.dashboard')->with('users', $users)->with('item', $item)->with('product', $product)->with('category', $category)->with('order', $order);
-    }
-
-    public function login_admin(){
-        if(Auth::check()){
-            return redirect('/admin/dashboard');
-        }
-        return view('pages.admin.login');
     }
 
     public function dataTables(){
@@ -40,19 +33,24 @@ class UserController extends Controller
                 }
                 return "User";
             })
+            ->addIndexColumn()
             ->addColumn('action', function($item){
-                return '<a href="'.route('admin',$item->id).'" class="btn btn-xs btn-info"><i class="fas fa-crown"></i></a><span>'.'
-                        <a href="'.route('adminDelete',$item->id).'" class="btn btn-xs btn-info"><i class="fas fa-trash-alt"></i></a></span>';
+                return '<a href="'.route('edit.admin',$item->id).'" class="btn btn-xs btn-warning"><i class="fas fa-crown"></i></a><span>'.'
+                        <a href="'.route('destroy.admin',$item->id).'" class="btn btn-xs btn-danger"><i class="fas fa-trash-alt"></i></a></span>';
             })
             ->rawColumns(['action'])
             ->removeColumn('profile_image')
             ->make(true);
     }
-
+    
     public function login(){
-        return view ('pages.login');
+        if(Auth::check()){
+            return redirect('/admin/dashboard');
+        }
+        return view('pages.admin.login');
     }
-    public function loginStore(Request $request){
+
+    /*public function loginStore(Request $request){
         $this->validate($request,[
             'email' => 'required|email',
             'password' => 'required',
@@ -74,9 +72,9 @@ class UserController extends Controller
         else{
             return redirect()->back()->with('failed', 'Pengguna tidak terdaftar');
         }
-    }
+    }*/
 
-    public function loginAdmin(Request $request){
+    public function loginStore(Request $request){
 
         $this->validate($request,[
             'email' => 'required|email',
@@ -106,6 +104,7 @@ class UserController extends Controller
             return redirect()->back()->with('failed', 'Pengguna tidak terdaftar');
         }
     }
+    /*
     public function signup(Request $request){
         return view ('pages.register');
     }
@@ -141,12 +140,15 @@ class UserController extends Controller
         $user->save();
         return redirect('login')->with('alert-success','Anda berhasil terdaftar');
     }
+    */
+
     public function logout(){
         Session::flush();
         Auth::logout();
         return redirect('/');
     }
     
+    /*
     public function profile($id){
         $users = User::find($id);
         //dd($profile->toArray());
@@ -191,17 +193,25 @@ class UserController extends Controller
 
         return redirect()->back()->withErrors('Data berhasil update!');           
     }
+    */
 
-    public function admin($id){
+    public function edit($id){
+        $admin = User::where('admin','1')->count();
         $user = User::find($id);
         if($user->admin!=1){
             $user->admin = '1';
             $user->save();
             return redirect()->back()->with('status','User '.$user->fullname.' telah menjadi admin');
         }
-        $user->admin = '0';
-        $user->save();
-        return redirect()->back()->with('status','User '.$user->fullname.' telah menjadi user');
+        elseif($admin > 1){
+            $user->admin = '0';
+            $user->save();
+            return redirect()->back()->with('status','User '.$user->fullname.' telah menjadi user');
+        }
+        else{
+            return redirect()->back()->with('failed','Perintah dibatalkan');
+        }
+        
     }
 
     public function destroy($id){

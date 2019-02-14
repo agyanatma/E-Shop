@@ -1,20 +1,8 @@
-@extends('layout.admin')
+@extends('layouts.admin')
 
 @section('content')
-    <div class="container">
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
-        @if(count($errors)>0)
-            @foreach($errors->all() as $error)
-                <p class="alert alert-danger">{{$error}}</p>
-            @endforeach
-        @endif
-    </div>
     <div class="form-group container">
-        <form action="{{route('product.create')}}" method="post" class="col-md-8" enctype="multipart/form-data">
+        <form action="{{route('create.product')}}" method="post" class="col-md-8" enctype="multipart/form-data">
             {{csrf_field()}}
             <label>Nama Produk:</label>
             <input type="text" class="form-control" name="product_name" placeholder="Produk">

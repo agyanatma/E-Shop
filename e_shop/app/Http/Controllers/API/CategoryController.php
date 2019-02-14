@@ -13,17 +13,26 @@ class CategoryController extends Controller
     public function index(Category_product $categories){
         try{
             $categories = $categories->with(['product','product.images'])->get();
-            $response = [
-                'categories' =>$categories
-            ];
 
             if(!$categories){
-                return response()->json(Status::response(array(), 'error', 'Nothing Found', 404), 404);
+                return response()->json([
+                    'categories'=>array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
             }
-            return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
+            return response()->json([
+                'categories'=>$categories, 
+                'status'    =>'success',
+                'message'   =>'Get data success',
+                'code'      =>'200'], 200);
         }
         catch(\Exception $e){
-            return response()->json(Status::response(array(), 'error', $e->getMessage()), 404);
+            return response()->json([
+                'categories'=>array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
         }
         
     }
@@ -33,21 +42,26 @@ class CategoryController extends Controller
             $categories = $categories->with(['product','product.images'])->find($id);
             //dd($categories->toArray());
             
-            $response = [
-                'category' =>[$categories]
-            ];
-
             if(!$categories){
-                return response()->json(Status::response(array(), 'error', 'Nothing Found', 404), 404);
+                return response()->json([
+                    'categories'=>array(), 
+                    'status'    =>'error',
+                    'message'   =>'Nothing Happen',
+                    'code'      =>'404'], 404);
             }
-            return response()->json(Status::response($response, 'success', 'Get data success', 200), 200);
+            return response()->json([
+                'categories'=>$categories, 
+                'status'    =>'success',
+                'message'   =>'Get data success',
+                'code'      =>'200'], 200);
         }
         catch(\Exception $e){
-            return response()->json(Status::response(array(), 'error', $e->getMessage()), 404);
-        }
-        
+            return response()->json([
+                'categories'=>array(), 
+                'status'    =>'error',
+                'message'   =>$e->getMessage(),
+                'code'      =>'404'], 404);
+        }   
     }
-
-    
     
 }

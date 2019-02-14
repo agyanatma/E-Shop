@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Wishlist;
 use App\Transformers\ProductTransformer;
 use App\Transformers\Status;
+use Auth;
 
 
 class ProductController extends Controller

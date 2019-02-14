@@ -3,18 +3,37 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use App\Category_product;
 use Auth;
+use DataTables;
 
 class CategoryController extends Controller
 {
     
     public function index(){
-        $categories = Category_product::get();
+        $categories = Category_product::all();
         //dd($categories->toArray());
         return view('pages.admin.index_category')->with('categories', $categories);
     }
-    public function new(){
+
+    public function dataTables(){
+        $item = Category_product::all();
+
+        return Datatables::of($item)
+            ->addIndexColumn()
+            ->editColumn('category_image', function($item){
+                return '<img class="img" style="object-fit:cover" width="50px" height="50px" src="'.$item->category_image.'">';
+            })
+            ->addColumn('action', function($item){
+                return  '<a href="'.route('edit.category', $item->id).'" class="btn btn-xs btn-warning" style="margin-right:7px; width:55px"><i class="fas fa-edit"></i></a>'.
+                        '<a href="'.route('destroy.category', $item->id).'" class="btn btn-xs btn-danger" style="width:55px"><i class="fas fa-trash-alt"></i></a>';
+            })
+            ->rawColumns(['category_image','action'])
+            ->make(true);
+    }
+
+    public function create(){
         return view('pages.admin.create_category');
     }
+
     public function store(Request $request){
         $this->validate($request,[
             'category_name' => 'required',

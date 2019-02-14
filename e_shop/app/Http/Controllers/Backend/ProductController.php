@@ -1,9 +1,5 @@
 <?php
 namespace App\Http\Controllers\Backend;
-use DB;
-use View;
-use Auth;
-use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Product;
@@ -18,15 +14,15 @@ class ProductController extends Controller
     public function index(){
         $products = Product::with(['images'])->get();
         $categories = Category_product::all();
-        $users = session()->get('user_session');
         //dd($products->toArray());
-        return view('pages.admin.index_product')->with('products', $products)->with('categories', $categories)->with('users', $users);
+        return view('pages.admin.index_product')->with('products', $products)->with('categories', $categories);
     }
 
     public function dataTables(){
         $item = Product::with(['categories','images'])->get();
 
         return Datatables::of($item)
+            ->addIndexColumn()
             ->editColumn('product_price', function ($item) {
                 return 'Rp '.number_format($item->product_price, 0);
             })
@@ -38,49 +34,43 @@ class ProductController extends Controller
             })
             ->addColumn('action', function($item){
                 return  '<a href="'.route('detailproduct', $item->id).'" class="btn btn-xs btn-info" style="margin-right:7px"><i class="fas fa-eye"></i></a>'.
-                        '<a href="'.route('editProduct', $item->id).'" class="btn btn-xs btn-info" style="margin-right:7px"><i class="fas fa-edit"></i></a>'.
-                        '<a href="'.route('deleteProduct', $item->id).'" class="btn btn-xs btn-info"><i class="fas fa-trash-alt"></i></a>';
+                        '<a href="'.route('edit.product', $item->id).'" class="btn btn-xs btn-warning" style="margin-right:7px"><i class="fas fa-edit"></i></a>'.
+                        '<a href="'.route('destroy.product', $item->id).'" class="btn btn-xs btn-danger"><i class="fas fa-trash-alt"></i></a>';
             })
             ->rawColumns(['images','action'])
             ->make(true);
     }
 
 
-    //HAPUS PRODUK
     public function destroy($id){
         $item = Product::find($id);
         $product_id = $item->id;
-        $image = Product_image::where('product_id', '=', $product_id)->get();
+        $image = Product_image::where('product_id', $product_id)->get();
         //dd($delete->toArray());
         foreach($image as $file){
-            if(file_exists((public_path('/upload/').$file->product_image))){
+            if(file_exists('upload'.$file->product_image)){
                 if($file->product_image != 'image.png'){
-                    unlink((public_path('/upload/').$file->product_image));
-                }
-                else{
-    
+                    unlink('upload'.$file->product_image);
                 }
             }
-            
         }
-        Product_image::where('product_id', '=', $product_id)->delete();
+        Product_image::where('product_id', $product_id)->delete();
         $item->delete();
         return redirect()->back()->with('status', 'Data berhasil dihapus');
         
     }
-    //TAMPILAN CREATE PAGE
-    public function show(){
+    public function create(){
         $categories = Category_product::all();
-        $users = session()->get('user_session');
-        return view('pages.admin.create_product')->with('categories', $categories)->with('users', $users);
+        return view('pages.admin.create_product')->with('categories', $categories);
     }
-    public function storeDetail(Request $request){
+    public function store(Request $request){
         $this->validate($request,[
             'product_name' => 'required',
             'product_price' => 'required|numeric',
             'category_name' => 'required',
-            'img[]' => 'image|mimes:jpeg,png,jpg'
+            'img.*' => 'image|mimes:jpeg,png,jpg',
         ]);
+
         $name = $request->input('product_name');
         $price = $request->input('product_price');
         $category = $request->input('category_name');
@@ -118,8 +108,7 @@ class ProductController extends Controller
 
         return redirect('/admin/product')->with('status', 'Data berhasil dimasukkan');
     }
-        
-    //TAMPILAN EDIT PAGE
+    
     public function edit($id){
         $item = Product::with(['images'])->find($id);
         $id = $item->id;
@@ -133,13 +122,13 @@ class ProductController extends Controller
             'product_name' => 'required',
             'product_price' => 'required|numeric',
             'category_name' => 'required',
-            //'image' => 'image|mimes:jpeg,png,jpg'
+            'img.*' => 'image|mimes:jpeg,png,jpg',
         ]);
+
         $name = $request->get('product_name');
         $price = $request->get('product_price');
         $category = $request->get('category_name');
         $description = $request->get('description');
-        $image = $request->file('image');
         
         $store = Product::find($id);
         $store->product_name = $name;
@@ -147,10 +136,10 @@ class ProductController extends Controller
         $store->category_id = $category;
         $store->description = $description;
         $store->save();
-    
         $product_id = $store->id;
         //dd($product_id);
-        if($request->hasFile('image')){
+        if($request->hasFile('img')){
+            $image = $request->file('img');
             $image_len = count($image);
             for($i=0; $i<$image_len; $i++){
                 $imageName = $image[$i]->getClientOriginalName();
@@ -162,9 +151,9 @@ class ProductController extends Controller
                 $upload->save();
             }
         }
-        
         return redirect('/admin/product')->with('status','Data berhasil update');
     }
+
     public function deleteImage($id){
         $image = Product_image::find($id);
         $file = $image->product_image;
