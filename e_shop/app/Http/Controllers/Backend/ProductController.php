@@ -18,6 +18,14 @@ class ProductController extends Controller
         return view('pages.admin.index_product')->with('products', $products)->with('categories', $categories);
     }
 
+    public function show($id){
+        $products = Product::with(['categories','images'])->find($id);
+        //$id = $products->id;
+        $images = $products->images;
+        //dd($products->toArray());
+        return view('pages.admin.view_product')->with('products', $products)->with('images', $images);
+    }
+
     public function dataTables(){
         $item = Product::with(['categories','images'])->get();
 
@@ -33,9 +41,9 @@ class ProductController extends Controller
                 return '<img class="img" style="object-fit:cover" width="50px" height="50px" src="'.$item->images[0]->product_image.'">';
             })
             ->addColumn('action', function($item){
-                return  '<a href="'.route('detailproduct', $item->id).'" class="btn btn-xs btn-info" style="margin-right:7px"><i class="fas fa-eye"></i></a>'.
-                        '<a href="'.route('edit.product', $item->id).'" class="btn btn-xs btn-warning" style="margin-right:7px"><i class="fas fa-edit"></i></a>'.
-                        '<a href="'.route('destroy.product', $item->id).'" class="btn btn-xs btn-danger"><i class="fas fa-trash-alt"></i></a>';
+                return  '<a href="'.route('show.product', $item->id).'" class="btn btn-sm btn-info" style="margin-right:7px"><i class="fas fa-eye"></i></a>'.
+                        '<a href="'.route('edit.product', $item->id).'" class="btn btn-sm btn-info" style="margin-right:7px"><i class="fas fa-edit"></i></a>'.
+                        '<a href="'.route('destroy.product', $item->id).'" class="btn btn-sm btn-info"><i class="fas fa-trash-alt"></i></a>';
             })
             ->rawColumns(['images','action'])
             ->make(true);

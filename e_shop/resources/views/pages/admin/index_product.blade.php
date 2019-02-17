@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <div class="row">
+<div class="container-fluid">
+    <div class="row" style="margin:0px 100px">
             <h1><span class="fas fa-box-open" aria-hidden="true"></span>  Product</h1>
             <div class="table-responsive" style="margin-top:20px">
                 <table id="dataproduct" class="table table-bordered">
@@ -13,7 +13,7 @@
                             <th>Category</th>
                             <th>Price</th>
                             <th>Image</th>
-                            <th><a href="{{ route('create.product') }}" type="submit" class="btn btn-primary align-middle float-right" style="width:145px">Add Product</a></th>
+                            <th><a href="{{ route('create.product') }}" type="submit" class="btn btn-sm btn-primary align-middle" style="width:115px">Add Product</a></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,7 +38,7 @@
                     {data: 'category_name', name: 'category_name', class: 'align-middle'},
                     {data: 'product_price', name: 'product_price', class: 'align-middle'},
                     {data: 'images', name: 'images', class: 'align-middle', width:60, orderable: false, searchable: false},
-                    {data: 'action', name: 'action', searchable: false, orderable: false, width:145, class: 'align-middle'}
+                    {data: 'action', name: 'action', searchable: false, orderable: false, class: 'align-middle', width:115}
                 ]
             });
         });

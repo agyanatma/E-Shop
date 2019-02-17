@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <div class="row">
+<div class="container-fluid">
+    <div class="row" style="margin:0px 100px">
         <h1><span class="fas fa-dolly-flatbed" aria-hidden="true"></span> Order</h1><br>
         <div class="table-responsive"  style="margin-top:20px">
             <table id="dataorder" class="table table-bordered">
@@ -44,7 +44,7 @@
                     {data: 'total', name: 'total', class: 'align-middle'},
                     {data: 'order_date', name: 'order_date', class: 'align-middle', width:90},
                     {data: 'status', name: 'status', class: 'align-middle', width:140},
-                    {data: 'action', name: 'action', searchable: false, orderable: false, width:90}
+                    {data: 'action', name: 'action', searchable: false, orderable: false, width:90, class: 'align-middle'}
                 ]
             });
         });

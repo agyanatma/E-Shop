@@ -7,15 +7,18 @@ class Orders extends Model
     public $primaryKey = 'id';
     public $timestamps = true;
     protected $guarded = ['id', 'status'];
+    protected $fillable = [
+        'user_id','email','fullname','address','city','postal_code','order_date','total','status'
+    ];
     protected $hidden = [
-        'created_at', 'updated_at', 'user_id', 'product_id'
+        'created_at', 'updated_at'
     ];
 
-    public function product(){
-        return $this->hasOne('App\Product','id','product_id');
+    public function buyer(){
+        return $this->belongsTo('App\User');
     }
 
-    public function buyer(){  //USER
-        return $this->hasOne('App\User','id','user_id');
+    public function product(){
+        return $this->belongsToMany('App\Product')->withPivot('qty');
     }
 }
