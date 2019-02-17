@@ -14,6 +14,11 @@ class CategoryController extends Controller
         return view('pages.admin.index_category')->with('categories', $categories);
     }
 
+    public function show($id){
+        $category = Category_product::find($id);
+        return view('pages.admin.view_category')->with('category', $category);
+    }
+
     public function dataTables(){
         $item = Category_product::all();
 
@@ -23,8 +28,9 @@ class CategoryController extends Controller
                 return '<img class="img" style="object-fit:cover" width="50px" height="50px" src="'.$item->category_image.'">';
             })
             ->addColumn('action', function($item){
-                return  '<a href="'.route('edit.category', $item->id).'" class="btn btn-xs btn-warning" style="margin-right:7px; width:55px"><i class="fas fa-edit"></i></a>'.
-                        '<a href="'.route('destroy.category', $item->id).'" class="btn btn-xs btn-danger" style="width:55px"><i class="fas fa-trash-alt"></i></a>';
+                return  '<a href="'.route('show.category', $item->id).'" class="btn btn-sm btn-info" style="margin-right:7px"><i class="fas fa-eye"></i></a>'.
+                        '<a href="'.route('edit.category', $item->id).'" class="btn btn-sm btn-info" style="margin-right:7px"><i class="fas fa-edit"></i></a>'.
+                        '<a href="'.route('destroy.category', $item->id).'" class="btn btn-sm btn-info"><i class="fas fa-trash-alt"></i></a>';
             })
             ->rawColumns(['category_image','action'])
             ->make(true);

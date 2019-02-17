@@ -13,7 +13,7 @@
                             <th>Category</th>
                             <th>Price</th>
                             <th>Image</th>
-                            <th><a href="{{ route('create.product') }}" type="submit" class="btn btn-primary align-middle float-right" style="width:145px">Add Product</a></th>
+                            <th><a href="{{ route('create.product') }}" type="submit" class="btn btn-sm btn-primary align-middle" style="width:115px">Add Product</a></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,6 +28,7 @@
     <script>
         $(function(){
             $('#dataproduct').DataTable({
+                responsive: true,
                 processing: false,
                 serverSide: true,
                 ajax: '{!! route('table.product') !!}',
@@ -37,7 +38,7 @@
                     {data: 'category_name', name: 'category_name', class: 'align-middle'},
                     {data: 'product_price', name: 'product_price', class: 'align-middle'},
                     {data: 'images', name: 'images', class: 'align-middle', width:60, orderable: false, searchable: false},
-                    {data: 'action', name: 'action', searchable: false, orderable: false, width:145, class: 'align-middle'}
+                    {data: 'action', name: 'action', searchable: false, orderable: false, class: 'align-middle', width:115}
                 ]
             });
         });

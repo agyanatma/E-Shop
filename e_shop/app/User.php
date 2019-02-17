@@ -20,6 +20,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Orders');
     }
 
+    public function orderProduct(){
+        return $this->hasMany('App\Order_product');
+    }
+
     public function wishlist(){
         return $this->hasMany('App\Wishlist');
     }
@@ -29,6 +33,10 @@ class User extends Authenticatable
     }
 
     public function getFullnameAttribute($value){
+        return ucfirst($value);
+    }
+
+    public function getCityAttribute($value){
         return ucfirst($value);
     }
 }

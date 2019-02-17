@@ -39,25 +39,26 @@ class CategoryController extends Controller
 
     public function sort(Category_product $categories, $id){
         try{
-            $categories = $categories->with(['product','product.images'])->find($id);
+            $categories = $categories->with(['product','product.image'])->find($id);
+            $product = $categories->product;
             //dd($categories->toArray());
             
             if(!$categories){
                 return response()->json([
-                    'categories'=>array(), 
+                    'product'=>array(), 
                     'status'    =>'error',
                     'message'   =>'Nothing Happen',
                     'code'      =>'404'], 404);
             }
             return response()->json([
-                'categories'=>$categories, 
+                'product'   =>$product, 
                 'status'    =>'success',
                 'message'   =>'Get data success',
                 'code'      =>'200'], 200);
         }
         catch(\Exception $e){
             return response()->json([
-                'categories'=>array(), 
+                'product'=>array(), 
                 'status'    =>'error',
                 'message'   =>$e->getMessage(),
                 'code'      =>'404'], 404);

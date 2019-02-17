@@ -8,15 +8,19 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.18/r-2.2.2/datatables.min.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <title>{{ config('app.name', 'E-Shop') }}</title>
+
+    <style>
+        container-fluid {padding: 1000px;}
+    </style>
 </head>
 <body>
     @if(Auth::user())
     <nav class="navbar navbar-expand-sm bg-light" style="margin-bottom: 30px">
-       <div class="container">
-           <a class="navbar-brand text-dark" href="{{ url('/admin/dashboard') }}">
+       <div class="container-fluid">
+           <a class="navbar-brand text-dark" style="margin-left: 100px" href="{{ url('/admin/dashboard') }}">
                {{ config('app.name', 'E-Shop') }}
            </a>
-           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+           <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-right: 100px">
                    <ul class="navbar-nav mr-auto">
                        
                    </ul>

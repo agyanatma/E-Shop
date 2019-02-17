@@ -17,7 +17,7 @@
                     </div>
                 </div>
                     <div class="card-deck" style="margin-top:20px">
-                    <div class="col-md-4" style="padding:0px">
+                    <div class="col-md-4">
                         <div class="card bg-danger border-0">
                             <a href="/admin/product" style="color:inherit; text-decoration:inherit">
                                 <div class="card-body text-white">
@@ -27,7 +27,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-4" style="padding:0px">
+                    <div class="col-md-4">
                         <div class="card bg-success border-0">
                             <a href="/admin/category" style="color:inherit; text-decoration:inherit">
                                 <div class="card-body text-white">
@@ -37,7 +37,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-4" style="padding:0px">
+                    <div class="col-md-4">
                         <div class="card bg-primary border-0">
                             <a href="/admin/order" style="color:inherit; text-decoration:inherit">
                                 <div class="card-body text-white">
@@ -84,18 +84,19 @@
 <script>
     $(function(){
         $('#datauser').DataTable({
+            responsive: false,
             processing: false,
             serverSide: true,
             ajax: '{!! route('table.user') !!}',
             columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'align-middle text-center', width:30},
+                {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'align-middle text-center', width:30, searchable: false},
                 {data: 'email', name: 'email', class: 'align-middle'},
                 {data: 'fullname', name: 'fullname', class: 'align-middle'},
                 {data: 'address', name: 'address', class: 'align-middle'},
                 {data: 'city', name: 'city', class: 'align-middle'},
-                {data: 'postal_code', name: 'postal_code', width:'90', class: 'align-middle'},
+                {data: 'postal_code', name: 'postal_code', class: 'align-middle', width:'90'},
                 {data: 'role', name: 'role', width:'30', class: 'align-middle', searchable: false},
-                {data: 'action', name: 'action', searchable: false, orderable: false, width:91}
+                {data: 'action', name: 'action', searchable: false, orderable: false, width:115, class: 'align-middle'}
             ]
         });
     });

@@ -55,15 +55,16 @@ class OrderController extends Controller
         }
         
         try{
-            $orders = new Orders;
-            $orders->user_id = Auth::id();
-            $orders->product_id = $request->product;
-            $orders->price = $request->price;
-            $orders->qty = $request->quantity;
-            $orders->total = $request->total;
-            $orders->order_date = $request->order_date;
-            $orders->status = "1";
-            $orders->save();
+            $item = new Orders;
+            $item->user_id = Auth::id();
+            $item->product_id = $request->product;
+            $item->price = $request->price;
+            $item->qty = $request->quantity;
+            $item->total = $request->total;
+            $item->order_date = $request->order_date;
+            $item->save()->with('product','product.images', 'buyer');
+
+            //$orders = $orders->with('product','product.images', 'buyer')->latest()->get();
 
             if(!$orders){
                 return response()->json([

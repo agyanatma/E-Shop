@@ -4,6 +4,7 @@
     <div class="form-group container">
         <form action="{{route('update.product', $item->id)}}" method="post" class="col-md-8" enctype="multipart/form-data">
             {{csrf_field()}}
+            <h2><span class="fas fa-box-open" aria-hidden="true"></span> Editing Product</h2><br>
             <label>Nama Produk:</label>
             <input type="text" class="form-control" name="product_name" value="{{$item->product_name}}" placeholder="Produk">
             <br/>
@@ -29,11 +30,13 @@
         <div class="row">
             @foreach($images as $image)
                 <div class="col-sm-2">
-                    <div class="card" style="width:150px">
-                        <img class="card-img-top" src="{{$image->product_image}}" alt="Card image">
+                    <div class="card">
+                        <span>
+                        <img class="card-img-top" src="{{$image->product_image}}">
                         <div class="card-img-overlay" style="padding:0">
                             <a href="{{ route('imagedel.product', $image->id) }}" class="btn btn-xs btn-danger float-right"><i class="fas fa-times"></i></a>
                         </div>
+                        </span>
                     </div>
                 </div>
             @endforeach

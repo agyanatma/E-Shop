@@ -15,11 +15,8 @@ class Product extends Model
     public function categories(){
         return $this->hasOne('App\Category_product','id','category_id');
     }
+
     public function images(){
         return $this->hasMany('App\Product_image');
-    }
-
-    public function order(){
-        return $this->hasMany('App\Orders');
     }
 }

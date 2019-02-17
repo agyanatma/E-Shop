@@ -31,6 +31,7 @@
     <script>
         $(function(){
             $('#dataorder').DataTable({
+                responsive: true,
                 processing: false,
                 serverSide: true,
                 ajax: '{!! route('table.order') !!}',
@@ -43,7 +44,7 @@
                     {data: 'total', name: 'total', class: 'align-middle'},
                     {data: 'order_date', name: 'order_date', class: 'align-middle', width:90},
                     {data: 'status', name: 'status', class: 'align-middle', width:140},
-                    {data: 'action', name: 'action', searchable: false, orderable: false, width:90}
+                    {data: 'action', name: 'action', searchable: false, orderable: false, width:90, class: 'align-middle'}
                 ]
             });
         });

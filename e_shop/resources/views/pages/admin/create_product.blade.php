@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="form-group container">
-        <form action="{{route('create.product')}}" method="post" class="col-md-8" enctype="multipart/form-data">
+        <form action="{{route('store.product')}}" method="post" class="col-md-8" enctype="multipart/form-data">
             {{csrf_field()}}
             <label>Nama Produk:</label>
             <input type="text" class="form-control" name="product_name" placeholder="Produk">
@@ -18,7 +18,7 @@
                         <option value="{{$category->id}}">{{$category->category_name}}</option>
                     @endforeach
                 </select>
-                <a href="{{route('newCategory')}}" type="button" class="btn btn-info float-right d-inline" style="margin-left:10px" name="category_add">Tambah Kategori</a>
+                <a href="{{route('create.category')}}" type="button" class="btn btn-info float-right d-inline" style="margin-left:10px" name="category_add">Tambah Kategori</a>
             </div>
             <br/>
             <br/>

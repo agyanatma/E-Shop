@@ -72,6 +72,7 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/product', 'Backend\ProductController@index')->name('product.admin');
     Route::get('admin/product/new', 'Backend\ProductController@create')->name('create.product');
     Route::post('admin/product/new/store', 'Backend\ProductController@store')->name('store.product');
+    Route::get('admin/product/{id}/show', 'Backend\ProductController@show')->name('show.product');
     Route::get('admin/product/{id}/edit', 'Backend\ProductController@edit')->name('edit.product');
     Route::post('admin/product/{id}/update', 'Backend\ProductController@update')->name('update.product');
     Route::get('admin/product/{id}/delete', 'Backend\ProductController@destroy')->name('destroy.product');
@@ -81,6 +82,7 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/category', 'Backend\CategoryController@index')->name('category.admin');
     Route::get('admin/category/new', 'Backend\CategoryController@create')->name('create.category');
     Route::post('admin/category/new/store', 'Backend\CategoryController@store')->name('store.category');
+    Route::post('admin/category/{id}/show', 'Backend\CategoryController@store')->name('show.category');
     Route::get('admin/category/{id}/edit', 'Backend\CategoryController@edit')->name('edit.category');
     Route::post('admin/category/{id}/update', 'Backend\CategoryController@update')->name('update.category');
     Route::get('admin/category/{id}/delete', 'Backend\CategoryController@destroy')->name('destroy.category');
@@ -88,12 +90,23 @@ Route::group(['middleware'=>['checkAdmin']],function(){
 
     //CRUD ORDER
     Route::get('admin/order', 'Backend\OrderController@index')->name('order.admin');
+    Route::get('admin/order/{id}/show', 'Backend\OrderController@edit')->name('show.order');
     Route::get('admin/order/{id}/delete', 'Backend\OrderController@destroy')->name('destroy.order');
     Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('edit.order');
-    Route::get('admin/order/{id}/pay', 'Backend\OrderController@bayar')->name('pay.order');
     Route::get('admin/order/datatables', 'Backend\OrderController@dataTables')->name('table.order');
 
+    
+    Route::get('admin/order/test', function(){
+        return view('pages.admin.order_test');
+    });
+    Route::post('admin/order/cart', 'Backend\OrderController@orderProduct')->name('detail.order');
+    Route::get('admin/order/bayaran', function(){
+        return view('pages.admin.bayar_test');
+    });
+    Route::post('admin/order/pay', 'Backend\OrderController@bayar')->name('pay.order');
+
     //CRUD USER
+    Route::get('admin/user/{id}/show', 'Backend\UserController@edit')->name('show.admin');
     Route::get('admin/user/{id}/edit', 'Backend\UserController@edit')->name('edit.admin');
     Route::get('admin/user/{id}/destroy', 'Backend\UserController@destroy')->name('destroy.admin');
     Route::get('admin/user/datatables', 'Backend\UserController@dataTables')->name('table.user');

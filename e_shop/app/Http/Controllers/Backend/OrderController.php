@@ -2,7 +2,11 @@
 namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use App\Orders;
+use App\Order_product;
+use App\Order_detail;
 use DataTables;
+use Auth;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -17,18 +21,6 @@ class OrderController extends Controller
         $order->delete();
 
         return redirect()->back()->with('status', 'Data berhasil dihapus');   
-    }
-
-    public function bayar(Request $request,$id){
-        $order = Orders::find($id);
-        if($order->status!=0){
-            $order->status = '2';
-            $order->save();
-
-            return redirect()->back()->with('status','Barang sudah disetujui');
-        }
-
-        return redirect()->back()->with('failed','Barang belum dibayar');
     }
 
     public function dataTables(){
@@ -60,10 +52,52 @@ class OrderController extends Controller
                 }
             })
             ->addColumn('action', function($item){
-                return  '<a href="'.route('pay.order', $item->id).'" class="btn btn-xs btn-success" style="margin-right:7px; width:40px"><i class="fas fa-check"></i></a>'.
-                        '<a href="'.route('destroy.order', $item->id).'" class="btn btn-xs btn-danger" style="width:40px"><i class="fas fa-trash-alt"></i></a>';
+                return  '<a href="'.route('show.order', $item->id).'" class="btn btn-sm btn-info" style="margin-right:7px"><i class="fas fa-eye"></i></a>'.
+                        '<a href="'.route('edit.order', $item->id).'" class="btn btn-sm btn-info" style="margin-right:7px"><i class="fas fa-edit"></i></a>'.
+                        '<a href="'.route('destroy.order', $item->id).'" class="btn btn-sm btn-info"><i class="fas fa-trash-alt"></i></a>';
             })
             ->rawColumns(['images','action'])
             ->make(true);
+    }
+
+//ORDERING FUNCTION===========================================================================
+    public function orderProduct(Request $request){
+        Order_product::create([
+            'user_id' =>Auth::id(),
+            'product_id' =>$request->get('product_id'),
+            'price' =>$request->get('price'),
+            'qty' =>$request->get('qty'),
+            'total' =>$request->get('total'),
+        ]);
+
+        return redirect()->back()->with('Add to Cart Success');
+    }
+
+    public function bayar(Request $request){
+        $user = Auth::user();
+        $order = Orders::create([
+            'user_id' =>$user->id,
+            'email' =>$user->email,
+            'fullname' =>$user->fullname,
+            'address' =>$user->address,
+            'city'  =>$user->city,
+            'postal_code' =>$user->postal_code,
+            'order_date' =>Carbon::now(),
+            'total' =>$request->get('total')
+        ]);
+        
+        $product = Order_product::all();
+        foreach($product as $item){
+            Order_detail::create([
+                'order_id' =>$order->id,
+                'product_id' =>$item->id,
+                'price' =>$item->price,
+                'qty' =>$item->qty
+            ]);
+        }
+
+        Order_product::query()->delete();
+
+        return redirect()->back()->with('status','Order success');
     }
 }
