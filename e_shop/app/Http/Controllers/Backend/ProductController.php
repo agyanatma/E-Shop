@@ -31,9 +31,6 @@ class ProductController extends Controller
 
         return Datatables::of($item)
             ->addIndexColumn()
-            ->editColumn('product_price', function ($item) {
-                return 'Rp '.number_format($item->product_price, 0);
-            })
             ->addColumn('category_name', function($item){
                 return $item->categories->category_name;
             })

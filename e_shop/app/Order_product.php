@@ -24,4 +24,8 @@ class Order_product extends Model
     public function buyer(){
         return $this->hasOne('App\User');
     }
+
+    public function getPriceAttribute($value){
+        return 'Rp '.number_format($value, 0);
+    }
 }

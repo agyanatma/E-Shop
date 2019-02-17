@@ -21,4 +21,8 @@ class Orders extends Model
     public function orderDetail(){
         return $this->hasMany('App\Order_detail','order_id','id');
     }
+
+    public function getTotalAttribute($value){
+        return 'Rp '.number_format($value, 0);
+    }
 }
