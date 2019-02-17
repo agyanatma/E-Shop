@@ -18,7 +18,7 @@ class Orders extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function product(){
-        return $this->belongsToMany('App\Product')->withPivot('qty');
+    public function orderDetail(){
+        return $this->hasMany('App\Order_detail','order_id','id');
     }
 }

@@ -20,7 +20,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Orders');
     }
 
-    public function orderProduct(){
+    public function orderProducts(){
         return $this->hasMany('App\Order_product');
     }
 
