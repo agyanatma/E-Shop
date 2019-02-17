@@ -77,11 +77,15 @@
                             {{Auth::user()->fullname}} <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right my-lg-0" aria-labelledby="navbarDropdown" >
-                                <a class="dropdown-item text-center"  href="{{route('user', $users->id)}}"><i class="fas fa-user-cog" ></i> User Profile </a>
-                                <div class="dropdown-divider"></div> 
-                                <a class="dropdown-item text-center" href="{{route('wishlist', Auth::User())}}"><i class="fas fa-heart"></i> Wishlist </a>
-                                <div class="dropdown-divider"></div> 
-                                <a class="dropdown-item text-center" href="{{ route('logoutUser') }}" ><i class="fas fa-sign-out-alt"> </i>Logout</a>
+                                <a class="dropdown-item text-center"  href="{{route('user', $users->id)}}">
+                                    <h6>User Profile </h6>
+                                </a>
+                                <a class="dropdown-item text-center" href="{{route('wishlist', Auth::User())}}">
+                                     <h6>Wishlist </h6>
+                                </a>
+                                <a class="dropdown-item text-center" href="{{ route('logoutUser') }}" >
+                                    <h6>Logout</h6>
+                                </a>
                         </div>
                     </li>
                 @endif

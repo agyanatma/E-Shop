@@ -118,15 +118,15 @@
                 @if(count($productrandom) > 0)
                     @foreach ($productrandom as $row)
                     <div class="col-md-4 col-lg-2 col-sm-6 col-12" style="padding-bottom:20px; padding-top:20px; ">
-                        <div class=" card-box-detail " >
+                        <div class=" card-box-random " >
                             <div style="max-height:120px">
-                                <a href="{{route('detailproduct', $row->id)}}"><img class="card-image-random-detail rounded mx-auto d-block img-fluid " style="" src="{{ $row->images[0]->product_image}}"></a>
+                                <a href="{{route('detailproduct', $row->id)}}"><img class="card-image-random rounded mx-auto d-block img-fluid " style="" src="{{ $row->images[0]->product_image}}"></a>
                             </div>
-                            <div class="card-body-detail clearfix" >
-                                    <div class="card-title-box-detail">
+                            <div class="card-body-random clearfix" >
+                                    <div class="card-title-box-random">
                                         <h6 id="random-title-product-name" class="font-weight-light " ><strong>{{$row->product_name}}</strong></h6>
                                     </div>
-                                    <div class="card-price-box-detail ">
+                                    <div class="card-price-box-random ">
                                         <h6 class="text-center ">Rp {{number_format($row->product_price, 0)}}</h6>
                                     </div>
                             </div>

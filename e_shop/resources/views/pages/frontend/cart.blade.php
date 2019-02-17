@@ -98,25 +98,24 @@
         </div> 
     </div>        
 </div>
-   <div style="margin-top:5%; margin-bottom:5%">
-    <h2 style="" class="mx-3"><strong>Other Product</strong></h2>
-    <div class="row" style="padding:20px">
-                
+<div class="card-detail-product-title-random">
+        <h2 style="padding-top:100px"><strong>Other Product</strong></h2>
+    </div>
+    <div class="row" style="padding-bottom:20px" >
             @if(count($productrandom) > 0)
                 @foreach ($productrandom as $row)
                 <div class="col-md-4 col-lg-2 col-sm-6 col-12" style="padding-bottom:20px; padding-top:20px; ">
-                    <div class=" card-box-cart " >
+                    <div class=" card-box-random " >
                         <div style="max-height:120px">
-                            <a href="{{route('detailproduct', $row->id)}}"><img class="card-image-random-cart rounded mx-auto d-block img-fluid" style="" src="{{ $row->images[0]->product_image}}"></a>
+                            <a href="{{route('detailproduct', $row->id)}}"><img class="card-image-random rounded mx-auto d-block img-fluid " style="" src="{{ $row->images[0]->product_image}}"></a>
                         </div>
-                        <div class="card-body-cart clearfix" >
-                                <div class="card-title-box-cart" >
-                                    <h6 id="random-title-product-name" class="font-weight-light text-center" ><strong>{{$row->product_name}}</strong></h6>
+                        <div class="card-body-random clearfix" >
+                                <div class="card-title-box-random">
+                                    <h6 id="random-title-product-name" class="font-weight-light " ><strong>{{$row->product_name}}</strong></h6>
                                 </div>
-                                <div class="card-price-box-cart ">
-                                    <h6 class="text-center" style="line-height:200%">Rp {{number_format($row->product_price, 0)}}</h6>
+                                <div class="card-price-box-random ">
+                                    <h6 class="text-center ">Rp {{number_format($row->product_price, 0)}}</h6>
                                 </div>
-                            
                         </div>
                     </div>
                 </div>
@@ -124,7 +123,6 @@
                 @else
                     <h2>No posts found!</h2>
                 @endif
-    </div>
     </div>
 </div>
     
