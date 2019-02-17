@@ -225,10 +225,6 @@ a.btn-addcart{
     padding: 0px;
 }
 
-.carousel-body{
-      
-}
-
 
 .card-image-carousel{
     height: 300px;
@@ -499,15 +495,6 @@ a.btn-addcart{
 
 /*Cart Product*/
 
-.outer {
-    overflow-x: scroll;
-    width: 100%;
-  }
-  
-  .inner {
-   
-   
-  }
 
 .row-cart{
     display: -ms-flexbox;
