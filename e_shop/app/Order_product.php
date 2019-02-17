@@ -18,11 +18,11 @@ class Order_product extends Model
     ];
 
     public function product(){
-        return $this->belongsToMany('App\Product');
+        return $this->hasOne('App\Product','id','product_id');
     }
 
     public function buyer(){
-        return $this->hasOne('App\User');
+        return $this->hasOne('App\User','id','user_id');
     }
 
     public function getPriceAttribute($value){

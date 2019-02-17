@@ -19,7 +19,8 @@ class OrderController extends Controller
     public function show($id){
         $orders = Orders::with(['orderDetail','orderDetail.product'])->find($id);
         $details = $orders->orderDetail;
-        //dd($details->toArray());
+        $item = Order_product::with(['product','buyer'])->where('user_id',Auth::id())->get();
+        dd($item->toArray());
         return view('pages.admin.view_order')->with('orders', $orders)->with('details', $details);
     }
 

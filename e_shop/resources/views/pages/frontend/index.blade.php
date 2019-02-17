@@ -100,7 +100,7 @@
                                                 </div>
                                                 <div class="col-lg-7 col-md-7 col-sm-7 col-7">
                                                     <div class="card-price-box ">
-                                                        <h5 class="font-weight-light text-center" >Rp {{number_format($row->product_price, 0)}}</h5>
+                                                        <h5 class="font-weight-light text-center" >{{$row->product_price}}</h5>
                                                     </div> 
                                                 </div>
                                                 <div class="col-lg-2 col-md-2 col-sm-2 col-2">

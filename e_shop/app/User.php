@@ -21,7 +21,7 @@ class User extends Authenticatable
     }
 
     public function orderProducts(){
-        return $this->hasMany('App\Order_product');
+        return $this->hasMany('App\Order_product','user_id','id');
     }
 
     public function wishlist(){
