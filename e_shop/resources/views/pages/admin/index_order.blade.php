@@ -31,20 +31,17 @@
     <script>
         $(function(){
             $('#dataorder').DataTable({
-                responsive: true,
+                responsive: false,
                 processing: false,
                 serverSide: true,
                 ajax: '{!! route('table.order') !!}',
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'align-middle text-center', width:30},
+                    {data: 'id', name: 'id', class: 'align-middle'},
                     {data: 'fullname', name: 'fullname', class: 'align-middle'},
-                    {data: 'product_name', name: 'product_name', class: 'align-middle'},
-                    {data: 'price', name: 'price', class: 'align-middle'},
-                    {data: 'qty', name: 'qty', class: 'align-middle', width:80},
-                    {data: 'total', name: 'total', class: 'align-middle'},
                     {data: 'order_date', name: 'order_date', class: 'align-middle', width:90},
                     {data: 'status', name: 'status', class: 'align-middle', width:140},
-                    {data: 'action', name: 'action', searchable: false, orderable: false, width:90, class: 'align-middle'}
+                    {data: 'action', name: 'action', searchable: false, orderable: false, width:115, class: 'align-middle'}
                 ]
             });
         });

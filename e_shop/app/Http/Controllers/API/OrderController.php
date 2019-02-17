@@ -37,6 +37,34 @@ class OrderController extends Controller
                 'code'      =>'404'], 404);
         }
     }
+
+    public function bayar(Request $request){
+        $user = Auth::user();
+        $order = Orders::create([
+            'user_id' =>$user->id,
+            'email' =>$user->email,
+            'fullname' =>$user->fullname,
+            'address' =>$user->address,
+            'city'  =>$user->city,
+            'postal_code' =>$user->postal_code,
+            'order_date' =>Carbon::now(),
+            'total' =>$request->get('total')
+        ]);
+        
+        $product = Order_product::all();
+        foreach($product as $item){
+            Order_detail::create([
+                'order_id' =>$order->id,
+                'product_id' =>$item->id,
+                'price' =>$item->price,
+                'qty' =>$item->qty
+            ]);
+        }
+
+        Order_product::query()->delete();
+
+        return redirect()->back()->with('status','Order success');
+    }
     
     public function order(Request $request, Orders $orders){
         $validate = \Validator::make($request->all(),[

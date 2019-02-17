@@ -28,18 +28,6 @@ class OrderController extends Controller
 
         return Datatables::of($item)
             ->addIndexColumn()
-            ->editColumn('fullname', function ($item) {
-                return $item->buyer->fullname;
-            })
-            ->editColumn('product_name', function ($item) {
-                return $item->product->product_name;
-            })
-            ->editColumn('price', function ($item) {
-                return 'Rp '.number_format($item->price, 0);
-            })
-            ->editColumn('qty', function ($item) {
-                return $item->qty.' pcs';
-            })
             ->editColumn('status', function ($item) {
                 if($item->status=='1'){
                     return "Menunggu Konfirmasi";
@@ -96,7 +84,7 @@ class OrderController extends Controller
             ]);
         }
 
-        Order_product::query()->delete();
+        Order_product::where('user_id',Auth::id())->delete();
 
         return redirect()->back()->with('status','Order success');
     }
