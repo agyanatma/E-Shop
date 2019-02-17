@@ -4,15 +4,15 @@
 @section('content')
 
 
-    <div class="container-fluid">
-        <div class="row" style="padding:20px 0 40px 0;">
+    <div class="container-fluid" style="padding:4%">
+        <div class="row" >
             <div class="col-md-6" >
                     <img class="rounded mx-auto d-block img-responsive img-fluid" style="height: auto; max-width: 100%;" width="500px" src="upload/Settings.png">
             </div>
-            <div class="col-md-6 register-form"style="margin-top: 15px">
-                <div class="card card-register " style="padding:10px" >
+            <div class="col-md-6 register-form"style="margin-top: 15px" >
+                <div class="card card-register " style="padding:10px; border: solid 5px #e0e0e0; background:#f2f2f2; " >
                     <div class="form-group " >
-                    <h3 class="card-title">Sign Up</h3>
+                    <h2 class="card-title"><strong>Sign Up</strong></h2>
                     @if (session('status'))
                             <div class="alert alert-success">
                                 {{ session('status') }}
@@ -26,7 +26,7 @@
                     <form  action="{{route('store.registeraccount')}}" method="post" class="container" enctype="multipart/form-data" required>
                         {{csrf_field()}}
                         <div class="form-group">
-                        <label>Email:</label>
+                        <h6>Email:</h6>
                         <input type="email" class="form-control" name="email" placeholder="example@mail.com" value="{{old('email')}}" required>
                         @if ($errors->has('email'))
                         <div class="alert alert-danger">
@@ -35,7 +35,7 @@
                         @endif
                         </div>
                         <div class="form-group">
-                        <label>Password:</label>
+                        <h6>Password:</h6>
                         <input type="password" class="form-control" name="password" placeholder="Password" required>
                         @if ($errors->has('password'))
                         <div class="alert alert-danger">
@@ -44,7 +44,7 @@
                         @endif
                         </div>
                         <div class="form-group">
-                        <label>Nama:</label>
+                        <h6>Nama:</h6>
                         <input type="text" class="form-control" name="fullname" placeholder="Nama" value="{{old('fullname')}}" required>
                         @if ($errors->has('fullname'))
                         <div class="alert alert-danger">
@@ -53,7 +53,7 @@
                         @endif
                         </div>
                         <div class="form-group">
-                        <label>Alamat:</label>
+                        <h6>Alamat:</h6>
                         <input type="text" class="form-control" name="address" placeholder="Alamat" value="{{old('address')}}" required>
                         @if ($errors->has('address'))
                         <div class="alert alert-danger">
@@ -62,7 +62,7 @@
                         @endif
                         </div class="form-group">
                         <div>
-                        <label>Kota:</label>
+                        <h6>Kota:</h6>
                         <input type="text" class="form-control" name="city" placeholder="Kota" value="{{old('city')}}" required>
                         @if ($errors->has('city'))
                         <div class="alert alert-danger">
@@ -71,7 +71,7 @@
                         @endif
                         </div>
                         <div class="form-group">
-                        <label>Kode Pos:</label>
+                        <h6>Kode Pos:</h6>
                         <input type="text" class="form-control" name="postal" placeholder="Kode Pos" value="{{old('postal')}}" required>
                         @if ($errors->has('postal'))
                         <div class="alert alert-danger">
@@ -80,11 +80,11 @@
                         @endif
                         </div>
                         <div class="form-group">
-                        <label>Profile Picture:</label><br/>
+                        <h6>Profile Picture:</h6><br/>
                         <input type="file" name="img">
                         </div>
                         <div class="form-group">
-                        <button type="submit" class="btn btn-info btn-block" style="float: right" name="action" value="create">Sign Up</button>
+                        <button type="submit" class="btn btn-info btn-block" style="float: right" name="action" value="create"><i class="fas fa-sign-out-alt"> Sign Up</i></button>
                         </div>
                     </form>
                     </div>

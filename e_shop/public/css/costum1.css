@@ -1,12 +1,15 @@
-@-ms-viewport{
-    width: extend-to-zoom;
-    zoom: 1.0;
+
+html, body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
-@viewport{
-    width: extend-to-zoom;
-    zoom: 1.0;
+html {
+    font-family: "helvetica neue", sans-serif;
 }
+
+
 
 header{
     
@@ -27,7 +30,7 @@ body{
     background-size: cover;
     background-color: white;
     font-family: 'helveticaneuemedium';
-    margin: auto;
+    margin-top: 70px;
     
 }
 /* 
@@ -63,6 +66,48 @@ link{
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+.nav-item:hover{
+    
+    color: none;
+}
+
+.nav-link:hover{
+    color: white;
+}
+
+.dropdown-menu{
+    position: absolute;
+    top:50px;
+    overflow: hidden;
+    background-color: white;
+    
+}
+
+.dropdown-menu a{
+
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover{
+    text-decoration: underline;
+}
+
+.dropdown-item{
+    padding: 20px;
+}
+
+.dropdown-item:hover{
+    background-color: #f3f3f3;
+}
+a.dropdown-item.text-center {
+    color: black;
+
+}
+
+
+.nav
+
 /*Animasi Card */
 .card:hover{
     -moz-window-shadow: -1px 9px 40px -12px rgba(0,0,0,0,0);
@@ -206,7 +251,7 @@ a.btn-addcart{
 
 .card-image{
     
-    height: 150px;
+    height: 120px;
     position: relative;
     overflow: hidden;
 }
@@ -252,10 +297,9 @@ a.btn-addcart{
 
 .card-login{
     max-height:auto;
-    height: 447px;
     max-width: auto;
     padding: 10px;
-    box-shadow: 0px 0px 15px 0px gray;
+    
 }
 
 .card-register{
@@ -263,7 +307,7 @@ a.btn-addcart{
     
     max-width: auto;
     padding: 10px;
-    box-shadow: 0px 0px 15px 0px gray;
+    
 }
 
 
@@ -387,6 +431,12 @@ a.btn-addcart{
     
 }
 
+#description-title{
+    line-height: 200%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
 
 #description-detail{
     margin:10px;
@@ -407,13 +457,13 @@ a.btn-addcart{
 
 .card-body-detail{
     padding: 0px;
-    
+    max-height: 200px;
 }
 
 
 .card-image-random-detail{
     
-    height: 120px;
+    height: 100px;
     position: relative;
     overflow: hidden;
 }
@@ -434,20 +484,31 @@ a.btn-addcart{
     text-align: center;
     padding-top: 5px;
     margin: 10px;
-    height: 70px;
+    height: 100px;
     max-width: auto;
 }
 
 
 .card-price-box-detail{
     
-    margin-left: 10px;
-    margin-top: 25px;
+    
+    margin-top: 20%;
     
 }
 
 
 /*Cart Product*/
+
+.outer {
+    overflow-x: scroll;
+    width: 100%;
+  }
+  
+  .inner {
+   
+   
+  }
+
 .row-cart{
     display: -ms-flexbox;
     display: flex;
@@ -456,6 +517,17 @@ a.btn-addcart{
     margin-right: -15px;
     margin-left: -15px;
     
+}
+
+.table-wrapper-scroll-y-cart{
+    display: block;
+    height: 300px;
+    overflow: hidden;
+    
+}
+
+.table-wrapper-scroll-y-cart:hover{
+    overflow-y: auto;
 }
 
 h2.title-cart.text-center.text-uppercase{
@@ -560,7 +632,7 @@ h2.title-cart.text-center.text-uppercase{
 
 
 div.card-total-cart{
-    line-height: 50px;
+    line-height: 200%;
 }
 
 div.card-total-bill-cart{
@@ -581,10 +653,10 @@ div.card-button-cart-checkout{
 
 .card-box-cart{
     background-color: white;
-    /* padding: 5px;
+    padding: 5px;
     border-radius: 4px;
     box-shadow: 0 0 5px rgba(0,0,0,.6);
-    transition-duration: .5s; */
+    transition-duration: .5s;
 }
 
 .card-body-cart{
@@ -595,7 +667,7 @@ div.card-button-cart-checkout{
 
 .card-image-random-cart{
     
-    height: 120px;
+    height: 100px;
     position: relative;
     overflow: hidden;
 }
@@ -616,31 +688,28 @@ div.card-button-cart-checkout{
     text-align: center;
     padding-top: 5px;
     margin: 10px;
-    height: 70px;
+    height: 100px;
     max-width: auto;
 }
 
 
 .card-price-box-cart{
-   
-    margin-left: 10px;
-    margin-top: 25px;
+    margin-top: 20%;
     
 }
 /* Checkout*/
-
 .card-checkout-box-address{
-   
     
-    padding-bottom:100px;
-    
+        padding: 20px 30px 20px 30px;
+       
+        position: top 0;
 }
 
 .card-body-address{
-    
+   
     padding: 20px 30px 20px 30px;
-    max-height: 800px;
-    position: top 0;
+    
+    top: 0%;
 }
 
 
@@ -649,9 +718,13 @@ div.card-button-cart-checkout{
 }
 
 .card-box-checkout-table-body{
-    overflow: auto;
+    overflow: hidden;
     height: 400px;
-   
+    background: white;
+}
+
+.card-box-checkout-table-body:hover{
+    overflow: auto;
 }
 
 .card-box-checkout-table{
@@ -665,7 +738,7 @@ div.card-button-cart-checkout{
 
 .checkout-summary{
     background-color: white;
-    height: 100%;
+    
     position: relative;
     /* border-radius: 4px;
     box-shadow: 0 0 5px rgba(0,0,0,.6);
@@ -701,10 +774,6 @@ div.card-button-cart-checkout{
 }
 
 /* Whislist*/
-button.btn-wishlist {
-    background-color: rgb(184, 23, 55);
-    
-}
 
 /* 
 button.btn-wishlist:active {
@@ -715,19 +784,17 @@ button.btn-wishlist:active {
 
 button.btn-wishlist{
     background-color: rgb(184, 23, 55);
-    color: white;
-    
+    color:white;
 }
 
 a.btn-wishlist{
     background-color: rgb(184, 23, 55);
     color: white;
-    
+    fill: white;
 }
 
 .card-image-wishlist{
     height: 150px;
-    width: 80%;
     position: relative;
     overflow: hidden;
     margin-top: 40px;

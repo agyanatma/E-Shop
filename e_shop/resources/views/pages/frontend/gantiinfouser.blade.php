@@ -7,14 +7,14 @@ Shopping Cart
 @section('content')  
 
         
-<div class="container">
-        <div style="padding:30px;margin:auto align-text:center">
+<div class="container-fluid" style="padding:4%">
+        
                 <div class="row ">
                     <div class="col-lg-4 col-md-5 col-sm-12 col-12 text-center " >
                         <div>
                             <form class="form-group" action="{{route('gantipassword', Auth::user())}}" method="GET" enctype="multipart/form-data">
                                 {{csrf_field()}}
-                                <h2 class="title-user text-center text-uppercase" style="align-text:center">Password
+                                <h2 class="title-user text-center " style="align-text:center"><strong>Change Password</strong>
                                     <button type="submit" class="btn btn-info btn-profile " name="password" value="update"><i class="fas fa-key"></i></button>
                                 </h2>
                             </form> 
@@ -28,8 +28,8 @@ Shopping Cart
                             <input type="file"  name="img" >
                         </div>
                     </div>
-                    <div class="col-lg-8 col-md-7 col-sm-12 col-12" >
-                        <h2 class="title-user text-center text-uppercase" style="margin:10px 0 20px 0; border-bottom: solid 1px #e0e0e0; padding-bottom:20px" >Change Profile</h2>
+                    <div class="col-lg-8 col-md-7 col-sm-12 col-12" style="background:#f2f2f2; border: solid 5px #e0e0e0;">
+                        <h2 class="title-user text-center " style="line-height:200%" ><strong>Change Profile</strong></h2>
                         @if (session('status'))
                             <div class="alert alert-success">
                                 {{ session('status') }}
@@ -43,7 +43,7 @@ Shopping Cart
                             <div class="form-group ">
                                     <div class="row " style="padding-bottom:10px">
                                         <div class="col-md-2">
-                                        <label>Email</label>
+                                        <h6>Email</h6>
                                         </div>
                                         <div class="col-md-10">
                                         <input type="email" class="form-control" name="email" placeholder="example@mail.com" value="{{$users->email}}">
@@ -58,7 +58,7 @@ Shopping Cart
                                 <div class="form-group ">
                                     <div class="row" style="padding-bottom:10px">
                                         <div class="col-md-2">
-                                        <label>Fullname</label>
+                                        <h6>Fullname</h6>
                                         </div>
                                         <div class="col-md-10">
                                         <input type="text" class="form-control" name="fullname" placeholder="Name" value="{{$users->fullname}}">
@@ -73,7 +73,7 @@ Shopping Cart
                                 <div class="form-group ">
                                     <div class="row" style="padding-bottom:10px">
                                         <div class="col-md-2">
-                                        <label>Address</label>
+                                        <h6>Address</h6>
                                         </div>
                                         <div class="col-md-10">
                                         <input type="text" class="form-control" name="address" placeholder="Address" value="{{$users->address}}">
@@ -88,7 +88,7 @@ Shopping Cart
                                 <div class="form-group ">
                                     <div class="row" style="padding-bottom:10px">
                                         <div class="col-md-2">
-                                        <label>City</label>
+                                        <h6>City</h6>
                                         </div>
                                         <div class="col-md-10">
                                         <input type="text" class="form-control" name="city" placeholder="City" value="{{$users->city}}">
@@ -103,7 +103,7 @@ Shopping Cart
                                 <div class="form-group ">  
                                     <div class="row" style="padding-bottom:10px">
                                         <div class="col-md-2">
-                                        <label>Postal Code</label>
+                                        <h6>Postal Code</h6>
                                         </div>
                                         <div class="col-md-10">
                                         <input type="text" class="form-control" name="postal" placeholder="Postal Code" value="{{$users->postal_code}}">
@@ -115,8 +115,8 @@ Shopping Cart
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group " style="padding-bottom:10px">
-                                    <button type="submit" class="btn btn-info btn-block " name="action" value="update">Simpan</button>
+                                <div class="form-group text-right" style="padding-bottom:10px">
+                                    <button type="submit" class="btn btn-info mx-auto  " name="action" value="update"><i class="fas fa-save"> Save</i> </button>
                                 </div>
                     </div>  
                 </form>    

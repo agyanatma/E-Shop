@@ -9,16 +9,15 @@
         @endforeach
     </ul>
 @endif
-        
-        <div class="container-fluid">
-                <div class="row" style="padding:20px 0 40px 0;">
+        <div class="container-fluid" style="padding:4%">
+                <div class="row" >
                         <div class="col-md-6" >
                                 <img class="rounded mx-auto d-block img-responsive img-fluid" style="height: auto; max-width: 100%;" width="500px" src="upload/Logo-edit.png">
                             </div>
-                            <div class="col-md-6 login-form "  style="margin-top: 15px">
-                                <div class="card card-login" >
+                            <div class="col-md-6 login-form "  >
+                                <div class="card card-login " style=" border: solid 5px #e0e0e0; background:#f2f2f2; height:400px">
                                     <div class="form-group ">
-                                            <h3 class="card-title" class="text-center">Sign In</h3>
+                                            <h2 class="card-title " class="text-center"><strong>Sign In</strong></h2>
                                             <form action="{{route('store.loginaccount')}}" method="post" class="container">
                                                 {{csrf_field()}}
                                                 @if (session('failed'))
@@ -30,15 +29,15 @@
                                                     <p class="alert alert-danger">Masukkan email dan password untuk masuk</p>
                                                 @endif
                                                 <div class="form-group">
-                                                <label>Email:</label>
+                                                <h6>Email:</h6>
                                                 <input type="email" class="form-control" name="email" placeholder="example@mail.com" value="{{old('email')}}">
                                                 </div>
                                                 <div class="form-group">
-                                                <label>Password:</label>
+                                                <h6>Password:</h6>
                                                 <input type="password" class="form-control" name="password" placeholder="Password">
                                                 </div>
                                                 <div>
-                                                <button type="submit" class="btn btn-info btn-block" style="float: center" name="action" value="create">Login</button>
+                                                <button type="submit" class="btn btn-info btn-block" style="float: center" name="action" value="create"><i class="fas fa-sign-in-alt"> Login</i></button>
                                                 </div>
                                             </form>
                                     </div>

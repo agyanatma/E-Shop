@@ -17,9 +17,7 @@ class WishlistController extends Controller
 {   
     
     public function wishlist(Request $request){
-        $wishlist = Wishlist::where([
-            'user_id' => Auth::id()
-        ])->get();
+        
         $users = Auth::User();
         // /dd($wishlist->toArray());
         //dd($wishlist->toArray());
@@ -29,7 +27,7 @@ class WishlistController extends Controller
             $products = Product::with(['images'])->get();
             $wishlist = Wishlist::where([
                 'user_id' => Auth::id()
-            ])->get();
+            ])->paginate(24);
             $totalorder = Orders::with('product','buyer')->where([
                 'user_id' => $buyer,
                 'status' => 0,
@@ -55,11 +53,7 @@ class WishlistController extends Controller
         ])->get();
 
         $keyword = $request->get('title');
-
-        //dd($wishlists->toArray());
-        $searchkey = \Request::get('title');
         $buyer = Auth::user()->id;
-        $products = Wishlist::with('product','buyer') && Product::where('product_name', 'like', '%' .$searchkey. '%')->orderBy('id')->get();
         $users = Auth::User();
         //dd($products->toArray());
         if (Auth::user() && $orders = 1){
@@ -89,13 +83,13 @@ class WishlistController extends Controller
             
             //dd($totalqty);
             return view('pages.frontend.searchwishlist')
-            ->with('products', $products)->with('user', $user)->with('users', $users)
+            ->with('user', $user)->with('users', $users)
             ->with('buyer', $buyer)->with('orders', $orders)->with('wishlist', $wishlist)
             ->with('totalqty', $totalqty)->with('qty', $qty)->with('totalorder', $totalorder);
             // ->with('wishlist', $wishlist);
         }
         else{
-            return view('pages.frontend.searchwishlist')->with('products', $products)->with('wishlist', $wishlist)
+            return view('pages.frontend.searchwishlist')->with('wishlist', $wishlist)
             ->with('users', $users);
         }
     }
@@ -143,7 +137,7 @@ class WishlistController extends Controller
             $products = Product::with(['images'])->get();
             $wishlist = Wishlist::with('product','buyer')->where([
                 'user_id' => $buyer,
-            ])->get();
+            ])->paginate(24);
             $totalorder = Orders::with('product','buyer')->where([
                 'user_id' => $buyer,
                 'status' => 0,

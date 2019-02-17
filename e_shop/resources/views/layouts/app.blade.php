@@ -30,103 +30,100 @@
 
     <title>{{ config('app.name', 'E-Shop') }}</title>
 </head>
+
 <header id="header" >
-   <nav class="navbar navbar-expand-md navbar-expand-xs navbar-expand-col " style="">
-       <div class="container-fluid">
-           <a class="navbar-brand" href="{{ url('/') }}" style="color:white">
-               {{ config('app.name', 'E-Shop') }}
-           </a>
-           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                   <ul class="navbar-nav ml-auto">
-                            <form class="navbar-form" role="search" method="get" action="{{url("/searchcontent")}}">
-                                <div class="input-group">
-                                    <div class="nav-item" style="margin-right:10px">
-                                        <input class="form-control form-control-borderless"  type="search" placeholder="Search topics or keywords" name="title">
-                                    </div>
-                                    <div class="nav-item" style="margin-right:10px">
-                                        <button class="btn  btn-info" type="submit"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                            @guest
-                            <li class="nav-item">
-                                    <a class="btn btn-info" style="margin-right:10px" href="{{ route('loginaccountPage') }}">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="btn btn-info" href="{{ route('registeraccountPage') }}">Register</a>
-                            </li>
-                            @endguest
-                            
-                        @if(Auth::check() && Auth::user()->admin==0)
-                            <form class="navbar-form" role="cart" method="get" action="{{route('cart')}}">
-                                <div class="input-group">
-                                    <div class="nav-item" style="margin-right:10px">
-                                        <button class="btn  btn-info " type="submit">
-                                            <i class="fas fa-shopping-cart"> 
-                                            
+    <nav class="navbar navbar-expand-md navbar-expand-lg navbar-expand-sm navbar-expand-col fixed-top " style="background:#616E7D" >
+         <a class="navbar-brand" href="{{ url('/') }}" style=" color:white">
+            {{ config('app.name', 'E-Shop') }}
+        </a>           
+        <button class="navbar-toggler form-inline " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><i class="fas fa-list-ul" style="color:white"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                    <form class="navbar-form form-inline my-2 my-lg-0" role="search" method="get" action="{{url("/searchcontent")}}">
+                        <div class="input-group">
+                                <input class="form-control form-control-borderless mr-sm-2" type="search" placeholder="Search topics or keywords" name="title">
+                                <button class="btn  btn-info " type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
+                @guest
+                    <li class="nav-item  mx-2 my-lg-0 form-inline mx-2">
+                        <a class="btn btn-info " href="{{ route('loginaccountPage') }}"><i class="fas fa-sign-in-alt"> Login</i></a>
+                    </li>
+                    <li class="nav-item mx-0 my-lg-0 form-inline ">
+                        <a class="btn btn-info" href="{{ route('registeraccountPage') }}"><i class="fas fa-sign-out-alt"> Register</i></a>
+                    </li>
+                @endguest
+                @if(Auth::check() && Auth::user()->admin==0)
+                    <form class="navbar-form form-inline my-2 my-lg-0 text-center" role="cart" method="get" action="{{route('cart')}}">
+                            <div class="input-group">
+                                    <button class="btn btn-info mx-2 text-center" type="submit">
+                                            <i class="fas fa-shopping-cart">
                                                 @if(Auth::user()->status==0) 
                                                     <div class="quantity-tags-navbar">
                                                         <span >{{$totalorder}}</span>
                                                     </div>
-                                                @endif  
-                                           
+                                                @endif 
                                             </i>
-                                        </button>
-                                    </div>
+                                    </button>
+                            </div>
+                    </form>
+                    <li class="nav-item form-inline mx-2 " style="max-height:30px max-width:30px">
+                            <img src="{{$users->profile_image}}" class="card-image-user-header rounded-circle mx-auto d-block img-fluid " >
+                    </li>
+                    <li class="nav-item dropdown form-inline my-2 my-lg-0 text-center">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-center" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{Auth::user()->fullname}} <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right my-lg-0" aria-labelledby="navbarDropdown" >
+                                <a class="dropdown-item text-center"  href="{{route('user', $users->id)}}"><i class="fas fa-user-cog" ></i> User Profile </a>
+                                <div class="dropdown-divider"></div> 
+                                <a class="dropdown-item text-center" href="{{route('wishlist', Auth::User())}}"><i class="fas fa-heart"></i> Wishlist </a>
+                                <div class="dropdown-divider"></div> 
+                                <a class="dropdown-item text-center" href="{{ route('logoutUser') }}" ><i class="fas fa-sign-out-alt"> </i>Logout</a>
+                        </div>
+                    </li>
+                @endif
+                @if(Auth::check() && Auth::user()->admin==1)
+                        <form class="navbar-form form-inline my-2 my-lg-0 text-center" role="cart" method="get" action="{{route('cart')}}">
+                            <div class="input-group">
+                                <div class="nav-item" style="margin-right:10px">
+                                    <button class="btn btn-info mx-2  " type="submit">
+                                        <i class="fas fa-shopping-cart"> 
+                                            @if(Auth::user()->status==0) 
+                                                <div class="quantity-tags-navbar">
+                                                    <span >{{$totalorder}}</span>
+                                                </div>
+                                            @endif
+                                        </i>
+                                    </button>
                                 </div>
-                            </form>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{Auth::user()->fullname}} <span class="caret"></span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{route('user', $users->id)}}">User Profile</a>
-                                    <a class="dropdown-item" href="{{route('wishlist', ['id'=>$users->id])}}">Wishlist</a>
-                                    <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
-                                </div>
-                            </li>
-                            <li style="max-height:30px max-width:30px">
-                                    <img src="{{$users->profile_image}}" class="card-image-user-header rounded-circle mx-auto d-block img-fluid " >
-                            </li>
-                        @endif
-                        @if(Auth::check() && Auth::user()->admin==1)
-                            <form class="navbar-form" role="cart" method="get" action="{{route('cart')}}">
-                                <div class="input-group">
-                                    <div class="nav-item" style="margin-right:10px">
-                                        <button class="btn btn-info  " type="submit">
-                                            <i class="fas fa-shopping-cart"> 
-                                                @if(Auth::user()->status==0) 
-                                                    <div class="quantity-tags-navbar">
-                                                        <span >{{$totalorder}}</span>
-                                                    </div>
-                                                @endif
-                                            </i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                            
-                            <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{Auth::user()->fullname}}(Admin)<span class="caret"></span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{route('user', ['id'=>$users->id])}}">User Profile</a>
-                                        <a class="dropdown-item" href="{{route('wishlist', ['id'=>$users->id])}}">Wishlist</a>
-                                        <a class="dropdown-item" href="/admin/dashboard">Dashboard</a>
-                                        <a class="dropdown-item" href="{{ route('logoutUser') }}">Logout</a>
-                                    </div>
-                            </li>
-                            <li style="max-height:50px">
-                                    <img src="{{$users->profile_image}}" class="card-image-user-header rounded-circle mx-auto d-block img-fluid " >
-                            </li>
-                        @endif
-                   </ul>
-               </div>
-       </div>
-   </nav>
+                            </div>
+                        </form>
+                        <li  class="nav-item form-inline mx-2 " style="max-height:30px max-width:30px">
+                                <img src="{{$users->profile_image}}" class="card-image-user-header rounded-circle mx-auto d-block img-fluid " >
+                        </li>
+                         <li  class="nav-item dropdown form-inline my-2 my-lg-0 text-center">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle text-center" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{Auth::user()->fullname}} (Admin)<span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right my-lg-0" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-center" href="{{route('user', Auth::User())}}"><i class="fas fa-user-cog" ></i> User Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center" href="{{route('wishlist', Auth::User())}}"><i class="fas fa-heart"></i> Wishlist</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center" href="/admin/dashboard"><i class="fas fa-boxes"></i> Dashboard</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center" href="{{ route('logoutUser') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </li>
+                @endif
+            </ul>
+        </div>                   
+    </nav>
     </header>
-<body id="content">
+<body >
     
     
 <script >

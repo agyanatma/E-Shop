@@ -1,21 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-<<<<<<< HEAD
-    <div class="container">
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
-        @if(count($errors)>0)
-            @foreach($errors->all() as $error)
-                <p class="alert alert-danger">{{$error}}</p>
-            @endforeach
-        @endif
-    </div>
-=======
->>>>>>> 29f18340538a7968056e6cd82d3d115daad239d4
     <div class="form-group container">
         <form action="{{route('update.product', $item->id)}}" method="post" class="col-md-8" enctype="multipart/form-data">
             {{csrf_field()}}

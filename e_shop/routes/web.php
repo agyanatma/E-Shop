@@ -46,6 +46,7 @@ Route::get('searchwishlist/', 'Frontend\WishlistController@searchwishlist')->nam
 Route::post('product/{id}/addcart', 'Frontend\OrderController@tambahlangsung')->name('addcartlangsung');
 Route::post('product/addcart/{id}', 'Frontend\OrderController@checkout')->name('addCart');
 Route::get('/order/cart/', 'Frontend\OrderController@cart')->name('cart');
+Route::post('/order/cart/{id}/', 'Frontend\OrderController@updatecart')->name('updatecart');
 Route::get('order/{id}/delete', 'Frontend\OrderController@deletecart')->name('deleteCart');
 Route::get('/pembayaran/', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
 Route::post('/product/langsungbayar/{id}', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');

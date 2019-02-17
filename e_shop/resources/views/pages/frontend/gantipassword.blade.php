@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-        <h2 class="title-user text-center text-uppercase" style="align-text:center; padding-top:10px">Change Password</h2>
-            <div class="row justify-content-between" style="padding-bottom:100px">
-                    <div class="col-md-6 offset-3"  style="margin-top: 15px">
-                            <div class="card card-login" style="">
+<div class="container-fluid" style="padding:4%">
+        
+           
+                    <div class="col-12 col-md-8 col-lg-6 col-sm-9 offset-sm-2 offset-md-2 offset-lg-3 "  >
+                            <div class="card card-login" style="background:#f2f2f2; border: solid 5px #e0e0e0;">
                                 <div class="form-group " >
-                                        <form action="{{route('updatepassword', $users->id)}}" method="POST" class="container" style="padding:50px 10px 30px 10px">
+                                        <h2 class="title-user text-center " ><strong>Change Password</strong></h2>
+                                        <form action="{{route('updatepassword', $users->id)}}" method="POST" class="container" >
                                             {{csrf_field()}}
                                             
                                             @if (session('status'))
@@ -20,6 +21,7 @@
                                                     {{ session('error') }}
                                                 </div>
                                             @endif
+                                            
                                             <div class="form-group">
                                             <label>Current Password:</label>
                                             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
@@ -47,14 +49,15 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <div>
-                                            <button type="submit" class="btn btn-info btn-block" style="float: center" name="action" value="update">Change Password</button>
+                                            <div class="form-group text-right">
+                                            <button type="submit" class="btn btn-info " style="float: center" name="action" value="update"><i class="fas fa-save"> Save</i></button>
                                             </div>
                                         </form>
                                 </div>
                                     
                             </div>
                         </div>
+                        
             </div>
 </div>
     

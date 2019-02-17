@@ -1,54 +1,54 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row" style="">
-            <div class="col-12 col-lg-7 col-md-12 col-sm-12" style="background:#FAFAFA; border-right: solid 1px #e0e0e0; ">
-                <div class="card-checkout-box-address" style=" margin-top:50px ">
-                    <div class="card-body-address" >
+<div class="container-fluid" style="padding: 4%; ">
+    <div class="row" style="margin-bottom:8%">
+            <div class="col-12 col-lg-7 col-md-12 col-sm-12" >
+                <div class="card-checkout-box-address"style="background:#f2f2f2; border: solid 5px #e0e0e0;" >
+                    <div class="card-body-address" style="height:auto">
                         <div class="card-checkout-title-address" style="padding-bottom:30px">
-                            <h2 class="text-center " style="line-height: 50px;">Shipping Address</h2>
+                            <h2 class="text-center " style="line-height: 200%;"><strong>Shipping Address</strong></h2>
                         </div>
-                        <h4 style="border-bottom: solid 1px #e0e0e0;">Contact information</h4>
+                        <h4 style="border-bottom: solid 3px #e0e0e0;" class=" mx-1"><strong>Contact information</strong></h4>
                         <div style="font-size:20px;" class="">
-                            <div class="row  justify-content-between font-weight-light" >
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-3 " style="margin:20px 0 20px 0">
-                                <span>Email</span>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                                <span type="email" class="" name="email" placeholder="example@mail.com" value="">{{$users->email}}</span>      
-                                </div>
-                            </div>
-                            <div class="row justify-content-between font-weight-light" style="padding-bottom:10px">
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-3" style="margin:20px 0 20px 0">
-                                <span>Fullname</span>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-8" >
-                                <span type="text" class="" name="fullname" placeholder="Name" value="">{{$users->fullname}}</span>
+                            <div class="row  justify-content-between font-weight-light" style="line-height:300%">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-4 " >
+                                <h6 class="text-uppercase" >Email</h6>
+                                </div>:
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-7">
+                                <h6 type="email" class=""  name="email" placeholder="example@mail.com" value="">{{$users->email}}</h6>      
                                 </div>
                             </div>
-                            <div class="row justify-content-between font-weight-light">
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-3" style="margin:20px 0 20px 0">
-                                <span>Address</span>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-8" >
-                                <span type="text" class="" name="address" placeholder="Address" value="">{{$users->address}}</span>
-                                </div>
-                            </div>
-                            <div class="row justify-content-between font-weight-light" style="padding-bottom:10px">
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-3" style="margin:20px 0 20px 0">
-                                <span>City</span>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                                <span type="text" class="" name="city" placeholder="City" value="">{{$users->city}}</span>
+                            <div class="row justify-content-between font-weight-light text-justify" style="line-height:300%">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-4" >
+                                <h6 class="text-uppercase" >Fullname</h6>
+                                </div>:
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-7" >
+                                <h6 type="text" class=""  name="fullname" placeholder="Name" value="">{{$users->fullname}}</h6>
                                 </div>
                             </div>
-                            <div class="row justify-content-between font-weight-light" style="padding-bottom:30px; border-bottom: solid 1px #e0e0e0;">
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-3" style="margin:20px 0 20px 0">
-                                <span>Postal Code</span>
+                            <div class="row justify-content-between font-weight-light text-justify" style="line-height:300%">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-4" >
+                                <h6 class="text-uppercase" >Address</h6>
+                                </div>:
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-7" >
+                                <h6 type="text" class=""   name="address" placeholder="Address" value="">{{$users->address}}</h6>
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                                <span type="text" class="" name="postal" placeholder="Postal Code" value="">{{$users->postal_code}}</span>
+                            </div>
+                            <div class="row justify-content-between font-weight-light text-justify" style="line-height:300%">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-4" >
+                                <h6 class="text-uppercase" >City</h6>
+                                </div>:
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-7">
+                                <h6 type="text" class=""  name="city" placeholder="City" value="">{{$users->city}}</h6>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between font-weight-light text-justify" style="line-height:300%">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-4" >
+                                <h6 class="text-uppercase" >Postal Code</h6>
+                                </div>:
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-7">
+                                <h6 type="text" class=""  name="postal" placeholder="Postal Code" value="">{{$users->postal_code}}</h6>
                                 </div>
                             </div>     
                         </div>
@@ -56,8 +56,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-12 col-sm-12 col-12" style="">
-                    <div style="margin-top:50px ">
+            <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                    <div >
                     @if(count($orders) > 0)
                     <div class="card-box-checkout-table-body">
                         @foreach ($orders as $order)
@@ -71,10 +71,10 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-5 col-md-5 col-sm-5 col-5 text-center" >
-                                            <strong class="text-center">{{$order->product->product_name}}</strong>
+                                            <h6 class="text-center font-weight-light"><strong>{{$order->product->product_name}}</strong></h6>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-4 text-center">
-                                            <strong class=" text-center">Rp.{{number_format($order->qty * $order->product->product_price), 0}}</strong>
+                                            <h6 class=" text-center font-weight-light"><strong>Rp.{{number_format($order->qty * $order->product->product_price), 0}}</strong></h6>
                                         </div>                   
                                     </div>
                             </div>
@@ -86,19 +86,19 @@
                         <h3>No posts found!</h3>
                     @endif
                     </div>
-                    <div class="checkout-summary " style="">
+                    <div class="checkout-summary clearfix" style="">
                         <div class=" card-title-box-checkout">
-                            <h3 class=" text-right "><em>Total</em></h3>
+                            <h3 class=" text-right "><em><strong>Total</strong></em></h3>
                         </div>
-                        <div class="card-total-bill-checkout text-right" style="padding: 10px 20px 30px 0 ;">
-                            <strong class="totalbill " style="font-size:25px; ">Rp.{{number_format($total), 0}}</strong>
+                        <div class="card-total-bill-checkout text-right" style="padding: 10px 20px 10px 0 ;">
+                            <h5 class="totalbill " style="font-size:25px; "><strong>Rp.{{number_format($total), 0}}</strong></h5>
                         </div>
-                        <div style="ca">
-                            <form action="{{ route('bayar', $order->id)}}" method="GET">
+                        <div style="card-payment-checkout">
+                            {{-- <form action="{{ route('bayar', $order->id)}}" method="GET">
                                 {{ csrf_field() }}
-                                <span type="hidden" value="{{$order->status}}" name="status">
-                            </form>
-                            <a href="{{ route('bayar', $order->id)}}" class="btn btn-info btn-block" name="bayar">Payment</a>
+                                <span type="hidden" value="{{$order->status}}" name="status"></span>
+                            </form> --}}
+                            <a href="{{ route('bayar', $order->id)}}" class="btn btn-secondary  mx-3" style="float:right; " name="bayar"><i class="fas fa-money-check"> Payment</i></a>
                         </div>
                     </div> 
             </div>

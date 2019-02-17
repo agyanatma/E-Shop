@@ -45,6 +45,30 @@ class OrderController extends Controller
         ->with('productrandom', $productrandom)->with('totalorder', $totalorder);
     }
 
+    public function updatecart(Request $request, $id){
+        if($products = Product::find($id)){
+            
+            $quantity = $request->input('quantity');
+            $user = $request->input('user_id');
+            $product = $request->input('product_id');
+            $price = $request->input('price');
+            $order = Orders::where([
+                'user_id' => $user,
+                'product_id' => $product,
+                'status' => 0,
+            ])->first();
+
+            if ($order) {
+                $order->qty = $quantity;
+                $order->total = $quantity * $price;
+                $order->save();
+            }
+            //dd($request->all());
+            return redirect()->back()->with('status', 'Product edited form cart successfully!');
+        }
+    }
+
+
     public function deleteCart($id){
         $order = Orders::find($id);
         $order->delete();
@@ -52,7 +76,9 @@ class OrderController extends Controller
     }
     
     public function checkout(Request $request, $id){
+       
         if($products = Product::find($id)){
+            
             $user = $request->input('user_id');
             $product = $request->input('product_id');
             $quantity = $request->input('quantity');
@@ -84,6 +110,9 @@ class OrderController extends Controller
             }
             
             return redirect()->back()->with('status', 'Product added to cart successfully!');
+        }
+        else{
+            return redirect()->back()->with('error', 'Product added to cart successfully!');
         }
         
     }
