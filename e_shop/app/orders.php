@@ -15,7 +15,7 @@ class Orders extends Model
     ];
 
     public function buyer(){
-        return $this->belongsTo('App\User');
+        return $this->hasOne('App\User','id','user_id');
     }
 
     public function orderDetail(){
