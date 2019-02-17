@@ -9,6 +9,8 @@ use App\User;
 use App\Product;
 use App\Category_product;
 use App\Orders;
+use App\Order_product;
+use App\Order_detail;
 use Auth;
 use Carbon\Carbon;
 Use Illuminate\Support\Facades\Input as input;

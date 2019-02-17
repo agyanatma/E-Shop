@@ -6,6 +6,8 @@ use App\Product_image;
 use App\Category_product;
 use App\User;
 use App\Orders;
+use App\Order_product;
+use App\Order_detail;
 use Carbon\Carbon;
 use Auth;
 use Stripe\Stripe;
@@ -22,12 +24,26 @@ class OrderController extends Controller
         return view('pages.frontend.listpembelian')->with('users', $users);
     }
 
+   
+
+    // $wishlist = Wishlist::where([
+    //     'user_id' => Auth::id()
+    // ]);
+    // if ($request->has('title') && $request->get('title') != '') {
+    //     //dd($keyword);
+    //     $wishlist->whereHas('product', function ($q) use ($keyword) {
+    //         $q->where('product_name', 'like', '%'.$keyword.'%');
+    //     });
+    // }
     public function cart(){
         $products = Product::with(['images'])->get();
         $users = Auth::User();
         $buyer = Auth::user()->id;
-        $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
         
+        $orders = Order_product::with('product','buyer')->where('user_id','=',$buyer)->get();
+
+        // $orders->whereHas('Order_product');
+        dd($orders->toArray());
         $totalorder = Orders::with('product','buyer')->where([
             'user_id' => $buyer,
             'status' => 0,
@@ -84,7 +100,7 @@ class OrderController extends Controller
             $quantity = $request->input('quantity');
             $price = $request->input('price');
             $time = Carbon::today();
-            //dd($request->price);
+            dd($request->price);
             //cek order sudah ada atau belum
             $order = Orders::where([
                 'user_id' => $user,

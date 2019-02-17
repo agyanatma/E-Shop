@@ -14,8 +14,10 @@ use App\Product_image;
 use App\Category_product;
 use App\Category_image;
 use App\User;
-use App\Cart;
+
 use App\Orders;
+use App\Order_product;
+use App\Order_detail;
 use Session;
 use App\Wishlist;
 

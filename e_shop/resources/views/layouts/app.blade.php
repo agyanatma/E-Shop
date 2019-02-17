@@ -70,14 +70,14 @@
                             </div>
                     </form>
                     <li class="nav-item form-inline mx-2 " style="max-height:30px max-width:30px">
-                            <img src="{{$users->profile_image}}" class="card-image-user-header rounded-circle mx-auto d-block img-fluid " >
+                            <img src="{{Auth::User()->profile_image}}" class="card-image-user-header rounded-circle mx-auto d-block img-fluid " >
                     </li>
                     <li class="nav-item dropdown form-inline my-2 my-lg-0 text-center">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle text-center" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{Auth::user()->fullname}} <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right my-lg-0" aria-labelledby="navbarDropdown" >
-                                <a class="dropdown-item text-center"  href="{{route('user', $users->id)}}">
+                                <a class="dropdown-item text-center"  href="{{route('user', Auth::User()->id)}}">
                                     <h6>User Profile </h6>
                                 </a>
                                 <a class="dropdown-item text-center" href="{{route('wishlist', Auth::User())}}">
@@ -95,18 +95,18 @@
                                 <div class="nav-item" style="margin-right:10px">
                                     <button class="btn btn-info mx-2  " type="submit">
                                         <i class="fas fa-shopping-cart"> 
-                                            @if(Auth::user()->status==0) 
+                                            {{-- @if(Auth::user()->status==0) 
                                                 <div class="quantity-tags-navbar">
                                                     <span >{{$totalorder}}</span>
                                                 </div>
-                                            @endif
+                                            @endif --}}
                                         </i>
                                     </button>
                                 </div>
                             </div>
                         </form>
                         <li  class="nav-item form-inline mx-2 " style="max-height:30px max-width:30px">
-                                <img src="{{$users->profile_image}}" class="card-image-user-header rounded-circle mx-auto d-block img-fluid " >
+                                <img src="{{Auth::User()->profile_image}}" class="card-image-user-header rounded-circle mx-auto d-block img-fluid " >
                         </li>
                          <li  class="nav-item dropdown form-inline my-2 my-lg-0 text-center">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle text-center" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -36,13 +36,11 @@
                         </div>
                     {{-- sudahlogin --}}
                     @if(Auth::check() && Auth::user())         
-                        <form action="{{route('addCart', $products->id)}}" method="POST">
+                        <form action="{{ route('detail.order', $products->id) }}" method="POST">
                             {{csrf_field()}}
                         <div class="row justify-content-between" style="padding-top:20px;">
                             <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-center">
-                                
-                                        <input type="number" id="quantity" name="quantity" class="form-control text-center input-number"  style="border:solid 2px #e0e0e0;" value="1" min="1" max="100">
-                                    
+                                        <input type="number" id="qty" name="qty" class="form-control text-center input-number"  style="border:solid 2px #e0e0e0;" value="1" min="1" max="100">
                             </div>
                         </div>  
                         <div class="row justify-content-end" style="padding-top:30px;">
@@ -50,9 +48,12 @@
                                     <input type="hidden" name="user_id" value="{{$users->id}}">
                                     <input type="hidden" name="product_id" value="{{$products->id}}">
                                     <input type="hidden" name="price" value="{{$products->product_price}}">
+                                    
+                                    {{-- <input type="hidden" name="total" value="{{$products->product_price * ('qty')}}"> --}}
                                     <button type="submit" id="cartBtn" class="btn btn-info btn-block " >
                                         <i class="fas fa-cart-plus"> Add to Cart</i> 
                                     </button>
+                                    
                             </div>
                          </form>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-4 text-center ">

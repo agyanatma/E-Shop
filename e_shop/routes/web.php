@@ -42,6 +42,8 @@ Route::get('wishlist/ubahwishlist', 'Frontend\WishlistController@ubahwishlist')-
 Route::get('searchwishlist/', 'Frontend\WishlistController@searchwishlist')->name('searchwishlist');
 
 
+
+
 //CartPage
 Route::post('product/{id}/addcart', 'Frontend\OrderController@tambahlangsung')->name('addcartlangsung');
 Route::post('product/addcart/{id}', 'Frontend\OrderController@checkout')->name('addCart');

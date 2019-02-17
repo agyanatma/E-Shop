@@ -6,10 +6,10 @@
 <div class="container-fluid" style="padding:4%"> 
     
     <h2 class="title-cart text-center" ><strong>Your Shopping Cart</strong></h2>
-    <div class="card-total-cart text-center clearfix">
+    {{-- <div class="card-total-cart text-center clearfix">
             <strong class="totalqty ">Total Items</strong>
             <strong class="totalqty " >({{$totalqty}})</strong>
-    </div>
+    </div> --}}
     
     <div style="padding:3%">
             @if (session('status'))
