@@ -23,4 +23,12 @@ class Product extends Model
     public function orderDetail(){
         return $this->hasOne('App\Order_detail');
     }
+
+    public function orderProduct(){
+        return $this->hasMany('App\Order_product','product_id','id');
+    }
+
+    public function getProductPriceAttribute($value){
+        return 'Rp '.number_format($value, 0);
+    }
 }

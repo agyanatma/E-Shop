@@ -83,10 +83,24 @@
                                             <div class="card-title-box">
                                                 <h5 class="text-center" >{{$row->product_name}}</h5>
                                             </div>
-                                            <div class="row clearfix  clearfix" >
-                                                <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                                                    <div class="card-price-box " >
-                                                        <h5 class="font-weight-light text-left" >Rp.{{number_format($row->product_price, 0)}}</h5>
+                                            <div class="row clearfix justify-content-between">
+                                                <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                                                    <div class="clearfix card-text-box-button-index-wishlist" style="float:left"> 
+                                                        @if(Auth::check() && Auth::user())
+                                                            <form action="{{route('addWishlist', ['id'=> $row->id])}}" method="POST">
+                                                                    {{csrf_field()}}
+                                                                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                                                                    <input type="hidden" name="product_id" value="{{$row->id}}">
+                                                                    <button type="submit" id="cartBtn" class="btn btn-wishlist  " ><i class="fas fa-heart"></i></button>
+                                                            </form>
+                                                            @else
+                                                                <a href="/loginaccount" id="cartBtn" class="btn btn-wishlist"><i class="fas fa-heart"></i></a>
+                                                            @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-sm-7 col-7">
+                                                    <div class="card-price-box ">
+                                                        <h5 class="font-weight-light text-center" >{{$row->product_price}}</h5>
                                                     </div> 
                                                 </div>
                                                 <div class="col-lg-2 col-md-2 col-sm-2 col-2">
