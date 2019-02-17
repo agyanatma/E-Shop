@@ -98,7 +98,7 @@
                                 {{ csrf_field() }}
                                 <span type="hidden" value="{{$order->status}}" name="status"></span>
                             </form> --}}
-                            <a href="{{ route('bayar', $order->id)}}" class="btn btn-secondary  mx-3" style="float:right; " name="bayar"><i class="fas fa-money-check"> Payment</i></a>
+                            <a href="{{ route('bayar', $order->id)}}" class="btn btn-success  mx-3" style="float:right; " name="bayar"><i class="fas fa-money-check"> Payment</i></a>
                         </div>
                     </div> 
             </div>

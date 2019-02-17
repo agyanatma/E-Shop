@@ -517,6 +517,7 @@ a.btn-addcart{
     overflow-y: auto;
 }
 
+
 h2.title-cart.text-center.text-uppercase{
     line-height: 200%;
 }
@@ -563,47 +564,6 @@ h2.title-cart.text-center.text-uppercase{
     -o-transform: translate(-50%, -50%) scale(1.5);
     transform: translate(-50%, -50%) scale(1.5);
   }
-
-/* 
-.product-name{
-   
-    border: none;
-    width: 100%;
-    display: block;
-}
-
-.one-forth{
-    width: calc(100% - 520px);
-    height: 50px!important;
-    display: table;
-    float: left;
-    text-align: center;
-}
-
-.product-cart{
-    width: 100%;
-    display: block;
-    float: left;
-    
-    padding-bottom: 1em;
-    margin-bottom: 1em;
-}
-
-.display-tc{
-    display: table-cell;
-    
-    vertical-align: middle;
-    height: 100px;
-    width: 100%;
-}
-
-.one-eight{
-    align-content: center;
-    width: 130px;
-    height: 50px!important;
-    display: table;
-    float: left;
-} */
 
 .cart-summary{
     background-color: white;
@@ -705,14 +665,11 @@ div.card-button-cart-checkout{
 }
 
 .card-box-checkout-table-body{
-    overflow: hidden;
+    overflow: auto;
     height: 400px;
     background: white;
 }
 
-.card-box-checkout-table-body:hover{
-    overflow: auto;
-}
 
 .card-box-checkout-table{
     
@@ -1035,7 +992,7 @@ p{
 
 .table-wrapper-scroll-y {
     display: block;
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     }

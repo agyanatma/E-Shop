@@ -84,7 +84,7 @@
                         <input type="file" name="img">
                         </div>
                         <div class="form-group">
-                        <button type="submit" class="btn btn-info btn-block" style="float: right" name="action" value="create"><i class="fas fa-sign-out-alt"> Sign Up</i></button>
+                        <button type="submit" class="btn btn-info btn-block" style="float: right" name="action" value="create"><i class="fas fa-users"> Sign Up</i></button>
                         </div>
                     </form>
                     </div>

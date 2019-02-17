@@ -81,13 +81,12 @@
                                     </div>
                                     <div class="card-body clearfix " >
                                             <div class="card-title-box">
-                                                <h5 class="text-center" ><strong>{{$row->product_name}}</strong></h5>
+                                                <h5 class="text-center" >{{$row->product_name}}</h5>
                                             </div>
-                                            <div class="row clearfix justify-content-between">
-                                                
-                                                <div class="col-lg-7 col-md-7 col-sm-7 col-7">
-                                                    <div class="card-price-box ">
-                                                        <h5 class="font-weight-light text-left" >Rp {{number_format($row->product_price, 0)}}</h5>
+                                            <div class="row clearfix  clearfix" >
+                                                <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                                                    <div class="card-price-box " >
+                                                        <h5 class="font-weight-light text-left" >Rp.{{number_format($row->product_price, 0)}}</h5>
                                                     </div> 
                                                 </div>
                                                 <div class="col-lg-2 col-md-2 col-sm-2 col-2">
@@ -97,10 +96,10 @@
                                                                         {{csrf_field()}}
                                                                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                                                         <input type="hidden" name="product_id" value="{{$row->id}}">
-                                                                        <button type="submit" id="cartBtn" class="btn btn-danger  " style="color:white"><i class="fas fa-heart"></i></button>
+                                                                        <button type="submit" id="cartBtn" class="btn btn-danger  mx-2" style="color:white"><i class="fas fa-heart"></i></button>
                                                                 </form>
                                                                 @else
-                                                                    <a href="/loginaccount" id="cartBtn" class="btn btn-danger" style="color:white"><i class="fas fa-heart"></i></a>
+                                                                    <a href="/loginaccount" id="cartBtn" class="btn btn-danger mx-2" style="color:white"><i class="fas fa-heart"></i></a>
                                                                 @endif
                                                         </div>
                                                 </div>
@@ -113,10 +112,10 @@
                                                             <input type="hidden" name="product_id" value="{{$row->id}}">
                                                             <input type="hidden" name="price" value="{{$row->product_price}}">
                                                             <input type="hidden" name="qty" value="1" id="">
-                                                            <button type="submit" id="cartBtn" class="btn btn-info "><i class="fas fa-shopping-basket"></i></button>
+                                                            <button type="submit" id="cartBtn" class="btn btn-info mx-auto"><i class="fas fa-shopping-basket"></i></button>
                                                         </form>
                                                         @else
-                                                        <a href="/loginaccount" id="cartBtn" class="btn btn-info "><i class="fas fa-shopping-basket"></i></a>
+                                                        <a href="/loginaccount" id="cartBtn" class="btn btn-info mx-auto"><i class="fas fa-shopping-basket"></i></a>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -136,8 +135,6 @@
                         {{$products->links()}}
                 </div>
             </div>
-            
-        
 </div>
         
 

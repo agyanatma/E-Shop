@@ -56,10 +56,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+            <div class="col-lg-5 col-md-12 col-sm-12 col-12" style="padding-top:5%">
                     <div >
                     @if(count($orders) > 0)
-                    <div class="card-box-checkout-table-body">
+                    <div class="card-box-checkout-table-body"> 
                         @foreach ($orders as $order)
                             @if(Auth::user() && $order->status==0)
                             <div class="card-box-checkout-table"style="padding-bottom:20px; padding-top:20px; ">
@@ -98,7 +98,7 @@
                                 {{ csrf_field() }}
                                 <span type="hidden" value="{{$order->status}}" name="status"></span>
                             </form> --}}
-                            <a href="{{ route('bayar', $order->id)}}" class="btn btn-secondary  mx-3" style="float:right; " name="bayar"><i class="fas fa-money-check"> Payment</i></a>
+                            <a href="{{ route('bayar', $order->id)}}" class="btn btn-success  mx-3" style="float:right; " name="bayar"><i class="fas fa-money-check"> Payment</i></a>
                         </div>
                     </div> 
             </div>

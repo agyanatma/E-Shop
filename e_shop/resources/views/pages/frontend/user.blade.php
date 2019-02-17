@@ -71,8 +71,8 @@ Shopping Cart
                                     </div>
                                 </div>
                     </div>
-                    <div style="margin-top: 10%;margin-bottom:4%">
-                            <h2 class="title-user text-center mx-5" style="margin:20px 0 20px 0; line-height:200%" ><strong>History Order</strong></h2>
+                    <div style="margin-top: 7%;margin-bottom:5%">
+                            <h2 class="title-user text-center mx-5" style="line-height:200%" ><strong>History Order</strong></h2>
                         <div class="table-wrapper-scroll-y " >
                                             <table id="dtVerticalScrollExample " class="table table-striped table-bordered scrollingTable mx-auto"  >
                                                     <thead>
@@ -90,12 +90,12 @@ Shopping Cart
                                                             @foreach ($orders as $order)
                                                             <tr>
                                                                 @if(Auth::user() && $order->status==2)
-                                                                    <td class="align-middle">{{$order->product->product_name}}</td>
-                                                                    <td class="align-middle">Rp.{{number_format($order->price), 0}}</td>
-                                                                    <td class="align-middle">{{$order->qty}}</td>
-                                                                    <td class="align-middle">Rp.{{number_format($order->total), 0}}</td>
-                                                                    <td class="align-middle">{{date('d F, Y', strtotime($order->order_date))}} </td>
-                                                                    <td class="align-middle">Already Paid</td>
+                                                                    <td class="align-middle text-center">{{$order->product->product_name}}</td>
+                                                                    <td class="align-middle text-center">Rp.{{number_format($order->price), 0}}</td>
+                                                                    <td class="align-middle text-center">{{$order->qty}}</td>
+                                                                    <td class="align-middle text-center">Rp.{{number_format($order->total), 0}}</td>
+                                                                    <td class="align-middle text-center">{{date('d F, Y', strtotime($order->order_date))}} </td>
+                                                                    <td class="align-middle text-center">Already Paid</td>
                                                                 @endif
                                                                 @if(Auth::user() && $order->status==1)
                                                                     <td class="align-middle text-center">{{$order->product->product_name}}</td>

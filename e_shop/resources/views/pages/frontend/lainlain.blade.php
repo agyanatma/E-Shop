@@ -46,7 +46,7 @@
                 <p class="alert alert-danger">Error</p>
                 @endif
                 <div class="card-fluid"  style="margin-top: 5%; ">
-                        <div class="row row-centered" style="padding:2%">
+                    <div class="row row-centered" style="padding:2%">
                             @if(count($categories) > 0)
                                 @foreach ($categories as $category)
                                         <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
@@ -54,7 +54,7 @@
                                         </div>
                                 @endforeach
                             @endif 
-                        </div>
+                    </div>
                 </div>
                 <div class="row " style="padding-top:4%; padding-bottom:4%">
                         @if(count($products) > 0)
@@ -70,12 +70,11 @@
                                     </div>
                                     <div class="card-body clearfix " >
                                             <div class="card-title-box">
-                                                <h5 class="text-center" ><strong>{{$row->product_name}}</strong></h5>
+                                                <h5 class="text-center" >{{$row->product_name}}</h5>
                                             </div>
-                                            <div class="row clearfix justify-content-between">
-                                                
-                                                <div class="col-lg-7 col-md-7 col-sm-7 col-7">
-                                                    <div class="card-price-box ">
+                                            <div class="row clearfix  clearfix" >
+                                                <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                                                    <div class="card-price-box " >
                                                         <h5 class="font-weight-light text-left" >Rp.{{number_format($row->product_price, 0)}}</h5>
                                                     </div> 
                                                 </div>
@@ -86,10 +85,10 @@
                                                                         {{csrf_field()}}
                                                                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                                                         <input type="hidden" name="product_id" value="{{$row->id}}">
-                                                                        <button type="submit" id="cartBtn" class="btn btn-danger  " style="color:white"><i class="fas fa-heart"></i></button>
+                                                                        <button type="submit" id="cartBtn" class="btn btn-danger  mx-2" style="color:white"><i class="fas fa-heart"></i></button>
                                                                 </form>
                                                                 @else
-                                                                    <a href="/loginaccount" id="cartBtn" class="btn btn-danger" style="color:white"><i class="fas fa-heart"></i></a>
+                                                                    <a href="/loginaccount" id="cartBtn" class="btn btn-danger mx-2" style="color:white"><i class="fas fa-heart"></i></a>
                                                                 @endif
                                                         </div>
                                                 </div>
@@ -102,10 +101,10 @@
                                                             <input type="hidden" name="product_id" value="{{$row->id}}">
                                                             <input type="hidden" name="price" value="{{$row->product_price}}">
                                                             <input type="hidden" name="qty" value="1" id="">
-                                                            <button type="submit" id="cartBtn" class="btn btn-info "><i class="fas fa-shopping-basket"></i></button>
+                                                            <button type="submit" id="cartBtn" class="btn btn-info mx-auto"><i class="fas fa-shopping-basket"></i></button>
                                                         </form>
                                                         @else
-                                                        <a href="/loginaccount" id="cartBtn" class="btn btn-info "><i class="fas fa-shopping-basket"></i></a>
+                                                        <a href="/loginaccount" id="cartBtn" class="btn btn-info mx-auto"><i class="fas fa-shopping-basket"></i></a>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -125,8 +124,6 @@
                         {{$products->links()}}
                 </div>
             </div>
-            
-        
 </div>
         
 
