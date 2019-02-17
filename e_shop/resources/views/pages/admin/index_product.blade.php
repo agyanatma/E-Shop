@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row" style="margin:0px 100px">
+<div class="container">
+    <div class="row">
             <h1><span class="fas fa-box-open" aria-hidden="true"></span>  Product</h1>
             <div class="table-responsive" style="margin-top:20px">
                 <table id="dataproduct" class="table table-bordered">

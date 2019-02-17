@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row" style="margin:0px 100px">
+<div class="container">
+    <div class="row">
         <h1><span class="fas fa-clipboard-list" aria-hidden="true"></span> Category</h1><br>
         <div class="table-responsive" style="margin-top:20px">
             <table id="datacategory" class="table table-bordered">

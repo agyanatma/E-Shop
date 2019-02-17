@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-        <div class="container-fluid">
-            <div class="row" style="margin:0px 100px">
+        <div class="container">
+            <div class="row">
                 <div class="col-md-12">
                 <div class="card border-0">
                 <div class="card bg-light text-dark border-0">
@@ -94,7 +94,7 @@
                 {data: 'fullname', name: 'fullname', class: 'align-middle'},
                 {data: 'address', name: 'address', class: 'align-middle'},
                 {data: 'city', name: 'city', class: 'align-middle'},
-                {data: 'postal_code', name: 'postal_code', class: 'align-middle'},
+                {data: 'postal_code', name: 'postal_code', class: 'align-middle', width:'90'},
                 {data: 'role', name: 'role', width:'30', class: 'align-middle', searchable: false},
                 {data: 'action', name: 'action', searchable: false, orderable: false, width:115, class: 'align-middle'}
             ]
