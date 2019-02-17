@@ -14,14 +14,14 @@ class Order_detail extends Model
         'order_id','product_id','price','qty'
     ];
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at', 'updated_at','product_id'
     ];
 
     public function order(){
-        return $this->belongsTo('App\Orders');
+        return $this->hasOne('App\Orders','id','order_id');
     }
 
     public function product(){
-        return $this->hasMany('App\Product');
+        return $this->hasMany('App\Product','id','product_id');
     }
 }

@@ -90,7 +90,7 @@ Route::group(['middleware'=>['checkAdmin']],function(){
 
     //CRUD ORDER
     Route::get('admin/order', 'Backend\OrderController@index')->name('order.admin');
-    Route::get('admin/order/{id}/show', 'Backend\OrderController@edit')->name('show.order');
+    Route::get('admin/order/{id}/show', 'Backend\OrderController@show')->name('show.order');
     Route::get('admin/order/{id}/delete', 'Backend\OrderController@destroy')->name('destroy.order');
     Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('edit.order');
     Route::get('admin/order/datatables', 'Backend\OrderController@dataTables')->name('table.order');

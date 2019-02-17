@@ -33,7 +33,7 @@ class UserController extends Controller
             })
             ->addIndexColumn()
             ->addColumn('action', function($item){
-                return  '<a href="#" class="btn btn-sm btn-info" style="margin-right:7px"><i class="fas fa-eye"></i></a>'.
+                return  '<a href="#" class="btn btn-sm btn- btn-info" style="margin-right:7px"><i class="fas fa-eye"></i></a>'.
                         '<a href="'.route('edit.admin', $item->id).'" class="btn btn-sm btn-info" style="margin-right:7px"><i class="fas fa-edit"></i></a>'.
                         '<a href="'.route('destroy.admin', $item->id).'" class="btn btn-sm btn-info"><i class="fas fa-trash-alt"></i></a>';
             })
