@@ -57,6 +57,11 @@ Route::get('/product/langsungbayar/{id}/bayar', 'Frontend\OrderController@update
 //Route::match('POST' 'GET'), ('/product/bayar', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
 });
 
+//PAYMENT
+Route::get('order/{id}/payment/', function(){
+    return view('pages.frontend.payment');
+});
+
 /* BACKEND */
 
 
@@ -92,7 +97,9 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/order/{id}/show', 'Backend\OrderController@show')->name('show.order');
     Route::get('admin/order/{id}/delete', 'Backend\OrderController@destroy')->name('destroy.order');
     Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('edit.order');
+    Route::get('admin/order/{id}/payment', 'Backend\OrderController@payment')->name('payment.order');
     Route::get('admin/order/datatables', 'Backend\OrderController@dataTables')->name('table.order');
+    
 
     //CRUD USER
     Route::get('admin/user/{id}/show', 'Backend\UserController@edit')->name('show.admin');

@@ -52,8 +52,11 @@
                 <div class="card-body" style="margin-left:10px">
                     @if($orders->payment_check == null)
                         <h4>No payment</h4>
+                    @else
+                        <img class="img" style="width:50px" src="{{$orders->payment_check}}">
                     @endif
-                    <a href="{{}}" class="btn btn-success float-right" style="margin-top:50px">Approved</a>
+
+                    <a href="{{ route('payment.order',$order->id) }}" class="btn btn-success float-right" style="margin-top:50px">Approved</a>
                 </div>
             </div>
             
