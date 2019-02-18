@@ -90,18 +90,18 @@ Shopping Cart
                                                             @foreach ($orders as $order)
                                                             <tr>
                                                                 @if(Auth::user() && $order->status==2)
-                                                                    <td class="align-middle text-center">{{$order->product->product_name}}</td>
-                                                                    <td class="align-middle text-center">Rp.{{number_format($order->price), 0}}</td>
+                                                                    <td class="align-middle text-center">{{$order->order_details->product_name}}</td>
+                                                                    <td class="align-middle text-center">{{$order->price}}</td>
                                                                     <td class="align-middle text-center">{{$order->qty}}</td>
-                                                                    <td class="align-middle text-center">Rp.{{number_format($order->total), 0}}</td>
+                                                                    <td class="align-middle text-center">{{$order->total}}</td>
                                                                     <td class="align-middle text-center">{{date('d F, Y', strtotime($order->order_date))}} </td>
                                                                     <td class="align-middle text-center">Already Paid</td>
                                                                 @endif
                                                                 @if(Auth::user() && $order->status==1)
-                                                                    <td class="align-middle text-center">{{$order->product->product_name}}</td>
-                                                                    <td class="align-middle text-center">Rp.{{number_format($order->price), 0}}</td>
-                                                                    <td class="align-middle text-center">{{$order->qty}}</td>
-                                                                    <td class="align-middle text-center">Rp.{{number_format($order->total), 0}}</td>
+                                                                    <td class="align-middle text-center">{{$order->orderDetail->qty}}</td>
+                                                                    <td class="align-middle text-center">{{$order->Order_Detail->price}}</td>
+                                                                    <td class="align-middle text-center">{{$order->orderDetail->qty}}</td>
+                                                                    <td class="align-middle text-center">{{$order->total}}</td>
                                                                     <td class="align-middle text-center">{{date('d F, Y', strtotime($order->order_date))}} </td>
                                                                     <td class="align-middle text-center">Waiting For Confirmation</td>
                                                                 @endif

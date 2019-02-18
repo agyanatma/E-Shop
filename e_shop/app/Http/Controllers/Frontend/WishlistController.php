@@ -21,79 +21,43 @@ class WishlistController extends Controller
     public function wishlist(Request $request){
         
         $users = Auth::User();
-        // /dd($wishlist->toArray());
-        //dd($wishlist->toArray());
-        if (Auth::user() && $orders = 1){
-            $user = Auth::user();
-            $buyer = Auth::user()->id;
-            $products = Product::with(['images'])->get();
-            $wishlist = Wishlist::where([
-                'user_id' => Auth::id()
-            ])->paginate(24);
-            $totalorder = Orders::with('product','buyer')->where([
-                'user_id' => $buyer,
-                'status' => 0,
-            ])->count();
-            //dd($totalqty);
-            return view('pages.frontend.wishlist')
-            ->with('products', $products)->with('user', $user)->with('users', $users)
-            ->with('buyer', $buyer)->with('orders', $orders)->with('totalorder', $totalorder)
-            ->with('wishlist', $wishlist);
-        }
-        else{
-            return view('pages.frontend.wishlist')->with('products', $products)->with('wishlist', $wishlist)
-            ->with('users', $users);
-        }
-        
-        
-            
+        $buyer = Auth::user()->id;
+        $products = Product::with(['images'])->get();
+        $wishlist = Wishlist::where([
+            'user_id' => Auth::id()
+        ])->paginate(24);
+        $totalorder = Order_product::with('product','buyer')->where([
+            'user_id' => $buyer,
+        ])->count();
+        //dd($totalqty);
+        return view('pages.frontend.wishlist')
+        ->with('products', $products)->with('users', $users)->with('wishlist', $wishlist)
+        ->with('buyer', $buyer)->with('totalorder', $totalorder);
     }
     
     public function searchwishlist(Request $request){
-        $wishlists = Wishlist::where([
-            'user_id' => Auth::id()
-        ])->get();
-
         $keyword = $request->get('title');
         $buyer = Auth::user()->id;
         $users = Auth::User();
-        //dd($products->toArray());
-        if (Auth::user() && $orders = 1){
-            $user = Auth::user();
-            $buyer = Auth::user()->id;
-            // $s = $request->input('s');
-            $wishlist = Wishlist::where([
-                'user_id' => Auth::id()
-            ]);
-            if ($request->has('title') && $request->get('title') != '') {
-                //dd($keyword);
-                $wishlist->whereHas('product', function ($q) use ($keyword) {
-                    $q->where('product_name', 'like', '%'.$keyword.'%');
-                });
-            }
-            //dd($wishlist->toSql());
-            $wishlist = $wishlist->get();
+        $wishlist = Wishlist::where([
+            'user_id' => Auth::id()
+        ]);
+        if ($request->has('title') && $request->get('title') != '') {
+            //dd($keyword);
+            $wishlist->whereHas('product', function ($q) use ($keyword) {
+                $q->where('product_name', 'like', '%'.$keyword.'%');
+            });
+        }
+        //dd($wishlist->toSql());
+        $wishlist = $wishlist->paginate(24);
+        $totalorder = Order_product::with('product','buyer')->where([
+            'user_id' => $buyer,
+        ])->count();
         
-            $totalorder = Orders::with('product','buyer')->where([
-                'user_id' => $buyer,
-                'status' => 0,
-            ])->count();
-
-            //dd($wishlist->toArray());
-            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
-            $totalqty = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '0')->sum('qty');
-            
-            //dd($totalqty);
-            return view('pages.frontend.searchwishlist')
-            ->with('user', $user)->with('users', $users)
-            ->with('buyer', $buyer)->with('orders', $orders)->with('wishlist', $wishlist)
-            ->with('totalqty', $totalqty)->with('qty', $qty)->with('totalorder', $totalorder);
-            // ->with('wishlist', $wishlist);
-        }
-        else{
-            return view('pages.frontend.searchwishlist')->with('wishlist', $wishlist)
-            ->with('users', $users);
-        }
+        return view('pages.frontend.searchwishlist')
+        ->with('users', $users)
+        ->with('buyer', $buyer)->with('wishlist', $wishlist)
+        ->with('totalorder', $totalorder);
     }
     
     public function tambahwishlist(Request $request, $id){
@@ -131,28 +95,17 @@ class WishlistController extends Controller
     
     public function ubahwishlist(){
         $users = Auth::User();
-        // /dd($wishlist->toArray());
-        //dd($wishlist->toArray());
-        if (Auth::user() && $orders = 1){
-            $user = Auth::user();
-            $buyer = Auth::user()->id;
-            $products = Product::with(['images'])->get();
-            $wishlist = Wishlist::with('product','buyer')->where([
-                'user_id' => $buyer,
-            ])->paginate(24);
-            $totalorder = Orders::with('product','buyer')->where([
-                'user_id' => $buyer,
-                'status' => 0,
-            ])->count();
-            return view('pages.frontend.ubahwishlist')
-            ->with('products', $products)->with('user', $user)->with('users', $users)
-            ->with('buyer', $buyer)->with('orders', $orders)->with('totalorder', $totalorder)
-            ->with('wishlist', $wishlist);
-        }
-        else{
-            return view('pages.frontend.ubahwishlist')->with('products', $products)->with('wishlist', $wishlist)
-            ->with('users', $users);
-        }
+        $buyer = Auth::user()->id;
+           
+        $wishlist = Wishlist::with('product','buyer')->where([
+            'user_id' => $buyer,
+        ])->paginate(24);
+        $totalorder = Order_product::with('product','buyer')->where([
+             'user_id' => $buyer,
+        ])->count();
+        return view('pages.frontend.ubahwishlist')->with('users', $users)
+        ->with('buyer', $buyer)->with('totalorder', $totalorder)
+        ->with('wishlist', $wishlist);
     }
     
 }

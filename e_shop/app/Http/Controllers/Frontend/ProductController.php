@@ -62,14 +62,18 @@ class ProductController extends Controller
         $images = Product_image::where('product_id','=',$id)->get();
         $users = Auth::User();
         $productrandom = Product::inRandomOrder()->with(['images'])->take(6)->get();
+        
+        
         //dd($productrandom->toArray());
         if (Auth::user() && $orders = 1){
             $user = Auth::user();
             $buyer = Auth::user()->id;
-            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
-            $totalorder = Orders::with('product','buyer')->where([
+            $qty = Order_product::with('product','buyer')->where([
                 'user_id' => $buyer,
-                'status' => 0,
+                ])->get();
+            $orders = Order_product::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Order_product::with('product','buyer')->where([
+                'user_id' => $buyer,
             ])->count();
             return view('pages.frontend.detailproduct')
             ->with('products', $products)->with('user', $user)->with('users', $users)
@@ -101,10 +105,10 @@ class ProductController extends Controller
         if (Auth::user() && $orders = 1){
             $users = Auth::user();
             $buyer = Auth::user()->id;
-            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
-            $totalorder = Orders::with('product','buyer')->where([
+            $orders = Order_product::with('product','buyer')->where('user_id','=',$buyer)->get();
+            $totalorder = Order_product::with('product','buyer')->where([
                 'user_id' => $buyer,
-                'status' => 0,
+                
             ])->count();
             
             //dd($totalqty);

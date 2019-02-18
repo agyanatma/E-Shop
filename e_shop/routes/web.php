@@ -42,6 +42,14 @@ Route::get('wishlist/ubahwishlist', 'Frontend\WishlistController@ubahwishlist')-
 Route::get('searchwishlist/', 'Frontend\WishlistController@searchwishlist')->name('searchwishlist');
 
 
+Route::get('admin/order/test', function(){
+    return view('pages.admin.order_test');
+});
+Route::post('admin/order/cart', 'Frontend\OrderController@orderProduct')->name('detail.order');
+Route::get('admin/order/bayaran', function(){
+    return view('pages.admin.bayar_test');
+});
+Route::post('admin/order/pay', 'Frontend\OrderController@bayar')->name('pay.order');
 
 
 //CartPage
@@ -53,7 +61,7 @@ Route::get('order/{id}/delete', 'Frontend\OrderController@deletecart')->name('de
 Route::get('/pembayaran/', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
 Route::post('/product/langsungbayar/{id}', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
 Route::get('/langsungbayargan/', 'Frontend\OrderController@langsungbayargan')->name('langsungbayargan');
-Route::get('order/bayar/{id}', 'Frontend\OrderController@updatestatus')->name('bayar');
+Route::post('pembayaran/pay/', 'Frontend\OrderController@bayar')->name('bayar');
 Route::get('/product/langsungbayar/{id}/bayar', 'Frontend\OrderController@updatestatusbayarlangsung')->name('bayarlangsung');
 //Route::get('/product/bayar', 'Frontend\OrderController@getcheckoutgan')->name('pembayaran');
 
@@ -98,15 +106,7 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/order/datatables', 'Backend\OrderController@dataTables')->name('table.order');
 
     
-    Route::get('admin/order/test', function(){
-        return view('pages.admin.order_test');
-    });
-    Route::post('admin/order/cart', 'Backend\OrderController@orderProduct')->name('detail.order');
-    Route::get('admin/order/bayaran', function(){
-        return view('pages.admin.bayar_test');
-    });
-    Route::post('admin/order/pay', 'Backend\OrderController@bayar')->name('pay.order');
-
+    
     //CRUD USER
     Route::get('admin/user/{id}/show', 'Backend\UserController@edit')->name('show.admin');
     Route::get('admin/user/{id}/edit', 'Backend\UserController@edit')->name('edit.admin');

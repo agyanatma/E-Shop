@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="container-fluid" style="padding: 4%; ">
-    <div class="row" style="margin-bottom:8%">
+    <form action="{{ route('bayar') }}" method="post" >
+        {{csrf_field()}}
+        <div class="row" style="margin-bottom:8%">
+        
             <div class="col-12 col-lg-7 col-md-12 col-sm-12" >
                 <div class="card-checkout-box-address"style="background:#f2f2f2; border: solid 5px #e0e0e0;" >
                     <div class="card-body-address" style="height:auto">
@@ -74,7 +77,7 @@
                                             <h6 class="text-center font-weight-light"><strong>{{$order->product->product_name}}</strong></h6>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-4 text-center">
-                                            <h6 class=" text-center font-weight-light"><strong>Rp.{{number_format($order->qty * $order->product->product_price), 0}}</strong></h6>
+                                            <h6 class=" text-center font-weight-light"><strong>Rp. {{number_format($order->total)}}</strong></h6>
                                         </div>                   
                                     </div>
                             </div>
@@ -91,19 +94,21 @@
                             <h3 class=" text-right "><em><strong>Total</strong></em></h3>
                         </div>
                         <div class="card-total-bill-checkout text-right" style="padding: 10px 20px 10px 0 ;">
-                            <h5 class="totalbill " style="font-size:25px; "><strong>Rp.{{number_format($total), 0}}</strong></h5>
+                            <h5 class="totalbill " style="font-size:25px; "><strong>Rp. {{number_format($total)}}</strong></h5>
+                            <input type="hidden" name="total" value="{{$total}}">
                         </div>
                         <div style="card-payment-checkout">
                             {{-- <form action="{{ route('bayar', $order->id)}}" method="GET">
                                 {{ csrf_field() }}
                                 <span type="hidden" value="{{$order->status}}" name="status"></span>
                             </form> --}}
-                            <a href="{{ route('bayar', $order->id)}}" class="btn btn-success  mx-3" style="float:right; " name="bayar"><i class="fas fa-money-check"> Payment</i></a>
+                            <button type="submit" class="btn btn-success  mx-3" style="float: right"><i class="fas fa-money-check"> Payment</i></button>
+                            {{-- <a href="{{ route('bayar', $order->id)}}" class="btn btn-success  mx-3" style="float:right; " name="bayar">btn btn-success  mx-3 Payment</i></a> --}}
                         </div>
                     </div> 
             </div>
-                
-    </div>
+        </div>
+    </form>
 </div>
     
         

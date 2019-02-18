@@ -56,7 +56,7 @@ class UserController extends Controller
         $this->validate($request,[
             'email' => 'required|email|unique:users',
             'password' => 'required|min:5',
-            'fullname' => 'required',
+            'fullname' => 'required|max:12',
             'address' => 'required',
             'city' => 'required',
             'postal' => 'required|numeric',
@@ -92,27 +92,29 @@ class UserController extends Controller
     
     public function user($id){
         $users = User::find($id);
-        //dd($users->toArray());
+        $buyer = Auth::user()->id;
+        $detailorder = Orders::find($id);
+        $orderdetail = Order_detail::with('product', 'order')
+        ->get();
+        $orders = Orders::with([
+            'orderDetail',
+            'orderDetail.product'=>(function($product){
+                $product->with(['images'])->get();
+            })
+        ])->where([
+            'user_id' => $id,
+        ])->get();
+        // ->where('status', '=', '1')->orWhere('status', '=', '2')->latest()->take(3)->get();
         
-        if (Auth::user() && $orders = 1){
-            $user = Auth::user();
-            $buyer = Auth::user()->id;
-            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->where('status', '=', '1')->orWhere('status', '=', '2')->latest()->take(3)->get();
-            $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
-            $totalorder = Orders::with('product','buyer')->where([
-                'user_id' => $buyer,
-                'status' => 0,
-            ])->count();
-            $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-            
-        return view('pages.frontend.user')->with('users', $users
-            )->with('buyer', $buyer)->with('orders', $orders)
-            ->with('total', $total)->with('qty', $qty)->with('totalorder', $totalorder);
-        }
-        else{
-
-        return view('pages.frontend.user')->with('users', $users)->with('orders', $orders)->with('total', $total)->with('totalharga', $totalharga)->with('buyer', $buyer);
-        }
+        //dd($orders->toArray());
+        $totalorder = Order_product::with('product','buyer')->where([
+            'user_id' => $buyer,
+        ])->count();
+        $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
+        return view('pages.frontend.user')->with('users', $users)
+        ->with('buyer', $buyer)->with('orders', $orders)->with('orderdetail' ,$orderdetail)
+        ->with('total', $total)->with('totalorder', $totalorder);
+        
     }
     
     public function update(Request $request,$id){
@@ -157,43 +159,25 @@ class UserController extends Controller
 
     public function settings($id){
         $users = Auth::user();
-        
-        if (Auth::user() && $orders = 1){
-            $users = Auth::user();
-            $buyer = Auth::user()->id;
-            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
-            $totalorder = Orders::with('product','buyer')->where([
+        $buyer = Auth::user()->id;
+        $totalorder = Order_product::with('product','buyer')->where([
                 'user_id' => $buyer,
-                'status' => 0,
-            ])->count();
+        ])->count();
+
         return view('pages.frontend.gantiinfouser')->with('users', $users)
-        ->with('buyer', $buyer)->with('orders', $orders)->with('totalorder', $totalorder);
-        }
-        else{
-        //dd($users);
-        return view('pages.frontend.gantiinfouser')->with('users', $users);
-        }
+        ->with('buyer', $buyer)->with('totalorder', $totalorder);
+        
     }
 
     public function gantipassword($id){
         $users = Auth::user();
-        
-        if (Auth::user() && $orders = 1){
-            $user = Auth::user();
-            $buyer = Auth::user()->id;
-            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
-            $totalorder = Orders::with('product','buyer')->where([
-                'user_id' => $buyer,
-                'status' => 0,
-            ])->count();
+        $buyer = Auth::user()->id;
+        $totalorder = Orders::with('product','buyer')->where([
+            'user_id' => $buyer,
+        ])->count();
+
         return view('pages.frontend.gantipassword')->with('users', $users)
-        ->with('buyer', $buyer)->with('orders', $orders)->with('totalorder', $totalorder);
-        
-        }
-        else{
-        //dd($users);
-        return view('pages.frontend.gantipassword')->with('users', $users);
-        }
+        ->with('buyer', $buyer)->with('totalorder', $totalorder);
     }
 
     public function updatepassword(Request $request,$id){

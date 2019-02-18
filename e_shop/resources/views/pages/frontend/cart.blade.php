@@ -6,10 +6,10 @@
 <div class="container-fluid" style="padding:4%"> 
     
     <h2 class="title-cart text-center" ><strong>Your Shopping Cart</strong></h2>
-    {{-- <div class="card-total-cart text-center clearfix">
+    <div class="card-total-cart text-center clearfix">
             <strong class="totalqty ">Total Items</strong>
             <strong class="totalqty " >({{$totalqty}})</strong>
-    </div> --}}
+    </div>
     
     <div style="padding:3%">
             @if (session('status'))
@@ -56,12 +56,11 @@
                                 </button>
                                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                 <input type="hidden" name="product_id" value="{{$order->product->id}}">
-                                <input type="hidden" name="price" value="{{$order->product->product_price}}">
                                 <input type="number" id="quantity"  name="quantity" class="form-control text-center input-number" style="border:none" value="{{$order->qty}}" min="1" max="100">
                             </form>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-2 col-2 table-data text-center">
-                            <h6 class=" text-center" >Rp.{{number_format($order->qty * $order->product->product_price), 0}}</h6>
+                            <h6 class=" text-center" >Rp. {{number_format($order->total)}}</h6>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-3 col-3 table-data text-center form-group" style="">
                             <a href="{{ route('deleteCart', $order->id) }}" class="btn btn" style="color:red" name="delete"><i class="fas fa-times"></i></a>
@@ -81,7 +80,7 @@
             <h3 class=" text-right text-uppercase" ><em><strong>Sub Total</strong></em></h3>
         </div>
         <div class="card-total-bill-cart-summary text-right" style="padding-bottom:20px;">
-            <h5><strong class="totalbill " >Rp.{{number_format($total), 0}}</strong></h5>
+            <h5><strong class="totalbill " >Rp. {{number_format($total)}}</strong></h5>
         </div>
         <div class="">
             <div class="row justify-content-end">
@@ -89,10 +88,9 @@
                     <a href="{{route('userPage')}}"  class="btn btn-info" ><i class="fas fa-undo"> Continue Shopping</i></a>
                 </div>
                 <div class="card-button-cart-checkout " >
-                    {{-- <form action="{{route('updatecart', $order->product->id)}}" method="POST">
-                                {{csrf_field()}} --}}
+                    
                     <a href="{{route('checkoutgan')}}" name="action" value="update"  class="btn btn-success mx-3" style="margin-right:20px;"><i class="fas fa-handshake"> Checkout</i></a>
-                    {{-- </form> --}}
+                    
                 </div>  
             </div>
         </div> 
@@ -114,7 +112,7 @@
                                     <h6 id="random-title-product-name" class="font-weight-light " ><strong>{{$row->product_name}}</strong></h6>
                                 </div>
                                 <div class="card-price-box-random ">
-                                    <h6 class="text-center ">Rp {{number_format($row->product_price, 0)}}</h6>
+                                    <h6 class="text-center ">{{$row->product_price}}</h6>
                                 </div>
                         </div>
                     </div>

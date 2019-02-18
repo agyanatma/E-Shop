@@ -60,11 +60,9 @@
                             <div class="input-group">
                                     <button class="btn btn-info mx-2 text-center" type="submit">
                                             <i class="fas fa-shopping-cart">
-                                                @if(Auth::user()->status==0) 
                                                     <div class="quantity-tags-navbar">
                                                         <span >{{$totalorder}}</span>
                                                     </div>
-                                                @endif 
                                             </i>
                                     </button>
                             </div>
@@ -94,13 +92,11 @@
                             <div class="input-group">
                                 <div class="nav-item" style="margin-right:10px">
                                     <button class="btn btn-info mx-2  " type="submit">
-                                        <i class="fas fa-shopping-cart"> 
-                                            {{-- @if(Auth::user()->status==0) 
-                                                <div class="quantity-tags-navbar">
-                                                    <span >{{$totalorder}}</span>
-                                                </div>
-                                            @endif --}}
-                                        </i>
+                                            <i class="fas fa-shopping-cart">
+                                                    <div class="quantity-tags-navbar">
+                                                        <span >{{$totalorder}}</span>
+                                                    </div>
+                                            </i>
                                     </button>
                                 </div>
                             </div>

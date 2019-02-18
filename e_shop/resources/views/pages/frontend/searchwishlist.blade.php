@@ -9,8 +9,7 @@
             <form class="navbar-form" role="search" method="get" action="{{route('searchwishlist')}}">
                 <div class="input-group">
                     <div class="nav-item" style="margin-right:10px">
-                        <input type="text" class="form-control form-control-borderless"  placeholder="Search topics or keywords" name="title"
-                        value="{{isset($s) ? $s : '' }}">
+                        <input type="text" class="form-control form-control-borderless"  placeholder="Search topics or keywords" name="title">
                     </div>
                     <div class="nav-item" style="margin-right:10px">
                         <button class="btn btn-info  " type="submit"><i class="fas fa-search"></i></button>
@@ -41,7 +40,7 @@
                                         <h5 class="font-weight-light text-center" style="padding-top:20px">{{$row->product->product_name}}</h5>
                                     </div>
                                     <div class="card-price-box-wishlist">
-                                        <h5 class="font-weight-light text-center ">Rp {{number_format($row->product->product_price, 0)}}</h5>
+                                        <h5 class="font-weight-light text-center ">{{$row->product->product_price}}</h5>
                                     </div>
                                     <div class="card-text-box-button-wishlist">
                                         @if(Auth::check() && Auth::user())
@@ -65,6 +64,9 @@
                     @else
                         <h2>No posts found!</h2>
                     @endif
+        </div>
+        <div class="pagination fixed" style="margin:4%" >
+                {{$wishlist->links()}}
         </div>
     </div>
 

@@ -508,14 +508,13 @@ a.btn-addcart{
 
 .table-wrapper-scroll-y-cart{
     display: block;
-    height: 300px;
-    overflow: hidden;
-    
+    /* overflow: hidden; */
+   
 }
-
+/* 
 .table-wrapper-scroll-y-cart:hover{
     overflow-y: auto;
-}
+} */
 
 
 h2.title-cart.text-center.text-uppercase{
