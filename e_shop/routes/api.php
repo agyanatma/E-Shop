@@ -30,11 +30,15 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/user/profile', 'Api\UserController@profile');//done
     Route::post('/user/profile/{user}', 'Api\UserController@update');//kurang list
     Route::post('/user/profile/password/{user}', 'Api\UserController@password');
-    Route::post('/order/buy','Api\OrderController@order');
+    Route::get('/order/cart', 'Api\OrderController@cart');
+    Route::post('/order/cart/add', 'Api\OrderController@addCart');
+    Route::post('/order/cart/{id}/edit', 'Api\OrderController@editCart');
+    Route::delete('/order/cart/{id}/delete', 'Api\OrderController@deleteCart');
+    Route::post('/order/checkout','Api\OrderController@order');
     Route::get('/order/confirm/{order}', 'Api\OrderController@confirm');//done
     Route::get('/order/history', 'Api\OrderController@history');//done
     Route::delete('/order/delete/{id}', 'Api\OrderController@destroy');
+    Route::get('/wishlist', 'Api\UserController@wishlist');
     Route::post('/wishlist/add', 'Api\UserController@add');//done
     Route::delete('/wishlist/delete/{id}', 'Api\UserController@destroy');
-    Route::get('/wishlist', 'Api\UserController@wishlist');
 });

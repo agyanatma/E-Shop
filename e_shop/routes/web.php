@@ -94,16 +94,6 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('edit.order');
     Route::get('admin/order/datatables', 'Backend\OrderController@dataTables')->name('table.order');
 
-    
-    Route::get('admin/order/test', function(){
-        return view('pages.admin.order_test');
-    });
-    Route::post('admin/order/cart', 'Backend\OrderController@orderProduct')->name('detail.order');
-    Route::get('admin/order/bayaran', function(){
-        return view('pages.admin.bayar_test');
-    });
-    Route::post('admin/order/pay', 'Backend\OrderController@bayar')->name('pay.order');
-
     //CRUD USER
     Route::get('admin/user/{id}/show', 'Backend\UserController@edit')->name('show.admin');
     Route::get('admin/user/{id}/edit', 'Backend\UserController@edit')->name('edit.admin');
