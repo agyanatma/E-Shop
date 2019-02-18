@@ -94,8 +94,8 @@ class UserController extends Controller
         $users = User::find($id);
         $buyer = Auth::user()->id;
         $detailorder = Orders::find($id);
-        $orderdetail = Order_detail::with('product', 'order')
-        ->get();
+        // $orderdetail = Order_detail::with('product', 'order')
+        // ->get();
         $orders = Orders::with([
             'orderDetail',
             'orderDetail.product'=>(function($product){
@@ -105,14 +105,15 @@ class UserController extends Controller
             'user_id' => $id,
         ])->get();
         // ->where('status', '=', '1')->orWhere('status', '=', '2')->latest()->take(3)->get();
-        
+        // $orders = Orders::with(['orderDetail','orderDetail.product'])->find($id);
+        // $details = $orders->orderDetail;
         //dd($orders->toArray());
         $totalorder = Order_product::with('product','buyer')->where([
             'user_id' => $buyer,
         ])->count();
         $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
         return view('pages.frontend.user')->with('users', $users)
-        ->with('buyer', $buyer)->with('orders', $orders)->with('orderdetail' ,$orderdetail)
+        ->with('buyer', $buyer)->with('orders', $orders)
         ->with('total', $total)->with('totalorder', $totalorder);
         
     }

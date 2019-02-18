@@ -19,8 +19,7 @@ class OrderController extends Controller
     public function show($id){
         $orders = Orders::with(['orderDetail','orderDetail.product'])->find($id);
         $details = $orders->orderDetail;
-        $item = Order_product::with(['product','buyer'])->where('user_id',Auth::id())->get();
-        dd($item->toArray());
+        //dd($item->toArray());
         return view('pages.admin.view_order')->with('orders', $orders)->with('details', $details);
     }
 
@@ -38,6 +37,9 @@ class OrderController extends Controller
 
         return Datatables::of($item)
             ->addIndexColumn()
+            ->editColumn('total', function($item){
+                return 'Rp '.number_format($item->total,0);
+            })
             ->editColumn('status', function ($item) {
                 if($item->status=='1'){
                     return "Menunggu Konfirmasi";
@@ -97,5 +99,9 @@ class OrderController extends Controller
         Order_product::where('user_id',Auth::id())->delete();
 
         return redirect()->back()->with('status','Order success');
+    }
+
+    public function payment(Request $request){
+
     }
 }

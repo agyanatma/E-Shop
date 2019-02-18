@@ -59,10 +59,13 @@ Route::get('/order/cart/', 'Frontend\OrderController@cart')->name('cart');
 Route::post('/order/cart/{id}/', 'Frontend\OrderController@updatecart')->name('updatecart');
 Route::get('order/{id}/delete', 'Frontend\OrderController@deletecart')->name('deleteCart');
 Route::get('/pembayaran/', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
+Route::get('/pemabayaran/payment', 'Frontend\OrderController@paymentgan')->name('paymentcard');
 Route::post('/product/langsungbayar/{id}', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
 Route::get('/langsungbayargan/', 'Frontend\OrderController@langsungbayargan')->name('langsungbayargan');
 Route::post('pembayaran/pay/', 'Frontend\OrderController@bayar')->name('bayar');
 Route::get('/product/langsungbayar/{id}/bayar', 'Frontend\OrderController@updatestatusbayarlangsung')->name('bayarlangsung');
+
+
 //Route::get('/product/bayar', 'Frontend\OrderController@getcheckoutgan')->name('pembayaran');
 
 //Route::match('POST' 'GET'), ('/product/bayar', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
@@ -105,8 +108,6 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('edit.order');
     Route::get('admin/order/datatables', 'Backend\OrderController@dataTables')->name('table.order');
 
-    
-    
     //CRUD USER
     Route::get('admin/user/{id}/show', 'Backend\UserController@edit')->name('show.admin');
     Route::get('admin/user/{id}/edit', 'Backend\UserController@edit')->name('edit.admin');

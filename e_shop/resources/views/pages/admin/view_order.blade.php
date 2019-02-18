@@ -24,7 +24,7 @@
                 </div>
             </div>
             <h3>Orders</h3>
-            <div class="card" style="margin-bottom:10px">
+            <div class="card" style="margin-bottom:20px">
                 <div class="card-body">
                     <ul>
                         @foreach($details as $detail)
@@ -47,8 +47,15 @@
                     <h4 class="float-right">Total Price: {{$orders->total}}</h4>
                 </div>
             </div>
-            
-            <br><br>
+            <h3>Payment Check</h3>
+            <div class="card" style="margin-bottom:20px">
+                <div class="card-body" style="margin-left:10px">
+                    @if($orders->payment_check == null)
+                        <h4>No payment</h4>
+                    @endif
+                    <a href="{{}}" class="btn btn-success float-right" style="margin-top:50px">Approved</a>
+                </div>
+            </div>
             
         </form>
     </div>

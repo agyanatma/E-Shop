@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container-fluid" style="padding: 4%; ">
-    <form action="{{ route('bayar') }}" method="post" >
-        {{csrf_field()}}
+    {{-- <form action="{{ route('bayar') }}" method="post" >
+        {{csrf_field()}} --}}
         <div class="row" style="margin-bottom:8%">
         
             <div class="col-12 col-lg-7 col-md-12 col-sm-12" >
@@ -102,8 +102,8 @@
                                 {{ csrf_field() }}
                                 <span type="hidden" value="{{$order->status}}" name="status"></span>
                             </form> --}}
-                            <button type="submit" class="btn btn-success  mx-3" style="float: right"><i class="fas fa-money-check"> Payment</i></button>
-                            {{-- <a href="{{ route('bayar', $order->id)}}" class="btn btn-success  mx-3" style="float:right; " name="bayar">btn btn-success  mx-3 Payment</i></a> --}}
+                            {{-- <button type="submit" class="btn btn-success  mx-3" style="float: right"><i class="fas fa-money-check"> Payment</i></button> --}}
+                            <a href="{{ route('paymentcard')}}" class="btn btn-success  mx-3" style="float:right; " name="payment">Payment</i></a>
                         </div>
                     </div> 
             </div>

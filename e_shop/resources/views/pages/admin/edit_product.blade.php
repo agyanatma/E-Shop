@@ -27,7 +27,7 @@
         </form>
     </div>
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-bottom:50px">
             @foreach($images as $image)
                 <div class="col-sm-2">
                     <div class="card">

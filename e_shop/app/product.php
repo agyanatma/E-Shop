@@ -20,6 +20,10 @@ class Product extends Model
         return $this->hasMany('App\Product_image');
     }
 
+    public function image(){
+        return $this->hasOne('App\Product_image');
+    }
+
     public function orderDetail(){
         return $this->hasOne('App\Order_detail');
     }
@@ -27,7 +31,7 @@ class Product extends Model
     public function orderProduct(){
         return $this->hasMany('App\Order_product','product_id','id');
     }
-
+    
     public function getProductPriceAttribute($value){
         return 'Rp '.number_format($value, 0);
     }

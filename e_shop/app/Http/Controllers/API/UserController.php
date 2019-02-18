@@ -205,6 +205,8 @@ class UserController extends Controller
         }
         
         try{
+            $user = $user->find($id);
+
             $user->update($request->except(
                 'email','password','api_token','admin'
             ));
@@ -288,7 +290,7 @@ class UserController extends Controller
 
     public function wishlist(Wishlist $wishlist){
         try{
-            $wishlist = Wishlist::with(['product','product','product.images'])->where('user_id','=',Auth::id())->get();
+            $wishlist = Wishlist::with(['product','product.image'])->where('user_id','=',Auth::id())->get();
 
             if(!$wishlist){
                 return response()->json([
@@ -331,7 +333,7 @@ class UserController extends Controller
             $item->user_id = Auth::id();
             $item->product_id = $request->product;
             $item->save();
-            $wishlist = Wishlist::with(['product','product','product.images'])->where('user_id','=',Auth::id())->get();
+            $wishlist = Wishlist::with(['product','product.image'])->where('user_id','=',Auth::id())->get();
 
             if(!$wishlist){
                 return response()->json([

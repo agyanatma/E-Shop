@@ -14,7 +14,7 @@ class Order_product extends Model
         'user_id','product_id','price','qty','total'
     ];
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at', 'updated_at','user_id','product_id'
     ];
 
     public function product(){
@@ -23,9 +23,5 @@ class Order_product extends Model
 
     public function buyer(){
         return $this->hasOne('App\User','id','user_id');
-    }
-
-    public function getPriceAttribute($value){
-        return 'Rp '.number_format($value, 0);
     }
 }

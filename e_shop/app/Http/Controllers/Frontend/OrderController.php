@@ -250,17 +250,23 @@ class OrderController extends Controller
         $users = Auth::User();
         $buyer = Auth::user()->id;
         $orders = Order_product::with('product','buyer')->where('user_id','=',$buyer)->get();
-        $order_details = Order_product::with('product','buyer')->where('user_id','=',$buyer)->get();
-        //dd($orders->toArray());
         $totalorder = Order_product::with('product','buyer')->where([
             'user_id' => $buyer,
         ])->count();
         $total = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
         $totalqty = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
         //dd($total);
-        return view('pages.frontend.checkoutgan')->with('products', $products)->with('users', $users)->with('order_details', $order_details)
+        return view('pages.frontend.checkoutgan')->with('products', $products)->with('users', $users)
         ->with('buyer', $buyer)->with('orders', $orders)->with('total', $total)->with('totalorder', $totalorder);
     }
 
-   
+    public function paymentgan(){
+        $buyer = Auth::user()->id;
+        $totalorder = Order_product::with('product','buyer')->where([
+            'user_id' => $buyer,
+        ])->count();
+        $total = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
+        return view('pages.frontend.payment')->with('totalorder', $totalorder)->with('total', $total);
+    }
+    // Route::get('/pemabayaran/payment', 'Frontend\OrderController@paymentgan')->name('paymentcard');
 }
