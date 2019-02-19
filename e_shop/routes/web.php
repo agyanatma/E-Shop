@@ -97,7 +97,7 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/order/{id}/show', 'Backend\OrderController@show')->name('show.order');
     Route::get('admin/order/{id}/delete', 'Backend\OrderController@destroy')->name('destroy.order');
     Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('edit.order');
-    Route::get('admin/order/{id}/payment', 'Backend\OrderController@payment')->name('payment.order');
+    Route::get('admin/order/payment', 'Backend\OrderController@payment')->name('payment.order');
     Route::get('admin/order/datatables', 'Backend\OrderController@dataTables')->name('table.order');
     
 

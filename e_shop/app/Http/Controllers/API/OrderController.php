@@ -139,7 +139,6 @@ class OrderController extends Controller
                 'message'   =>$e->getMessage(),
                 'code'      =>'404'], 404);
         }
-        
     }
 
     public function editCart(Request $request, Order_product $cart, User $user, Product $product, $id){
