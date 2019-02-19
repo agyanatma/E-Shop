@@ -29,14 +29,14 @@ class User extends Authenticatable
     }
 
     public function getProfileImageAttribute($value){
-        return '/upload/'.$value;
+        return url('upload/'.$value);
     }
 
     public function getFullnameAttribute($value){
-        return ucfirst($value);
+        return ucwords($value);
     }
 
     public function getCityAttribute($value){
-        return ucfirst($value);
+        return ucwords($value);
     }
 }

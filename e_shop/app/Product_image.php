@@ -16,6 +16,6 @@ class Product_image extends Model
     }
 
     public function getProductImageAttribute($value){
-        return '/upload/'.$value;
+        return url('upload/'.$value);
     }
 }

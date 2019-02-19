@@ -55,8 +55,9 @@
                     @else
                         <img class="img" style="width:50px" src="{{$orders->payment_check}}">
                     @endif
-
-                    <a href="{{ route('payment.order',$order->id) }}" class="btn btn-success float-right" style="margin-top:50px">Approved</a>
+                    <form action="{{ route('payment.order') }}" method="POST">
+                        <a href="" class="btn btn-success float-right" style="margin-top:50px">Approved</a>
+                    </form>
                 </div>
             </div>
             

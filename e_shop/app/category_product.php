@@ -16,6 +16,6 @@ class Category_product extends Model
     }
 
     public function getCategoryImageAttribute($value){
-        return '/upload/'.$value;
+        return url('upload/'.$value);
     }
 }
