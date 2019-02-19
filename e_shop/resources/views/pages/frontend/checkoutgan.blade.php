@@ -77,7 +77,7 @@
                                             <h6 class="text-center font-weight-light"><strong>{{$order->product->product_name}}</strong></h6>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-4 text-center">
-                                            <h6 class=" text-center font-weight-light"><strong>Rp. {{number_format($order->total)}}</strong></h6>
+                                            <h6 class=" text-center font-weight-light"><strong>Rp. {{number_format($order->total * $order->qty)}}</strong></h6>
                                         </div>                   
                                     </div>
                             </div>
@@ -94,7 +94,7 @@
                             <h3 class=" text-right "><em><strong>Total</strong></em></h3>
                         </div>
                         <div class="card-total-bill-checkout text-right" style="padding: 10px 20px 10px 0 ;">
-                            <h5 class="totalbill " style="font-size:25px; "><strong>Rp. {{number_format($total)}}</strong></h5>
+                            <h5 class="totalbill " style="font-size:25px; "><strong>Rp. {{number_format(+($total))}}</strong></h5>
                             <input type="hidden" name="total" value="{{$total}}">
                         </div>
                         <div style="card-payment-checkout">

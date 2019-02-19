@@ -27,13 +27,13 @@ class OrderController extends Controller
         //dd($totalorder);
         $productrandom = Product::inRandomOrder()->with(['images'])->take(6)->get();
         //dd($productrandom);
-        $qty = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0');
+        
         $total = Order_product::with('product','buyer')->where('user_id','=',$buyer )->sum('total');
         $totalqty = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
         //dd($total);
         return view('pages.frontend.cart')->with('products', $products)->with('users', $users)
         ->with('buyer', $buyer)->with('orders', $orders)
-        ->with('total', $total)->with('qty', $qty)->with('totalqty', $totalqty)
+        ->with('total', $total)->with('totalqty', $totalqty)
         ->with('productrandom', $productrandom)->with('totalorder', $totalorder);
     }
 
@@ -73,16 +73,14 @@ class OrderController extends Controller
             $user = $request->input('user_id');
             $product = $request->input('product_id');
             $quantity = $request->input('qty');
-            $price = $products->getOriginal('product_price');
-            $total = $quantity * $price;
+            $total = $products->getOriginal('product_price');
+           
             $order = Order_product::where([
                 'user_id' => $user,
                 'product_id' => $product,
-                
             ])->first();
             if ($order) {
                 $order->qty += $quantity;
-                $order->total += $quantity * $price;
                 $order->save();
             } 
             //jika belum
@@ -90,9 +88,9 @@ class OrderController extends Controller
                 $store = new Order_product;
                 $store->user_id = $user;
                 $store->product_id = $product;
-                $store->price = $price;
+                $store->total = $total;
                 $store->qty = $quantity;
-                $store->total = $quantity * $price;
+                
                 $store->save();
             }
             
@@ -118,12 +116,12 @@ class OrderController extends Controller
         
         ]);
         //dd($request->all());
-        $product = Order_product::all();
+        $product = Order_product::with('product');
         foreach($product as $item){
             Order_detail::create([
                 'order_id' =>$order->id,
                 'product_id' =>$item->product_id,
-                'price' =>$item->price,
+                'price' =>$item->product->product_price,
                 'qty' =>$item->qty
             ]);
         }
@@ -150,8 +148,7 @@ class OrderController extends Controller
             $user = $request->input('user_id');
             $product = $request->input('product_id');
             $quantity = $request->input('quantity', '1');
-            $price = $products->getOriginal('product_price');
-            $total = $quantity * $price;
+            $total = $products->getOriginal('product_price');
             //dd($request->price);
             //cek order sudah ada atau belum
             $order = Order_product::where([
@@ -161,7 +158,6 @@ class OrderController extends Controller
             //jika sudah ada
             if ($order) {
                 $order->qty += $quantity;
-                $order->total += $quantity * $price;
                 $order->save();
             } 
             //jika belum
@@ -169,9 +165,9 @@ class OrderController extends Controller
                 $store = new Order_product;
                 $store->user_id = $user;
                 $store->product_id = $product;
-                $store->price = $price;
+                $store->total = $total;
                 $store->qty = $quantity;
-                $store->total = $quantity * $price;
+               
                 $store->save();
             }
 
@@ -185,8 +181,8 @@ class OrderController extends Controller
             $user = $request->input('user_id');
             $product = $request->input('product_id');
             $quantity = $request->input('quantity', '1');
-            $price = $products->getOriginal('product_price');
-            $total = $quantity * $price;
+            $total = $products->getOriginal('product_price');
+            
             
             //dd($request->price);
             //cek order sudah ada atau belum
@@ -197,7 +193,7 @@ class OrderController extends Controller
             //jika sudah ada
             if ($order) {
                 $order->qty += $quantity;
-                $order->total += $quantity * $price;
+                
                 $order->save();
             } 
             //jika belum
@@ -205,9 +201,8 @@ class OrderController extends Controller
                 $store = new Order_product;
                 $store->user_id = $user;
                 $store->product_id = $product;
-                $store->price = $price;
+                $store->total = $total;
                 $store->qty = $quantity;
-                $store->total = $quantity * $price;
                 $store->save();
             }
         
@@ -245,7 +240,8 @@ class OrderController extends Controller
         $totalqty = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
         //dd($ordersproduct);
         return view('pages.frontend.checkoutgan')->with('products', $products)->with('users', $users)
-        ->with('buyer', $buyer)->with('orders', $orders)->with('total', $total)->with('totalorder', $totalorder);
+        ->with('buyer', $buyer)->with('orders', $orders)->with('total', $total)->with('totalqty', $totalqty)
+        ->with('totalorder', $totalorder);
     }
 
     public function paymentgan($id){
@@ -259,6 +255,7 @@ class OrderController extends Controller
         ])->where([
             'user_id' => Auth::user()->id,
         ])->find($id);
+        //dd($orders->toArray);
         $totalorder = Order_product::with('product','buyer')->where([
             'user_id' => $buyer,
         ])->count();

@@ -70,7 +70,6 @@
                                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                         <input type="hidden" name="product_id" value="{{$products->id}}">
                                         <input type="hidden" name="price" value="{{$products->product_price}}">
-                                        
                                         {{-- <input type="hidden" name="order" value="{{$orders->id}}">   --}}
                                         <button type="submit" id="cartBtn" class="btn btn-success btn-block"><i class="fas fa-handshake"> Buy Now </i> </button>
                                 </form> 

@@ -34,7 +34,8 @@
                         </div>                            
                     </div>
             </div>
-            
+            <?php $sum_tot_Price = 0 ?>
+            <?php $sum_unit_Price = 0 ?>
             @if(count($orders) > 0)
                 @foreach ($orders as $order)
                     @if(Auth::user() && $order->status==0)
@@ -60,14 +61,15 @@
                             </form>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-2 col-2 table-data text-center">
-                            <h6 class=" text-center" >Rp. {{number_format($order->total)}}</h6>
+                            <h6 class=" text-center" >Rp. {{number_format($total = $order->total * $order->qty)}}</h6>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-3 col-3 table-data text-center form-group" style="">
                             <a href="{{ route('deleteCart', $order->id) }}" class="btn btn" style="color:red" name="delete"><i class="fas fa-times"></i></a>
                         </div>                            
                     </div>      
                 </div>
-        
+                <?php $sum_tot_Price += $order->tot_Price ?>
+                <?php $sum_unit_Price += $order->unit_Price ?>
                     @endif
                 @endforeach
             @else
@@ -81,6 +83,8 @@
         </div>
         <div class="card-total-bill-cart-summary text-right" style="padding-bottom:20px;">
             <h5><strong class="totalbill " >Rp. {{number_format($total)}}</strong></h5>
+            <td>Sum tot_Price {{ $sum_tot_Price}}</td>
+            <td>Sum unit_Price {{ $sum_unit_Price}}</td>
         </div>
         <div class="">
             <div class="row justify-content-end">
