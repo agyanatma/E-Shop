@@ -93,9 +93,6 @@ class UserController extends Controller
     public function user($id){
         $users = User::find($id);
         $buyer = Auth::user()->id;
-        $detailorder = Orders::find($id);
-        // $orderdetail = Order_detail::with('product', 'order')
-        // ->get();
         $orders = Orders::with([
             'orderDetail',
             'orderDetail.product'=>(function($product){

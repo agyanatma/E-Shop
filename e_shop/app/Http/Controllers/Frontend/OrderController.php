@@ -126,6 +126,7 @@ class OrderController extends Controller
             'total' =>$request->get('total'),
         
         ]);
+        //dd($request->all());
         $product = Order_product::all();
         foreach($product as $item){
             Order_detail::create([
@@ -138,12 +139,7 @@ class OrderController extends Controller
 
         Order_product::where('user_id',Auth::id())->delete();
 
-        $order = Orders::where([
-            'user_id' =>$user->id,
-            ['status','=','0'],
-        ])->update(['status' => '1']);
-
-        return redirect()->route('userPage')->with('status','Order Success');
+        return redirect()->route('paymentcard', $order->id)->with('status','Order Success');
     }
 
     public function updatestatusbayarlangsung(Request $request, $id){
@@ -249,24 +245,62 @@ class OrderController extends Controller
         $products = Product::with(['images'])->get();
         $users = Auth::User();
         $buyer = Auth::user()->id;
+        // $ordersproduct = Orders::all();
         $orders = Order_product::with('product','buyer')->where('user_id','=',$buyer)->get();
         $totalorder = Order_product::with('product','buyer')->where([
             'user_id' => $buyer,
         ])->count();
         $total = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
         $totalqty = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
-        //dd($total);
+        //dd($ordersproduct);
         return view('pages.frontend.checkoutgan')->with('products', $products)->with('users', $users)
         ->with('buyer', $buyer)->with('orders', $orders)->with('total', $total)->with('totalorder', $totalorder);
     }
 
-    public function paymentgan(){
+    public function paymentgan($id){
+        // $orders = Orders::find($id);
         $buyer = Auth::user()->id;
+        $orders = Orders::with([
+            'orderDetail',
+            'orderDetail.product'=>(function($product){
+                $product->with(['images'])->get();
+            })
+        ])->where([
+            'user_id' => Auth::user()->id,
+        ])->find($id);
         $totalorder = Order_product::with('product','buyer')->where([
             'user_id' => $buyer,
         ])->count();
         $total = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
-        return view('pages.frontend.payment')->with('totalorder', $totalorder)->with('total', $total);
+        // dd($orders->toArray());
+        return view('pages.frontend.payment')->with('totalorder', $totalorder)->with('total', $total)
+        ->with('orders', $orders)
+       ;
     }
+    
+    public function paymentcard(Request $request, Orders $order, $id){
+           
+            if($order->status==0){
+                $order = Orders::find($id)->update([
+                    'status' =>'1',
+                    'payment_check' => '1',
+                ]);
+                
+                //dd($order);
+                return redirect()->route('userPage')->with('status','Order number '.$id.' has been approved');
+            }
+
+            else{
+                $order->where([
+                    'status' => '1'
+                ])->orWhere([
+                    'status' => '2'
+                ]);
+                return redirect()->back()->with->with('status','Order number '.$id.' Order Has been registered');
+            }
+            
+        
+    }
+    
     // Route::get('/pemabayaran/payment', 'Frontend\OrderController@paymentgan')->name('paymentcard');
 }

@@ -58,17 +58,23 @@ Route::post('product/addcart/{id}', 'Frontend\OrderController@checkout')->name('
 Route::get('/order/cart/', 'Frontend\OrderController@cart')->name('cart');
 Route::post('/order/cart/{id}/', 'Frontend\OrderController@updatecart')->name('updatecart');
 Route::get('order/{id}/delete', 'Frontend\OrderController@deletecart')->name('deleteCart');
-Route::get('/pembayaran/', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
-Route::get('/pemabayaran/payment', 'Frontend\OrderController@paymentgan')->name('paymentcard');
+Route::get('/order/', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
+Route::get('/order/payment/{id}', 'Frontend\OrderController@paymentgan')->name('paymentcard');
+Route::get('/order/payment/order/{id}', 'Frontend\OrderController@paymentcard')->name('paymentcardpost');
 Route::post('/product/langsungbayar/{id}', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
 Route::get('/langsungbayargan/', 'Frontend\OrderController@langsungbayargan')->name('langsungbayargan');
-Route::post('pembayaran/pay/', 'Frontend\OrderController@bayar')->name('bayar');
+Route::post('order/pay/', 'Frontend\OrderController@bayar')->name('bayar');
 Route::get('/product/langsungbayar/{id}/bayar', 'Frontend\OrderController@updatestatusbayarlangsung')->name('bayarlangsung');
 
 
 //Route::get('/product/bayar', 'Frontend\OrderController@getcheckoutgan')->name('pembayaran');
 
 //Route::match('POST' 'GET'), ('/product/bayar', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
+});
+
+//PAYMENT
+Route::get('order/{id}/payment/', function(){
+    return view('pages.frontend.payment');
 });
 
 /* BACKEND */
@@ -106,7 +112,9 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/order/{id}/show', 'Backend\OrderController@show')->name('show.order');
     Route::get('admin/order/{id}/delete', 'Backend\OrderController@destroy')->name('destroy.order');
     Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('edit.order');
+    Route::get('admin/order/{id}/payment', 'Backend\OrderController@payment')->name('payment.order');
     Route::get('admin/order/datatables', 'Backend\OrderController@dataTables')->name('table.order');
+    
 
     //CRUD USER
     Route::get('admin/user/{id}/show', 'Backend\UserController@edit')->name('show.admin');

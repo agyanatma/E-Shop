@@ -77,11 +77,11 @@ Shopping Cart
                                             <table id="dtVerticalScrollExample " class="table table-striped table-bordered scrollingTable mx-auto"  >
                                                     <thead>
                                                     <tr>
+                                                        <th class="th-sm text-center">Order Date</th>
                                                         <th class="th-sm text-center">Product</th>
                                                         <th class="th-sm text-center">Price</th>
                                                         <th class="th-sm text-center">Quantity</th>
                                                         <th class="th-sm text-center">Total Price</th>
-                                                        <th class="th-sm text-center">Order Date</th>
                                                         <th class="th-sm text-center">Status</th>
                                                     </tr>
                                                 </thead>
@@ -90,19 +90,20 @@ Shopping Cart
                                                             @foreach ($orders as $order)
                                                             <tr>
                                                                 @if(Auth::user() && $order->status==2)
-                                                                    <td class="align-middle text-center">{{$order->order_details->product_name}}</td>
+                                                                    <td class="align-middle text-center">{{date('d F, Y', strtotime($order->order_date))}} </td>
+                                                                    <td class="align-middle text-center">{{$order}}</td>
                                                                     <td class="align-middle text-center">{{$order->price}}</td>
                                                                     <td class="align-middle text-center">{{$order->qty}}</td>
                                                                     <td class="align-middle text-center">{{$order->total}}</td>
-                                                                    <td class="align-middle text-center">{{date('d F, Y', strtotime($order->order_date))}} </td>
                                                                     <td class="align-middle text-center">Already Paid</td>
                                                                 @endif
                                                                 @if(Auth::user() && $order->status==1)
-                                                                    <td class="align-middle text-center">{{$order->orderDetail}}</td>
-                                                                    <td class="align-middle text-center">{{$order->OrderDetailqty}}</td>
-                                                                    <td class="align-middle text-center">{{$order->orderDetail}}</td>
-                                                                    <td class="align-middle text-center">{{$order->total}}</td>
                                                                     <td class="align-middle text-center">{{date('d F, Y', strtotime($order->order_date))}} </td>
+                                                                    <td class="align-middle text-center">{{$order->orderDetail.('total')}}</td>
+                                                                    <td class="align-middle text-center">{{$order->OrderDetailqty}}</td>
+                                                                    <td class="align-middle text-center">{{$order->qty}}</td>
+                                                                    <td class="align-middle text-center">{{$order->total}}</td>
+                                                                    
                                                                     <td class="align-middle text-center">Waiting For Confirmation</td>
                                                                 @endif
                                                             </tr>
