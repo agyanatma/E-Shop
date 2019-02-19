@@ -118,12 +118,12 @@ class OrderController extends Controller
         
         ]);
         //dd($request->all());
-        $product = Order_product::all();
+        $product = Order_product::with(['product'])->get();
         foreach($product as $item){
             Order_detail::create([
                 'order_id' =>$order->id,
                 'product_id' =>$item->product_id,
-                'price' =>$item->price,
+                'price' =>$item->product->product_price,
                 'qty' =>$item->qty
             ]);
         }

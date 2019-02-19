@@ -37,14 +37,14 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <label>{{$detail->product->product_name}}</label><br>
-                                        <label>{{$detail->price}}</label><br>
+                                        <label>Rp. {{number_format($detail->price)}}</label><br>
                                         <label>{{$detail->qty}}</label><br>
                                     </div>
                                 </div><br>
                             </li>
                         @endforeach
                     </ul>
-                    <h4 class="float-right">Total Price: {{$orders->total}}</h4>
+                    <h4 class="float-right">Total Price: Rp. {{number_format($orders->total)}}</h4>
                 </div>
             </div>
             

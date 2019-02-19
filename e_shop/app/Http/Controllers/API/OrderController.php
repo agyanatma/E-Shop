@@ -62,7 +62,7 @@ class OrderController extends Controller
                 'product' =>(function($product){
                     $product->with('image')->select('id','product_name','product_price')->get();
                 })
-            ])->get();
+            ])->where('user_id',Auth::id())->get();
 
             if(!$cart){
                 return response()->json([
@@ -209,7 +209,7 @@ class OrderController extends Controller
     public function order(Request $request, Orders $order, Product $product){
         try{
             $user = Auth::user();            
-            $product = Order_product::where('user_id',Auth::id())->get();
+            $product = Order_product::with(['product'])->where('user_id',Auth::id())->get();
             if(!count($product)>0){
                 return response()->json([
                     'order'     =>array(), 
@@ -232,7 +232,7 @@ class OrderController extends Controller
                 Order_detail::create([
                     'order_id' =>$order->id,
                     'product_id' =>$item->product_id,
-                    'price' =>$item->price,
+                    'price' =>$item->product->product_name,
                     'qty' =>$item->qty
                 ]);
             }
@@ -243,6 +243,8 @@ class OrderController extends Controller
                     $product->with('image')->select('id','product_name','product_price')->get();
                 })
             ])->latest()->first();
+            
+            Order_product::where('user_id',Auth::id())->delete();
 
             if(!$order){
                 return response()->json([
@@ -257,8 +259,7 @@ class OrderController extends Controller
                 'status'    =>'success',
                 'message'   =>'Order success',
                 'code'      =>'200'], 200);
-            
-            Order_product::where('user_id',Auth::id())->delete();
+
         }
         catch(\Exception $e){
             return response()->json([
@@ -302,8 +303,11 @@ class OrderController extends Controller
 
     public function destroy($id){
         try{
-            $item = Orders::find($id);
-            $item->delete();
+            $order = Orders::find($id);
+            $detail = Order_detail::where('order_id',$id)->get();
+
+            $order->delete();
+            $detail->delete();
 
             if(!$item){
                 return response()->json([

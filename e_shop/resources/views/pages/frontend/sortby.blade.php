@@ -86,7 +86,7 @@
                                             <div class="row clearfix  clearfix" >
                                                 <div class="col-lg-8 col-md-8 col-sm-8 col-8">
                                                     <div class="card-price-box " >
-                                                        <h5 class="font-weight-light text-left" >{{$row->product_price}}</h5>
+                                                        <h5 class="font-weight-light text-left" >Rp. {{number_format($row->product_price)}}</h5>
                                                     </div> 
                                                 </div>
                                                 <div class="col-lg-2 col-md-2 col-sm-2 col-2">

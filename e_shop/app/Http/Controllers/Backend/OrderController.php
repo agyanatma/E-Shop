@@ -105,7 +105,8 @@ class OrderController extends Controller
         return redirect()->back()->with('status','Order success');
     }
 
-    public function payment(Orders $order, $id){
+    public function payment(Request $request, Orders $order){
+        $id = $request->get('id');
         if($order->status==1){
             Orders::find($id)->update([
                 'status' =>'2'

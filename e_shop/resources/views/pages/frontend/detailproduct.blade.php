@@ -31,7 +31,7 @@
                         </div>
                         <div class="" style="padding-top:30px">
                             <div class="">
-                                <h3 id="detail-product-price" class="card-detail-price text-left mx-2">{{$products->product_price}}</h3>
+                                <h3 id="detail-product-price" class="card-detail-price text-left mx-2">Rp. {{number_format($products->product_price,0)}}</h3>
                             </div> 
                         </div>
                     {{-- sudahlogin --}}
@@ -128,7 +128,7 @@
                                         <h6 id="random-title-product-name" class="font-weight-light " ><strong>{{$row->product_name}}</strong></h6>
                                     </div>
                                     <div class="card-price-box-random ">
-                                        <h6 class="text-center ">{{$row->product_price}}</h6>
+                                        <h6 class="text-center ">Rp. {{number_format($row->product_price,0)}}</h6>
                                     </div>
                             </div>
                         </div>

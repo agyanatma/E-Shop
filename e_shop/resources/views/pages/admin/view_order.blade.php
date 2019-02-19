@@ -56,7 +56,9 @@
                         <img class="img" style="width:50px" src="{{$orders->payment_check}}">
                     @endif
                     <form action="{{ route('payment.order') }}" method="POST">
-                        <a href="" class="btn btn-success float-right" style="margin-top:50px">Approved</a>
+                        {{csrf_field()}}
+                        <input type="hidden" value="{{$order->id}}"
+                        <button type="submit" class="btn btn-success float-right" style="margin-top:50px">Approved</button>
                     </form>
                 </div>
             </div>

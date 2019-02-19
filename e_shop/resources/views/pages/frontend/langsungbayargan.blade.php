@@ -94,7 +94,7 @@
                             <h3 class=" text-right "><em><strong>Total</strong></em></h3>
                         </div>
                         <div class="card-total-bill-checkout text-right" style="padding: 10px 20px 10px 0 ;">
-                            <h5 class="totalbill " style="font-size:25px; "><strong>Rp. {{number_format($total)}}</strong></h5>
+                            <h5 class="totalbill " style="font-size:25px; "><strong>Rp. {{number_format($total,0)}}</strong></h5>
                             <input type="hidden" name="total" value="{{$total}}">
                         </div>
                         <div style="card-payment-checkout">

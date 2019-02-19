@@ -112,7 +112,7 @@
                                     <h6 id="random-title-product-name" class="font-weight-light " ><strong>{{$row->product_name}}</strong></h6>
                                 </div>
                                 <div class="card-price-box-random ">
-                                    <h6 class="text-center ">{{$row->product_price}}</h6>
+                                    <h6 class="text-center ">Rp. {{number_format($row->product_price)}}</h6>
                                 </div>
                         </div>
                     </div>

@@ -91,15 +91,15 @@ Shopping Cart
                                                                 @if(Auth::user() && $order->status==2)
                                                                     <td class="align-middle text-center">{{date('d F, Y', strtotime($order->order_date))}} </td>
                                                                     <td class="align-middle text-center">{{$order}}</td>
-                                                                    <td class="align-middle text-center">{{$order->price}}</td>
+                                                                    <td class="align-middle text-center">Rp. {{number_format($order->price,0)}}</td>
                                                                     <td class="align-middle text-center">{{$order->qty}}</td>
-                                                                    <td class="align-middle text-center">{{$order->total}}</td>
+                                                                    <td class="align-middle text-center">Rp. {{number_format($order->total,0)}}</td>
                                                                     <td class="align-middle text-center">Already Paid</td>
                                                                 @endif
                                                                 @if(Auth::user() && $order->status==1)
                                                                     <td class="align-middle text-center">{{date('d F, Y', strtotime($order->order_date))}} </td>
                                                                     <td class="align-middle text-center">{{$order->fullname}}</td>
-                                                                    <td class="align-middle text-center">Rp. {{number_format($order->total)}}</td>
+                                                                    <td class="align-middle text-center">Rp. {{number_format($order->total,0)}}</td>
                                                                     <td class="align-middle text-center">Waiting For Confirmation</td>
                                                                     <td class="align-middle text-center"><a href="{{route('detailorder', $order->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></td>
                                                                     
