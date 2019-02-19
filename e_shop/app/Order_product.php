@@ -11,7 +11,7 @@ class Order_product extends Model
     public $timestamps = true;
     protected $guarded = ['id'];
     protected $fillable = [
-        'user_id','product_id','price','qty','total'
+        'user_id','product_id','qty','total'
     ];
     protected $hidden = [
         'created_at', 'updated_at','user_id','product_id'

@@ -62,12 +62,16 @@ class OrderController extends Controller
 
 //ORDERING FUNCTION===========================================================================
     public function orderProduct(Request $request){
+        $product_id = $request->get('product_id');
+        $qty = $request->get('qty');
+        $product = Product::where('id',$product_id)->first();
+        $price = $product->product_price;
+        $total = $qty * $price;
         Order_product::create([
             'user_id' =>Auth::id(),
             'product_id' =>$request->get('product_id'),
-            'price' =>$request->get('price'),
-            'qty' =>$request->get('qty'),
-            'total' =>$request->get('total'),
+            'qty' =>$qty,
+            'total' =>$total
         ]);
 
         return redirect()->back()->with('Add to Cart Success');
