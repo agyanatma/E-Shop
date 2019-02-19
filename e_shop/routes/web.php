@@ -33,6 +33,7 @@ Route::post('user/{id}/edit', 'Frontend\UserController@update')->name('editUser'
 Route::get('user/{id}/settings', 'Frontend\UserController@settings')->name('settings');
 Route::get('user/{id}/password', 'Frontend\UserController@gantipassword')->name('gantipassword');
 Route::post('user/{id}/password/changed', 'Frontend\UserController@updatepassword')->name('updatepassword');
+Route::get('/order/{id}/detail', 'Frontend\UserController@detail')->name('detailorder');
 
 //wishlist
 Route::post('product/{id}/wishlist', 'Frontend\WishlistController@tambahwishlist')->name('addWishlist');
@@ -41,30 +42,30 @@ Route::get('wishlist/{id}/deletewishlist', 'Frontend\WishlistController@deletewi
 Route::get('wishlist/ubahwishlist', 'Frontend\WishlistController@ubahwishlist')->name('ubahwishlist');
 Route::get('searchwishlist/', 'Frontend\WishlistController@searchwishlist')->name('searchwishlist');
 
-
-Route::get('admin/order/test', function(){
-    return view('pages.admin.order_test');
-});
-Route::post('admin/order/cart', 'Frontend\OrderController@orderProduct')->name('detail.order');
-Route::get('admin/order/bayaran', function(){
-    return view('pages.admin.bayar_test');
-});
-Route::post('admin/order/pay', 'Frontend\OrderController@bayar')->name('pay.order');
-
-
 //CartPage
 Route::post('product/{id}/addcart', 'Frontend\OrderController@tambahlangsung')->name('addcartlangsung');
 Route::post('product/addcart/{id}', 'Frontend\OrderController@checkout')->name('addCart');
 Route::get('/order/cart/', 'Frontend\OrderController@cart')->name('cart');
 Route::post('/order/cart/{id}/', 'Frontend\OrderController@updatecart')->name('updatecart');
 Route::get('order/{id}/delete', 'Frontend\OrderController@deletecart')->name('deleteCart');
+
 Route::get('/order/', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
 Route::get('/order/payment/{id}', 'Frontend\OrderController@paymentgan')->name('paymentcard');
-Route::get('/order/payment/order/{id}', 'Frontend\OrderController@paymentcard')->name('paymentcardpost');
+Route::get('/order/payment/order/{id}/', 'Frontend\OrderController@payment')->name('paymentcardpost');
 Route::post('/product/langsungbayar/{id}', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
 Route::get('/langsungbayargan/', 'Frontend\OrderController@langsungbayargan')->name('langsungbayargan');
 Route::post('order/pay/', 'Frontend\OrderController@bayar')->name('bayar');
 Route::get('/product/langsungbayar/{id}/bayar', 'Frontend\OrderController@updatestatusbayarlangsung')->name('bayarlangsung');
+
+
+// Route::get('admin/order/test', function(){
+//     return view('pages.admin.order_test');
+// });
+// Route::post('admin/order/cart', 'Frontend\OrderController@orderProduct')->name('detail.order');
+// Route::get('admin/order/bayaran', function(){
+//     return view('pages.admin.bayar_test');
+// });
+// Route::post('admin/order/pay', 'Frontend\OrderController@bayar')->name('pay.order');
 
 
 //Route::get('/product/bayar', 'Frontend\OrderController@getcheckoutgan')->name('pembayaran');
@@ -72,10 +73,10 @@ Route::get('/product/langsungbayar/{id}/bayar', 'Frontend\OrderController@update
 //Route::match('POST' 'GET'), ('/product/bayar', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
 });
 
-//PAYMENT
-Route::get('order/{id}/payment/', function(){
-    return view('pages.frontend.payment');
-});
+// //PAYMENT
+// Route::get('order/{id}/payment/', function(){
+//     return view('pages.frontend.payment');
+// });
 
 /* BACKEND */
 

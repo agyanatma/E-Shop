@@ -115,6 +115,17 @@ class UserController extends Controller
         
     }
     
+    public function detail($id){
+        $orders = Orders::with(['orderDetail','orderDetail.product'])->find($id);
+        $details = $orders->orderDetail;
+        $buyer = Auth::user()->id;
+        $totalorder = Order_product::with('product','buyer')->where([
+            'user_id' => $buyer,
+        ])->count();
+        return view('pages.frontend.orderdetail')->with('orders', $orders)->with('details', $details)
+        ->with('totalorder', $totalorder)->with('details', $details);
+    }
+    // Route::get('/order/{id}/detail', 'Frontend\UserController@detail')->name('detailorder');
     public function update(Request $request,$id){
         
         $this->validate($request,[

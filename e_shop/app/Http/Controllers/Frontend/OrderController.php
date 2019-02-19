@@ -15,15 +15,6 @@ use App\Wishlist;
 use Session;
 class OrderController extends Controller
 {
-    public function listpembelian(){
-        //$orders = Order::all();
-        //$products = Product::with(['images'])->find($id);
-        $users = Auth::User();
-        //Cart::add($request->id, $request->name, 1, $request->price)->associate('App\Product');
-        //$categories = Category_product::all();
-        return view('pages.frontend.listpembelian')->with('users', $users);
-    }
-
     public function cart(){
         $products = Product::with(['images'])->get();
         $users = Auth::User();
@@ -274,33 +265,35 @@ class OrderController extends Controller
         $total = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
         // dd($orders->toArray());
         return view('pages.frontend.payment')->with('totalorder', $totalorder)->with('total', $total)
-        ->with('orders', $orders)
-       ;
+        ->with('orders', $orders);
     }
     
-    public function paymentcard(Request $request, Orders $order, $id){
-           
-            if($order->status==0){
-                $order = Orders::find($id)->update([
-                    'status' =>'1',
-                    'payment_check' => '1',
-                ]);
-                
-                //dd($order);
-                return redirect()->route('userPage')->with('status','Order number '.$id.' has been approved');
-            }
+    public function payment(Orders $order, $id){
+        if($order->status==0){
+            Orders::find($id)->update([
+                'status' =>'1'
+            ]);
+            return redirect()->route('userPage')->with('status','Order number '.$id.' has been approved');
+        }
+        return redirect()->back()->with('failed','Order number '.$id.'not yet pay');
 
-            else{
-                $order->where([
-                    'status' => '1'
-                ])->orWhere([
-                    'status' => '2'
-                ]);
-                return redirect()->back()->with->with('status','Order number '.$id.' Order Has been registered');
-            }
-            
         
     }
+
+    // public function paymentcard(Request $request, Orders $order, $id){
+           
+    //         if($order->status==0){
+    //             $order = Orders::find($id)->update([
+    //                 'status' =>'1',
+    //                 'payment_check' => '1',
+    //             ]);
+                
+                
+    //             return redirect()->route('userPage')->with('status','Order number '.$id.' has been approved');
+    //         }
+            
+        
+    // }
     
     // Route::get('/pemabayaran/payment', 'Frontend\OrderController@paymentgan')->name('paymentcard');
 }

@@ -73,16 +73,15 @@ Shopping Cart
                     </div>
                     <div style="margin-top: 7%;margin-bottom:5%">
                             <h2 class="title-user text-center mx-5" style="line-height:200%" ><strong>History Order</strong></h2>
-                        <div class="table-wrapper-scroll-y " >
+                        <div class="table-wrapper-scroll-y col-lg-12" >
                                             <table id="dtVerticalScrollExample " class="table table-striped table-bordered scrollingTable mx-auto"  >
                                                     <thead>
                                                     <tr>
                                                         <th class="th-sm text-center">Order Date</th>
-                                                        <th class="th-sm text-center">Product</th>
-                                                        <th class="th-sm text-center">Price</th>
-                                                        <th class="th-sm text-center">Quantity</th>
+                                                        <th class="th-sm text-center">Fullname</th>
                                                         <th class="th-sm text-center">Total Price</th>
                                                         <th class="th-sm text-center">Status</th>
+                                                        <th class="th-sm text-center">Details</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -99,12 +98,11 @@ Shopping Cart
                                                                 @endif
                                                                 @if(Auth::user() && $order->status==1)
                                                                     <td class="align-middle text-center">{{date('d F, Y', strtotime($order->order_date))}} </td>
-                                                                    <td class="align-middle text-center">{{$order->orderDetail.('total')}}</td>
-                                                                    <td class="align-middle text-center">{{$order->OrderDetailqty}}</td>
-                                                                    <td class="align-middle text-center">{{$order->qty}}</td>
-                                                                    <td class="align-middle text-center">{{$order->total}}</td>
-                                                                    
+                                                                    <td class="align-middle text-center">{{$order->fullname}}</td>
+                                                                    <td class="align-middle text-center">Rp. {{number_format($order->total)}}</td>
                                                                     <td class="align-middle text-center">Waiting For Confirmation</td>
+                                                                    <td class="align-middle text-center"><a href="{{route('detailorder', $order->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></td>
+                                                                    
                                                                 @endif
                                                             </tr>
                                                             @endforeach
