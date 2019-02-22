@@ -20,6 +20,11 @@
                                             <h2 class="card-title " class="text-center"><strong>Sign In</strong></h2>
                                             <form action="{{route('store.loginaccount')}}" method="post" class="container">
                                                 {{csrf_field()}}
+                                                @if (session('status'))
+                                                    <div class="alert alert-success">
+                                                        {{ session('status') }}
+                                                    </div>
+                                                @endif
                                                 @if (session('failed'))
                                                     <div class="alert alert-danger">
                                                         {{ session('failed') }}

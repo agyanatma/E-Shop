@@ -23,30 +23,27 @@ use App\Wishlist;
 
 class ProductController extends Controller
 {
-    
-
     public function searchcontent(){
         $searchkey = \Request::get('title');
         $products = Product::where('product_name', 'like', '%' .$searchkey. '%')->orderBy ('id')->paginate(24);
         $categories = Category_product::take(5)->get();
         $users = Auth::User();
-        
-        //dd($products);
         if (Auth::user() && $orders = 1){
-            $buyer = Auth::user()->id;
-            $orders = Orders::with('product','buyer')->where('user_id','=',$buyer)->get();
-            $totalorder = Orders::with('product','buyer')->where([
-                'user_id' => $buyer,
-                'status' => 0,
-            ])->count();
-        return view('pages.frontend.searchcontent')->with('categories', $categories)->with('users', $users
-            )->with('buyer', $buyer)->with('orders', $orders)
+        $buyer = Auth::user()->id;
+        $orders = Order_product::with('product','buyer')->where('user_id','=',$buyer)->get();
+        $totalorder = Order_product::with('product','buyer')->where([
+            'user_id' => $buyer,
+        ])->count();
+
+        return view('pages.frontend.searchcontent')->with('categories', $categories)->with('users', $users)
+            ->with('buyer', $buyer)->with('orders', $orders)
             ->with('products', $products)->with('totalorder' , $totalorder)
             ->with('status','Product has been successfully added to cart');
         }
         else{
-        return view('pages.frontend.searchcontent')->with('status','Product has been successfully added to cart')
-        ->with('products', $products)->with('categories', $categories)->with('users', $users);
+            return view('pages.frontend.searchcontent')
+            ->with('products', $products)->with('users', $users)
+            ->with('categories', $categories);
         }
     }
 
@@ -62,7 +59,6 @@ class ProductController extends Controller
         $images = Product_image::where('product_id','=',$id)->get();
         $users = Auth::User();
         $productrandom = Product::inRandomOrder()->with(['images'])->take(6)->get();
-        
         
         //dd($productrandom->toArray());
         if (Auth::user() && $orders = 1){
@@ -99,9 +95,6 @@ class ProductController extends Controller
         $products = Product::with(['images'])->paginate(24);
         //$categories = Category_product::with(['images'])->find($id);
         $categories = Category_product::take(5)->get();
-        
-        
-        //dd($categories->toArray());
         if (Auth::user() && $orders = 1){
             $users = Auth::user();
             $buyer = Auth::user()->id;
@@ -118,13 +111,12 @@ class ProductController extends Controller
             ->with('totalorder', $totalorder);
         }
         else{
-            return view('pages.frontend.index')->with('products', $products)
-            ->with('categories', $categories)->with('users', $users);
+            return view('pages.frontend.index')
+            ->with('products', $products)->with('users', $users)
+           ->with('categories', $categories);
         }
         
-    
     }
-
 
 
 }

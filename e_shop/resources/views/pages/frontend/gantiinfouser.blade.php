@@ -31,12 +31,12 @@ Shopping Cart
                     <div class="col-lg-8 col-md-7 col-sm-12 col-12" style="background:#f2f2f2; border: solid 5px #e0e0e0;">
                         <h2 class="title-user text-center " style="line-height:200%" ><strong>Change Profile</strong></h2>
                         @if (session('status'))
-                            <div class="alert alert-success">
+                            <div class=" text-center alert alert-success">
                                 {{ session('status') }}
                             </div>
                         @endif
                         @if (session('error'))
-                            <div class="alert alert-danger">
+                            <div class="alert alert-danger text-center">
                                 {{ session('error') }}
                             </div>
                         @endif
@@ -48,9 +48,11 @@ Shopping Cart
                                         <div class="col-md-10">
                                         <input type="email" class="form-control" name="email" placeholder="example@mail.com" value="{{$users->email}}">
                                             @if ($errors->has('email'))
-                                                <div class="alert alert-danger">
+                                            <div>
+                                                <span >
                                                     {{$errors->first('email')}}
-                                                 </div>
+                                                </span>
+                                            </div>
                                             @endif
                                         </div>
                                     </div>
@@ -63,7 +65,7 @@ Shopping Cart
                                         <div class="col-md-10">
                                         <input type="text" class="form-control" name="fullname" placeholder="Name" value="{{$users->fullname}}">
                                             @if ($errors->has('fullname'))
-                                                <div class="alert alert-danger">
+                                                <div class="alert alert-danger text-center">
                                                     {{$errors->first('fullname')}}
                                                 </div>
                                             @endif
@@ -78,7 +80,7 @@ Shopping Cart
                                         <div class="col-md-10">
                                         <input type="text" class="form-control" name="address" placeholder="Address" value="{{$users->address}}">
                                             @if ($errors->has('address'))
-                                                <div class="alert alert-danger">
+                                                <div class="alert alert-danger text-center">
                                                     {{$errors->first('address')}}
                                                 </div>
                                             @endif
@@ -93,7 +95,7 @@ Shopping Cart
                                         <div class="col-md-10">
                                         <input type="text" class="form-control" name="city" placeholder="City" value="{{$users->city}}">
                                             @if ($errors->has('city'))
-                                                <div class="alert alert-danger">
+                                                <div class="alert alert-danger text-center">
                                                     {{$errors->first('city')}}
                                                 </div>
                                             @endif
@@ -108,7 +110,7 @@ Shopping Cart
                                         <div class="col-md-10">
                                         <input type="text" class="form-control" name="postal" placeholder="Postal Code" value="{{$users->postal_code}}">
                                             @if ($errors->has('postal'))
-                                                <div class="alert alert-danger">
+                                                <div class="alert alert-danger text-center">
                                                     {{$errors->first('postal')}}
                                                 </div>
                                             @endif

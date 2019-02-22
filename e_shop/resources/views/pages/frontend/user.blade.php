@@ -26,44 +26,59 @@ Shopping Cart
                                         <div class="card-body-user-address" style="border: solid 5px #e0e0e0; background:#f2f2f2;">
                                             <h4 style="border-bottom: solid 3px #e0e0e0; line-height:200%" class="font-wight-light text-left"><strong>Contact information</strong></h4>
                                             <div style="font-size:20px;" class="">
-                                                <div class="row justify-content-between font-weight-light" style="padding-bottom:10px">
+                                                <div class="row justify-content-between font-weight-light" >
                                                     <div class="col-lg-3 col-md-3 col-sm-3 col-3" >
-                                                    <h6 class="text-uppercase">Email </h6>
-                                                    </div>:
+                                                    <p class="text-left">Email </p>
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-1 col-1" >
+                                                    <p class="text-center">:</p>
+                                                    </div>
                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                                                    <h6 type="email" class="" name="email" placeholder="example@mail.com" value="">{{$users->email}}</h6>      
+                                                    <p type="email" class="text-justify" name="email" placeholder="example@mail.com" value="">{{$users->email}}</p>      
                                                     </div>
                                                 </div>
-                                                <div class="row justify-content-between font-weight-light" style="padding-bottom:10px">
+                                                <div class="row justify-content-between font-weight-light" >
                                                     <div class="col-lg-3 col-md-3 col-sm-3 col-3" >
-                                                    <h6 class="text-uppercase">Fullname</h6>
-                                                    </div>:
+                                                    <p class="text-left">Fullname</p>
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-1 col-1" >
+                                                    <p class="text-center">:</p>
+                                                    </div>
                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-8" >
-                                                    <h6 type="text" class="" name="fullname" placeholder="Name" value="">{{$users->fullname}}</h6>
+                                                    <p type="text" class="text-justify" name="fullname" placeholder="Name" value="">{{$users->fullname}}</p>
                                                     </div>
                                                 </div>
-                                                <div class="row justify-content-between font-weight-light" style="padding-bottom:10px">
+                                                <div class="row justify-content-between font-weight-light" >
                                                     <div class="col-lg-3 col-md-3 col-sm-3 col-3" >
-                                                    <h6 class="text-uppercase">Address</h6>
-                                                    </div>:
+                                                    <p class="text-left">Address</p>
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-1 col-1" >
+                                                    <p class="text-center">:</p>
+                                                    </div>
                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-8" >
-                                                    <h6 type="text" class="" name="address" placeholder="Address" value="">{{$users->address}}</h6>
+                                                    <p type="text" class="text-justify" name="address" placeholder="Address" value="">{{$users->address}}</p>
                                                     </div>
                                                 </div>
-                                                <div class="row justify-content-between font-weight-light" style="padding-bottom:10px">
+                                                <div class="row justify-content-between font-weight-light" >
                                                     <div class="col-lg-3 col-md-3 col-sm-3 col-3" >
-                                                    <h6 class="text-uppercase">City</h6>
-                                                    </div>:
+                                                    <p class="text-left">City</p>
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-1 col-1" >
+                                                    <p class="text-center">:</p>
+                                                    </div>
                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                                                    <h6 type="text" class="" name="city" placeholder="City" value="">{{$users->city}}</h6>
+                                                    <p type="text" class="text-justify" name="city" placeholder="City" value="">{{$users->city}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row justify-content-between font-weight-light">
                                                     <div class="col-lg-3 col-md-3 col-sm-3 col-3" >
-                                                    <h6 class="text-uppercase">Postal Code</h6>
-                                                    </div>:
+                                                    <p class="text-left">Postal Code</p>
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-1 col-1" >
+                                                    <p class="text-center">:</p>
+                                                    </div>
                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                                                    <h6 type="text" class="" name="postal" placeholder="Postal Code" value="">{{$users->postal_code}}</h6>
+                                                    <p type="text" class="text-justify" name="postal" placeholder="Postal Code" value="">{{$users->postal_code}}</p>
                                                     </div>
                                                 </div>     
                                             </div>
@@ -71,50 +86,6 @@ Shopping Cart
                                     </div>
                                 </div>
                     </div>
-                    <div style="margin-top: 7%;margin-bottom:5%">
-                            <h2 class="title-user text-center mx-5" style="line-height:200%" ><strong>History Order</strong></h2>
-                        <div class="table-wrapper-scroll-y col-lg-12" >
-                                            <table id="dtVerticalScrollExample " class="table table-striped table-bordered scrollingTable mx-auto"  >
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="th-sm text-center">Order Date</th>
-                                                        <th class="th-sm text-center">Fullname</th>
-                                                        <th class="th-sm text-center">Total Price</th>
-                                                        <th class="th-sm text-center">Status</th>
-                                                        <th class="th-sm text-center">Details</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                        @if(count($orders) > 0)
-                                                            @foreach ($orders as $order)
-                                                            <tr>
-                                                                @if(Auth::user() && $order->status==2)
-                                                                    <td class="align-middle text-center">{{date('d F, Y', strtotime($order->order_date))}} </td>
-                                                                    <td class="align-middle text-center">{{$order->fullname}}</td>
-                                                                    <td class="align-middle text-center">Rp. {{number_format($order->total)}}</td>
-                                                                    <td class="align-middle text-center">Already Paid</td>
-                                                                    <td class="align-middle text-center"><a href="{{route('detailorder', $order->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></td>
-                                                                    
-                                                                @endif
-                                                                @if(Auth::user() && $order->status==1)
-                                                                    <td class="align-middle text-center">{{date('d F, Y', strtotime($order->order_date))}} </td>
-                                                                    <td class="align-middle text-center">{{$order->fullname}}</td>
-                                                                    <td class="align-middle text-center">Rp. {{number_format($order->total)}}</td>
-                                                                    <td class="align-middle text-center">Waiting For Confirmation</td>
-                                                                    <td class="align-middle text-center"><a href="{{route('detailorder', $order->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></td>
-                                                                    
-                                                                @endif
-                                                            </tr>
-                                                            @endforeach
-                                                        @else
-                                                            <h3>No posts found!</h3>
-                                                        @endif
-                                                </tbody>
-                                            </table>
-                                            
-                                    </div>
-                    </div>
+                    
     </div>
-                
-
 @endsection

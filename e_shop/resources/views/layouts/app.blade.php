@@ -58,6 +58,7 @@
                 @if(Auth::check() && Auth::user()->admin==0)
                     <form class="navbar-form form-inline my-2 my-lg-0 text-center" role="cart" method="get" action="{{route('cart')}}">
                             <div class="input-group">
+                                
                                     <button class="btn btn-info mx-2 text-center" type="submit">
                                             <i class="fas fa-shopping-cart">
                                                     <div class="quantity-tags-navbar">
@@ -75,15 +76,13 @@
                             {{Auth::user()->fullname}} <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right my-lg-0" aria-labelledby="navbarDropdown" >
-                                <a class="dropdown-item text-center"  href="{{route('user', Auth::User()->id)}}">
-                                    <h6>User Profile </h6>
-                                </a>
-                                <a class="dropdown-item text-center" href="{{route('wishlist', Auth::User())}}">
-                                     <h6>Wishlist </h6>
-                                </a>
-                                <a class="dropdown-item text-center" href="{{ route('logoutUser') }}" >
-                                    <h6>Logout</h6>
-                                </a>
+                                <a class="dropdown-item text-center" href="{{route('user', Auth::User())}}"><i class="fas fa-user-cog" ></i> User Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center" href="{{route('wishlist', Auth::User())}}"><i class="fas fa-heart"></i> Wishlist</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center" href="{{ route('historyorder',  Auth::User()) }}"><i class="fas fa-history"> History Order </i></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center" href="{{ route('logoutUser') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
                     </li>
                 @endif
@@ -91,6 +90,7 @@
                         <form class="navbar-form form-inline my-2 my-lg-0 text-center" role="cart" method="get" action="{{route('cart')}}">
                             <div class="input-group">
                                 <div class="nav-item" style="margin-right:10px">
+                                    
                                     <button class="btn btn-info mx-2  " type="submit">
                                             <i class="fas fa-shopping-cart">
                                                     <div class="quantity-tags-navbar">
@@ -98,6 +98,7 @@
                                                     </div>
                                             </i>
                                     </button>
+                                   
                                 </div>
                             </div>
                         </form>
@@ -113,6 +114,8 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center" href="{{route('wishlist', Auth::User())}}"><i class="fas fa-heart"></i> Wishlist</a>
                                 <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center" href="{{ route('historyorder',  Auth::User()) }}"><i class="fas fa-history"> History Order </i></a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center" href="/admin/dashboard"><i class="fas fa-boxes"></i> Dashboard</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center" href="{{ route('logoutUser') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
@@ -127,8 +130,6 @@
     
     
 <script >
-
-
 //quantity        
 $("document").ready(function(){
 

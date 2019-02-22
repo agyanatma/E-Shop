@@ -34,7 +34,7 @@ Route::get('user/{id}/settings', 'Frontend\UserController@settings')->name('sett
 Route::get('user/{id}/password', 'Frontend\UserController@gantipassword')->name('gantipassword');
 Route::post('user/{id}/password/changed', 'Frontend\UserController@updatepassword')->name('updatepassword');
 Route::get('/order/{id}/detail', 'Frontend\UserController@detail')->name('detailorder');
-
+Route::get('/historyorder/{id}/', 'Frontend\UserController@historyorder')->name('historyorder');
 //wishlist
 Route::post('product/{id}/wishlist', 'Frontend\WishlistController@tambahwishlist')->name('addWishlist');
 Route::get('/wishlist/', 'Frontend\WishlistController@wishlist')->name('wishlist');
@@ -49,34 +49,17 @@ Route::get('/order/cart/', 'Frontend\OrderController@cart')->name('cart');
 Route::post('/order/cart/{id}/', 'Frontend\OrderController@updatecart')->name('updatecart');
 Route::get('order/{id}/delete', 'Frontend\OrderController@deletecart')->name('deleteCart');
 
-Route::get('/order/', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
+Route::get('/order/{id}', 'Frontend\OrderController@getcheckoutgan')->name('checkoutgan');
 Route::get('/order/payment/{id}', 'Frontend\OrderController@paymentgan')->name('paymentcard');
-Route::get('/order/payment/order/{id}/', 'Frontend\OrderController@payment')->name('paymentcardpost');
+Route::post('/order/payment/order/{id}/', 'Frontend\OrderController@paymentordergan')->name('paymentcardpost');
 Route::post('/product/langsungbayar/{id}', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
 Route::get('/langsungbayargan/', 'Frontend\OrderController@langsungbayargan')->name('langsungbayargan');
-Route::post('order/pay/', 'Frontend\OrderController@bayar')->name('bayar');
+Route::post('order/pay/{id}/', 'Frontend\OrderController@bayar')->name('bayar');
 Route::get('/product/langsungbayar/{id}/bayar', 'Frontend\OrderController@updatestatusbayarlangsung')->name('bayarlangsung');
 
 
-// Route::get('admin/order/test', function(){
-//     return view('pages.admin.order_test');
-// });
-// Route::post('admin/order/cart', 'Frontend\OrderController@orderProduct')->name('detail.order');
-// Route::get('admin/order/bayaran', function(){
-//     return view('pages.admin.bayar_test');
-// });
-// Route::post('admin/order/pay', 'Frontend\OrderController@bayar')->name('pay.order');
-
-
-//Route::get('/product/bayar', 'Frontend\OrderController@getcheckoutgan')->name('pembayaran');
-
-//Route::match('POST' 'GET'), ('/product/bayar', 'Frontend\OrderController@langsungbayar')->name('langsungbayar');
 });
 
-// //PAYMENT
-// Route::get('order/{id}/payment/', function(){
-//     return view('pages.frontend.payment');
-// });
 
 /* BACKEND */
 

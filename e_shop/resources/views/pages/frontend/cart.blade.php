@@ -4,13 +4,11 @@
 
 
 <div class="container-fluid" style="padding:4%"> 
-    
     <h2 class="title-cart text-center" ><strong>Your Shopping Cart</strong></h2>
     <div class="card-total-cart text-center clearfix">
             <strong class="totalqty ">Total Items</strong>
             <strong class="totalqty " >({{$totalqty}})</strong>
     </div>
-    
     <div style="padding:3%">
             @if (session('status'))
             <div class="alert alert-success">
@@ -39,14 +37,13 @@
             @if(count($orders) > 0)
                 @foreach ($orders as $order)
                     @if(Auth::user() && $order->status==0)
-                    
                 <div class="card-box-cart-table-body table-bordered " style="padding-bottom:40px; padding-top:40px; " >
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-2 col-2 table-data text-center " style="max-height:2%">
                             <a href="{{route('detailproduct', $order->product->id)}}"><img class="img-fluid card-image-cart-table " style="margin-left:20px" src="{{$order->product->images[0]->product_image}}"> </a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-2 col-2 table-data text-center" >
-                            <h6 class="text-center font-weight-light"  ><strong>{{$order->product->product_name}}</strong></h6>
+                            <h6 class="text-center font-weight-light"  ><strong>{{ $order->product->product_name}}</strong></h6>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-3 col-3 table-data text-center">
                             {{-- <h6 class="text-center"  >{{$order->qty}}</h6> --}}
@@ -57,19 +54,19 @@
                                 </button>
                                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                 <input type="hidden" name="product_id" value="{{$order->product->id}}">
-                                <input type="number" id="quantity"  name="quantity" class="form-control text-center input-number" style="border:none" value="{{$order->qty}}" min="1" max="100">
+                                <input type="number" id="quantity"  name="quantity" class="form-control text-center input-number" style="border:none" value="{{$sum_unit_Price = $order->qty}}" min="1" max="100">
                             </form>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-2 col-2 table-data text-center">
-                            <h6 class=" text-center" >Rp. {{number_format($total = $order->total * $order->qty)}}</h6>
+                            <input type="hidden" Rp. {{number_format($sum_tot_Price = $sum_tot_Price + ($sum_product_Price =$order->product->product_price * $order->qty))}}>
+                            <h6 class="totalprice text-center" >Rp. {{number_format($sum_product_Price =$order->product->product_price * $order->qty)}}</h6>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-3 col-3 table-data text-center form-group" style="">
                             <a href="{{ route('deleteCart', $order->id) }}" class="btn btn" style="color:red" name="delete"><i class="fas fa-times"></i></a>
                         </div>                            
                     </div>      
                 </div>
-                <?php $sum_tot_Price += $order->tot_Price ?>
-                <?php $sum_unit_Price += $order->unit_Price ?>
+               
                     @endif
                 @endforeach
             @else
@@ -82,20 +79,18 @@
             <h3 class=" text-right text-uppercase" ><em><strong>Sub Total</strong></em></h3>
         </div>
         <div class="card-total-bill-cart-summary text-right" style="padding-bottom:20px;">
-            <h5><strong class="totalbill " >Rp. {{number_format($total)}}</strong></h5>
-            <td>Sum tot_Price {{ $sum_tot_Price}}</td>
-            <td>Sum unit_Price {{ $sum_unit_Price}}</td>
+            <h5><strong class="totalbill " id="result">Rp.{{number_format($sum_tot_Price)}}</strong></h5>
         </div>
         <div class="">
             <div class="row justify-content-end">
                 <div class="card-button-cart-continue " >
                     <a href="{{route('userPage')}}"  class="btn btn-info" ><i class="fas fa-undo"> Continue Shopping</i></a>
                 </div>
+                @if (Auth::check() && $totalorder > 0)
                 <div class="card-button-cart-checkout " >
-                    
-                    <a href="{{route('checkoutgan')}}" name="action" value="update"  class="btn btn-success mx-3" style="margin-right:20px;"><i class="fas fa-handshake"> Checkout</i></a>
-                    
-                </div>  
+                    <a href="{{route('checkoutgan', $order->id)}}" name="action" value="update"  class="btn btn-success mx-3" style="margin-right:20px;"><i class="fas fa-handshake"> Checkout</i></a>
+                </div>
+                @endif
             </div>
         </div> 
     </div>        
@@ -116,7 +111,7 @@
                                     <h6 id="random-title-product-name" class="font-weight-light " ><strong>{{$row->product_name}}</strong></h6>
                                 </div>
                                 <div class="card-price-box-random ">
-                                    <h6 class="text-center ">{{$row->product_price}}</h6>
+                                    <h6 class="text-center ">Rp. {{number_format($row->product_price)}}</h6>
                                 </div>
                         </div>
                     </div>
@@ -128,6 +123,7 @@
     </div>
 </div>
     
+
 
 @endsection
                                     

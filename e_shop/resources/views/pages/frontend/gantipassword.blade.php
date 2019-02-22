@@ -12,12 +12,12 @@
                                             {{csrf_field()}}
                                             
                                             @if (session('status'))
-                                                <div class="alert alert-success">
+                                                <div class="alert alert-success text-center">
                                                     {{ session('status') }}
                                                 </div>
                                             @endif
                                             @if (session('error'))
-                                                <div class="alert alert-danger">
+                                                <div class="alert alert-danger text-center">
                                                     {{ session('error') }}
                                                 </div>
                                             @endif
@@ -26,7 +26,7 @@
                                             <label>Current Password:</label>
                                             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                                                 @if ($errors->has('password'))
-                                                    <div class="alert alert-danger">
+                                                    <div class="alert alert-danger text-center">
                                                     {{$errors->first('password')}}
                                                     </div>
                                                 @endif
@@ -35,7 +35,7 @@
                                             <label>New Password:</label>
                                             <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="New Password" required>
                                                 @if ($errors->has('newpassword'))
-                                                    <div class="alert alert-danger">
+                                                    <div class="alert alert-danger text-center">
                                                     {{$errors->first('newpassword')}}
                                                     </div>
                                                 @endif
@@ -44,7 +44,7 @@
                                             <label>Confirm New Password</label>
                                             <input type="password" class="form-control" id="newpasswordconfirm" name="newpasswordconfirm" placeholder="New Password Confirm" required>
                                                 @if ($errors->has('newpasswordconfirm'))
-                                                    <div class="alert alert-danger">
+                                                    <div class="alert alert-danger text-center">
                                                     {{$errors->first('newpasswordconfirm')}}
                                                     </div>
                                                 @endif

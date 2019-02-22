@@ -37,7 +37,7 @@ class UserController extends Controller
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)){
                 $request->session()->put('user_session', Auth::user());
-                return redirect()->intended('/');
+                return redirect()->intended('/')->with('status', 'You has successfully logged in');
             } 
             else {
                 return redirect()->back()->with('status', 'Email or password wrong!');
@@ -82,15 +82,28 @@ class UserController extends Controller
             $user->profile_image = 'default.jpg';
         }
         $user->save();
-        return redirect('loginaccount')->with('alert-success','You has successfully registered');
+        return redirect('loginaccount')->with('status','You has successfully registered');
     }
     public function logout(){
         Session::flush();
         Auth::logout();
-        return redirect('/');
+        return redirect('/')->with('status', 'You has successfuly logged out of this account');
     }
     
     public function user($id){
+        $users = User::find($id);
+        $buyer = Auth::user()->id;
+        $totalorder = Order_product::with('product','buyer')->where([
+            'user_id' => $buyer,
+        ])->count();
+        $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
+        return view('pages.frontend.user')->with('users', $users)
+        ->with('buyer', $buyer)
+        ->with('total', $total)->with('totalorder', $totalorder);
+    }
+    
+    public function historyorder($id){
+        $products = Product::with(['images'])->find($id);
         $users = User::find($id);
         $buyer = Auth::user()->id;
         $orders = Orders::with([
@@ -101,33 +114,37 @@ class UserController extends Controller
         ])->where([
             'user_id' => $id,
         ])->get();
-        // ->where('status', '=', '1')->orWhere('status', '=', '2')->latest()->take(3)->get();
-        // $orders = Orders::with(['orderDetail','orderDetail.product'])->find($id);
-        // $details = $orders->orderDetail;
-        //dd($orders->toArray());
+        $totalordermasuk = Orders::with([
+            'orderDetail',
+            'orderDetail.product'=>(function($product){
+                $product->with(['images'])->get();
+            })
+        ])->where([
+            'user_id' => $id,
+        ])->count();
+        //dd($products->toArray());
+        //dd($orderdetail->toArray());
         $totalorder = Order_product::with('product','buyer')->where([
             'user_id' => $buyer,
         ])->count();
         $total = Orders::with('product','buyer')->where('user_id','=',$buyer )->where('status', '=', '0')->sum('total');
-        return view('pages.frontend.user')->with('users', $users)
-        ->with('buyer', $buyer)->with('orders', $orders)
-        ->with('total', $total)->with('totalorder', $totalorder);
-        
+        return view('pages.frontend.historyorder')->with('users', $users)
+        ->with('buyer', $buyer)->with('orders', $orders)->with('totalordermasuk', $totalordermasuk)
+        ->with('total', $total)->with('totalorder', $totalorder)->with('products', $products);
     }
-    
+
     public function detail($id){
-        $orders = Orders::with(['orderDetail','orderDetail.product'])->find($id);
+        $orders = Orders::with(['orderDetail','orderDetail.product.categories',])->find($id);
         $details = $orders->orderDetail;
         $buyer = Auth::user()->id;
         $totalorder = Order_product::with('product','buyer')->where([
             'user_id' => $buyer,
         ])->count();
+        $totalqty = $details->sum('qty');
         return view('pages.frontend.orderdetail')->with('orders', $orders)->with('details', $details)
-        ->with('totalorder', $totalorder)->with('details', $details);
+        ->with('totalorder', $totalorder)->with('totalqty', $totalqty);
     }
-    // Route::get('/order/{id}/detail', 'Frontend\UserController@detail')->name('detailorder');
     public function update(Request $request,$id){
-        
         $this->validate($request,[
             'email' => 'required|email',
             'fullname' => 'required|max:12',
@@ -150,10 +167,8 @@ class UserController extends Controller
         $user->city = $city;
         $user->postal_code = $postal;
 
-        //dd($request->all());
-                
         if($request->hasFile('img')){
-            $file = ('upload'.$user->profile_image);
+            $file = ('upload/'.$user->profile_image);
             if(file_exists($file) && $file !='default.jpg'){
                 unlink($file);
             }
@@ -163,7 +178,7 @@ class UserController extends Controller
             $user->profile_image = $imageName;
         }
         $user->save();
-        return redirect()->back()->withStatus('Data has been successfully update!');           
+        return redirect()->back()->with('status', 'Data has been successfully update!');           
     }
 
     public function settings($id){
@@ -202,10 +217,10 @@ class UserController extends Controller
         if (Hash::check($request->password, $updatepassword->password)){
             $updatepassword->password = bcrypt($request->get('newpassword'));
             $updatepassword->save();
-            return redirect()->back()->withStatus('Password berhasil update!');  
+            return redirect()->back()->withStatus('Password has been updated!');  
              }
         else{
-            return redirect()->back()->withError('The password is currently incorrect! Please Try Again !');
+            return redirect()->back()->withError('The current password is incorrect! Please Try Again !');
         }
         
               

@@ -2,8 +2,7 @@
 
 @section('content')
 <div class="container-fluid" style="padding: 4%; ">
-    <form action="{{ route('bayar') }}" method="post" >
-        {{csrf_field()}}
+   
         <div class="row" style="margin-bottom:8%">
         
             <div class="col-12 col-lg-7 col-md-12 col-sm-12" >
@@ -61,6 +60,8 @@
             </div>
             <div class="col-lg-5 col-md-12 col-sm-12 col-12" style="padding-top:5%">
                     <div >
+                        
+                <?php $sum_tot_Price = 0 ?>
                     @if(count($orders) > 0)
                     <div class="card-box-checkout-table-body"> 
                         @foreach ($orders as $order)
@@ -77,11 +78,12 @@
                                             <h6 class="text-center font-weight-light"><strong>{{$order->product->product_name}}</strong></h6>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-4 text-center">
-                                            <h6 class=" text-center font-weight-light"><strong>Rp. {{number_format($order->total)}}</strong></h6>
+                                            <input type="hidden" name="product_id" value="{{$order->product->id}}">
+                                            <input type="hidden" Rp. {{number_format($sum_tot_Price = $sum_tot_Price + ($sum_product_Price =$order->product->product_price * $order->qty))}}>
+                                            <h6 class=" text-center font-weight-light"><strong>Rp. {{number_format($sum_product_Price =$order->product->product_price * $order->qty)}}</strong></h6>
                                         </div>                   
                                     </div>
                             </div>
-                            
                             @endif
                         @endforeach
                     </div>
@@ -90,20 +92,18 @@
                     @endif
                     </div>
                     <div class="checkout-summary clearfix" style="">
+                        <form action="{{ route('bayar', $order->id) }}" method="post" >
+                                    {{csrf_field()}}
                         <div class=" card-title-box-checkout">
                             <h3 class=" text-right "><em><strong>Total</strong></em></h3>
                         </div>
                         <div class="card-total-bill-checkout text-right" style="padding: 10px 20px 10px 0 ;">
-                            <h5 class="totalbill " style="font-size:25px; "><strong>Rp. {{number_format($total)}}</strong></h5>
-                            <input type="hidden" name="total" value="{{$total}}">
+                            <h5 class="totalbill " style="font-size:25px; "><strong>Rp.{{number_format($sum_tot_Price = $sum_tot_Price)}}</strong></h5>
+                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                         </div>
                         <div style="card-payment-checkout">
-                            {{-- <form action="{{ route('bayar', $order->id)}}" method="GET">
-                                {{ csrf_field() }}
-                                <span type="hidden" value="{{$order->status}}" name="status"></span>
-                            </form> --}}
                             <button type="submit" class="btn btn-success  mx-3" style="float: right"><i class="fas fa-money-check"> Payment</i></button>
-                            {{-- <a href="{{ route('bayar', $order->id)}}" class="btn btn-success  mx-3" style="float:right; " name="bayar">btn btn-success  mx-3 Payment</i></a> --}}
+                            {{-- <a href="{{ route('paymentcard')}}" class="btn btn-success  mx-3" style="float:right; " name="payment">Payment</i></a> --}}
                         </div>
                     </div> 
             </div>

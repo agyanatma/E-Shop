@@ -57,10 +57,10 @@
                                 <a href="/sort/category/9"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/037-headphones.png"></a>
                             </div>
                         <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                                <a href="/sort/category/10"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/038-mouse.png"></a>
+                                <a href="/sort/category/11"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/038-mouse.png"></a>
                             </div>
                         <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
-                                <a href="/sort/category/11"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/040-motherboard.png"></a>
+                                <a href="/sort/category/12"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/040-motherboard.png"></a>
                             </div>
                         <div class="col-md-4 col-lg-2 col-sm-6 col-6" style="padding-bottom:20px; padding-top:20px; ">
                             <a href="/lainlain"><img class="rounded mx-auto d-block img-fluid " style="max-height: 50px; max-width: 100%;" src="/upload/lain-lain.png"></a>
@@ -86,7 +86,7 @@
                                             <div class="row clearfix  clearfix" >
                                                 <div class="col-lg-8 col-md-8 col-sm-8 col-8">
                                                     <div class="card-price-box " >
-                                                        <h5 class="font-weight-light text-left" >{{$row->product_price}}</h5>
+                                                        <h5 class="font-weight-light text-left" >Rp {{number_format($row->product_price,0)}}</h5>
                                                     </div> 
                                                 </div>
                                                 <div class="col-lg-2 col-md-2 col-sm-2 col-2">

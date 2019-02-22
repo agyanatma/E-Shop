@@ -62,7 +62,7 @@
                                         <h5 class="font-weight-light text-center" style="padding-top:20px">{{$row->product->product_name}}</h5>
                                     </div>
                                     <div class="card-price-box-wishlist">
-                                        <h5 class="font-weight-light text-center ">{{$row->product->product_price}}</h5>
+                                        <h5 class="font-weight-light text-center ">Rp. {{number_format($row->product->product_price)}}</h5>
                                     </div>
                                     <div class="card-text-box-button-wishlist">
                                         <form class="" action="{{route('langsungbayar', ['id'=> $row->product->id])}}" method="POST">

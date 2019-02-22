@@ -13,13 +13,13 @@ use Auth;
 use Stripe\Stripe;
 use App\Wishlist;
 use Session;
+use DB;
 class OrderController extends Controller
 {
     public function cart(){
         $products = Product::with(['images'])->get();
         $users = Auth::User();
         $buyer = Auth::user()->id;
-        
         $orders = Order_product::with('product','buyer')->where('user_id','=',$buyer)->get();
         $totalorder = Order_product::with('product','buyer')->where([
             'user_id' => $buyer,
@@ -27,15 +27,16 @@ class OrderController extends Controller
         //dd($totalorder);
         $productrandom = Product::inRandomOrder()->with(['images'])->take(6)->get();
         //dd($productrandom);
-        
-        $total = Order_product::with('product','buyer')->where('user_id','=',$buyer )->sum('total');
         $totalqty = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
         //dd($total);
+        $oldCart = Session::get('cart');
+        //dd($oldCart);
         return view('pages.frontend.cart')->with('products', $products)->with('users', $users)
         ->with('buyer', $buyer)->with('orders', $orders)
-        ->with('total', $total)->with('totalqty', $totalqty)
+        ->with('totalqty', $totalqty)
         ->with('productrandom', $productrandom)->with('totalorder', $totalorder);
     }
+
 
     public function updatecart(Request $request, $id){
         if($products = Product::find($id)){
@@ -43,8 +44,7 @@ class OrderController extends Controller
             $quantity = $request->input('quantity');
             $user = $request->input('user_id');
             $product = $request->input('product_id');
-            $price = $products->getOriginal('product_price');
-            $total = $quantity * $price;
+            
             $order = Order_product::where([
                 'user_id' => $user,
                 'product_id' => $product,
@@ -52,11 +52,10 @@ class OrderController extends Controller
 
             if ($order) {
                 $order->qty = $quantity;
-                $order->total = $quantity * $price;
                 $order->save();
             }
             //dd($request->all());
-            return redirect()->back()->with('status', 'Product edited form cart successfully!');
+            return redirect()->back()->with('status', 'Quantity of product has been edited form cart successfully!');
         }
     }
 
@@ -73,8 +72,6 @@ class OrderController extends Controller
             $user = $request->input('user_id');
             $product = $request->input('product_id');
             $quantity = $request->input('qty');
-            $total = $products->getOriginal('product_price');
-           
             $order = Order_product::where([
                 'user_id' => $user,
                 'product_id' => $product,
@@ -88,12 +85,9 @@ class OrderController extends Controller
                 $store = new Order_product;
                 $store->user_id = $user;
                 $store->product_id = $product;
-                $store->total = $total;
                 $store->qty = $quantity;
-                
                 $store->save();
             }
-            
             return redirect()->back()->with('status', 'Product added to cart successfully!');
         }
         else{
@@ -102,8 +96,13 @@ class OrderController extends Controller
         
     }
 
-    public function bayar(Request $request){
+    public function bayar($id){
         $user = Auth::user();
+        $product = Order_product::where('user_id',Auth::id())->with(['product'])->get();
+        $price = 0;
+        foreach($product as $item){
+            $price = $price + $item->product->product_price * $item->qty;
+        }
         $order = Orders::create([
             'user_id' =>$user->id,
             'email' =>$user->email,
@@ -112,23 +111,19 @@ class OrderController extends Controller
             'city'  =>$user->city,
             'postal_code' =>$user->postal_code,
             'order_date' =>Carbon::now(),
-            'total' =>$request->get('total'),
-        
+            'total' => $price,
         ]);
-        //dd($request->all());
-        $product = Order_product::with('product');
         foreach($product as $item){
-            Order_detail::create([
-                'order_id' =>$order->id,
-                'product_id' =>$item->product_id,
-                'price' =>$item->product->product_price,
-                'qty' =>$item->qty
-            ]);
+            $detail[] = [
+                'order_id' => $order->id,
+                'product_id' => $item->product_id,
+                'price' => $item->product->product_price,
+                'qty' => $item->qty,
+            ];
         }
-
+        DB::table('Order_details')->insert($detail);
         Order_product::where('user_id',Auth::id())->delete();
-
-        return redirect()->route('paymentcard', $order->id)->with('status','Order Success');
+        return redirect()->route('paymentcard', $order->id)->with('status','Order success, Please do payment as soon as possible !');
     }
 
     public function updatestatusbayarlangsung(Request $request, $id){
@@ -148,9 +143,7 @@ class OrderController extends Controller
             $user = $request->input('user_id');
             $product = $request->input('product_id');
             $quantity = $request->input('quantity', '1');
-            $total = $products->getOriginal('product_price');
-            //dd($request->price);
-            //cek order sudah ada atau belum
+            
             $order = Order_product::where([
                 'user_id' => $user,
                 'product_id' => $product,
@@ -165,7 +158,7 @@ class OrderController extends Controller
                 $store = new Order_product;
                 $store->user_id = $user;
                 $store->product_id = $product;
-                $store->total = $total;
+               
                 $store->qty = $quantity;
                
                 $store->save();
@@ -181,11 +174,6 @@ class OrderController extends Controller
             $user = $request->input('user_id');
             $product = $request->input('product_id');
             $quantity = $request->input('quantity', '1');
-            $total = $products->getOriginal('product_price');
-            
-            
-            //dd($request->price);
-            //cek order sudah ada atau belum
             $order = Order_product::where([
                 'user_id' => $user,
                 'product_id' => $product,
@@ -193,7 +181,6 @@ class OrderController extends Controller
             //jika sudah ada
             if ($order) {
                 $order->qty += $quantity;
-                
                 $order->save();
             } 
             //jika belum
@@ -201,7 +188,6 @@ class OrderController extends Controller
                 $store = new Order_product;
                 $store->user_id = $user;
                 $store->product_id = $product;
-                $store->total = $total;
                 $store->qty = $quantity;
                 $store->save();
             }
@@ -214,12 +200,12 @@ class OrderController extends Controller
         $totalorder = Order_product::with('product','buyer')->where([
             'user_id' => $buyer,
         ])->count();
-        $total = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
+        
         $totalqty = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
 
             return view('pages.frontend.langsungbayargan')->with('products', $products)->with('users', $users)
             ->with('buyer', $buyer)->with('orders', $orders)
-            ->with('total', $total)->with('totalqty', $totalqty)->with('totalorder', $totalorder)
+            ->with('totalqty', $totalqty)->with('totalorder', $totalorder)
             ->with('status','Items has been added to payment successfully');
         }
         else{
@@ -236,11 +222,11 @@ class OrderController extends Controller
         $totalorder = Order_product::with('product','buyer')->where([
             'user_id' => $buyer,
         ])->count();
-        $total = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
+        
         $totalqty = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('qty');
         //dd($ordersproduct);
         return view('pages.frontend.checkoutgan')->with('products', $products)->with('users', $users)
-        ->with('buyer', $buyer)->with('orders', $orders)->with('total', $total)->with('totalqty', $totalqty)
+        ->with('buyer', $buyer)->with('orders', $orders)->with('totalqty', $totalqty)
         ->with('totalorder', $totalorder);
     }
 
@@ -259,38 +245,33 @@ class OrderController extends Controller
         $totalorder = Order_product::with('product','buyer')->where([
             'user_id' => $buyer,
         ])->count();
-        $total = Order_product::with('product','buyer')->where('user_id','=',$buyer)->sum('total');
+        
         // dd($orders->toArray());
-        return view('pages.frontend.payment')->with('totalorder', $totalorder)->with('total', $total)
+        return view('pages.frontend.payment')->with('totalorder', $totalorder)
         ->with('orders', $orders);
     }
     
-    public function payment(Orders $order, $id){
+    public function paymentordergan(Orders $order, Request $request, $id){
+        $this->validate($request,[
+            'payment' => 'image|mimes:jpeg,png,jpg'
+        ]);
+       
+        //dd($payment);
         if($order->status==0){
-            Orders::find($id)->update([
-                'status' =>'1'
-            ]);
-            return redirect()->route('userPage')->with('status','Order number '.$id.' has been approved');
+            $order = Orders::find($id);
+            if($request->hasFile('payment')){
+            $image = $request->file('payment');
+            $imageName = $image->getClientOriginalName();
+            $image->move('upload', $imageName);
+            $order->payment_check = $imageName;
+            }
+            $order->status = '1';
+            $order->save();
+            return redirect()->route('userPage')->with('status','Order number '.$id.' has been registered. Please wait for confirmation!!');
         }
-        return redirect()->back()->with('failed','Order number '.$id.'not yet pay');
-
+        else{
+            return redirect()->back()->with('error','Order number '.$id.'not yet pay');
+        }
         
     }
-
-    // public function paymentcard(Request $request, Orders $order, $id){
-           
-    //         if($order->status==0){
-    //             $order = Orders::find($id)->update([
-    //                 'status' =>'1',
-    //                 'payment_check' => '1',
-    //             ]);
-                
-                
-    //             return redirect()->route('userPage')->with('status','Order number '.$id.' has been approved');
-    //         }
-            
-        
-    // }
-    
-    // Route::get('/pemabayaran/payment', 'Frontend\OrderController@paymentgan')->name('paymentcard');
 }

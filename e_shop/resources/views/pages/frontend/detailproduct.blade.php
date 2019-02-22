@@ -31,7 +31,7 @@
                         </div>
                         <div class="" style="padding-top:30px">
                             <div class="">
-                                <h3 id="detail-product-price" class="card-detail-price text-left mx-2">{{$products->product_price}}</h3>
+                                <h3 id="detail-product-price" class="card-detail-price text-left mx-2">Rp. {{number_format($products->product_price,0)}}</h3>
                             </div> 
                         </div>
                     {{-- sudahlogin --}}
@@ -40,10 +40,7 @@
                             {{csrf_field()}}
                         <div class="row justify-content-between" style="padding-top:20px;">
                             <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-center">
-                                
-                                <input type="number" id="qty" name="qty" class="form-control text-center input-number"  style="border:solid 2px #e0e0e0;" value="1" min="1" max="100">
-                                    
-                            </div>
+                                <input type="number" id="qty" name="qty" class="form-control text-center input-number"  style="border:solid 2px #e0e0e0;" value="1" min="1" max="100">                            </div>
                         </div>  
                         <div class="row justify-content-end" style="padding-top:30px;">
                             <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-center" >
@@ -69,12 +66,11 @@
                                     {{csrf_field()}} 
                                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                         <input type="hidden" name="product_id" value="{{$products->id}}">
-                                        <input type="hidden" name="price" value="{{$products->product_price}}">
+                                        {{-- <input type="hidden" name="price" value="{{$products->product_price}}"> --}}
                                         {{-- <input type="hidden" name="order" value="{{$orders->id}}">   --}}
                                         <button type="submit" id="cartBtn" class="btn btn-success btn-block"><i class="fas fa-handshake"> Buy Now </i> </button>
                                 </form> 
                             </div>
-                       
                     @else
                     {{-- Belum login --}}
                         <div class="justify-content-between  row" style="padding-top:20px">
@@ -127,7 +123,7 @@
                                         <h6 id="random-title-product-name" class="font-weight-light " ><strong>{{$row->product_name}}</strong></h6>
                                     </div>
                                     <div class="card-price-box-random ">
-                                        <h6 class="text-center ">{{$row->product_price}}</h6>
+                                        <h6 class="text-center ">Rp. {{number_format($row->product_price,0)}}</h6>
                                     </div>
                             </div>
                         </div>
