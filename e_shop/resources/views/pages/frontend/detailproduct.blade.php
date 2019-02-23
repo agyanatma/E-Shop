@@ -75,15 +75,15 @@
                     {{-- Belum login --}}
                         <div class="justify-content-between  row" style="padding-top:20px">
                             <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-center ">
-                                <div class="input-group-prepend "> 
+                                {{-- <div class="input-group-prepend "> 
                                     <button type="button" class="quantity-left-minus btn btn-info "data-type="minus" data-field="">
                                         <span class="fas fa-minus"></span>
-                                    </button>
-                                        <input type="text" id="quantity" name="quantity" class="form-control text-center input-number" style="border:none" value="1" min="1" max="100">
-                                    <button type="button" class="quantity-right-plus btn btn-info "  data-type="plus" data-field="">
+                                    </button> --}}
+                                        <input type="number" id="qty" name="qty" class="form-control text-center input-number" style="border:none" value="1" min="1" max="100">
+                                    {{-- <button type="button" class="quantity-right-plus btn btn-info "  data-type="plus" data-field="">
                                         <span class="fas fa-plus"></span>
                                     </button>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="row justify-content-end" style="padding-top:30px;">
