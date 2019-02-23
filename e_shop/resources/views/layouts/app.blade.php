@@ -80,7 +80,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center" href="{{route('wishlist', Auth::User())}}"><i class="fas fa-heart"></i> Wishlist</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-center" href="{{ route('historyorder',  Auth::User()) }}"><i class="fas fa-history"> History Order </i></a>
+                                <a class="dropdown-item text-center" href="{{ route('historyorder',  Auth::User()) }}"><i class="fas fa-history"></i> History Order </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center" href="{{ route('logoutUser') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
@@ -114,7 +114,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center" href="{{route('wishlist', Auth::User())}}"><i class="fas fa-heart"></i> Wishlist</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-center" href="{{ route('historyorder',  Auth::User()) }}"><i class="fas fa-history"> History Order </i></a>
+                                <a class="dropdown-item text-center" href="{{ route('historyorder',  Auth::User()) }}"><i class="fas fa-history"> </i> History Order</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center" href="/admin/dashboard"><i class="fas fa-boxes"></i> Dashboard</a>
                                 <div class="dropdown-divider"></div>
