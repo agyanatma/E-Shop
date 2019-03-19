@@ -102,7 +102,7 @@
                     <div class="card-detail-description-body" style="padding-top:50px;  ">
                         <div class=" card-detail-description">
                             <h4 class="text-left text-left" id="description-title" style="margin:10px; border-bottom: solid 3px #e0e0e0;"><strong>Description</strong></h4>
-                            <p class="text-justify" id="description-detail">{{$products->description}}></p>
+                            <p class="text-justify" id="description-detail">{{$products->description}}</p>
                         </div>
                     </div>
                 </div>

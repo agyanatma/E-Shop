@@ -125,10 +125,8 @@
                                 </div>
                             </div>
                                 @endforeach
-                               
-                                
                             @else
-                                <h2>No posts found!</h2>
+                                <img class="rounded mx-auto d-block img-fluid " style="max-width: 40%;" src="/upload/Error.jpg">
                             @endif
                 </div>
                 <div class="pagination fixed" style="margin:4%" >
