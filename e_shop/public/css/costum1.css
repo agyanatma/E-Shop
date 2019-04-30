@@ -9,14 +9,12 @@ html {
     font-family: "helvetica neue", sans-serif;
 }
 
-
-
 header{
     
     background-color:#616E7D;
     background-size: cover;
     background-position: center;
-
+    
 }
 
 footer{
@@ -30,7 +28,7 @@ body{
     background-size: cover;
     background-color: white;
     font-family: 'helveticaneuemedium';
-    margin-top: 70px;
+    margin-top: 55px;
     
 }
 /* 
@@ -52,6 +50,8 @@ width: 100%;
     border: 1px solid;
     margin-top: 50px;
 } */
+
+/*Header*/
 
 link{
     color: white;
@@ -78,10 +78,10 @@ link{
 
 .dropdown-menu{
     position: absolute;
-    top:50px;
-    overflow: hidden;
+    top:47px;
+    overflow: hidden;   
     background-color: white;
-    
+    padding:0px;
 }
 
 .dropdown-menu a{
@@ -90,19 +90,19 @@ link{
 }
 
 .dropdown-menu a:hover{
-    text-decoration: underline;
+    text-decoration: Center;
 }
 
 .dropdown-item{
-    padding: 20px;
+    padding: 20%;
 }
 
 .dropdown-item:hover{
     background-color: #f3f3f3;
 }
+
 a.dropdown-item.text-center {
     color: black;
-
 }
 
 
@@ -128,12 +128,6 @@ a.dropdown-item.text-center {
     padding:0px;
 }
 
-.row-centered{
-    text-align: center;
-    
-}
-
-
 .col-centered{
     display: inline-block;
     float:none;
@@ -141,15 +135,6 @@ a.dropdown-item.text-center {
     margin-right: -4px;
 }
 
-.card-fluid{
-    background-color: white;
-    max-width:100%;
-    max-height:auto;
-    padding: 5px;
-    border-radius: 4px;
-    box-shadow: 0 0 5px rgba(0,0,0,.6);
-    transition-duration: .5s;
-}
 
 
 
@@ -195,6 +180,29 @@ a.dropdown-item.text-center {
   }
 
 /*Index*/
+
+.row-centered{
+    text-align: center;
+    margin:0px;
+    background-color: white;
+}
+
+.card-fluid{
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0,0,0,.6);
+    transition-duration: .5s;
+    
+}
+
+
+.category:hover{
+    background-color: #f5f5f5;
+}
+
+/* .rounded.mx-auto.d-block.img-fluid:hover{
+    background-color: #bdc3c7;
+} */
 
 button.btn-addcart{
     color: #138496;
@@ -282,7 +290,7 @@ a.btn-addcart{
     margin-left: 10px;
     margin-bottom: 10px;
     padding-top: 5px;
-   
+    color:#17A2B8;
     
 }
 
@@ -293,21 +301,106 @@ a.btn-addcart{
     text-align: center;
 }
 
-.card-login{
-    max-height:auto;
-    max-width: auto;
-    padding: 10px;
+.card-change-password{
+    height: 450px;
+    width: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin: 0 auto;
+    background: #f0f0f0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
     
 }
 
 .card-register{
-    max-height:auto;
-    
-    max-width: auto;
+    height: 550px;
+    width: 500px;
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+    margin-top: auto;
+    background: #f0f0f0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     padding: 10px;
-    
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
 }
 
+.user_card {
+    height: 400px;
+    width: 350px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: #f0f0f0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+
+}
+.brand_logo_container {
+    position: absolute;
+    height: 170px;
+    width: 170px;
+    top: -75px;
+    border-radius: 50%;
+    background: white;
+    padding: 10px;
+    text-align: center;
+}
+.brand_logo {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 2px solid #616E7D;
+}
+.form_container {
+    margin-top: 100px;
+}
+.login_btn {
+    width: 100%;
+    background: #616E7D !important;
+    color: white !important;
+}
+.login_btn:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+.login_container {
+    padding: 0 2rem;
+}
+.input-group-text {
+    background: #616E7D !important;
+    color: white !important;
+    border: 0 !important;
+    border-radius: 0.25rem 0 0 0.25rem !important;
+}
+.input_user,
+.input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #616E7D !important;
+}
 
 /*Detail Product*/
 .container-detailproduct{
@@ -378,8 +471,6 @@ a.btn-addcart{
     
 }
 
-
-
 .product-section-thumbnail:hover{
     border: 1px solid #979797;
 }
@@ -399,6 +490,7 @@ a.btn-addcart{
 .card-detail-price{
     padding: 0px;
     font-size: auto;
+    color:#17A2B8;
 }
 
 .card-detail-count{
@@ -431,7 +523,7 @@ a.btn-addcart{
 
 #description-title{
     line-height: 200%;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    
 }
 
 
@@ -439,7 +531,7 @@ a.btn-addcart{
 #description-detail{
     margin:10px;
     
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    
 }
 
 /*Detail Random*/
@@ -489,7 +581,7 @@ a.btn-addcart{
 
 .card-price-box-random{
     margin-top: 50px;
-    
+    color:#17A2B8;
 }
 
 
@@ -508,13 +600,14 @@ a.btn-addcart{
 
 .table-wrapper-scroll-y-cart{
     display: block;
-    /* overflow: hidden; */
-   
+    overflow: hidden;
+    height: 400px;
 }
-/* 
+
 .table-wrapper-scroll-y-cart:hover{
     overflow-y: auto;
-} */
+    
+}
 
 
 h2.title-cart.text-center.text-uppercase{
@@ -596,17 +689,24 @@ div.card-button-cart-checkout{
 }
 /* Checkout*/
 .card-checkout-box-address{
+    height: 400px;
+    width: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     
-        padding: 20px 30px 20px 30px;
-       
-        position: top 0;
 }
 
 .card-body-address{
-   
-    padding: 20px 20px 20px 20px;
-    
-    top: 0%;
+   padding: 40px;
+   background: #f0f0f0;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
 }
 
 
@@ -627,6 +727,17 @@ div.card-button-cart-checkout{
     
     
     padding-bottom:20px; padding-top:20px; 
+    
+}
+
+.table-wrapper-scroll-y-checkout{
+    display: block;
+    overflow: hidden;
+    height: 400px;
+}
+
+.table-wrapper-scroll-y-checkout:hover{
+    overflow-y: auto;
     
 }
 
@@ -652,7 +763,7 @@ div.card-button-cart-checkout{
 
 .card-title-box-checkout{
     padding-right: 20px;
-    border-bottom: solid 1px #e0e0e0;
+    border-bottom: solid 2px #e0e0e0;
 }
 
 .quantity-tags-checkout{
@@ -740,7 +851,7 @@ a.btn-wishlist{
 .card-price-box-wishlist{
     text-align: center;
     padding: 0px;
-    
+    color:#17A2B8;
 }
 
 
@@ -750,11 +861,11 @@ a.btn-wishlist{
 }
 
 .card-text-box-button-delete-wishlist{
-    width: 100%;
+    
     max-width: inherit;
     position: absolute;
     top: 30px;
-    left: 35%;
+    right: 10%;
 }
 
 /*User*/
@@ -764,18 +875,46 @@ h2.title-user.text-center{
     line-height: 200%;
 }
 
+.card-user-change{
+    height: 500px;
+    width: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin: 0 auto;
+    background: #f0f0f0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+}
+
 .card-user-box-address{
-   
-    padding-top:20px; 
-    padding-bottom:20px;
-    
+    height:auto;
+    width: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin: 0 auto;
+    background: #f0f0f0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
 }
 
 .card-body-user-address{
-    
-    padding: 20px 30px 20px 30px;
-    max-height: 800px;
-    position: top 0;
+    padding: 0px;
+    margin: 0px;
+   
 }
 
 .card-image-user{
@@ -821,8 +960,7 @@ h2.title-user.text-center{
 
 
 .card-body-payment{
-    padding:0;
-    margin: 10px;
+    margin: 10px 0px 15px 0px;
    
 }
 
@@ -833,14 +971,20 @@ h2.title-user.text-center{
     border: solid 2px #e0e0e0;
     background: #f2f2f2;
 }
-/* 
+
 .card-title-payment{
-    
+  padding-top:5px;
+  padding-bottom: 0px;
+  margin:0px;
 }
 
 .card-image-payment{
+    margin: 10px;
+    width: auto;
+}
 
-} */
+/*History Order*/
+
 /*LOGIN*/
 .login-form{
     padding-right: 20px;
@@ -861,10 +1005,6 @@ h2.title-user.text-center{
 }
 
 h1{
-    
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
-    
     text-align: center;
     text-transform: uppercase;
     font-size: 40px;
@@ -874,7 +1014,7 @@ h1{
 
 h2{
     
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    
 
     
   
@@ -883,14 +1023,14 @@ h2{
 h3{
     
     
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    
 
     font-size: 25px;
 }
 
 
 h6{
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    
     margin: 5px;
 }
 

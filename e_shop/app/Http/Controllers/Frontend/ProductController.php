@@ -92,7 +92,7 @@ class ProductController extends Controller
 
     public function user(){
         $users = Auth::user();
-        $products = Product::with(['images'])->paginate(24);
+        $products = Product::inRandomOrder()->with(['images'])->paginate(24);
         //$categories = Category_product::with(['images'])->find($id);
         $categories = Category_product::take(5)->get();
         if (Auth::user() && $orders = 1){

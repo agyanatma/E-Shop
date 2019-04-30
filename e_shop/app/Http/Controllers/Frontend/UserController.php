@@ -40,7 +40,7 @@ class UserController extends Controller
                 return redirect()->intended('/')->with('status', 'You has successfully logged in');
             } 
             else {
-                return redirect()->back()->with('status', 'Email or password wrong!');
+                return redirect()->back()->with('failed', 'Email or password wrong!');
             }
         }
         else{
@@ -113,7 +113,7 @@ class UserController extends Controller
             })
         ])->where([
             'user_id' => $id,
-        ])->get();
+        ])->orderBy('id', 'desc')->paginate(10);
         $totalordermasuk = Orders::with([
             'orderDetail',
             'orderDetail.product'=>(function($product){
@@ -196,7 +196,7 @@ class UserController extends Controller
     public function gantipassword($id){
         $users = Auth::user();
         $buyer = Auth::user()->id;
-        $totalorder = Orders::with('product','buyer')->where([
+        $totalorder = Order_product::with('product','buyer')->where([
             'user_id' => $buyer,
         ])->count();
 

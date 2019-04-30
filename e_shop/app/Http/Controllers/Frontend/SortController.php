@@ -23,6 +23,7 @@ class SortController extends Controller
             'category_id' => $id,
         ])->paginate(24);
         $categories = Category_product::take(5)->get();
+        // dd($categories->toArray());
             if (Auth::user() && $orders = 1){
         $buyer = Auth::user()->id;
         $orders = Order_product::with('product','buyer')->where('user_id','=',$buyer)->get();
