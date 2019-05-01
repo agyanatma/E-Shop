@@ -11,10 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/costum1.css">
-    
-     
-    {{-- Costume Alert --}}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     {{-- table --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>  
@@ -77,11 +74,11 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right my-lg-0" aria-labelledby="navbarDropdown" >
                                 <a class="dropdown-item text-center" href="{{route('user', Auth::User())}}"><i class="fas fa-user-cog" ></i> User Profile</a>
-                                <div class="dropdown-divider"></div>
+                                
                                 <a class="dropdown-item text-center" href="{{route('wishlist', Auth::User())}}"><i class="fas fa-heart"></i> Wishlist</a>
-                                <div class="dropdown-divider"></div>
+                                
                                 <a class="dropdown-item text-center" href="{{ route('historyorder',  Auth::User()) }}"><i class="fas fa-history"></i> History Order </a>
-                                <div class="dropdown-divider"></div>
+                                
                                 <a class="dropdown-item text-center" href="{{ route('logoutUser') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
                     </li>
@@ -109,15 +106,11 @@
                             <a id="navbarDropdown" class="nav-link dropdown-toggle text-center" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{Auth::user()->fullname}} (Admin)<span class="caret"></span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right my-lg-0" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu dropdown-menu-right my-lg-0" aria-labelledby="navbarDropdown" >
                                 <a class="dropdown-item text-center" href="{{route('user', Auth::User())}}"><i class="fas fa-user-cog" ></i> User Profile</a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center" href="{{route('wishlist', Auth::User())}}"><i class="fas fa-heart"></i> Wishlist</a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center" href="{{ route('historyorder',  Auth::User()) }}"><i class="fas fa-history"> </i> History Order</a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center" href="/admin/dashboard"><i class="fas fa-boxes"></i> Dashboard</a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center" href="{{ route('logoutUser') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                             </div>
                         </li>
@@ -143,11 +136,11 @@ $('.quantity-right-plus').click(function(e){
     // Stop acting like a button
     e.preventDefault();
     // Get the field name
-    var quantity = parseInt($('#quantity').val());
+    var quantity = parseInt($('#qty').val());
     
     // If is not undefined
         
-        $('#quantity').val(quantity + 1);
+        $('#qty').val(quantity + 1);
 
     
         // Increment
@@ -158,13 +151,13 @@ $('.quantity-left-minus').click(function(e){
     // Stop acting like a button
     e.preventDefault();
     // Get the field name
-    var quantity = parseInt($('#quantity').val());
+    var quantity = parseInt($('#qty').val());
     
     // If is not undefined
 
         // Increment
         if(quantity>0){
-        $('#quantity').val(quantity - 1);
+        $('#qty').val(quantity - 1);
         }
 });
 
@@ -199,6 +192,5 @@ $('.quantity-left-minus').click(function(e){
         <div class="container" >
           <h6 class="m-0 text-center " style="color:white;">Copyright &copy; 2019 - All Rights Reserved -  <a link="bukanjaknote.site">Bukanjaknote.site</a></h6>
         </div>
-        <!-- /.container -->
     </footer>
 </html>

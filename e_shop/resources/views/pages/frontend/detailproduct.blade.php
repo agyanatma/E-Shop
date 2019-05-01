@@ -31,7 +31,7 @@
                         </div>
                         <div class="" style="padding-top:30px">
                             <div class="">
-                                <h3 id="detail-product-price" class="card-detail-price text-left mx-2">Rp. {{number_format($products->product_price,0)}}</h3>
+                                <h3 id="detail-product-price" class="card-detail-price font-weight-bold text-left">Rp. {{number_format($products->product_price,0)}}</h3>
                             </div> 
                         </div>
                     {{-- sudahlogin --}}
@@ -40,7 +40,19 @@
                             {{csrf_field()}}
                         <div class="row justify-content-between" style="padding-top:20px;">
                             <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-center">
-                                <input type="number" id="qty" name="qty" class="form-control text-center input-number"  style="border:solid 2px #e0e0e0;" value="1" min="1" max="100">                            </div>
+                                <div class="input-group-prepend "> 
+                                    <button type="button" class="quantity-left-minus btn btn-info "data-type="minus" data-field="">
+                                        <span class="fas fa-minus"></span>
+                                    </button>
+                                    <input type="text" id="qty" name="qty" class="form-control text-center input-number" style="border:solid 2px #e0e0e0;" value="1" min="1" max="100">
+                                    <button type="button" class="quantity-right-plus btn btn-info "  data-type="plus" data-field="">
+                                        <span class="fas fa-plus"></span>
+                                    </button>
+                                </div>
+                                
+                                {{-- <input type="number" id="qty" name="qty" class="form-control text-center input-number"  style="border:solid 2px #e0e0e0;" value="1" min="1" max="100">                             --}}
+                            </div>
+                            
                         </div>  
                         <div class="row justify-content-end" style="padding-top:30px;">
                             <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-center" >
@@ -75,15 +87,15 @@
                     {{-- Belum login --}}
                         <div class="justify-content-between  row" style="padding-top:20px">
                             <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-center ">
-                                {{-- <div class="input-group-prepend "> 
+                                <div class="input-group-prepend "> 
                                     <button type="button" class="quantity-left-minus btn btn-info "data-type="minus" data-field="">
                                         <span class="fas fa-minus"></span>
-                                    </button> --}}
-                                        <input type="number" id="qty" name="qty" class="form-control text-center input-number" style="border:none" value="1" min="1" max="100">
-                                    {{-- <button type="button" class="quantity-right-plus btn btn-info "  data-type="plus" data-field="">
+                                    </button>
+                                    <input type="text" id="qty" name="qty" class="form-control text-center input-number" style="border:solid 2px #e0e0e0;" value="1" min="1" max="100">
+                                    <button type="button" class="quantity-right-plus btn btn-info "  data-type="plus" data-field="">
                                         <span class="fas fa-plus"></span>
                                     </button>
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                         <div class="row justify-content-end" style="padding-top:30px;">
@@ -102,13 +114,13 @@
                     <div class="card-detail-description-body" style="padding-top:50px;  ">
                         <div class=" card-detail-description">
                             <h4 class="text-left text-left" id="description-title" style="margin:10px; border-bottom: solid 3px #e0e0e0;"><strong>Description</strong></h4>
-                            <p class="text-justify" id="description-detail">{{$products->description}}</p>
+                            <h5 class="text-justify font-wight-light" id="description-detail">{{$products->description}}</h5>
                         </div>
                     </div>
                 </div>
             </div>
         <div class="card-detail-product-title-random">
-            <h2 style="padding-top:100px"><strong>Other Product</strong></h2>
+            <h2 ><strong>Other Product</strong></h2>
         </div>
         <div class="row" style="padding-bottom:20px" >
                 @if(count($productrandom) > 0)
@@ -123,7 +135,7 @@
                                         <h6 id="random-title-product-name" class="font-weight-light " ><strong>{{$row->product_name}}</strong></h6>
                                     </div>
                                     <div class="card-price-box-random ">
-                                        <h6 class="text-center ">Rp. {{number_format($row->product_price,0)}}</h6>
+                                        <h6 class=" text-center "><strong>Rp. {{number_format($row->product_price,0)}}</strong></h6>
                                     </div>
                             </div>
                         </div>

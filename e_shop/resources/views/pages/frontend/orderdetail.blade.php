@@ -28,18 +28,18 @@
             @if(Auth::User()->id && $orders->status == 1)
             <div class="">
                 <h4>Status</h4> 
-                <p class="text-info"><strong>Waiting For Confirmation</strong></p>
+                <h5 class="text-info"><strong>Waiting For Confirmation</strong></h5>
             </div>
             @endif
             @if(Auth::User()->id && $orders->status == 2)
             <div class="">
                 <h4>Status</h4> 
-                <p class="text-success"><strong>Already Paid</strong></p>
+                <h5 class="text-success"><strong>Already Paid</strong></h5>
             </div>
             @endif
             <div class="">
                 <h4>Order Date</h4>
-                <p class=""> {{date('d F Y', strtotime($orders->order_date))}} at {{date('g:ia', strtotime($orders->updated_at))}}</p>
+                <h5 class=""><strong> {{date('d F Y', strtotime($orders->order_date))}} at {{date('g:ia', strtotime($orders->updated_at))}}</strong></h5>
             </div>
         </div>
             <div>
@@ -131,7 +131,7 @@
                     <h4 class="" style="line-height:2; " ><strong>Shipping Address</strong></h4>
                     <div  >
                     <h4 >Sent to <strong style="border-bottom: 3px solid #e0e0e0;">{{$orders->fullname}}</strong></h4>
-                    <p class="text-justify">{{$orders->address}}, {{$orders->city}}, {{$orders->postal_code}}</p>
+                    <h5 class="text-justify">{{$orders->address}}, {{$orders->city}}, {{$orders->postal_code}}</h5>
                     </div>
                 </div>
             </div>
@@ -141,13 +141,13 @@
                     <div>
                     <h4 class=" text-right "><a  style="border-bottom: 3px solid #e0e0e0;">Total payment costs</a></h4>
                     @if(Auth::User()->id && $orders->status == 0)
-                    <p class="text-right text-danger " style="font-size:25px; "><strong>Rp.{{number_format($orders->total)}}</strong></p>
+                    <h5 class="text-right text-danger " style="font-size:25px; "><strong>Rp.{{number_format($orders->total)}}</strong></h5>
                     @endif
                     @if(Auth::User()->id && $orders->status == 1)
-                    <p class="text-right text-info " style="font-size:25px; "><strong>Rp.{{number_format($orders->total)}}</strong></p>
+                    <h5 class="text-right text-info " style="font-size:25px; "><strong>Rp.{{number_format($orders->total)}}</strong></h5>
                     @endif
                     @if(Auth::User()->id && $orders->status == 2)
-                    <p class="text-right text-success " style="font-size:25px; "><strong>Rp.{{number_format($orders->total)}}</strong></p>
+                    <h5 class="text-right text-success " style="font-size:25px; "><strong>Rp.{{number_format($orders->total)}}</strong></h5>
                     @endif
                     </div>
                 </div>

@@ -41,7 +41,7 @@ class OrderController extends Controller
     public function updatecart(Request $request, $id){
         if($products = Product::find($id)){
             
-            $quantity = $request->input('quantity');
+            $quantity = $request->input('qty');
             $user = $request->input('user_id');
             $product = $request->input('product_id');
             

@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div class="container-fluid my-container " style="padding:4%">
+<div class="container-fluid my-container " style="padding-left:4%;padding-right:4%;">
         <div style="padding:15px">
             <div class="row">
             <form class="navbar-form" role="search" method="get" action="{{route('searchwishlist')}}">
@@ -25,6 +25,19 @@
             </form>
             </div>
         </div>
+        @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+        @endif
+        @if (session('failed'))
+            <div class="alert alert-danger">
+                {{ session('failed') }}
+            </div>
+        @endif
+        @if(count($errors)>0)
+            <p class="alert alert-danger">Please Try Again</p>
+        @endif
         <div class="row " >
                 @if(count($wishlist) > 0)
                     @foreach ($wishlist as $row)
@@ -40,7 +53,7 @@
                                         <h5 class="font-weight-light text-center" style="padding-top:20px">{{$row->product->product_name}}</h5>
                                     </div>
                                     <div class="card-price-box-wishlist">
-                                        <h5 class="font-weight-light text-center ">Rp. {{number_format($row->product->product_price,0)}}</h5>
+                                        <h5 class="font-weight-bold text-center " style="padding-top:20px">Rp. {{number_format($row->product->product_price,0)}}</h5>
                                     </div>
                                     <div class="card-text-box-button-wishlist">
                                         @if(Auth::check() && Auth::user())
@@ -65,7 +78,7 @@
                         <h2>No posts found!</h2>
                     @endif
         </div>
-        <div class="pagination fixed" style="margin:4%" >
+        <div class="pagination fixed" style="margin:2%" >
                 {{$wishlist->links()}}
         </div>
     </div>

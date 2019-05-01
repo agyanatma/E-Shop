@@ -9,13 +9,13 @@
             <strong class="totalqty ">Total Items</strong>
             <strong class="totalqty " >({{$totalqty}})</strong>
     </div>
-    <div style="padding:3%">
+    <div >
             @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
         @endif
-        <div class="table-wrapper-scroll-y-cart mx-auto" >
+        <div class="table-wrapper-scroll-y-cart mx-auto " >
             <div class="card-box-cart-table-header table-bordered "style="padding-bottom:20px; padding-top:20px;" >
                     <div class="row">
                         <div class="col-lg-5 col-md-5 col-sm-4 col-4 text-center"  >
@@ -54,12 +54,12 @@
                                 </button>
                                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                 <input type="hidden" name="product_id" value="{{$order->product->id}}">
-                                <input type="number" id="quantity"  name="quantity" class="form-control text-center input-number" style="border:none" value="{{$sum_unit_Price = $order->qty}}" min="1" max="100">
+                                <input type="number" id="qty"  name="qty" class="form-control text-center input-number" style="border:none" value="{{$sum_unit_Price = $order->qty}}" min="1" max="100">
                             </form>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-2 col-2 table-data text-center">
                             <input type="hidden" Rp. {{number_format($sum_tot_Price = $sum_tot_Price + ($sum_product_Price =$order->product->product_price * $order->qty))}}>
-                            <h6 class="totalprice text-center" >Rp. {{number_format($sum_product_Price =$order->product->product_price * $order->qty)}}</h6>
+                            <h6 class="totalprice text-center " style="color:#17A2B8;"><strong>Rp. {{number_format($sum_product_Price =$order->product->product_price * $order->qty)}}</strong></h6>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-3 col-3 table-data text-center form-group" style="">
                             <a href="{{ route('deleteCart', $order->id) }}" class="btn btn" style="color:red" name="delete"><i class="fas fa-times"></i></a>
@@ -79,7 +79,7 @@
             <h3 class=" text-right text-uppercase" ><em><strong>Sub Total</strong></em></h3>
         </div>
         <div class="card-total-bill-cart-summary text-right" style="padding-bottom:20px;">
-            <h5><strong class="totalbill " id="result">Rp.{{number_format($sum_tot_Price)}}</strong></h5>
+            <h5><strong class="totalbill font-weight-bold " id="result" >Rp.{{number_format($sum_tot_Price)}}</strong></h5>
         </div>
         <div class="">
             <div class="row justify-content-end">
@@ -96,34 +96,34 @@
     </div>        
 </div>
 <div class="card-detail-product-title-random">
-        <h2 style="padding-top:100px"><strong>Other Product</strong></h2>
-    </div>
-    <div class="row" style="padding-bottom:20px" >
-            @if(count($productrandom) > 0)
-                @foreach ($productrandom as $row)
-                <div class="col-md-4 col-lg-2 col-sm-6 col-12" style="padding-bottom:20px; padding-top:20px; ">
-                    <div class=" card-box-random " >
-                        <div style="max-height:120px">
-                            <a href="{{route('detailproduct', $row->id)}}"><img class="card-image-random rounded mx-auto d-block img-fluid " style="" src="{{ $row->images[0]->product_image}}"></a>
-                        </div>
-                        <div class="card-body-random clearfix" >
-                                <div class="card-title-box-random">
-                                    <h6 id="random-title-product-name" class="font-weight-light " ><strong>{{$row->product_name}}</strong></h6>
-                                </div>
-                                <div class="card-price-box-random ">
-                                    <h6 class="text-center ">Rp. {{number_format($row->product_price)}}</h6>
-                                </div>
-                        </div>
+    <h2 ><strong>Other Product</strong></h2>
+</div>
+<div class="row" style="padding-bottom:20px" >
+        @if(count($productrandom) > 0)
+            @foreach ($productrandom as $row)
+            <div class="col-md-4 col-lg-2 col-sm-6 col-12" style="padding-bottom:20px; padding-top:20px; ">
+                <div class=" card-box-random " >
+                    <div style="max-height:120px">
+                        <a href="{{route('detailproduct', $row->id)}}"><img class="card-image-random rounded mx-auto d-block img-fluid " style="" src="{{ $row->images[0]->product_image}}"></a>
+                    </div>
+                    <div class="card-body-random clearfix" >
+                            <div class="card-title-box-random">
+                                <h6 id="random-title-product-name" class="font-weight-light " ><strong>{{$row->product_name}}</strong></h6>
+                            </div>
+                            <div class="card-price-box-random ">
+                                <h6 class=" text-center "><strong>Rp. {{number_format($row->product_price,0)}}</strong></h6>
+                            </div>
                     </div>
                 </div>
-                    @endforeach
-                @else
-                    <h2>No posts found!</h2>
-                @endif
-    </div>
+            </div>
+                @endforeach
+            @else
+                <h2>No posts found!</h2>
+            @endif
 </div>
     
-
+</div>
+</div>
 
 @endsection
                                     

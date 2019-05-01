@@ -5,8 +5,8 @@ Shopping Cart
 @endsection
 
 @section('content')
-<div class="container-fluid">
-    <div style="margin-top: 7%;margin-bottom:0%">
+<div class="container-fluid" style="padding-left:4%;padding-right:4%;padding-top:2%;">
+    
         <h2 class="title-cart text-center" ><strong>History Order</strong></h2>
         <div class="card-total-cart text-center clearfix pb-4" >
                 <strong class="totalqty ">Total Order</strong>
@@ -40,7 +40,7 @@ Shopping Cart
                                 @if(Auth::user() && $order->status==0)
                                 <td class="align-middle text-center">Not Yet Paid</td>
                                 @endif
-                                <td class="align-middle text-center"><a href="{{route('detailorder', $order->id)}}" class="">Detail Order</a></td>
+                                <td class="align-middle text-center historyorder"><a href="{{route('detailorder', $order->id)}}" class="btn btn-info"><i class="fas fa-info-circle"></i> Detail Order</a></td>
                         </tr>
                         @endforeach
                     @else
@@ -50,6 +50,9 @@ Shopping Cart
         </table>           
         </div>
     </div>
-</div>
+    <div class="pagination fixed" style="margin:2%" >
+        {{$orders->links()}}
+    </div>
+
 </div>
 @endsection
