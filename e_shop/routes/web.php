@@ -69,7 +69,7 @@ Route::get('admin', 'Backend\UserController@login')->name('login.admin');
 
 Route::post('admin/login', 'Backend\UserController@loginStore')->name('store.admin');
 Route::group(['middleware'=>['checkAdmin']],function(){
-    Route::get('admin/dashboard', 'Backend\UserController@index')->name('index.admin');
+    Route::get('admin/dashboard', 'Backend\UserController@dashboard')->name('dashboard.admin');
     
     //CRUD PRODUCT
     Route::get('admin/product', 'Backend\ProductController@index')->name('product.admin');
@@ -85,7 +85,7 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/category', 'Backend\CategoryController@index')->name('category.admin');
     Route::get('admin/category/new', 'Backend\CategoryController@create')->name('create.category');
     Route::post('admin/category/new/store', 'Backend\CategoryController@store')->name('store.category');
-    Route::post('admin/category/{id}/show', 'Backend\CategoryController@store')->name('show.category');
+    Route::get('admin/category/{id}/show', 'Backend\CategoryController@show')->name('show.category');
     Route::get('admin/category/{id}/edit', 'Backend\CategoryController@edit')->name('edit.category');
     Route::post('admin/category/{id}/update', 'Backend\CategoryController@update')->name('update.category');
     Route::get('admin/category/{id}/delete', 'Backend\CategoryController@destroy')->name('destroy.category');
@@ -101,9 +101,13 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     
 
     //CRUD USER
-    Route::get('admin/user/{id}/show', 'Backend\UserController@edit')->name('show.admin');
+    Route::get('admin/user', 'Backend\UserController@index')->name('index.admin');
+    Route::get('admin/user/{id}/show', 'Backend\UserController@show')->name('show.admin');
     Route::get('admin/user/{id}/edit', 'Backend\UserController@edit')->name('edit.admin');
+    Route::post('admin/user/{id}/edited', 'Backend\UserController@editStore')->name('edited.admin');
     Route::get('admin/user/{id}/destroy', 'Backend\UserController@destroy')->name('destroy.admin');
+    Route::get('admin/user/add', 'Backend\UserController@register')->name('add.user');
+    Route::post('admin/user/registed', 'Backend\UserController@registerStore')->name('registed.user');
     Route::get('admin/user/datatables', 'Backend\UserController@dataTables')->name('table.user');
 
     Route::get('profile/{id}', 'Backend\UserController@profile')->name('profile');

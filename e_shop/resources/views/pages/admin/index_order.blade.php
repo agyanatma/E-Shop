@@ -1,26 +1,32 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <h1><span class="fas fa-dolly-flatbed" aria-hidden="true"></span> Order</h1><br>
-        <div class="table-responsive"  style="margin-top:20px">
-            <table id="dataorder" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Order ID</th>
-                        <th>Fullname</th>
-                        <th>Total</th>
-                        <th>Order Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                        
-                </tbody>
-            </table>
+        <div class="col-md-12">
+            <div class="card border-0" style="margin:40px 30px 0px 30px">
+                <div class="card-body">
+                <h1><span class="fas fa-dolly-flatbed" aria-hidden="true"></span> Order</h1><br>
+                    <div class="table-responsive"  style="margin-top:20px">
+                        <table id="dataorder" class="table table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Order ID</th>
+                                    <th>Fullname</th>
+                                    <th>Total</th>
+                                    <th>Order Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
