@@ -25,20 +25,20 @@
     
     
 
-    <title>{{ config('app.name', 'E-Shop') }}</title>
+    <title>{{ config('app.name', 'BukanJakNote') }}</title>
 </head>
 
 <header id="header" >
     <nav class="navbar navbar-expand-md navbar-expand-lg navbar-expand-sm navbar-expand-col fixed-top " style="background:#616E7D" >
          <a class="navbar-brand" href="{{ url('/') }}" style=" color:white">
-            {{ config('app.name', 'E-Shop') }}
+            {{ config('app.name', 'BukanJakNote') }}
         </a>           
         <button class="navbar-toggler form-inline " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"><i class="fas fa-list-ul" style="color:white"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                    <form class="navbar-form form-inline my-2 my-lg-0" role="search" method="get" action="{{url("/searchcontent")}}">
+                    <form class="navbar-form form-inline my-2 my-lg-0" role="search" method="get" action="{{url('/searchcontent')}}">
                         <div class="input-group">
                                 <input class="form-control form-control-borderless mr-sm-2" type="search" placeholder="Search topics or keywords" name="title">
                                 <button class="btn  btn-info " type="submit"><i class="fas fa-search"></i></button>

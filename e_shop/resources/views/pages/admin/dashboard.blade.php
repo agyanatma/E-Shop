@@ -1,104 +1,82 @@
 @extends('layouts.admin')
 
 @section('content')
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                <div class="card border-0">
-                <div class="card bg-light text-dark border-0">
-                    <div class="card-body" style="padding:5px; border:none">
-                        <h2 class="align-middle" style="margin-left:10px"><span class="fas fa-cog"> </span> Dashboard
-                            <span class="float-right" style="margin-right:10px">
-                                <span class="align-middle" style="font-size:large; margin-right:10px">
-                                    <span class="fas fa-circle align-middle" style="font-size:small; margin-right:10px; color:rgb(36, 255, 25)"> </span>Active User
-                                </span>
-                                    <a href="{{route ('user', $users->id)}}"><img src="{{$users->profile_image}}" class="rounded-circle object-fit-cover" width="40" height="40"></a>
-                            </span></h2>
+                    <div class="card-deck" style="margin:40px 30px 0px 0px">
+                        <div class="col-md-4">
+                            <div class="card border-0" style="height:350px; width:100%">
+                                <div class="card-body text-black">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h1><i class="fas fa-box-open" aria-hidden="true"></i> {{$product}}</h1>
+                                            <h4> Products</h4>
+                                        </div>
+                                        <div class="col-sm-12" style="margin-top:20px">
+                                        <p>Latest Items</p>
+                                            <ul class="list-group">
+                                                @foreach($_product as $p)
+                                                    <li class="list-group-item">{{str_limit($p->product_name,30)}} ({{$p->created_at->diffforHumans()}})</li>
+                                                @endforeach
+                                            </ul> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0" style="height:350px; width:100%">
+                                <div class="card-body text-black">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h1><i class="fas fa-clipboard-list" aria-hidden="true"></i> {{$category}}</h1>
+                                            <h4>Categories</h4>
+                                        </div>
+                                        <div class="col-sm-12" style="margin-top: 20px">
+                                        <p>Latest Items</p>
+                                            <ul class="list-group">
+                                                @foreach($_category as $c)
+                                                    <li class="list-group-item">{{$c->category_name}} ({{$p->created_at->diffforHumans()}})</li>
+                                                @endforeach
+                                            </ul> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0" style="height:350px; width:100%">
+                                <div class="card-body text-black">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h1><i class="fas fa-users" aria-hidden="true"></i> {{$user}}</h1>
+                                            <h4>Users</h4>
+                                        </div>
+                                        <div class="col-sm-12" style="margin-top: 20px">
+                                        <p>Latest Items</p>
+                                            <ul class="list-group">
+                                                @foreach($_user as $o)
+                                                    <li class="list-group-item">{{str_limit($o->email,35)}} ({{$o->created_at->diffforHumans()}})</li>
+                                                @endforeach
+                                            </ul> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                    <div class="card-deck" style="margin-top:20px">
-                    <div class="col-md-4">
-                        <div class="card bg-danger border-0">
-                            <a href="/admin/product" style="color:inherit; text-decoration:inherit">
-                                <div class="card-body text-white">
-                                    <h2><span class="fas fa-box-open" aria-hidden="true"></span> {{$product}}</h2>
-                                    <h3>Products</h3>
-                                </div>
-                            </a>
+                <div class="col-md-12">
+                    <div class="card border-0" style="margin:40px 30px 0px 30px">
+                        <div class="card-header bg-white" style="border:none; padding:5px">
+
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card bg-success border-0">
-                            <a href="/admin/category" style="color:inherit; text-decoration:inherit">
-                                <div class="card-body text-white">
-                                    <h2><span class="fas fa-clipboard-list" aria-hidden="true"></span> {{$category}}</h2>
-                                    <h3>Categories</h3>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card bg-primary border-0">
-                            <a href="/admin/order" style="color:inherit; text-decoration:inherit">
-                                <div class="card-body text-white">
-                                    <h2><span class="fas fa-dolly-flatbed" aria-hidden="true"></span> {{$order}}</h2>
-                                    <h3>Orders</h3>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-md-12" style="margin-top:20px">
-                    <div class="card border-0">
-                        <div class="card-header bg-light" style="border:none; padding:5px">
-                            <h2 class="align-middle" style="margin-left:10px"><i class="fas fa-users"></i> Users</h2>
-                        </div>
-                        <div class="card-body bg-light">
-                            <table id="datauser" class="table table-bordered">
-                                <thead style="background: white">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Email</th>
-                                        <th>Name</th>
-                                        <th>Address</th>
-                                        <th>City</th>
-                                        <th>Postal Code</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
+                        <div class="card-body bg-white">
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 @endsection
-
-@push('scripts')
-<script>
-    $(function(){
-        $('#datauser').DataTable({
-            responsive: false,
-            processing: false,
-            serverSide: true,
-            ajax: '{!! route('table.user') !!}',
-            columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'align-middle text-center', width:30, searchable: false},
-                {data: 'email', name: 'email', class: 'align-middle'},
-                {data: 'fullname', name: 'fullname', class: 'align-middle'},
-                {data: 'address', name: 'address', class: 'align-middle'},
-                {data: 'city', name: 'city', class: 'align-middle'},
-                {data: 'postal_code', name: 'postal_code', class: 'align-middle', width:'90'},
-                {data: 'role', name: 'role', width:'30', class: 'align-middle', searchable: false},
-                {data: 'action', name: 'action', searchable: false, orderable: false, width:115, class: 'align-middle'}
-            ]
-        });
-    });
-</script>
-@endpush

@@ -15,8 +15,9 @@ class CategoryController extends Controller
     }
 
     public function show($id){
-        $category = Category_product::find($id);
-        return view('pages.admin.view_category')->with('category', $category);
+        $categories = Category_product::find($id);
+        //dd($categories->toArray());
+        return view('pages.admin.view_category')->with('categories', $categories);
     }
 
     public function dataTables(){
