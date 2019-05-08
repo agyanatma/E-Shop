@@ -28,7 +28,7 @@
                             <br><br>
                             <label>Gambar:</label>
                             <input class="form-control" type="file" name="img[]" multiple><br>
-                            <button type="submit" class="btn btn-primary float-right">Update</button><br><br>
+                            <button type="submit" class="btn btn-info float-right">Update</button><br><br>
                         </form>
                     </div>
                     <div class="container" style="margin-left:0px">

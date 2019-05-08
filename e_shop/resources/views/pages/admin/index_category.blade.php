@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card border-0" style="margin:40px 30px 0px 30px">
                 <div class="card-body">
-                    <h1><span class="fas fa-clipboard-list" aria-hidden="true"></span> Category</h1><br>
+                    <h1><span class="fas fa-clipboard-list" aria-hidden="true"></span> Categories</h1><br>
                     <div class="table" style="margin-top:20px">
                         <table id="datacategory" class="table table-bordered" style="width:100%">
                             <thead>
@@ -14,7 +14,7 @@
                                     <th>No</th>
                                     <th>Category</th>
                                     <th>Image</th>
-                                    <th><a href="{{ route('create.category')}}" type="submit" class="btn btn-primary" style="width:110">Add Category</a></th>
+                                    <th><a href="{{ route('create.category')}}" type="submit" class="btn btn-info" style="width:110">Add Category</a></th>
                                 </tr>
                             </thead>
                             <tbody>

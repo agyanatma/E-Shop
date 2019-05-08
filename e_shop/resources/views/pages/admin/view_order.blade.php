@@ -45,20 +45,39 @@
                                             </li>
                                         @endforeach
                                     </ul>
-                                    <h4 class="float-right">Total Price: {{number_format($orders->total,0)}}</h4>
+                                    <h4 class="float-right">Total Price: {{number_format($orders->total,0)}}</h4><br><br>
+                                    <label class="float-right">Status Pembayaran : <span>
+                                    @if($orders->status == 2)
+                                        Sudah Dibayar
+                                    @elseif($orders->status == 1)
+                                        Menunggu Konfirmasi
+                                    @else
+                                        Belum Dibayar
+                                    @endif
+                                    </span></label>
                                 </div>
                             </div>
                             <h3>Payment Check</h3>
                             <div class="card" style="margin-bottom:20px">
                                 <div class="card-body" style="margin-left:10px">
-                                    @if($orders->payment_check == null)
-                                        <h4>No payment</h4>
-                                    @else
-                                        <img class="img" style="width:100px" src="/upload/{{$orders->payment_check}}">
-                                    @endif
-                                    <form action="{{ route('payment.order') }}" method="POST">
-                                        <a href="" class="btn btn-success float-right" style="margin-top:50px">Approved</a>
-                                    </form>
+                                    <div class="row" style="height:100px">
+                                        <div class="col-md-9">
+                                            @if($orders->payment_check == null)
+                                                <h4>No payment</h4>
+                                            @else
+                                                <img id="myImg" class="img" style="width:100%;max-width:100px" src="/upload/{{$orders->payment_check}}" alt="{{$orders->payment_check}}">
+
+                                                <div id="myModal" class="modal">
+                                                    <span class="close">&times;</span>
+                                                    <img class="modal-content" id="img01">
+                                                    <div id="caption"></div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="{{ route('payment.order', $orders->id) }}" type="submit" class="btn btn-info float-right">Payment Approved</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>

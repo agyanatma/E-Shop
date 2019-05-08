@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card border-0" style="margin:40px 30px 0px 30px">
                 <div class="card-body">
-                    <h1><span class="fas fa-box-open" aria-hidden="true"></span>  Product</h1>
+                    <h1><span class="fas fa-box-open" aria-hidden="true"></span>  Products</h1>
                     <div class="table-responsive" style="margin-top:20px">
                         <table id="dataproduct" class="table table-bordered" style="width:100%">
                             <thead>
@@ -16,7 +16,7 @@
                                     <th>Category</th>
                                     <th>Price</th>
                                     <th>Image</th>
-                                    <th><a href="{{ route('create.product') }}" type="submit" class="btn btn-sm btn-primary align-middle" style="width:110px">Add Product</a></th>
+                                    <th><a href="{{ route('create.product') }}" type="submit" class="btn btn-sm btn-info align-middle" style="width:110px">Add Product</a></th>
                                 </tr>
                             </thead>
                             <tbody>

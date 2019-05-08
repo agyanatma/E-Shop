@@ -33,7 +33,7 @@
                             <input class="form-control" type="file" name="img">
                             <br/>
                             <br/>
-                            <button type="submit" class="btn btn-primary" style="float: right" name="action" value="create"><span class="fas fa-plus" style="margin-right:5px"></span> Tambahkan</button>
+                            <button type="submit" class="btn btn-info" style="float: right" name="action" value="create"><span class="fas fa-plus" style="margin-right:5px"></span> Tambahkan</button>
                         </form>
                     </div>
                 </div>

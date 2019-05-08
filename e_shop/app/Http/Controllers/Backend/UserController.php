@@ -13,17 +13,21 @@ class UserController extends Controller
 {
 
     public function dashboard(){
-        $item = User::all();
+        $item = Orders::all();
+        $ord = Orders::take(20)->orderBy('status', 'asc')->get();
         $users = Auth::user();
         $product = Product::count();
         $category = Category_product::count();
         $user = User::count();
+        $order = Orders::count();
         $_product = Product::latest()->take(3)->get();
         $_category = Category_product::latest()->take(3)->get();
         $_user = User::latest()->take(3)->get();
         
         return view('pages.admin.dashboard')->with('users', $users)
         ->with('item', $item)
+        ->with('ord', $ord)
+        ->with('order', $order)
         ->with('product', $product)
         ->with('category', $category)
         ->with('user', $user)

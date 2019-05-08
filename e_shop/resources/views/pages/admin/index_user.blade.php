@@ -15,7 +15,7 @@
                                     <th>Email</th>
                                     <th>Name</th>
                                     <th>Role</th>
-                                    <th><a href="{{ route('add.user') }}" type="submit" class="btn btn-sm btn-primary align-middle" style="width:110px">Add User</a></th>
+                                    <th><a href="{{ route('add.user') }}" type="submit" class="btn btn-sm btn-info align-middle" style="width:110px">Add User</a></th>
                                 </tr>
                             </thead>
                             <tbody>
