@@ -58,7 +58,7 @@ class SortController extends Controller
             ->with('totalorder', $totalorder);
         }
         else{
-            return view('pages.frontend.sortby')
+            return view('pages.frontend.lainlain')
             ->with('products', $products)->with('users', $users)
             ->with('categories', $categories);
         }

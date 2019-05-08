@@ -10,9 +10,9 @@ Shopping Cart
     <div class="container-fluid" style="padding:4%">
             
                     <div class="row " >
-                            <div class="col-lg-4 col-md-12 col-sm-12 col-12" >
+                            <div class="col-lg-4 col-md-5 col-sm-12 col-12" >
                                     <form class="form-group" action="{{route('settings', $users->id)}}" method="GET" class="container clearfix " enctype="multipart/form-data">
-                                            <h2 class="title-user text-left ml-5" ><strong>My Account
+                                            <h2 class="title-user text-center " ><strong>My Account
                                                 <button type="submit" class="btn btn-info btn-profile " name="settings" value="update"><i class="fas fa-cogs"></i></button></strong>
                                             </h2>
                                     </form>
@@ -22,7 +22,7 @@ Shopping Cart
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-8 col-md-7 col-sm-12" >
+                            <div class="col-lg-8 col-md-7 col-sm-12 col-12" >
                                     <div class="card-user-box-address " >
                                         <div class="card-body-user-address" >
                                             <h2 class="title-user text-center " ><strong>Contact information</strong></h2>

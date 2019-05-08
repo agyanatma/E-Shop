@@ -15,38 +15,8 @@
               {{$errors->first('payment')}}
           </div>
     @endif
-    
-      {{-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="padding-top:2%;">
-                          <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                          </ol>
-                          <div class="carousel-inner">
-                            <div class="carousel-item active ">
-                              <img class="rounded mx-auto d-block img-fluid slider-payment"  src="/upload/BANKBRI.png" alt="First slide">
-                            </div>
-                            <div class="carousel-item ">
-                              <img class="rounded mx-auto d-block img-fluid slider-payment"   src="/upload/BANKBCA.png" alt="Second slide">
-                            </div> 
-                            <div class="carousel-item ">
-                              <img class=" rounded mx-auto d-block img-fluid slider-payment"  src="/upload/BANKMANDIRI.png" alt="Third slide">
-                            </div>
-                            <div class="carousel-item ">
-                              <img class="rounded mx-auto d-block img-fluid slider-payment" src="/upload/BANKBNI.png" alt="Fourth slide">
-                            </div>
-                          </div>
-                          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon " ></span>
-                            <span class="sr-only">Previous</span>
-                          </a>
-                          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" ></span>
-                            <span class="sr-only">Next</span>
-                          </a>
-                      </div> --}}
       <div class="row text-center" >
-        <div class=" col-md-3 col-lg-3 col-sm-12 col-12" >
+        <div class=" col-md-6 col-lg-3 col-sm-12 col-12" >
             <div class="card-body-payment card">
                 <div class="card-box-payment">
                     <img class="img img-fluid card-image-payment" style="height:50px;" src="/upload/logo_bri.png">
@@ -57,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class=" col-md-3 col-lg-3 col-sm-12 col-12" >
+        <div class=" col-md-6 col-lg-3 col-sm-12 col-12" >
             <div class="card-body-payment card">
                 <div class="card-box-payment">
                     <img class="img img-fluid card-image-payment" style="height:50px;" src="/upload/logo_mandiri.png">
@@ -68,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class=" col-md-3 col-lg-3 col-sm-12 col-12" >
+        <div class=" col-md-6 col-lg-3 col-sm-12 col-12" >
                 <div class="card-body-payment card">
                     <div class="card-box-payment">
                         <img class="img img-fluid card-image-payment" style="height:50px;" src="/upload/logo_bca.png">
@@ -79,7 +49,7 @@
                     </div>
                 </div>
         </div>
-        <div class=" col-md-3 col-lg-3 col-sm-12 col-12" >
+        <div class=" col-md-6 col-lg-3 col-sm-12 col-12" >
                 <div class="card-body-payment card" >
                     <div class="card-box-payment">
                         <img class="img img-fluid card-image-payment" style="height:50px;" src="/upload/logo_bni.png">
