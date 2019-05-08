@@ -33,7 +33,7 @@
                             </div>
                             <br/>
                             <br/>
-                            <button type="submit" class="btn btn-primary" style="float: right" name="action" value="create">Update</button>
+                            <button type="submit" class="btn btn-info" style="float: right" name="action" value="create">Update</button>
                         </form>
                     </div>
                 </div>

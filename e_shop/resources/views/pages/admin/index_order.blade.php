@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card border-0" style="margin:40px 30px 0px 30px">
                 <div class="card-body">
-                <h1><span class="fas fa-dolly-flatbed" aria-hidden="true"></span> Order</h1><br>
+                <h1><span class="fas fa-dolly-flatbed" aria-hidden="true"></span> Orders</h1><br>
                     <div class="table-responsive"  style="margin-top:20px">
                         <table id="dataorder" class="table table-bordered" style="width:100%">
                             <thead>
@@ -46,7 +46,7 @@
                     {data: 'total', name: 'total', class: 'align-middle'},
                     {data: 'order_date', name: 'order_date', class: 'align-middle', width:90},
                     {data: 'status', name: 'status', class: 'align-middle', width:140},
-                    {data: 'action', name: 'action', searchable: false, orderable: false, width:115, class: 'align-middle'}
+                    {data: 'action', name: 'action', searchable: false, orderable: false, width:108, class: 'align-middle'}
                 ]
             });
         });

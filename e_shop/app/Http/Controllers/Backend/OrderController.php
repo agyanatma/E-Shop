@@ -52,9 +52,8 @@ class OrderController extends Controller
                 }
             })
             ->addColumn('action', function($item){
-                return  '<a href="'.route('show.order', $item->id).'" class="btn btn-sm btn-info" style="margin-right:7px"><i class="fas fa-eye"></i></a>'.
-                        '<a href="'.route('edit.order', $item->id).'" class="btn btn-sm btn-info" style="margin-right:7px"><i class="fas fa-edit"></i></a>'.
-                        '<a href="'.route('destroy.order', $item->id).'" class="btn btn-sm btn-info"><i class="fas fa-trash-alt"></i></a>';
+                return  '<a href="'.route('show.order', $item->id).'" class="btn btn-sm btn-info" style="width:50px ;margin-right:7px"><i class="fas fa-eye"></i></a>'.
+                        '<a href="'.route('destroy.order', $item->id).'" class="btn btn-sm btn-info" style="width:50px"><i class="fas fa-trash-alt"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -74,7 +73,7 @@ class OrderController extends Controller
             'total' =>$total
         ]);
 
-        return redirect()->back()->with('Add to Cart Success');
+        return redirect()->back()->with('Berhasil menambah ke Cart');
     }
 
     public function bayar(Request $request){
@@ -105,17 +104,17 @@ class OrderController extends Controller
         return redirect()->back()->with('status','Order success');
     }
 
-    public function payment(Request $request, Orders $order){
-        $id = $request->get('id');
+    public function payment(Request $request, Orders $order, $id){
+        $order = Orders::find($id);
+        //dd($id);
         if($order->status==1){
-            Orders::find($id)->update([
+            $order->update([
                 'status' =>'2'
             ]);
 
-            return redirect('order.admin')->with('status','Order number '.$id.' has been approved');
+            return redirect('admin/order')->with('status','Pesanan '.$id.' telah disetujui');
         }
-        return redirect()->back()->with('failed','Order number '.$id.'not yet pay');
+        return redirect()->back()->with('failed','Pesanan '.$id.' gagal disetujui');
 
-        
     }
 }

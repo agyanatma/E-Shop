@@ -12,7 +12,7 @@
 
 <body style="background-color:#F4F4F4">
     <div class="sidenav text-center">
-        <a href="/admin/dashboard" class="fas fa-home fa-2x" style="padding:1px 8px 60px 8px"></a>
+        <a href="/admin/dashboard" class="fas fa-home fa-2x" style="padding:1px 8px 60px 8px; color:white"></a>
         <a href="/admin/product" class="fas fa-box-open fa-2x" aria-hidden="true"></a>
         <a href="/admin/category" class="fas fa-clipboard-list fa-2x" aria-hidden="true"></a>
         <a href="/admin/order" class="fas fa-dolly-flatbed fa-2x" aria-hidden="true"></a>
@@ -21,23 +21,23 @@
 
     <div class="main">
         @if(Auth::user())
-            <nav class="navbar navbar-expand-sm" style="height:70px; background-color:#344955">
+            <nav class="navbar navbar-expand-sm bg-white" style="height:70px">
                 <div class="container-fluid">
-                    <h3 class="text-white"><i class="fas fa-cog text-white"></i> Dashboard</h3>
+                    <h1><i class="fas fa-cog"></i> Dashboard</h1>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             
                         </ul>
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{Auth::user()->fullname}} <span class="fas fa-crown"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/">Homepage</a>
-                                    <a class="dropdown-item" href="/admin/product">Product Index</a>
-                                    <a class="dropdown-item" href="/admin/category">Category Index</a>
-                                    <a class="dropdown-item" href="/admin/order">Order Index</a>
+                                    <a class="dropdown-item" href="{{ route('create.product') }}">New Product</a>
+                                    <a class="dropdown-item" href="{{ route('create.category') }}">New Category</a>
+                                    <a class="dropdown-item" href="{{ route('edit.admin',Auth::id()) }}">User Profile</a>
                                     <a class="dropdown-item" href="/logout">Logout</a>
                                 </div>
                             </li>

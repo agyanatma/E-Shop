@@ -12,20 +12,17 @@
                         {{ session('failed') }}
                     </div>
                 @endif
-                <h1 style="margin-bottom: 30px; font-size:70px; text-align:center">{{ config('app.name', 'E-Shop') }}</h1>
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">Login</h1><br>
+                        <h1 class="card-title" style="margin-top:40px;text-align:center"><img src="upload/logo_bukanjak.png" class="img" style="width:350px"></h1>
+                        <h4 class="card-title" style="margin-left:30px"><b>Admin Panel Login</b></h4><br><br>
                         <form action="{{route('store.admin')}}" method="post" class="container">
                             {{csrf_field()}}
-                            <label>Email:</label>
-                            <input type="email" class="form-control" name="email" placeholder="example@mail.com" value="{{old('email')}}">
-                            <br/>
-                            <label>Password:</label>
+                            <input type="email" class="form-control" name="email" placeholder="Email" value="{{old('email')}}">
+                            <br>
                             <input type="password" class="form-control" name="password" placeholder="Password">
-                            <br/>
-                            <br/>
-                            <button type="submit" class="btn btn-block btn-primary" style="float: right" name="action" value="create">Login</button>
+                            <br>
+                            <button type="submit" class="btn btn-block btn-info" style="margin-bottom:40px" name="action" value="create">Login</button>
                         </form>
                     </div>
                 </div>

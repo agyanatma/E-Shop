@@ -81,6 +81,7 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/product/{id}/delete', 'Backend\ProductController@destroy')->name('destroy.product');
     Route::get('admin/product/{id}/edit/imagedel', 'Backend\ProductController@deleteImage')->name('imagedel.product');
     Route::get('admin/product/datatables', 'Backend\ProductController@dataTables')->name('table.product');
+    
     //CRUD CATEGORY
     Route::get('admin/category', 'Backend\CategoryController@index')->name('category.admin');
     Route::get('admin/category/new', 'Backend\CategoryController@create')->name('create.category');
@@ -96,7 +97,7 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/order/{id}/show', 'Backend\OrderController@show')->name('show.order');
     Route::get('admin/order/{id}/delete', 'Backend\OrderController@destroy')->name('destroy.order');
     Route::get('admin/order/{id}/edit', 'Backend\OrderController@edit')->name('edit.order');
-    Route::get('admin/order/payment', 'Backend\OrderController@payment')->name('payment.order');
+    Route::get('admin/order/{id}/payment', 'Backend\OrderController@payment')->name('payment.order');
     Route::get('admin/order/datatables', 'Backend\OrderController@dataTables')->name('table.order');
     
 
