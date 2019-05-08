@@ -42,7 +42,7 @@ Shopping Cart
                             </div>
                         @endif
                             <div class="form-group">
-                                <div class="input-group mb-3">
+                                <div class="input-group ">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
                                     </div>
@@ -55,7 +55,7 @@ Shopping Cart
                             @endif
                             </div>
                             <div class="form-group">
-                                <div class="input-group mb-3">
+                                <div class="input-group ">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                                     </div>
@@ -68,7 +68,7 @@ Shopping Cart
                             @endif
                             </div>
                             <div class="form-group">
-                                <div class="input-group mb-3">
+                                <div class="input-group ">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                     </div>
@@ -81,7 +81,7 @@ Shopping Cart
                             @endif
                             </div>
                             <div class="form-group">
-                                <div class="input-group mb-3">
+                                <div class="input-group ">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                     </div>
@@ -94,7 +94,7 @@ Shopping Cart
                             @endif
                             </div>
                             <div class="form-group">
-                                <div class="input-group mb-3">
+                                <div class="input-group ">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-mail-bulk"></i></span>
                                     </div>

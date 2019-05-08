@@ -49,7 +49,7 @@
                         <a class="btn btn-info " href="{{ route('loginaccountPage') }}"><i class="fas fa-sign-in-alt"> Login</i></a>
                     </li>
                     <li class="nav-item mx-0 my-lg-0 form-inline ">
-                        <a class="btn btn-info" href="{{ route('registeraccountPage') }}"><i class="fas fa-users"> Register</i></a>
+                        <a class="btn btn-info" href="{{ route('registeraccountPage') }}"><i class="fas fa-users"> Sign Up</i></a>
                     </li>
                 @endguest
                 @if(Auth::check() && Auth::user()->admin==0)

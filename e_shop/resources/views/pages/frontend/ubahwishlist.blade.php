@@ -19,7 +19,7 @@
             <form class="navbar-form" role="search" method="get" href="{{route('wishlist')}}" action="{{route('wishlist')}}">
                 <div class="input-group">
                     <div class="nav-item" style="margin-right:10px">
-                        <button class="btn btn-info  " type="submit"><i class="fas fa-undo"></i> <b>Back</b></button>
+                        <button class="btn btn-info  " type="submit"><i class="fas fa-undo"> Back</i></button>
                     </div>
                 </div>
             </form>
@@ -70,10 +70,10 @@
                                                     <input type="hidden" name="price" value="{{$row->product->product_price}}">
                                                     <input type="hidden" name="quantity" value="1">
                                                     {{-- <input type="hidden" name="order" value="{{$orders->id}}">   --}}
-                                                    <button type="submit" id="cartBtn" class="btn btn-success btn-block "><i class="fas fa-handshake"></i> Buy</button>
+                                                    <button type="submit" id="cartBtn" class="btn btn-success btn-block "><i class="fas fa-handshake"> Buy</i></button>
                                             </form>
                                         @else
-                                        <a href="/loginaccount" id="cartBtn" class="btn btn-success "><i class="fas fa-handshake"></i> Buy</a>
+                                        <a href="/loginaccount" id="cartBtn" class="btn btn-success "><i class="fas fa-handshake"> Buy</i></a>
                                         @endif
                                     </div>
                             </div>

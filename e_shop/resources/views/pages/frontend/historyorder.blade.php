@@ -40,7 +40,7 @@ Shopping Cart
                                 @if(Auth::user() && $order->status==0)
                                 <td class="align-middle text-center">Not Yet Paid</td>
                                 @endif
-                                <td class="align-middle text-center historyorder"><a href="{{route('detailorder', $order->id)}}" class="btn btn-info"><i class="fas fa-info-circle"></i> Detail Order</a></td>
+                                <td class="align-middle text-center historyorder"><a href="{{route('detailorder', $order->id)}}" class="btn btn-info"><i class="fas fa-info-circle"> Detail Order</i> </a></td>
                         </tr>
                         @endforeach
                     @else
